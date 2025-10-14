@@ -1,103 +1,89 @@
-import Image from "next/image";
+import { Hero } from "@/components/Hero";
+import { Feature } from "@/components/Feature";
+import { AnimatedStats } from "@/components/AnimatedStats";
+import { HowItWorks } from "@/components/HowItWorks";
+import { AppScreens } from "@/components/AppScreens";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Hero con Navbar overlay */}
+      <Hero />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Métricas */}
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <AnimatedStats />
+      </section>
+
+      {/* Cómo funciona */}
+      <section id="how" className="scroll-mt-24">
+        <HowItWorks />
+      </section>
+
+      {/* Características (con fade-in escalonado) */}
+      <section
+        id="features"
+        className="scroll-mt-24 mx-auto max-w-6xl px-5 pb-20 md:pb-28"
+      >
+        <h2 className="text-3xl md:text-5xl font-bold">Características</h2>
+        <p className="mt-3 max-w-2xl text-black/70">
+          Potentes, pero fáciles. Todo lo que usa realmente la gente.
+        </p>
+
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          <Feature
+            title="Escanea boletas con IA"
+            description="Detecta ítems, impuestos y propinas. Divide en segundos."
+            icon="📷"
+            delay={0.00}
+          />
+          <Feature
+            title="Pagos simples"
+            description="Enlaza tu método favorito y liquida de inmediato."
+            icon="👛"
+            delay={0.08}
+          />
+          <Feature
+            title="Grupos & reglas"
+            description="Crea grupos, define porcentajes y lleva el historial."
+            icon="👥"
+            delay={0.16}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Screens de la app: 4 en fila en desktop */}
+      <section id="screens" className="scroll-mt-24">
+        <AppScreens
+          images={[
+            "/screens/home.png",
+            "/screens/grupos.png",
+            "/screens/gasto.png",
+            "/screens/actividad.png",
+          ]}
+        />
+      </section>
+
+      {/* CTA final */}
+      <section className="mx-auto max-w-5xl px-5 pb-24">
+        <div className="rounded-3xl p-10 text-center shadow-soft bg-white/80">
+          <h3 className="text-2xl md:text-3xl font-semibold">
+            ¿Listo para dividir gastos sin drama?
+          </h3>
+          <p className="mt-3 text-black/70">
+            Pronto en iOS y Android. Regístrate para el acceso anticipado.
+          </p>
+
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <a href="#waitlist" className="btn-primary">
+              Unirme a la lista
+            </a>
+            <a href="#features" className="btn-outline hover:bg-black/5">
+              Ver características
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

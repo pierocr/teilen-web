@@ -1,0 +1,20 @@
+├── public/
+│   ├── file.svg (0.4 KB)
+│   ├── globe.svg (1.0 KB)
+│   ├── next.svg (1.3 KB)
+│   ├── vercel.svg (0.1 KB)
+│   └── window.svg (0.4 KB)
+├── src/
+│   └── app/
+│       ├── favicon.ico (25.3 KB)
+│       ├── globals.css (0.5 KB)
+│       ├── layout.tsx (0.7 KB)
+│       └── page.tsx (3.9 KB)
+├── eslint.config.mjs (0.5 KB)
+├── next-env.d.ts (0.3 KB)
+├── next.config.ts (0.1 KB)
+├── package-lock.json (198.3 KB)
+├── package.json (0.6 KB)
+├── postcss.config.mjs (0.1 KB)
+├── README.md (1.4 KB)
+└── tsconfig.json (0.6 KB)
