@@ -10,8 +10,10 @@ type Props = {
 
 export function DownloadModal({ open, onClose }: Props) {
   const [email, setEmail] = useState("");
+  const [trap, setTrap] = useState(""); // honeypot anti-bot
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const url = useMemo(() => {
     if (typeof window === "undefined") return "https://www.teilen.cl";
@@ -30,31 +32,32 @@ export function DownloadModal({ open, onClose }: Props) {
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
   const submitEmail = async () => {
+    setError(null);
     if (!isValidEmail(email)) {
-      alert("Ingresa un correo válido.");
+      setError("Ingresa un correo válido.");
       return;
     }
+    // si el honeypot trae algo, cancelamos silenciosamente
+    if (trap.trim() !== "") {
+      setDone(true);
+      return;
+    }
+
     try {
       setSending(true);
-
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, trap }),
       });
-
-      if (!res.ok) throw new Error("send-error");
-
+      if (!res.ok) {
+        const msg = await res.text().catch(() => "");
+        throw new Error(`waitlist ${res.status} ${msg}`);
+      }
       setDone(true);
-    } catch {
-      // Fallback para no perder el contacto
-      const mail = `mailto:hola@teilen.cl?subject=${encodeURIComponent(
-        "Lista de espera — Teilen"
-      )}&body=${encodeURIComponent(
-        `Hola equipo Teilen,\n\nQuiero que me avisen cuando la app esté disponible.\n\nMi correo: ${email}\n\n¡Gracias!`
-      )}`;
-      window.location.href = mail;
-      setDone(true);
+    } catch (err) {
+      console.error(err);
+      setError("Ups, no pudimos registrar tu correo. Intenta nuevamente en unos minutos.");
     } finally {
       setSending(false);
     }
@@ -119,7 +122,7 @@ export function DownloadModal({ open, onClose }: Props) {
         {/* Lista de espera */}
         <div className="mt-8 rounded-2xl border border-black/10 bg-neutral-50 p-4">
           {done ? (
-            <p className="text-center text-sm text-black/70">
+            <p className="text-center text-sm text-black/70" role="status" aria-live="polite">
               ¡Listo! Te avisaremos apenas esté disponible. 💚
             </p>
           ) : (
@@ -127,6 +130,18 @@ export function DownloadModal({ open, onClose }: Props) {
               <p className="text-sm text-black/70 text-center">
                 Déjanos tu correo para notificarte en el lanzamiento.
               </p>
+
+              {/* Honeypot escondido para bots */}
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={trap}
+                onChange={(e) => setTrap(e.target.value)}
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]">
                 <label className="sr-only" htmlFor="waitlist-email">
                   Correo electrónico
@@ -138,7 +153,9 @@ export function DownloadModal({ open, onClose }: Props) {
                   placeholder="tu@email.cl"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && submitEmail()}
                   className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 outline-none ring-0 focus:border-black/20"
+                  aria-invalid={!!error}
                 />
                 <button
                   onClick={submitEmail}
@@ -148,6 +165,13 @@ export function DownloadModal({ open, onClose }: Props) {
                   {sending ? "Enviando..." : "Avisarme"}
                 </button>
               </div>
+
+              {error && (
+                <p className="mt-2 text-center text-[12px] text-red-600" role="alert">
+                  {error}
+                </p>
+              )}
+
               <p className="mt-2 text-center text-[11px] text-black/45">
                 Usaremos tu correo solo para avisarte del lanzamiento.
               </p>
