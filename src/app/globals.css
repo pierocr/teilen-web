@@ -42,7 +42,8 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
     transform: skewX(-20deg); animation: shine 2.6s infinite; opacity:.0;
   }
-   .btn-primary {
+
+  .btn-primary {
     background: #019a57;          /* verde Teilen */
     color: #fff;
     border-radius: 9999px;
@@ -57,6 +58,7 @@
     border-radius: 9999px;
     padding: 0.75rem 1.25rem;
   }
+
   /* Marco tipo iPhone 14/15 – limpio y profesional */
   .device-frame{
     position: relative;
@@ -93,7 +95,8 @@
     width: 4px; height: 56px; border-radius: 3px;
     background: linear-gradient(180deg,#0c0c0c,#1a1a1a);
   }
-    /* Mejor legibilidad sobre foto sin poner barra */
+
+  /* Mejor legibilidad sobre foto sin poner barra */
   .ui-contrast { text-shadow: 0 2px 12px rgba(0,0,0,.45), 0 0 1px rgba(0,0,0,.28); }
   .logo-shadow { filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)); }
 
@@ -103,6 +106,112 @@
     background:transparent;
   }
   .btn-ghost-white:hover{ background:rgba(255,255,255,.12); }
+
   @keyframes shine { 0%{transform:translateX(-150%)} 100%{transform:translateX(150%)} }
   .btn-shine:hover::after{ opacity:1; }
+
+  /* ======== NUEVO: Animaciones y estilos para FeaturesShowcase ======== */
+
+  /* keyframes */
+  @keyframes floatY { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+  @keyframes pulseSlow { 0%,100%{opacity:.7} 50%{opacity:1} }
+  .animate-pulse-slow { animation: pulseSlow 4s ease-in-out infinite; }
+
+  /* Fondo aurora */
+  .aurora-gradient{
+    background: radial-gradient(50% 60% at 50% 20%, rgba(16,185,129,.25), rgba(16,185,129,0) 70%),
+                radial-gradient(40% 50% at 20% 80%, rgba(59,130,246,.18), rgba(59,130,246,0) 70%),
+                radial-gradient(30% 40% at 80% 60%, rgba(244,63,94,.18), rgba(244,63,94,0) 70%);
+  }
+
+  /* Mockup teléfono para el video (sin máscaras) */
+  .phone-frame{
+    position: relative;
+    aspect-ratio: 9/19.5;
+    border-radius: 2.4rem;          /* radio externo */
+    padding: .75rem;                /* bisel */
+    background: linear-gradient(180deg, #111 0%, #222 100%);
+    box-shadow: 0 20px 80px rgba(0,0,0,.35);
+    transform-style: preserve-3d;
+    animation: floatY 6s ease-in-out infinite;
+  }
+  .phone-frame::after{
+    /* notch por encima del video */
+    content:"";
+    position:absolute;
+    top:.6rem; left:50%;
+    width:42%;
+    height:16px;                    /* un poco más alto para verse real */
+    transform:translateX(-50%);
+    background:#111;
+    border-radius:0 0 14px 14px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset;
+    z-index: 2;
+  }
+
+  /* ¡Ajuste clave! Radio interior EXACTO y fill 100% */
+  .phone-screen{
+    position:absolute; inset:.75rem; /* respeta el bisel */
+    border-radius: calc(2.4rem - .75rem); /* 1.65rem */
+    display:block;
+    width:92%;
+    height:96%;
+    object-fit: cover;
+    object-position: center;
+    background: #000;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  }
+
+  /* Tarjeta con tilt + reveal al entrar al viewport */
+  .card-3d{
+    transform: perspective(900px) rotateX(5deg) rotateY(0deg) translateY(10px);
+    opacity: 0;
+  }
+  [data-inview="true"] .card-3d{
+    transform: perspective(900px) rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+  .card-3d:hover{
+    transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-2px);
+  }
+
+  /* Icon badge */
+  .feature-icon{
+    display:grid; place-items:center;
+    width:44px; height:44px;
+    border-radius: 12px;
+    color:#0f172a; /* slate-900 */
+    background: linear-gradient(180deg, rgba(241,245,249,.9), rgba(226,232,240,.9));
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 6px 20px rgba(2,6,23,.06) inset;
+  }
+  .dark .feature-icon{
+    color:white;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    border-color: rgba(255,255,255,.08);
+  }
+
+  .badge{
+    font-size: .65rem;
+    line-height: 1;
+    padding: .35rem .5rem;
+    border-radius: 999px;
+    background: rgba(16,185,129,.12);
+    color: rgb(22,163,74);
+    border: 1px solid rgba(16,185,129,.22);
+  }
+  .dark .badge{
+    background: rgba(16,185,129,.15);
+    color: rgb(110,231,183);
+    border-color: rgba(16,185,129,.30);
+  }
+
+  /* Respeta prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse-slow { animation: none; }
+    .phone-frame { animation: none; }
+    .card-3d,
+    [data-inview="true"] .card-3d,
+    .card-3d:hover { transform: none !important; }
+  }
 }

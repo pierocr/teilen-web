@@ -43,7 +43,7 @@ export function Hero() {
   const overlayStyle = React.useMemo(
     () => ({
       background: `
-        radial-gradient(1100px 600px at 12% 15%, rgba(1,154,87,${BRAND_TINT}), transparent 55%),
+        radial-gradient(1100px 600px at 12% 15%, rgba(1,154,87,${BRAND_TINT}), transparent 25%),
         linear-gradient(180deg, rgba(0,0,0,${DARK_VIGNETTE}) 0%, rgba(0,0,0,0.18) 40%, rgba(255,255,255,0) 68%),
         linear-gradient(180deg, rgba(255,255,255,0) 70%, rgba(255,255,255,0.85) 100%)
       `,
@@ -133,7 +133,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-5 max-w-2xl text-lg md:text-xl text-white/80"
         >
-          Local o global — comparte, divide y paga sin fricción. Regístrate gratis en un toque.
+          La cuenta ya no es un problema. Organiza, divide y paga sin complicaciones.
         </motion.p>
 
         {/* CTA único: abre modal con QR */}
@@ -159,9 +159,9 @@ export function Hero() {
           transition={{ delay: 0.25 }}
           className="mt-14 w-full max-w-xl rounded-3xl p-6 shadow-soft"
           style={{
-            backdropFilter: "blur(22px)",
+            backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(22px)",
-            background: "rgba(255,255,255,0.78)",
+            background: "rgba(255,255,255,0.50)",
             border: "1px solid rgba(255,255,255,0.45)",
           }}
         >

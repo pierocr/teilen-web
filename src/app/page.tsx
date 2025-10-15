@@ -1,8 +1,9 @@
 import { Hero } from "@/components/Hero";
-import { Feature } from "@/components/Feature";
-import { AnimatedStats } from "@/components/AnimatedStats";
+import AnimatedStats from "@/components/AnimatedStats";
 import { HowItWorks } from "@/components/HowItWorks";
 import { AppScreens } from "@/components/AppScreens";
+import FeaturesShowcase from "@/components/FeaturesShowcase";
+import Footer from "@/components/Footer"; // ⬅️ nuevo
 
 export default function Page() {
   return (
@@ -20,36 +21,9 @@ export default function Page() {
         <HowItWorks />
       </section>
 
-      {/* Características (con fade-in escalonado) */}
-      <section
-        id="features"
-        className="scroll-mt-24 mx-auto max-w-6xl px-5 pb-20 md:pb-28"
-      >
-        <h2 className="text-3xl md:text-5xl font-bold">Características</h2>
-        <p className="mt-3 max-w-2xl text-black/70">
-          Potentes, pero fáciles. Todo lo que usa realmente la gente.
-        </p>
-
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
-          <Feature
-            title="Escanea boletas con IA"
-            description="Detecta ítems, impuestos y propinas. Divide en segundos."
-            icon="📷"
-            delay={0.00}
-          />
-          <Feature
-            title="Pagos simples"
-            description="Enlaza tu método favorito y liquida de inmediato."
-            icon="👛"
-            delay={0.08}
-          />
-          <Feature
-            title="Grupos & reglas"
-            description="Crea grupos, define porcentajes y lleva el historial."
-            icon="👥"
-            delay={0.16}
-          />
-        </div>
+      {/* Características — versión moderna con mockup + animaciones CSS */}
+      <section id="features" className="scroll-mt-24">
+        <FeaturesShowcase />
       </section>
 
       {/* Screens de la app: 4 en fila en desktop */}
@@ -84,6 +58,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* Footer global */}
+      <Footer />
     </>
   );
 }
