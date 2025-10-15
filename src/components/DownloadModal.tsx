@@ -13,7 +13,6 @@ export function DownloadModal({ open, onClose }: Props) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
-  // URL base del sitio (por si en el futuro vuelves a habilitar descarga)
   const url = useMemo(() => {
     if (typeof window === "undefined") return "https://www.teilen.cl";
     return `${window.location.origin}`;
@@ -38,19 +37,17 @@ export function DownloadModal({ open, onClose }: Props) {
     try {
       setSending(true);
 
-      // Intenta un endpoint interno (créalo cuando quieras):
-      // /api/waitlist  -> recibe { email: string }
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
-      if (!res.ok) throw new Error("No disponible");
+      if (!res.ok) throw new Error("send-error");
 
       setDone(true);
     } catch {
-      // Fallback elegante: abre correo para que te llegue el email igual.
+      // Fallback para no perder el contacto
       const mail = `mailto:hola@teilen.cl?subject=${encodeURIComponent(
         "Lista de espera — Teilen"
       )}&body=${encodeURIComponent(
@@ -99,10 +96,10 @@ export function DownloadModal({ open, onClose }: Props) {
           Estamos afinando los últimos detalles de{" "}
           <span className="text-brand font-semibold">Teilen</span> con un grupo
           reducido de usuarios. Muy pronto abriremos el acceso público en App
-          Store y Play Store.
+          Store y Play Store. Déjanos tu correo y te avisamos apenas lancemos.
         </p>
 
-        {/* Mini hero con QR deshabilitado (ilustrativo) */}
+        {/* Ilustración QR deshabilitado */}
         <div className="mt-6 flex flex-col items-center justify-center gap-3">
           <div className="relative">
             <div className="rounded-2xl bg-white p-3 shadow-soft border border-black/10 opacity-40">
@@ -128,9 +125,7 @@ export function DownloadModal({ open, onClose }: Props) {
           ) : (
             <>
               <p className="text-sm text-black/70 text-center">
-                ¿Quieres ser de los primeros en enterarte?
-                <br className="hidden sm:block" />
-                Déjanos tu correo y te notificamos en el lanzamiento.
+                Déjanos tu correo para notificarte en el lanzamiento.
               </p>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]">
                 <label className="sr-only" htmlFor="waitlist-email">
@@ -154,47 +149,14 @@ export function DownloadModal({ open, onClose }: Props) {
                 </button>
               </div>
               <p className="mt-2 text-center text-[11px] text-black/45">
-                Usaremos tu correo solo para avisarte del lanzamiento. Puedes
-                darte de baja cuando quieras.
+                Usaremos tu correo solo para avisarte del lanzamiento.
               </p>
             </>
           )}
         </div>
 
-        {/* Acciones secundarias */}
-        <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          <button
-            onClick={async () => {
-              await navigator.clipboard.writeText("hola@teilen.cl");
-              alert("Correo copiado: hola@teilen.cl");
-            }}
-            className="rounded-xl border border-black/10 px-4 py-3 hover:bg-black/5"
-          >
-            Copiar correo de contacto
-          </button>
-
-          <a
-            href={`https://wa.me/?text=${encodeURIComponent(
-              "Quiero usar Teilen cuando salga la versión pública. ¿Me avisan? 🙌"
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border border-black/10 px-4 py-3 text-center hover:bg-black/5"
-          >
-            Escribir por WhatsApp
-          </a>
-
-          <a
-            href="/"
-            className="rounded-xl bg-black text-white px-4 py-3 text-center"
-          >
-            Volver al inicio
-          </a>
-        </div>
-
         <p className="mt-4 text-center text-xs text-black/50">
-          En el lanzamiento abriremos descarga en iOS y Android. ¡Gracias por tu
-          interés y por apoyar este proyecto! ✨
+          Gracias por apoyar este proyecto. ✨
         </p>
       </div>
     </div>
