@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: "es_CL",
     images: [
       {
-        url: "/teilen-og.jpg", // coloca este archivo en /public
+        url: "/teilen-og.png", // coloca este archivo en /public
         width: 1200,
         height: 630,
         alt: "Personas usando Teilen para dividir la cuenta",
