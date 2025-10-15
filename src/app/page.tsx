@@ -39,7 +39,7 @@ export default function Page() {
       </section>
 
       {/* CTA final */}
-      <section className="mx-auto max-w-5xl px-5 pb-24">
+{/*       <section className="mx-auto max-w-5xl px-5 pb-24">
         <div className="rounded-3xl p-10 text-center shadow-soft bg-white/80">
           <h3 className="text-2xl md:text-3xl font-semibold">
             ¿Listo para dividir gastos sin drama?
@@ -57,7 +57,7 @@ export default function Page() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer global */}
       <Footer />

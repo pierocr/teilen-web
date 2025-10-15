@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Navbar } from "./Navbar";
 import { DownloadModal } from "./DownloadModal";
 
 /** Intensidades del overlay sobre la foto */
-const BRAND_TINT = 0.32;    // verde Teilen (#019a57) como tinte sutil
+const BRAND_TINT = 0.32; // verde Teilen (#019a57) como tinte sutil
 const DARK_VIGNETTE = 0.40; // viñeta superior para legibilidad del header
 
 type Tx = {
@@ -18,10 +18,10 @@ type Tx = {
 };
 
 const txs: Tx[] = [
-  { emoji: "🍽️", nombre: "Restaurante",     fecha: "Hoy, 12:40", amount: -58490 },
-  { emoji: "🛒",  nombre: "Supermercado",   fecha: "Ayer, 19:05", amount: -129990 },
-  { emoji: "🏢",  nombre: "Gastos comunes", fecha: "Lun, 09:10",  amount: -95000 },
-  { emoji: "💰",  nombre: "Reembolso grupo",fecha: "Dom, 18:22",  amount: +45000 },
+  { emoji: "🍽️", nombre: "Restaurante", fecha: "Hoy, 12:40", amount: -58490 },
+  { emoji: "🛒", nombre: "Supermercado", fecha: "Ayer, 19:05", amount: -129990 },
+  { emoji: "🏢", nombre: "Gastos comunes", fecha: "Lun, 09:10", amount: -95000 },
+  { emoji: "💰", nombre: "Reembolso grupo", fecha: "Dom, 18:22", amount: +45000 },
 ];
 
 const formatoCLP = (v: number) =>
@@ -55,17 +55,34 @@ export function Hero() {
   const words = ["divides", "compartes", "administras"];
   const [wIndex, setWIndex] = useState(0);
   const prefersReduce = useReducedMotion();
+
+  // Reservamos ancho con la palabra más larga (deps corregidas)
   const longest = useMemo(
     () => words.reduce((a, b) => (a.length > b.length ? a : b)),
-    []
+    [words]
   );
 
+  // Intervalo que rota palabras (deps corregidas)
+  const timerRef = useRef<number | null>(null);
   useEffect(() => {
-    const id = setInterval(() => {
+    if (words.length <= 1) return;
+
+    timerRef.current = window.setInterval(() => {
       setWIndex((i) => (i + 1) % words.length);
     }, 2200); // velocidad del cambio
-    return () => clearInterval(id);
-  }, []);
+
+    return () => {
+      if (timerRef.current !== null) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [words.length]);
+
+  // Handler de error tipado (sin "any")
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.style.display = "none";
+  };
 
   return (
     <section className="relative overflow-hidden">
@@ -80,52 +97,49 @@ export function Hero() {
         height={1400}
         priority
         className="absolute inset-0 h-full w-full object-cover object-center"
-        onErrorCapture={(e: any) => {
-          (e.target as HTMLElement).style.display = "none";
-        }}
+        onError={handleImageError}
       />
+
       {/* Tinte/viñeta para contraste */}
       <div className="absolute inset-0" style={overlayStyle} />
 
       {/* Contenido del Hero */}
       <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-24 md:pt-36 md:pb-40">
-<motion.h1
-  initial={{ opacity: 0, y: 18 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white drop-shadow"
->
-  {/* Mantener esta frase en una sola línea en md+ */}
-  <span className="md:whitespace-nowrap">
-    Cambia la forma en que{" "}
-  </span>
-
-  {/* Palabra animada con reserva exacta de ancho */}
-  <span className="relative inline-block align-baseline whitespace-nowrap">
-    <span className="invisible">{longest}</span>
-    <span className="absolute inset-0">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={words[wIndex]} // ["divides","compartes","administras"]
-          initial={{ opacity: 0, y: prefersReduce ? 0 : 18 }}
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: prefersReduce ? 0 : -18 }}
-          transition={{ duration: 0.45 }}
-          className="inline-block"
-          style={{ color: "#00D084" }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white drop-shadow"
         >
-          {words[wIndex]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  </span>
+          {/* Mantener esta frase en una sola línea en md+ */}
+          <span className="md:whitespace-nowrap">Cambia la forma en que </span>
 
-  {/* Salto de línea SOLO en md+ para asegurar 2 líneas */}
-  <br className="hidden md:block" />
+          {/* Palabra animada con reserva exacta de ancho */}
+          <span className="relative inline-block align-baseline whitespace-nowrap">
+            <span className="invisible">{longest}</span>
+            <span className="absolute inset-0">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={words[wIndex]} // ["divides","compartes","administras"]
+                  initial={{ opacity: 0, y: prefersReduce ? 0 : 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: prefersReduce ? 0 : -18 }}
+                  transition={{ duration: 0.45 }}
+                  className="inline-block"
+                  style={{ color: "#00D084" }}
+                >
+                  {words[wIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </span>
 
-  {/* Segunda línea fija */}
-  <span className="md:leading-tight">&nbsp;tus gastos</span>
-</motion.h1>
+          {/* Salto de línea SOLO en md+ para asegurar 2 líneas */}
+          <br className="hidden md:block" />
+
+          {/* Segunda línea fija */}
+          <span className="md:leading-tight">&nbsp;tus gastos</span>
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 18 }}
@@ -192,14 +206,17 @@ function GastoRow({ emoji, nombre, fecha, amount }: Tx) {
     <div className="rounded-2xl bg-white/95 px-4 py-3 flex items-center justify-between shadow border border-black/5">
       <div className="flex items-center gap-3">
         {/* Ícono sin fondo para que se vea limpio */}
-        <div className="text-xl" aria-hidden>{emoji}</div>
+        <div className="text-xl" aria-hidden>
+          {emoji}
+        </div>
         <div>
           <div className="font-medium leading-none">{nombre}</div>
           <div className="text-xs text-black/60">{fecha}</div>
         </div>
       </div>
       <div className="font-semibold" style={{ color }}>
-        {signo}{formatoCLP(valorAbs)}
+        {signo}
+        {formatoCLP(valorAbs)}
       </div>
     </div>
   );
