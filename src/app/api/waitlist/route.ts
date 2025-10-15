@@ -1,12 +1,15 @@
-// src/app/api/waitlist/route.ts
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import WaitlistJoin from "@/emails/WaitlistJoin";
 
 export const runtime = "edge";
 
+// Remitente verificado en Resend
 const FROM = process.env.WAITLIST_FROM || "Teilen <notificaciones@teilen.cl>";
-const NOTIFY_TO = process.env.WAITLIST_NOTIFY_TO || "";
+
+// Acepta cualquiera de los dos nombres de env por comodidad
+const NOTIFY_TO =
+  process.env.WAITLIST_NOTIFY_TO || process.env.WAITLIST_TO || "";
 
 function getBaseUrl(req: Request) {
   const envUrl = process.env.NEXT_PUBLIC_APP_URL;
@@ -18,6 +21,16 @@ function getBaseUrl(req: Request) {
   return host ? `${proto}://${host}` : "https://teilen.cl";
 }
 
+// Edge-safe: formatea fecha en UTC sin Intl.*
+function formatUtcLabel(date: Date) {
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(date.getUTCDate()).padStart(2, "0");
+  const hh = String(date.getUTCHours()).padStart(2, "0");
+  const mm = String(date.getUTCMinutes()).padStart(2, "0");
+  return `${d}-${m}-${y}, ${hh}:${mm} UTC`;
+}
+
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
@@ -25,17 +38,9 @@ export async function POST(req: Request) {
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email inválido" }, { status: 400 });
     }
-
-    // 🔐 Validaciones de entorno para detectar fallos típicos en Pages
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
-        { error: "Falta RESEND_API_KEY en el entorno de producción" },
-        { status: 500 }
-      );
-    }
-    if (!FROM.includes("@")) {
-      return NextResponse.json(
-        { error: "WAITLIST_FROM inválido. Debe ser un remitente verificado" },
+        { error: "Falta RESEND_API_KEY en el entorno" },
         { status: 500 }
       );
     }
@@ -44,26 +49,25 @@ export async function POST(req: Request) {
     const recipients = NOTIFY_TO ? [email, NOTIFY_TO] : [email];
     const baseUrl = getBaseUrl(req);
 
-    const payload = {
+    const createdAt = new Date();
+    const createdAtLabel = formatUtcLabel(createdAt); // <- string listo para el email
+
+    const resp = await resend.emails.send({
       from: FROM,
       to: recipients,
       subject: "¡Nuevo registro en la lista de espera de Teilen!",
       react: WaitlistJoin({
         email,
-        createdAt: new Date().toISOString(),
+        createdAtISO: createdAt.toISOString(),
+        createdAtLabel, // <- usamos este en la plantilla
         baseUrl,
       }),
-    } as const;
+    });
 
-    const result = await resend.emails.send(payload);
-
-    if (result.error) {
-      // 👇 Queda en logs de Cloudflare y lo devolvemos para ver el detalle (temporal)
-      console.error("Resend error:", result.error);
-      return NextResponse.json(
-        { error: String(result.error) },
-        { status: 500 }
-      );
+    if (resp.error) {
+      // útil mientras depuramos; luego puedes ocultarlo
+      console.error("Resend error:", resp.error);
+      return NextResponse.json({ error: String(resp.error) }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true });

@@ -1,4 +1,3 @@
-// src/emails/WaitlistJoin.tsx
 import {
   Body,
   Button,
@@ -16,23 +15,17 @@ import * as React from "react";
 
 export type WaitlistJoinProps = {
   email: string;
-  createdAt?: string;
-  baseUrl: string; // p. ej. https://teilen.cl o http://localhost:3000
+  baseUrl: string;          // https://teilen.cl o http://localhost:3000
+  createdAtISO?: string;    // por si quieres guardarlo, no se usa para formatear
+  createdAtLabel?: string;  // fecha ya formateada (Edge-safe)
 };
 
 export default function WaitlistJoin({
   email,
-  createdAt,
   baseUrl,
+  createdAtLabel,
 }: WaitlistJoinProps) {
   const preheader = "Gracias por unirte a la lista de espera de Teilen.";
-  const date = createdAt
-    ? new Date(createdAt).toLocaleString("es-CL", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      })
-    : undefined;
-
   const logoSrc = `${baseUrl}/logo_mail.jpeg`;
   const heroSrc = `${baseUrl}/hero.jpg`;
 
@@ -43,7 +36,7 @@ export default function WaitlistJoin({
 
       <Body style={styles.body}>
         <Container style={styles.card}>
-          {/* Hero dentro de la tarjeta para máxima compatibilidad */}
+          {/* Hero */}
           <Section style={styles.heroWrap}>
             <Img
               src={heroSrc}
@@ -56,13 +49,7 @@ export default function WaitlistJoin({
 
           {/* Header con logo */}
           <Section style={styles.header}>
-            <Img
-              src={logoSrc}
-              alt="Teilen"
-              width={120}
-              height={36}
-              style={styles.logo}
-            />
+            <Img src={logoSrc} alt="Teilen" width={120} height={36} style={styles.logo} />
           </Section>
 
           {/* Título y descripción */}
@@ -75,7 +62,7 @@ export default function WaitlistJoin({
             </Text>
           </Section>
 
-          {/* Bloque de información encuadrado */}
+          {/* Bloque de información */}
           <Section style={{ padding: "0 24px" }}>
             <div style={styles.infoBox}>
               <div style={styles.row}>
@@ -85,10 +72,10 @@ export default function WaitlistJoin({
                 </a>
               </div>
 
-              {date && (
+              {createdAtLabel && (
                 <div style={styles.row}>
                   <span style={styles.label}>Fecha de registro</span>
-                  <span style={styles.value}>{date}</span>
+                  <span style={styles.value}>{createdAtLabel}</span>
                 </div>
               )}
 
@@ -134,7 +121,7 @@ export default function WaitlistJoin({
 
 const styles: Record<string, React.CSSProperties> = {
   body: {
-    backgroundColor: "#f5f7f9", // fondo claro agradable en inbox
+    backgroundColor: "#f5f7f9",
     margin: 0,
     padding: "24px 12px",
     color: "#0f1720",
@@ -150,36 +137,12 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: "0 10px 30px rgba(1,154,87,0.15)",
     overflow: "hidden",
   },
-  heroWrap: {
-    padding: 0,
-    lineHeight: 0,
-  },
-  heroImg: {
-    width: "100%",
-    height: "auto",
-    display: "block",
-  },
-  header: {
-    padding: "16px 24px 0",
-  },
-  logo: {
-    display: "block",
-    border: "0",
-  },
-  h1: {
-    margin: "10px 0 8px",
-    fontSize: 24,
-    lineHeight: "30px",
-    color: "#0f1720",
-  },
-  lead: {
-    margin: "0 0 8px",
-    fontSize: 15,
-    lineHeight: "22px",
-    color: "#334155",
-  },
-
-  // Caja de datos con columnas fijas para mejor alineación
+  heroWrap: { padding: 0, lineHeight: 0 },
+  heroImg: { width: "100%", height: "auto", display: "block" },
+  header: { padding: "16px 24px 0" },
+  logo: { display: "block", border: "0" },
+  h1: { margin: "10px 0 8px", fontSize: 24, lineHeight: "30px", color: "#0f1720" },
+  lead: { margin: "0 0 8px", fontSize: 15, lineHeight: "22px", color: "#334155" },
   infoBox: {
     border: "1px solid #e6eef0",
     borderRadius: 12,
@@ -202,15 +165,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 12,
     padding: "12px 16px",
   },
-  label: {
-    color: "#64748b",
-    fontSize: 13,
-  },
-  value: {
-    color: "#0f1720",
-    fontSize: 14,
-    fontWeight: 600,
-  },
+  label: { color: "#64748b", fontSize: 13 },
+  value: { color: "#0f1720", fontSize: 14, fontWeight: 600 },
   valueLink: {
     color: "#0f1720",
     fontSize: 14,
@@ -227,7 +183,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 700,
     border: "1px solid #bdebd5",
   },
-
   cta: {
     display: "block",
     width: "100%",
@@ -240,28 +195,9 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 15,
     fontWeight: 700,
   },
-  helper: {
-    marginTop: 10,
-    fontSize: 13,
-    color: "#486174",
-  },
-  hr: {
-    border: "none",
-    borderTop: "1px solid #ecf2f3",
-    margin: "20px 24px",
-  },
-  small: {
-    fontSize: 12,
-    color: "#708494",
-    margin: 0,
-  },
-  link: {
-    color: "#019a57",
-    textDecoration: "underline",
-  },
-  footer: {
-    marginTop: 10,
-    fontSize: 12,
-    color: "#93a4af",
-  },
+  helper: { marginTop: 10, fontSize: 13, color: "#486174" },
+  hr: { border: "none", borderTop: "1px solid #ecf2f3", margin: "20px 24px" },
+  small: { fontSize: 12, color: "#708494", margin: 0 },
+  link: { color: "#019a57", textDecoration: "underline" },
+  footer: { marginTop: 10, fontSize: 12, color: "#93a4af" },
 };
