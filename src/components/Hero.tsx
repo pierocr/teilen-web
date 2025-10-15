@@ -6,9 +6,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Navbar } from "./Navbar";
 import { DownloadModal } from "./DownloadModal";
 
-/** Intensidades del overlay sobre la foto */
-const BRAND_TINT = 0.32; // verde Teilen (#019a57) como tinte sutil
-const DARK_VIGNETTE = 0.40; // viñeta superior para legibilidad del header
+const BRAND_TINT = 0.32;
+const DARK_VIGNETTE = 0.40;
 
 type Tx = {
   emoji: string;
@@ -34,13 +33,11 @@ const formatoCLP = (v: number) =>
 export function Hero() {
   const [open, setOpen] = useState(false);
 
-  // Saldo final = saldoBase + suma de transacciones
   const saldoBase = 300000;
-  const totalTx = useMemo(() => txs.reduce((acc, t) => acc + t.amount, 0), []);
+  const totalTx = useMemo<number>(() => txs.reduce((acc, t) => acc + t.amount, 0), []);
   const saldo = saldoBase + totalTx;
 
-  // Capas de overlay para tinte de marca + viñeta
-  const overlayStyle = React.useMemo(
+  const overlayStyle = useMemo(
     () => ({
       background: `
         radial-gradient(1100px 600px at 12% 15%, rgba(1,154,87,${BRAND_TINT}), transparent 25%),
@@ -52,24 +49,24 @@ export function Hero() {
   );
 
   /** Palabra animada del título */
-  const words = ["divides", "compartes", "administras"];
-  const [wIndex, setWIndex] = useState(0);
+  const words: string[] = useMemo(() => ["divides", "compartes", "administras"], []);
+  const [wIndex, setWIndex] = useState<number>(0);
   const prefersReduce = useReducedMotion();
 
-  // Reservamos ancho con la palabra más larga (deps corregidas)
-  const longest = useMemo(
+  // Reserva de ancho: palabra más larga (deps correctas)
+  const longest = useMemo<string>(
     () => words.reduce((a, b) => (a.length > b.length ? a : b)),
     [words]
   );
 
-  // Intervalo que rota palabras (deps corregidas)
+  // Rotación de palabras (deps correctas)
   const timerRef = useRef<number | null>(null);
   useEffect(() => {
     if (words.length <= 1) return;
 
     timerRef.current = window.setInterval(() => {
       setWIndex((i) => (i + 1) % words.length);
-    }, 2200); // velocidad del cambio
+    }, 2200);
 
     return () => {
       if (timerRef.current !== null) {
@@ -79,17 +76,14 @@ export function Hero() {
     };
   }, [words.length]);
 
-  // Handler de error tipado (sin "any")
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.style.display = "none";
   };
 
   return (
     <section className="relative overflow-hidden">
-      {/* Navbar overlay dentro del hero (no sigue el scroll) */}
       <Navbar />
 
-      {/* Fondo fotográfico */}
       <Image
         src="/hero.jpg"
         alt=""
@@ -100,10 +94,8 @@ export function Hero() {
         onError={handleImageError}
       />
 
-      {/* Tinte/viñeta para contraste */}
       <div className="absolute inset-0" style={overlayStyle} />
 
-      {/* Contenido del Hero */}
       <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-24 md:pt-36 md:pb-40">
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
@@ -111,16 +103,14 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white drop-shadow"
         >
-          {/* Mantener esta frase en una sola línea en md+ */}
           <span className="md:whitespace-nowrap">Cambia la forma en que </span>
 
-          {/* Palabra animada con reserva exacta de ancho */}
           <span className="relative inline-block align-baseline whitespace-nowrap">
             <span className="invisible">{longest}</span>
             <span className="absolute inset-0">
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={words[wIndex]} // ["divides","compartes","administras"]
+                  key={words[wIndex]}
                   initial={{ opacity: 0, y: prefersReduce ? 0 : 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: prefersReduce ? 0 : -18 }}
@@ -134,10 +124,7 @@ export function Hero() {
             </span>
           </span>
 
-          {/* Salto de línea SOLO en md+ para asegurar 2 líneas */}
           <br className="hidden md:block" />
-
-          {/* Segunda línea fija */}
           <span className="md:leading-tight">&nbsp;tus gastos</span>
         </motion.h1>
 
@@ -150,7 +137,6 @@ export function Hero() {
           La cuenta ya no es un problema. Organiza, divide y paga sin complicaciones.
         </motion.p>
 
-        {/* CTA único: abre modal con QR */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -166,7 +152,6 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Tarjeta “Cuenta” con transacciones */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -190,7 +175,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Modal con QR / link universal */}
       <DownloadModal open={open} onClose={() => setOpen(false)} />
     </section>
   );
@@ -205,7 +189,6 @@ function GastoRow({ emoji, nombre, fecha, amount }: Tx) {
   return (
     <div className="rounded-2xl bg-white/95 px-4 py-3 flex items-center justify-between shadow border border-black/5">
       <div className="flex items-center gap-3">
-        {/* Ícono sin fondo para que se vea limpio */}
         <div className="text-xl" aria-hidden>
           {emoji}
         </div>

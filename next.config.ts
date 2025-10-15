@@ -1,14 +1,16 @@
-// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   eslint: {
-    // Evita que ESLint corte el build en Cloudflare Pages
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // <- evita que ESLint corte el build en Cloudflare
   },
-  // Si en algún momento el type-check de TS te corta el build del CI,
-  // puedes (temporalmente) habilitar esto:
-  // typescript: { ignoreBuildErrors: true },
+  images: {
+    remotePatterns: [
+      // { protocol: "https", hostname: "TU-CDN.com" },
+    ],
+    // unoptimized: true, // solo si lo necesitas en Cloudflare Pages
+  },
+  // typescript: { ignoreBuildErrors: true }, // opcional si te frenara por TS
 };
 
 export default nextConfig;
