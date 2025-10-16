@@ -41,12 +41,17 @@ export function Footer() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 py-14 md:grid-cols-2 lg:grid-cols-12">
+          {/* Columna marca + texto + badges + newsletter */}
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-xl bg-emerald-600" aria-hidden />
-              <span className="text-lg font-semibold tracking-tight text-gray-900">
-                Teilen
-              </span>
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo_mail.png"
+                alt="Teilen"
+                className="h-10 w-auto select-none"
+                loading="lazy"
+              />
+              <span className="sr-only">Teilen</span>
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600">
@@ -54,26 +59,34 @@ export function Footer() {
               Claro, rápido y sin drama.
             </p>
 
+            {/* Badges de tiendas */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:border-emerald-400 hover:shadow transition"
-                aria-label="Disponible en App Store"
+                aria-label="Descargar en App Store"
+                className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
+                rel="noopener"
               >
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-                  <path d="M16.365 1.43c0 1.14-.42 2.05-1.26 2.86-.84.8-1.85 1.27-2.97 1.17-.06-1.1.48-2.12 1.26-2.9.86-.84 2.16-1.42 2.97-1.13zM20.82 17.22c-.56 1.3-1.25 2.51-2.1 3.63-1.13 1.5-2.45 3.17-4.22 3.17-1.65 0-2.17-1.02-4.03-1.02-1.89 0-2.45 1-4.06 1.05-1.64.05-2.88-1.62-4.02-3.11C1.22 19.18 0 16.3 0 13.63c0-3.39 2.21-5.19 4.4-5.19 1.62 0 2.85.98 4 .98 1.11 0 2.54-1.02 4.44-1.02 1.01 0 3.08.11 4.6 1.95-3.9 2.11-3.27 7.7 3.38 6.87z" />
-                </svg>
-                App Store
+                <img
+                  src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+                  alt="Disponible en App Store"
+                  className="h-12 w-auto"
+                  loading="lazy"
+                />
               </a>
+
               <a
                 href="#"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:border-emerald-400 hover:shadow transition"
-                aria-label="Disponible en Google Play"
+                aria-label="Obtener en Google Play"
+                className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
+                rel="noopener"
               >
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-                  <path d="M3.6 1.8l11.2 10.2L3.6 22.2c-.37.27-.86 0-.86-.45V2.25c0-.45.5-.72.86-.45zM16.1 12.9l3.7 3.36c.9.82 1.9 1.7 2.6 2.33.2.18.2.48 0 .66-.69.63-1.7 1.5-2.6 2.33l-3.7 3.36c-.35.32-.9.07-.9-.4V13.3c0-.47.55-.72.9-.4z" />
-                </svg>
-                Google Play
+                <img
+                  src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
+                  alt="Disponible en Google Play"
+                  className="h-12 w-auto"
+                  loading="lazy"
+                />
               </a>
             </div>
 
@@ -91,7 +104,7 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 active:translate-y-px transition"
+                className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-emerald-700 active:translate-y-px"
               >
                 Unirme
               </button>

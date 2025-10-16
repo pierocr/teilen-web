@@ -16,8 +16,8 @@ import * as React from "react";
 export type WaitlistJoinProps = {
   email: string;
   baseUrl: string;          // https://teilen.cl o http://localhost:3000
-  createdAtISO?: string;    // por si quieres guardarlo, no se usa para formatear
-  createdAtLabel?: string;  // fecha ya formateada (Edge-safe)
+  createdAtISO?: string;
+  createdAtLabel?: string;
 };
 
 export default function WaitlistJoin({
@@ -26,7 +26,7 @@ export default function WaitlistJoin({
   createdAtLabel,
 }: WaitlistJoinProps) {
   const preheader = "Gracias por unirte a la lista de espera de Teilen.";
-  const logoSrc = `${baseUrl}/logo_mail.png`;
+  const logoSrc = `${baseUrl}/logo_teilen.png`;
   const heroSrc = `${baseUrl}/hero.jpg`;
 
   return (
@@ -47,9 +47,28 @@ export default function WaitlistJoin({
             />
           </Section>
 
-          {/* Header con logo */}
+          {/* Header: logo + texto */}
           <Section style={styles.header}>
-            <Img src={logoSrc} alt="Teilen" width={120} height={36} style={styles.logo} />
+            <table
+              role="presentation"
+              width="100%"
+              style={{ borderCollapse: "collapse" }}
+            >
+              <tr>
+                <td style={{ verticalAlign: "middle" }}>
+                  <Img
+                    src={logoSrc}
+                    alt="Logo Teilen"
+                    width={38}
+                    height={38}
+                    style={styles.logo}
+                  />
+                </td>
+                <td style={{ paddingLeft: 10, verticalAlign: "middle" }}>
+                  <Text style={styles.brandName}>Teilen</Text>
+                </td>
+              </tr>
+            </table>
           </Section>
 
           {/* Título y descripción */}
@@ -119,6 +138,7 @@ export default function WaitlistJoin({
   );
 }
 
+// 🎨 Estilos
 const styles: Record<string, React.CSSProperties> = {
   body: {
     backgroundColor: "#f5f7f9",
@@ -138,11 +158,39 @@ const styles: Record<string, React.CSSProperties> = {
     overflow: "hidden",
   },
   heroWrap: { padding: 0, lineHeight: 0 },
-  heroImg: { width: "100%", height: "auto", display: "block" },
-  header: { padding: "16px 24px 0" },
-  logo: { display: "block", border: "0" },
-  h1: { margin: "10px 0 8px", fontSize: 24, lineHeight: "30px", color: "#0f1720" },
-  lead: { margin: "0 0 8px", fontSize: 15, lineHeight: "22px", color: "#334155" },
+  heroImg: {
+    width: "100%",
+    height: "auto",
+    display: "block",
+  },
+  header: {
+    padding: "16px 24px 0",
+  },
+  logo: {
+    display: "block",
+    border: "0",
+    width: 38,
+    height: 38,
+  },
+  brandName: {
+    margin: 0,
+    fontSize: 20,
+    fontWeight: 800,
+    color: "#019a57",
+    letterSpacing: 0.2,
+  },
+  h1: {
+    margin: "10px 0 8px",
+    fontSize: 24,
+    lineHeight: "30px",
+    color: "#0f1720",
+  },
+  lead: {
+    margin: "0 0 8px",
+    fontSize: 15,
+    lineHeight: "22px",
+    color: "#334155",
+  },
   infoBox: {
     border: "1px solid #e6eef0",
     borderRadius: 12,
