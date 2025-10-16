@@ -1,14 +1,23 @@
-// src/app/api/waitlist/route.ts
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-// ENV
-const FROM = (process.env.WAITLIST_FROM ?? "Teilen <notificaciones@teilen.cl>").trim();
-const NOTIFY_TO = (process.env.WAITLIST_NOTIFY_TO ?? process.env.WAITLIST_TO ?? "").trim();
+// ---------- ENV / Config ----------
+const RAW_FROM =
+  process.env.WAITLIST_FROM ?? "Teilen <notificaciones@teilen.cl>";
+// Quita comillas envolventes y espacios accidentales
+const FROM = RAW_FROM.trim().replace(/^["']|["']$/g, "");
+
+const RAW_TO =
+  process.env.WAITLIST_NOTIFY_TO ?? process.env.WAITLIST_TO ?? "";
+// Soporta múltiples correos separados por coma
+const EXTRA_TO = RAW_TO.split(",")
+  .map((s) => s.trim().replace(/^["']|["']$/g, ""))
+  .filter(Boolean);
+
 const RESEND_API_URL = "https://api.resend.com/emails";
 
-// ---- helpers edge-safe ----
+// ---------- Helpers edge-safe ----------
 function getBaseUrl(req: Request) {
   const envUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (envUrl) return envUrl.replace(/\/$/, "");
@@ -36,7 +45,7 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;");
 }
 
-// Plantilla HTML (igual diseño, logo+hero)
+// ---------- Plantilla HTML (logo nuevo + texto de marca) ----------
 function renderHtml({
   baseUrl,
   email,
@@ -46,7 +55,7 @@ function renderHtml({
   email: string;
   createdAtLabel: string;
 }) {
-  const logo = `${baseUrl}/logo_mail.png`;
+  const logo = `${baseUrl}/logo_teilen.png`; // <- nuevo logo
   const hero = `${baseUrl}/hero.jpg`;
   const emailEsc = escapeHtml(email);
 
@@ -67,14 +76,27 @@ function renderHtml({
       <tr><td align="center">
         <table role="presentation" width="560" cellpadding="0" cellspacing="0"
           style="max-width:560px;background:#ffffff;border-radius:16px;box-shadow:0 10px 30px rgba(1,154,87,0.15);overflow:hidden;">
+          
+          <!-- Hero -->
           <tr><td style="padding:0;line-height:0">
             <img src="${hero}" alt="Teilen - Comparte y administra gastos" width="560" height="180" style="width:100%;height:auto;display:block;border:0" />
           </td></tr>
 
+          <!-- Header: logo + texto de marca -->
           <tr><td style="padding:16px 24px 0">
-            <img src="${logo}" alt="Teilen" width="120" height="36" style="display:block;border:0" />
+            <table role="presentation" width="100%" style="border-collapse:collapse">
+              <tr>
+                <td style="vertical-align:middle;width:38px">
+                  <img src="${logo}" alt="Logo Teilen" width="38" height="38" style="display:block;border:0;width:38px;height:38px" />
+                </td>
+                <td style="vertical-align:middle;padding-left:10px">
+                  <p style="margin:0;font-size:20px;font-weight:800;letter-spacing:.2px;color:#019a57">Teilen</p>
+                </td>
+              </tr>
+            </table>
           </td></tr>
 
+          <!-- Título + texto -->
           <tr><td style="padding:0 24px 8px">
             <h1 style="margin:10px 0 8px;font-size:24px;line-height:30px;color:#0f1720">¡Bienvenido a la lista de espera!</h1>
             <p style="margin:0 0 8px;font-size:15px;line-height:22px;color:#334155">
@@ -83,6 +105,7 @@ function renderHtml({
             </p>
           </td></tr>
 
+          <!-- Info encuadrada -->
           <tr><td style="padding:0 24px">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
               style="border:1px solid #e6eef0;border-radius:12px;background:#f8fbfa;overflow:hidden;">
@@ -109,6 +132,7 @@ function renderHtml({
             </table>
           </td></tr>
 
+          <!-- CTA -->
           <tr><td style="padding:8px 24px 0">
             <a href="https://teilen.cl"
                style="display:block;text-align:center;background:#019a57;color:#ffffff;text-decoration:none;padding:12px 16px;border-radius:12px;font-size:15px;font-weight:700">
@@ -123,6 +147,7 @@ function renderHtml({
             <hr style="border:none;border-top:1px solid #ecf2f3;margin:0" />
           </td></tr>
 
+          <!-- Legal -->
           <tr><td style="padding:0 24px 24px">
             <p style="margin:0;font-size:12px;color:#708494">
               Este es un correo transaccional. Si no reconoces este registro, escríbenos a
@@ -130,15 +155,21 @@ function renderHtml({
             </p>
             <p style="margin:10px 0 0;font-size:12px;color:#93a4af">© ${new Date().getFullYear()} Teilen · Santiago de Chile</p>
           </td></tr>
+
         </table>
       </td></tr>
     </table>
-    <div style="display:none;max-height:0;overflow:hidden;opacity:0">Gracias por unirte a la lista de espera de Teilen.</div>
+
+    <!-- Preheader oculto -->
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0">
+      Gracias por unirte a la lista de espera de Teilen.
+    </div>
   </div>
 </body>
 </html>`;
 }
 
+// ---------- Handler ----------
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
@@ -154,8 +185,8 @@ export async function POST(req: Request) {
     const createdAtLabel = formatUtcLabel(new Date());
     const html = renderHtml({ baseUrl, email, createdAtLabel });
 
-    // Destinatarios: siempre el usuario; opcionalmente copia a ti
-    const to = NOTIFY_TO ? [email, NOTIFY_TO] : [email];
+    // Siempre al usuario + opcional lista extra
+    const to = [email, ...EXTRA_TO];
 
     const resp = await fetch(RESEND_API_URL, {
       method: "POST",
@@ -164,7 +195,7 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: FROM,   // debe ser remitente verificado en Resend
+        from: FROM, // debe ser remitente verificado en Resend
         to,
         subject: "¡Nuevo registro en la lista de espera de Teilen!",
         html,
@@ -173,7 +204,6 @@ export async function POST(req: Request) {
 
     if (!resp.ok) {
       const txt = await resp.text();
-      // devuelve el error de Resend para depurar (luego puedes ocultarlo)
       return NextResponse.json(
         { error: `Resend ${resp.status}: ${txt}` },
         { status: 500 }
