@@ -26,7 +26,7 @@ export default function WaitlistJoin({
   createdAtLabel,
 }: WaitlistJoinProps) {
   const preheader = "Gracias por unirte a la lista de espera de Teilen.";
-  const logoSrc = `${baseUrl}/logo_mail.jpeg`;
+  const logoSrc = `${baseUrl}/logo_mail.png`;
   const heroSrc = `${baseUrl}/hero.jpg`;
 
   return (

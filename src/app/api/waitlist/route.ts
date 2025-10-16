@@ -46,7 +46,7 @@ function renderHtml({
   email: string;
   createdAtLabel: string;
 }) {
-  const logo = `${baseUrl}/logo_mail.jpeg`;
+  const logo = `${baseUrl}/logo_mail.png`;
   const hero = `${baseUrl}/hero.jpg`;
   const emailEsc = escapeHtml(email);
 
