@@ -36,6 +36,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/logo_teilen.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [{ url: "/logo_teilen.png", sizes: "180x180", type: "image/png" }],
+  },
 
   openGraph: {
     type: "website",
@@ -47,9 +54,11 @@ export const metadata: Metadata = {
     locale: "es_CL",
     images: [
       {
-        url: "/teilen-og.png", // coloca este archivo en /public
-        width: 1200,
-        height: 630,
+        url: "/teilen-og.png",
+        secureUrl: "https://www.teilen.cl/teilen-og.png",
+        width: 1024,
+        height: 1024,
+        type: "image/png",
         alt: "Personas usando Teilen para dividir la cuenta",
       },
     ],
@@ -60,7 +69,7 @@ export const metadata: Metadata = {
     title: "Teilen — Cambia la forma de dividir gastos",
     description:
       "La manera moderna de dividir y pagar en grupo. Registra gastos y salda con un toque.",
-    images: ["/teilen-og.jpg"],
+    images: ["/teilen-og.png"],
   },
 
   robots: {
