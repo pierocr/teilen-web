@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -44,11 +45,13 @@ export function Footer() {
           <div className="lg:col-span-4">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/logo_mail.png"
                 alt="Teilen"
+                width={120}
+                height={40}
                 className="h-10 w-auto select-none"
-                loading="lazy"
+                priority={false}
               />
               <span className="sr-only">Teilen</span>
             </div>
@@ -66,11 +69,12 @@ export function Footer() {
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"
               >
-                <img
+                <Image
                   src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
                   alt="Disponible en App Store"
+                  width={180}
+                  height={48}
                   className="h-12 w-auto"
-                  loading="lazy"
                 />
               </a>
 
@@ -80,11 +84,12 @@ export function Footer() {
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"
               >
-                <img
+                <Image
                   src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
                   alt="Disponible en Google Play"
+                  width={180}
+                  height={48}
                   className="h-12 w-auto"
-                  loading="lazy"
                 />
               </a>
             </div>

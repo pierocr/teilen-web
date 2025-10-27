@@ -86,7 +86,7 @@ export function Hero() {
 
       <Image
         src="/hero.jpg"
-        alt=""
+        alt="Personas compartiendo una comida mientras coordinan gastos con Teilen en sus teléfonos"
         width={2400}
         height={1400}
         priority

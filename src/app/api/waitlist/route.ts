@@ -211,9 +211,15 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const message =
+      e instanceof Error
+        ? e.message
+        : typeof e === "string"
+        ? e
+        : "Error inesperado";
     return NextResponse.json(
-      { error: e?.message ?? "Error inesperado" },
+      { error: message },
       { status: 500 }
     );
   }

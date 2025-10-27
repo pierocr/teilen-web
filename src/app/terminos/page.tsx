@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones",
   description:
     "Lee las condiciones de uso de Teilen, obligaciones de los usuarios y reglas que rigen el servicio para dividir gastos.",
+  alternates: {
+    canonical: "/terminos",
+  },
 };
 
 type Section = {

@@ -17,7 +17,25 @@ export const metadata: Metadata = {
     default: "Teilen — Cambia la forma de dividir gastos",
     template: "%s | Teilen",
   },
-  description: "Divide y paga sin fricción.",
+  description:
+    "Teilen es la app chilena para dividir gastos en grupos, ordenar las finanzas compartidas y saldar cuentas sin fricción.",
+  keywords: [
+    "dividir gastos",
+    "app de gastos compartidos",
+    "finanzas personales Chile",
+    "teilen",
+    "dividir cuentas",
+    "gastos en pareja",
+    "gastos entre amigos",
+    "gastos grupales",
+  ],
+  category: "finance",
+  authors: [{ name: "Teilen", url: "https://www.teilen.cl" }],
+  creator: "Teilen",
+  publisher: "Teilen",
+  alternates: {
+    canonical: "/",
+  },
 
   openGraph: {
     type: "website",
@@ -48,6 +66,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -56,10 +81,49 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Teilen",
+    url: "https://www.teilen.cl",
+    logo: "https://www.teilen.cl/logo_teilen.png",
+    sameAs: ["https://www.instagram.com/teilen.app/"],
+    description:
+      "Teilen es la plataforma chilena para dividir gastos, coordinar finanzas grupales y saldar cuentas sin fricción.",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: "contacto@teilen.cl",
+        contactType: "customer support",
+        availableLanguage: ["es-CL", "es"],
+      },
+    ],
+  };
+
+  const webSiteStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Teilen",
+    url: "https://www.teilen.cl",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://www.google.com/search?q=site:teilen.cl+{search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="es">
       <body className={`${font.className} min-h-dvh antialiased`}>
         {/* OJO: ya no ponemos <Navbar /> aquí */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteStructuredData) }}
+        />
         <main>{children}</main>
         {/* Si tienes <Footer />, déjalo aquí debajo */}
       </body>

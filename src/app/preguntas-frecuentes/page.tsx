@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Preguntas Frecuentes",
   description:
     "Resuelve dudas comunes sobre Teilen: creación de grupos, seguridad de tus datos, planes y compatibilidad.",
+  alternates: {
+    canonical: "/preguntas-frecuentes",
+  },
 };
 
 type FAQ = {

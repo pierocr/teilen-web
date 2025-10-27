@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Contáctanos",
   description:
     "Comunícate con el equipo de Teilen. Encuentra los canales oficiales de soporte, colaboraciones y prensa.",
+  alternates: {
+    canonical: "/contacto",
+  },
 };
 
 type ContactChannel = {

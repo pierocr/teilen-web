@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Política de Privacidad",
   description:
     "Conoce cómo Teilen protege tus datos personales y garantiza la seguridad de tu información financiera y de tus grupos.",
+  alternates: {
+    canonical: "/privacidad",
+  },
 };
 
 type Section = {

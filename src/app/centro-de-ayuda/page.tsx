@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Centro de Ayuda",
   description:
     "Explora guías rápidas y recursos para usar Teilen como un experto. Encuentra respuestas sobre grupos, gastos y saldos.",
+  alternates: {
+    canonical: "/centro-de-ayuda",
+  },
 };
 
 type Guide = {

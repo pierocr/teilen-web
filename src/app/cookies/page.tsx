@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Política de Cookies",
   description:
     "Descubre qué cookies utiliza Teilen, para qué se usan y cómo puedes gestionar tus preferencias desde la app o el navegador.",
+  alternates: {
+    canonical: "/cookies",
+  },
 };
 
 type Section = {
