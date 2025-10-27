@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 export function Footer() {
@@ -20,18 +21,16 @@ export function Footer() {
       { label: "Freelancers", href: "#" },
     ],
     ayuda: [
-      { label: "Centro de ayuda", href: "#" },
-      { label: "Contáctanos", href: "#" },
-      { label: "Preguntas frecuentes", href: "#" },
-      { label: "Glosario", href: "#" },
-      { label: "Estado del servicio", href: "#" },
+      { label: "Centro de ayuda", href: "/centro-de-ayuda" },
+      { label: "Contáctanos", href: "/contacto" },
+      { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
     ],
     empresa: [
       { label: "Sobre Teilen", href: "#" },
       { label: "Blog", href: "#" },
       { label: "Prensa", href: "#" },
       { label: "Empleos", href: "#" },
-      { label: "Documentos legales", href: "#" },
+      { label: "Documentos legales", href: "/terminos" },
     ],
   };
 
@@ -123,9 +122,9 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
             <span>© {year} Teilen</span>
             <span className="hidden md:inline text-gray-300">|</span>
-            <a href="#" className="hover:text-emerald-700">Privacidad</a>
-            <a href="#" className="hover:text-emerald-700">Términos</a>
-            <a href="#" className="hover:text-emerald-700">Cookies</a>
+            <Link href="/privacidad" className="hover:text-emerald-700">Privacidad</Link>
+            <Link href="/terminos" className="hover:text-emerald-700">Términos</Link>
+            <Link href="/cookies" className="hover:text-emerald-700">Cookies</Link>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
@@ -142,11 +141,7 @@ export function Footer() {
             </div>
 
             <div className="flex items-center gap-3">
-              <SocialIcon label="X / Twitter" href="#" kind="x" />
-              <SocialIcon label="LinkedIn" href="#" kind="in" />
-              <SocialIcon label="Instagram" href="#" kind="ig" />
-              <SocialIcon label="Facebook" href="#" kind="fb" />
-              <SocialIcon label="YouTube" href="#" kind="yt" />
+              <SocialIcon label="Instagram" href="https://www.instagram.com/teilen.app/" kind="ig" />
             </div>
           </div>
         </div>
@@ -172,12 +167,12 @@ function FooterColumn({
       <ul className="mt-4 space-y-3">
         {items.map((item) => (
           <li key={item.label}>
-            <a
+            <Link
               href={item.href}
               className="text-sm text-gray-600 transition hover:text-emerald-700"
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -218,6 +213,8 @@ function SocialIcon({
       href={href}
       aria-label={label}
       className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-emerald-400 hover:text-emerald-700"
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" stroke="none" aria-hidden>
         {paths[kind]}

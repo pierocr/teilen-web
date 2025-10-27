@@ -123,8 +123,8 @@ export default function WaitlistJoin({
             <Text style={styles.small}>
               Este es un correo transaccional. Si no reconoces este registro,
               escríbenos a{" "}
-              <Link href="mailto:soporte@teilen.cl" style={styles.link}>
-                soporte@teilen.cl
+              <Link href="mailto:contacto@teilen.cl" style={styles.link}>
+                contacto@teilen.cl
               </Link>
               .
             </Text>

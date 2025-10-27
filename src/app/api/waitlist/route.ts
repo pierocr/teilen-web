@@ -4,7 +4,7 @@ export const runtime = "edge";
 
 // ---------- ENV / Config ----------
 const RAW_FROM =
-  process.env.WAITLIST_FROM ?? "Teilen <notificaciones@teilen.cl>";
+  process.env.WAITLIST_FROM ?? "Teilen <contacto@teilen.cl>";
 // Quita comillas envolventes y espacios accidentales
 const FROM = RAW_FROM.trim().replace(/^["']|["']$/g, "");
 
@@ -151,7 +151,7 @@ function renderHtml({
           <tr><td style="padding:0 24px 24px">
             <p style="margin:0;font-size:12px;color:#708494">
               Este es un correo transaccional. Si no reconoces este registro, escríbenos a
-              <a href="mailto:soporte@teilen.cl" style="color:#019a57">soporte@teilen.cl</a>.
+              <a href="mailto:contacto@teilen.cl" style="color:#019a57">contacto@teilen.cl</a>.
             </p>
             <p style="margin:10px 0 0;font-size:12px;color:#93a4af">© ${new Date().getFullYear()} Teilen · Santiago de Chile</p>
           </td></tr>

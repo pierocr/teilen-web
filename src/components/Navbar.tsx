@@ -3,16 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
+import { DownloadModal } from "./DownloadModal";
 
 const LINKS = [
   { href: "#how", label: "Cómo funciona" },
   { href: "#features", label: "Características" },
-  { href: "#pricing", label: "Precios" },
   { href: "#screens", label: "Screens" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   // Cierre con ESC
@@ -61,20 +62,14 @@ export function Navbar() {
 
         {/* Acciones + Burger (siempre a la derecha) */}
         <div className="flex items-center gap-2">
-          {/* CTA compactos también en mobile */}
-          <a
-            href="#"
-            className="rounded-full px-3 py-1.5 text-sm border border-gray-300 hover:bg-gray-50 transition-colors whitespace-nowrap"
-          >
-            Ingresar
-          </a>
-          <a
-            href="#"
-            className="rounded-full px-3 py-1.5 text-sm text-white whitespace-nowrap"
+          <button
+            type="button"
+            className="rounded-full px-3 py-1.5 text-sm text-white whitespace-nowrap shadow-sm transition-colors"
             style={{ backgroundColor: "#019a57" }}
+            onClick={() => setDownloadOpen(true)}
           >
-            Crear cuenta
-          </a>
+            Descargar app
+          </button>
 
           {/* Burger solo en mobile */}
           <button
@@ -139,24 +134,21 @@ export function Navbar() {
           </ul>
 
           <div className="mt-6 border-t pt-4 flex flex-col gap-2">
-            <a
-              href="#"
-              className="rounded-full px-4 py-2 border border-gray-300 hover:bg-gray-50 text-center"
-              onClick={() => setOpen(false)}
-            >
-              Ingresar
-            </a>
-            <a
-              href="#"
-              className="rounded-full px-4 py-2 text-white text-center"
+            <button
+              type="button"
+              className="rounded-full px-4 py-2 text-white text-center shadow-sm transition-colors"
               style={{ backgroundColor: "#019a57" }}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setDownloadOpen(true);
+                setOpen(false);
+              }}
             >
-              Crear cuenta
-            </a>
+              Descargar app
+            </button>
           </div>
         </div>
       </div>
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
     </header>
   );
 }
