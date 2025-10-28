@@ -86,7 +86,7 @@ export const metadata: Metadata = {
   },
 };
 
-const GA_MEASUREMENT_ID = "G-LZ70ZWSG33";
+const GA_MEASUREMENT_ID = "G-KZ0R9BG6N5";
 
 export default function RootLayout({
   children,
