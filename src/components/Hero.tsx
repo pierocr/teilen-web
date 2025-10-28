@@ -134,7 +134,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-5 max-w-2xl text-lg md:text-xl text-white/80"
         >
-          La cuenta ya no es un problema. Organiza, divide y paga sin complicaciones.
+          La app que resuelve tus gastos compartidos: registra compras, reparte el total en segundos y liquida saldos sin peleas.
         </motion.p>
 
         <motion.div

@@ -14,21 +14,21 @@ export const metadata: Metadata = {
   // Base para que las URLs relativas (como la imagen OG) se resuelvan absolutas
   metadataBase: new URL("https://www.teilen.cl"),
 
+  applicationName: "Teilen",
   title: {
-    default: "Teilen — Cambia la forma de dividir gastos",
-    template: "%s | Teilen",
+    default: "Teilen | Divide gastos compartidos sin drama",
+    template: "%s · Teilen",
   },
   description:
-    "Teilen es la app chilena para dividir gastos en grupos, ordenar las finanzas compartidas y saldar cuentas sin fricción.",
+    "Teilen es la app para dividir gastos compartidos, ordenar presupuestos y saldar cuentas con amigos, pareja o roomies en segundos.",
   keywords: [
     "dividir gastos",
-    "app de gastos compartidos",
-    "finanzas personales Chile",
-    "teilen",
-    "dividir cuentas",
-    "gastos en pareja",
+    "app dividir cuentas",
+    "app finanzas en pareja",
     "gastos entre amigos",
-    "gastos grupales",
+    "app para roomies",
+    "balanza de gastos",
+    "control de gastos grupales",
   ],
   category: "finance",
   authors: [{ name: "Teilen", url: "https://www.teilen.cl" }],
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.teilen.cl",
     siteName: "Teilen",
-    title: "Teilen — Cambia la forma de dividir gastos",
+    title: "Teilen | Divide gastos compartidos sin drama",
     description:
-      "Divide cuentas con amigos y familia de forma simple, rápida y sin fricción.",
+      "Organiza grupos, registra gastos y liquida saldos al instante. Teilen simplifica las finanzas compartidas desde el primer registro.",
     locale: "es_CL",
     images: [
       {
@@ -67,9 +67,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen — Cambia la forma de dividir gastos",
+    title: "Teilen | Divide gastos compartidos sin drama",
     description:
-      "La manera moderna de dividir y pagar en grupo. Registra gastos y salda con un toque.",
+      "La app para dividir cuentas, automatizar reembolsos y mantener presupuestos grupales claros.",
     images: ["/teilen-og.png"],
   },
 
@@ -101,7 +101,7 @@ export default function RootLayout({
     logo: "https://www.teilen.cl/logo_teilen.png",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
-      "Teilen es la plataforma chilena para dividir gastos, coordinar finanzas grupales y saldar cuentas sin fricción.",
+      "Teilen es la plataforma para dividir gastos, coordinar finanzas grupales y saldar cuentas sin fricción.",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -121,6 +121,33 @@ export default function RootLayout({
       "@type": "SearchAction",
       target: "https://www.google.com/search?q=site:teilen.cl+{search_term_string}",
       "query-input": "required name=search_term_string",
+    },
+  };
+
+  const appStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    name: "Teilen",
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "iOS, Android",
+    url: "https://www.teilen.cl",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "CLP",
+    },
+    description:
+      "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y saldar cuentas de forma transparente.",
+    inLanguage: "es",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "126",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Teilen",
+      url: "https://www.teilen.cl",
     },
   };
 
@@ -149,6 +176,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteStructuredData) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(appStructuredData) }}
         />
         <main>{children}</main>
         {/* Si tienes <Footer />, déjalo aquí debajo */}

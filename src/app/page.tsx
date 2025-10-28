@@ -32,7 +32,38 @@ const testimonials = [
   },
 ];
 
+const faqItems = [
+  {
+    question: "¿Qué hace diferente a Teilen frente a otras apps para dividir gastos?",
+    answer:
+      "Teilen está pensada para el mercado chileno: permite registrar gastos en pesos, dividirlos en partes iguales o personalizadas, enviar recordatorios y exportar reportes claros para tu grupo.",
+  },
+  {
+    question: "¿Sirve para viajes, parejas o grupos de roomies?",
+    answer:
+      "Sí. Puedes crear distintos grupos, invitar a tus contactos y llevar el detalle de cada compra, reembolso y saldo pendiente en tiempo real.",
+  },
+  {
+    question: "¿Cómo se liquidan los saldos en Teilen?",
+    answer:
+      "La app calcula automáticamente quién le debe a quién y te muestra la mejor ruta de pagos para dejar el grupo en cero sin cálculos manuales.",
+  },
+];
+
 export default function Page() {
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       {/* Hero con Navbar overlay */}
@@ -51,6 +82,37 @@ export default function Page() {
       {/* Características — versión moderna con mockup + animaciones CSS */}
       <section id="features" className="scroll-mt-24">
         <FeaturesShowcase />
+      </section>
+
+      {/* FAQ para snippet enriquecido */}
+      <section id="faq" className="mx-auto max-w-6xl px-5 py-20">
+        <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+          Preguntas frecuentes
+        </span>
+        <h2 className="mt-4 text-4xl font-bold text-slate-900 md:text-5xl">
+          Resuelve tus dudas antes de descargar Teilen
+        </h2>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
+          Respondemos lo que más nos consultan sobre compartir gastos, saldar cuentas y organizar grupos
+          para que pruebes Teilen con confianza.
+        </p>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {faqItems.map((item) => (
+            <article
+              key={item.question}
+              className="flex h-full flex-col rounded-2xl border border-slate-100 bg-white/85 p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+            >
+              <h3 className="text-lg font-semibold text-slate-900">{item.question}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{item.answer}</p>
+            </article>
+          ))}
+        </div>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+        />
       </section>
 
       {/* Screens de la app: 4 en fila en desktop */}
@@ -101,7 +163,7 @@ export default function Page() {
                 Reseñas
               </span>
               <h2 className="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl">
-                Lo que dice la comunidad en Chile
+                Lo que dice nuestra comunidad
               </h2>
               <p className="mt-3 text-base leading-7 text-slate-600 max-w-xl">
                 Testimonios reales de usuarios piloto que ya están usando Teilen para dividir gastos
