@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const host = "https://www.teilen.cl";
+  const baseUrl = "https://www.teilen.cl";
+
   return {
     rules: [
       {
@@ -9,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: `${host}/sitemap.xml`,
-    host,
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: "www.teilen.cl",
   };
 }
