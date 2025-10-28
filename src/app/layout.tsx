@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -85,6 +86,8 @@ export const metadata: Metadata = {
   },
 };
 
+const GA_MEASUREMENT_ID = "G-LZ70ZWSG33";
+
 export default function RootLayout({
   children,
 }: {
@@ -123,6 +126,20 @@ export default function RootLayout({
 
   return (
     <html lang="es">
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+      </head>
       <body className={`${font.className} min-h-dvh antialiased`}>
         {/* OJO: ya no ponemos <Navbar /> aquí */}
         <script
