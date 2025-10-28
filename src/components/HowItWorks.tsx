@@ -24,13 +24,13 @@ export function HowItWorks() {
   return (
     <section
       id="how"
-      className="relative mx-auto max-w-6xl px-5 py-24 space-y-20"
+      className="relative mx-auto max-w-6xl px-5 py-24 fhd:py-28 space-y-20 fhd:space-y-24"
     >
       <div className="text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        <h2 className="text-4xl md:text-5xl fhd:text-6xl font-bold text-gray-900">
           ¿Cómo funciona?
         </h2>
-        <p className="mt-4 text-gray-600 text-lg">
+        <p className="mt-4 text-gray-600 text-lg fhd:text-xl">
           Todo lo que necesitas para dividir sin drama — rápido, visual y transparente.
         </p>
       </div>
@@ -42,7 +42,7 @@ export function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: i * 0.1 }}
-          className={`flex flex-col md:flex-row items-center gap-10 ${
+          className={`flex flex-col md:flex-row items-center gap-10 fhd:gap-12 ${
             i % 2 === 1 ? "md:flex-row-reverse" : ""
           }`}
         >
@@ -60,10 +60,10 @@ export function HowItWorks() {
 
           {/* Texto */}
           <div className="w-full md:w-1/2">
-            <h3 className="text-2xl md:text-3xl font-semibold text-gray-900">
+            <h3 className="text-2xl md:text-3xl fhd:text-4xl font-semibold text-gray-900">
               {s.title}
             </h3>
-            <p className="mt-4 text-gray-600 text-lg">{s.desc}</p>
+            <p className="mt-4 text-gray-600 text-lg fhd:text-xl">{s.desc}</p>
           </div>
         </motion.div>
       ))}

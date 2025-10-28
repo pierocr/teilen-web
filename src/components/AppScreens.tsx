@@ -16,14 +16,14 @@ export function AppScreens({
   const imgs = images.length ? images : ["/screens/1.png","/screens/2.png","/screens/3.png","/screens/4.png"];
 
   return (
-    <section id="screens" className="mx-auto max-w-6xl px-5 py-24">
+    <section id="screens" className="mx-auto max-w-6xl px-5 py-24 fhd:py-28 fhd:px-8">
       <div className="text-center">
-        <h2 className="text-3xl md:text-5xl font-bold">{title}</h2>
-        <p className="mt-3 text-black/60 max-w-2xl mx-auto">{subtitle}</p>
+        <h2 className="text-3xl md:text-5xl fhd:text-6xl font-bold">{title}</h2>
+        <p className="mt-3 text-black/60 max-w-2xl fhd:max-w-3xl mx-auto text-base md:text-lg fhd:text-xl">{subtitle}</p>
       </div>
 
       {/* 1 col con scroll en mobile, 2 cols en md, 4 cols en lg+ */}
-      <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-2">
+      <div className="mt-12 grid gap-8 fhd:gap-10 md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-2">
         {imgs.slice(0, 4).map((src, i) => (
           <FloatingPhone key={src} src={src} delay={i * 0.06} />
         ))}

@@ -32,7 +32,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80 text-gray-900">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-5">
+      <nav className="mx-auto flex h-16 fhd:h-20 max-w-6xl items-center justify-between px-4 md:px-5 fhd:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -47,7 +47,7 @@ export function Navbar() {
         </Link>
 
         {/* Menú desktop */}
-        <ul className="hidden md:flex items-center justify-center gap-6 text-base">
+        <ul className="hidden md:flex items-center justify-center gap-6 text-base fhd:text-lg">
           {LINKS.map((l) => (
             <li key={l.href} className="whitespace-nowrap">
               <a
@@ -61,10 +61,10 @@ export function Navbar() {
         </ul>
 
         {/* Acciones + Burger (siempre a la derecha) */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 fhd:gap-3">
           <button
             type="button"
-            className="rounded-full px-3 py-1.5 text-sm text-white whitespace-nowrap shadow-sm transition-colors"
+            className="rounded-full px-3 py-1.5 fhd:px-4 fhd:py-2 text-sm fhd:text-base text-white whitespace-nowrap shadow-sm transition-colors"
             style={{ backgroundColor: "#019a57" }}
             onClick={() => setDownloadOpen(true)}
           >

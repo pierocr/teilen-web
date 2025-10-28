@@ -123,7 +123,7 @@ export default function FeaturesShowcase() {
     <section
       id="caracteristicas"
       ref={rootRef}
-      className="relative mx-auto max-w-7xl px-5 py-24 sm:py-28"
+      className="relative mx-auto max-w-7xl px-5 py-24 sm:py-28 fhd:py-32"
     >
       {/* aurora background */}
       <div
@@ -141,19 +141,19 @@ export default function FeaturesShowcase() {
             estilo Teilen
           </span>
         </div>
-        <h2 className="mt-4 text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+        <h2 className="mt-4 text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl fhd:text-6xl">
           Potentes, pero fáciles.
-          <span className="block text-muted-foreground mt-3 text-lg font-normal sm:text-xl">
+          <span className="block text-muted-foreground mt-3 text-lg font-normal sm:text-xl fhd:text-2xl">
             Todo lo que de verdad usa la gente.
           </span>
         </h2>
       </div>
 
       {/* Layout */}
-      <div className="grid items-start gap-10 lg:grid-cols-2">
+      <div className="grid items-start gap-10 fhd:gap-12 lg:grid-cols-2">
         {/* Left: sticky phone/video */}
         <div className="relative lg:sticky lg:top-28">
-          <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px]">
+          <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px] fhd:w-[320px]">
             {/* Reemplaza src por tu archivo en /public o /app */}
             {/* Coloca el mp4 en public/videos/teilen-demo.mp4 */}
             <video
@@ -180,8 +180,8 @@ export default function FeaturesShowcase() {
 
         {/* Right: features list */}
         <ul
-          className={`grid gap-4 sm:gap-6`}
-          data-inview={inView ? "true" : "false"}
+          className={`grid gap-4 sm:gap-6 fhd:gap-7`}
+            data-inview={inView ? "true" : "false"}
         >
           {FEATURES.map((f, i) => (
             <li

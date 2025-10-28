@@ -77,7 +77,7 @@ export function DownloadModal({ open, onClose }: Props) {
       />
 
       {/* Card */}
-      <div className="relative w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
+      <div className="relative w-full max-w-xl fhd:max-w-2xl rounded-3xl bg-white p-8 fhd:p-10 shadow-2xl">
         <button
           onClick={onClose}
           aria-label="Cerrar"
@@ -92,10 +92,10 @@ export function DownloadModal({ open, onClose }: Props) {
           </span>
         </div>
 
-        <h2 className="mt-3 text-center text-3xl md:text-4xl font-bold">
+        <h2 className="mt-3 text-center text-3xl md:text-4xl fhd:text-5xl font-bold">
           Aún no disponible para descarga
         </h2>
-        <p className="mt-3 text-center text-black/70">
+        <p className="mt-3 text-center text-black/70 text-sm md:text-base fhd:text-lg leading-7">
           Estamos afinando los últimos detalles de{" "}
           <span className="text-brand font-semibold">Teilen</span> con un grupo
           reducido de usuarios. Muy pronto abriremos el acceso público en App
@@ -114,20 +114,20 @@ export function DownloadModal({ open, onClose }: Props) {
               </span>
             </div>
           </div>
-          <p className="text-xs text-black/50">
+          <p className="text-xs fhd:text-[13px] text-black/50">
             El enlace de descarga se habilitará al abrir el acceso público.
           </p>
         </div>
 
         {/* Lista de espera */}
-        <div className="mt-8 rounded-2xl border border-black/10 bg-neutral-50 p-4">
+        <div className="mt-8 rounded-2xl border border-black/10 bg-neutral-50 p-4 fhd:p-5">
           {done ? (
             <p className="text-center text-sm text-black/70" role="status" aria-live="polite">
               ¡Listo! Te avisaremos apenas esté disponible. 💚
             </p>
           ) : (
             <>
-              <p className="text-sm text-black/70 text-center">
+              <p className="text-sm fhd:text-base text-black/70 text-center">
                 Déjanos tu correo para notificarte en el lanzamiento.
               </p>
 
@@ -154,13 +154,13 @@ export function DownloadModal({ open, onClose }: Props) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && submitEmail()}
-                  className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 outline-none ring-0 focus:border-black/20"
+                  className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 fhd:py-3.5 outline-none ring-0 focus:border-black/20"
                   aria-invalid={!!error}
                 />
                 <button
                   onClick={submitEmail}
                   disabled={sending}
-                  className="rounded-xl bg-black px-5 py-3 text-white disabled:opacity-60"
+                  className="rounded-xl bg-black px-5 fhd:px-6 py-3 fhd:py-3.5 text-white text-sm md:text-base fhd:text-lg font-medium disabled:opacity-60"
                 >
                   {sending ? "Enviando..." : "Avisarme"}
                 </button>
@@ -172,14 +172,14 @@ export function DownloadModal({ open, onClose }: Props) {
                 </p>
               )}
 
-              <p className="mt-2 text-center text-[11px] text-black/45">
+              <p className="mt-2 text-center text-[11px] fhd:text-xs text-black/45">
                 Usaremos tu correo solo para avisarte del lanzamiento.
               </p>
             </>
           )}
         </div>
 
-        <p className="mt-4 text-center text-xs text-black/50">
+        <p className="mt-4 text-center text-xs fhd:text-sm text-black/50">
           Gracias por apoyar este proyecto. ✨
         </p>
       </div>

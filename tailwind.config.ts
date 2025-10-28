@@ -21,6 +21,13 @@ const config: Config = {
         "2xl": "1.25rem",
         "3xl": "1.75rem",
       },
+      screens: {
+        fhd: "1920px",
+      },
+      maxWidth: {
+        "6xl": "90rem", // 1440px
+        "7xl": "100rem", // 1600px
+      },
     },
   },
   plugins: [],

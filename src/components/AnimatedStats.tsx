@@ -51,13 +51,13 @@ const CARDS: Card[] = [
 
 export default function AnimatedStats() {
   return (
-    <section className="relative mx-auto max-w-6xl px-4 md:px-6">
+    <section className="relative mx-auto max-w-6xl px-4 md:px-6 fhd:px-8">
       {/* Header */}
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900">
+        <h2 className="text-3xl md:text-5xl fhd:text-6xl font-bold tracking-tight text-gray-900">
           Tu dinero compartido, reinventado
         </h2>
-        <p className="mt-3 text-gray-600 md:text-lg">
+        <p className="mt-3 text-gray-600 md:text-lg fhd:text-xl">
           Organiza grupos, divide gastos y mira cómo todo se liquida sin fricción. 
           Esto es Teilen: simple, transparente y pensado para tu día a día.
         </p>
@@ -73,7 +73,7 @@ export default function AnimatedStats() {
       </div>
 
       {/* Cards */}
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-6 fhd:gap-8 md:grid-cols-3">
         {CARDS.map((c, i) => (
           <motion.article
             key={c.title + i}
@@ -85,7 +85,7 @@ export default function AnimatedStats() {
             className="group relative overflow-hidden rounded-3xl bg-black/5 shadow-[0_6px_30px_-10px_rgba(0,0,0,0.25)]"
           >
             {/* Imagen (escala extra al hover) */}
-            <div className="relative h-[420px]">
+            <div className="relative h-[420px] fhd:h-[460px]">
               {/* fallback si no pones imágenes reales */}
               <div className="absolute inset-0 bg-neutral-200" />
               <Image

@@ -101,7 +101,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white drop-shadow"
+          className="text-5xl md:text-7xl fhd:text-8xl font-extrabold leading-tight tracking-tight text-white drop-shadow"
         >
           <span className="md:whitespace-nowrap">Cambia la forma en que </span>
 
@@ -132,7 +132,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-5 max-w-2xl text-lg md:text-xl text-white/80"
+          className="mt-5 max-w-2xl fhd:max-w-3xl text-lg md:text-xl fhd:text-2xl text-white/80"
         >
           La app que resuelve tus gastos compartidos: registra compras, reparte el total en segundos y liquida saldos sin peleas.
         </motion.p>
@@ -141,7 +141,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-8 flex flex-wrap items-center gap-3"
+          className="mt-8 fhd:mt-10 flex flex-wrap items-center gap-3 fhd:gap-4"
         >
           <button
             onClick={() => setOpen(true)}
@@ -156,7 +156,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25 }}
-          className="mt-14 w-full max-w-xl rounded-3xl p-6 shadow-soft"
+          className="mt-14 w-full max-w-xl fhd:max-w-2xl rounded-3xl p-6 fhd:p-8 shadow-soft"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(22px)",

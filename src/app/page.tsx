@@ -70,7 +70,7 @@ export default function Page() {
       <Hero />
 
       {/* Métricas */}
-      <section className="mx-auto max-w-6xl px-5 py-16">
+      <section className="mx-auto max-w-6xl px-5 py-16 fhd:py-20">
         <AnimatedStats />
       </section>
 
@@ -85,19 +85,19 @@ export default function Page() {
       </section>
 
       {/* FAQ para snippet enriquecido */}
-      <section id="faq" className="mx-auto max-w-6xl px-5 py-20">
+      <section id="faq" className="mx-auto max-w-6xl px-5 py-20 fhd:py-24">
         <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
           Preguntas frecuentes
         </span>
-        <h2 className="mt-4 text-4xl font-bold text-slate-900 md:text-5xl">
+        <h2 className="mt-4 text-4xl font-bold text-slate-900 md:text-5xl fhd:text-6xl">
           Resuelve tus dudas antes de descargar Teilen
         </h2>
-        <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
+        <p className="mt-3 max-w-3xl text-base md:text-lg fhd:text-xl leading-7 text-slate-600">
           Respondemos lo que más nos consultan sobre compartir gastos, saldar cuentas y organizar grupos
           para que pruebes Teilen con confianza.
         </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 fhd:gap-8 md:grid-cols-3">
           {faqItems.map((item) => (
             <article
               key={item.question}
@@ -151,32 +151,32 @@ export default function Page() {
       Agrego esto para hacer un commit*/}
 
       {/* Reseñas */}
-      <section className="relative mx-auto max-w-6xl px-5 pb-24 pt-10">
+      <section className="relative mx-auto max-w-6xl px-5 pb-24 pt-10 fhd:py-28">
         <div
           className="absolute inset-x-10 -top-10 h-40 rounded-full bg-emerald-200/30 blur-3xl"
           aria-hidden="true"
         />
-        <div className="relative rounded-3xl border border-white/60 bg-white/80 p-10 shadow-soft backdrop-blur">
-          <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="relative rounded-3xl border border-white/60 bg-white/80 p-10 fhd:p-12 shadow-soft backdrop-blur">
+          <div className="flex items-center justify-between gap-4 fhd:gap-6 flex-wrap">
             <div>
               <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
                 Reseñas
               </span>
-              <h2 className="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl">
+              <h2 className="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl fhd:text-5xl">
                 Lo que dice nuestra comunidad
               </h2>
-              <p className="mt-3 text-base leading-7 text-slate-600 max-w-xl">
+              <p className="mt-3 text-base md:text-lg fhd:text-xl leading-7 text-slate-600 max-w-xl fhd:max-w-2xl">
                 Testimonios reales de usuarios piloto que ya están usando Teilen para dividir gastos
                 sin drama.
               </p>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-6 fhd:gap-8 md:grid-cols-2 lg:grid-cols-4">
             {testimonials.map((item) => (
               <article
                 key={item.author}
-                className="flex h-full flex-col justify-between rounded-2xl border border-slate-100 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+                className="flex h-full flex-col justify-between rounded-2xl border border-slate-100 bg-white/90 p-6 fhd:p-7 shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
               >
                 <div className="flex items-center gap-1 text-amber-500">
                   {Array.from({ length: 5 }).map((_, starIndex) => (

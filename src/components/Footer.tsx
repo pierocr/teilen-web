@@ -39,8 +39,8 @@ export function Footer() {
     <footer className="relative mt-24 border-t border-black/10 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 py-14 md:grid-cols-2 lg:grid-cols-12">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 fhd:px-10">
+        <div className="grid grid-cols-1 gap-12 fhd:gap-16 py-14 fhd:py-16 md:grid-cols-2 lg:grid-cols-12">
           {/* Columna marca + texto + badges + newsletter */}
           <div className="lg:col-span-4">
             {/* Logo */}
@@ -56,13 +56,13 @@ export function Footer() {
               <span className="sr-only">Teilen</span>
             </div>
 
-            <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600">
+            <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600 fhd:text-base fhd:leading-7">
               La forma moderna de dividir gastos con amigos, pareja y equipos.
               Claro, rápido y sin drama.
             </p>
 
             {/* Badges de tiendas */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3 fhd:gap-4">
               <a
                 href="#"
                 aria-label="Descargar en App Store"
@@ -123,8 +123,8 @@ export function Footer() {
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
 
-        <div className="flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-col gap-6 py-8 fhd:py-10 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap items-center gap-4 text-sm fhd:text-base text-gray-600">
             <span>© {year} Teilen</span>
             <span className="hidden md:inline text-gray-300">|</span>
             <Link href="/privacidad" className="hover:text-emerald-700">Privacidad</Link>
@@ -132,11 +132,11 @@ export function Footer() {
             <Link href="/cookies" className="hover:text-emerald-700">Cookies</Link>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 fhd:gap-5">
             <div className="relative">
               <select
                 aria-label="Seleccionar idioma"
-                className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 shadow-sm focus:outline-none"
+                className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm fhd:text-base text-gray-800 shadow-sm focus:outline-none"
                 defaultValue="es"
               >
                 <option value="es">Español</option>
@@ -168,13 +168,13 @@ function FooterColumn({
 }) {
   return (
     <nav className={`min-w-[12rem] ${className}`} aria-label={title}>
-      <h3 className="text-sm font-semibold tracking-wide text-gray-900">{title}</h3>
+      <h3 className="text-sm fhd:text-base font-semibold tracking-wide text-gray-900">{title}</h3>
       <ul className="mt-4 space-y-3">
         {items.map((item) => (
           <li key={item.label}>
             <Link
               href={item.href}
-              className="text-sm text-gray-600 transition hover:text-emerald-700"
+              className="text-sm fhd:text-base text-gray-600 transition hover:text-emerald-700"
             >
               {item.label}
             </Link>

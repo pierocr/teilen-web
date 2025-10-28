@@ -14,8 +14,8 @@
   body {
     color: rgb(var(--fg));
     background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(1,154,87,0.16), transparent 45%),
-      radial-gradient(1000px 500px at 90% -20%, rgba(0,208,132,0.18), transparent 50%),
+      radial-gradient(clamp(1000px, 55vw, 1800px) clamp(520px, 32vw, 900px) at 10% -10%, rgba(1,154,87,0.16), transparent 45%),
+      radial-gradient(clamp(900px, 45vw, 1600px) clamp(460px, 28vw, 820px) at 90% -20%, rgba(0,208,132,0.18), transparent 50%),
       #ffffff;
   }
 
@@ -147,6 +147,12 @@
     border-radius:0 0 14px 14px;
     box-shadow: 0 1px 0 rgba(255,255,255,.04) inset;
     z-index: 2;
+  }
+
+  @media (min-width: 1920px) {
+    .device-frame{ width: min(100%, 300px); }
+    .phone-frame{ padding: .9rem; }
+    .btn-primary{ padding: 0.85rem 1.6rem; font-size: 1rem; }
   }
 
   /* ¡Ajuste clave! Radio interior EXACTO y fill 100% */
