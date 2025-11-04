@@ -33,7 +33,7 @@ const CARDS: Card[] = [
     balance: "$600.000",
     img: "/demo/card-2.jpg",
     chipLabel: "Vuelo",
-    chipRight: "+$1.200.000",
+    chipRight: "-$1.200.000",
     chipSub: "Hoy, 11:28",
     emoji: "✈️",
   },
@@ -42,7 +42,7 @@ const CARDS: Card[] = [
     currency: "CLP",
     balance: "$7.350",
     img: "/demo/card-3.jpg",
-    chipLabel: "Cafeteria Providencia",
+    chipLabel: "Cafetería Providencia",
     chipRight: "−$25.000",
     chipSub: "Vie, 16:45",
     emoji: "☕",
@@ -55,10 +55,10 @@ export default function AnimatedStats() {
       {/* Header */}
       <div className="mx-auto max-w-3xl text-center">
         <h2 className="text-3xl md:text-5xl fhd:text-6xl font-bold tracking-tight text-gray-900">
-          Tu dinero compartido, reinventado
+          Manejar tu dinero, nunca fue tan fácil. 
         </h2>
         <p className="mt-3 text-gray-600 md:text-lg fhd:text-xl">
-          Organiza grupos, divide gastos y mira cómo todo se liquida sin fricción. 
+          Organiza grupos, divide y controla tus gastos y ordena tus finanzas en un solo lugar.
           Esto es Teilen: simple, transparente y pensado para tu día a día.
         </p>
         <div className="mt-6">

@@ -79,7 +79,7 @@ export function Footer() {
               </a>
 
               <a
-                href="#"
+                href="https://play.google.com/store/apps/details?id=com.pierocr.teilenapp"
                 aria-label="Obtener en Google Play"
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"

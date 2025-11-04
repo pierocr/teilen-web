@@ -119,10 +119,10 @@ export default function Page() {
       <section id="screens" className="scroll-mt-24">
         <AppScreens
           images={[
-            "/screens/home.png",
-            "/screens/grupos.png",
-            "/screens/gasto.png",
-            "/screens/actividad.png",
+            "/screens/home.jpg",
+            "/screens/grupos.jpg",
+            "/screens/gasto.jpg",
+            "/screens/actividad.jpg",
           ]}
         />
       </section>

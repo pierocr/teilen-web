@@ -27,7 +27,7 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: "Nuevo · IA"
+    pill: ""
   },
   {
     id: "pay",
@@ -45,7 +45,7 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: "MP · Transferencias"
+    pill: ""
   },
   {
     id: "rules",
@@ -80,16 +80,32 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: "Anti-drama"
+    pill: ""
   },
   {
-    id: "multi",
-    title: "Multi-moneda",
-    desc: "Soporte UF/CLP y conversión inteligente.",
+    id: "personal",
+    title: "Control de gastos personales",
+    desc: "Presupuesta tus gastos, clasifica compras y recibe alertas inteligentes.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <circle
+          cx="12"
+          cy="12"
+          r="8"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
         <path
-          d="M12 3v18M4 8h8M4 16h8M12 8h8M12 16h8"
+          d="M12 7v5l3.5 2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8 14.5l-2.5 2.5"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"

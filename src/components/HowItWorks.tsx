@@ -5,12 +5,12 @@ import Image from "next/image";
 const steps = [
   {
     title: "Crea tu grupo",
-    desc: "Invita a tus amigos o familiares a unirse a tu grupo mediante un enlace o código único.",
+    desc: "Invita a tus amigos o familiares a unirse a tu grupo mediante un enlace o código QR.",
     img: "/images/how-group.png",
   },
   {
     title: "Agrega tus gastos",
-    desc: "Elige quien pago y dividelo de distintas formas: igual, porcentual o personalizado",
+    desc: "Elige quién pagó y divídelo de distintas formas: igual, porcentual o personalizada.",
     img: "/images/how-scan.png",
   },
   {
@@ -31,7 +31,7 @@ export function HowItWorks() {
           ¿Cómo funciona?
         </h2>
         <p className="mt-4 text-gray-600 text-lg fhd:text-xl">
-          Todo lo que necesitas para dividir sin drama — rápido, visual y transparente.
+          Todo lo que necesitas para dividir sin complicaciones.
         </p>
       </div>
 
