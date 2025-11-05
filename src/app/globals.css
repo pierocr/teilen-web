@@ -62,7 +62,9 @@
   /* Marco tipo iPhone 14/15 – limpio y profesional */
   .device-frame{
     position: relative;
-    width: min(100%, 260px);
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
     aspect-ratio: 9/19.5;
     border-radius: 2rem;
     background: linear-gradient(180deg,#0b0b0b,#171717);
@@ -94,6 +96,21 @@
     right: -3px; top: 25%;
     width: 4px; height: 56px; border-radius: 3px;
     background: linear-gradient(180deg,#0c0c0c,#1a1a1a);
+  }
+
+  /* Mejor adaptación móvil para pantallas pequeñas */
+  @media (max-width: 640px) {
+    .device-frame {
+      max-width: 180px;
+      padding: 8px;
+    }
+    .device-notch {
+      height: 16px;
+    }
+    .device-buttons {
+      width: 3px;
+      height: 44px;
+    }
   }
 
   /* Mejor legibilidad sobre foto sin poner barra */
