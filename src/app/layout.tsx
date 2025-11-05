@@ -57,10 +57,10 @@ export const metadata: Metadata = {
       {
         url: "/teilen-og.png",
         secureUrl: "https://www.teilen.cl/teilen-og.png",
-        width: 1024,
-        height: 1024,
+        width: 1200,
+        height: 630,
         type: "image/png",
-        alt: "Personas usando Teilen para dividir la cuenta",
+        alt: "Teilen - Divide gastos compartidos sin drama",
       },
     ],
   },
