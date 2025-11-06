@@ -64,7 +64,7 @@ export function Footer() {
             {/* Badges de tiendas */}
             <div className="mt-6 flex flex-wrap items-center gap-3 fhd:gap-4">
               <a
-                href="#"
+                href="https://apps.apple.com/cl/app/teilen/id6754208104"
                 aria-label="Descargar en App Store"
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"

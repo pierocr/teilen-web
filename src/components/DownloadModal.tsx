@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -82,17 +83,33 @@ export function DownloadModal({ open, onClose }: Props) {
 
         <div className="flex items-center justify-center gap-2">
           <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-200">
-            Beta cerrada
+            Beta cerrada en Android
           </span>
         </div>
 
         <h2 className="mt-4 text-center text-2xl md:text-3xl fhd:text-4xl font-semibold">
-          La app aún está en beta privada
+          La app para Android sigue en beta privada
         </h2>
         <p className="mt-2 text-center text-sm md:text-base text-black/70 leading-6">
-          Estamos terminando los últimos ajustes. Déjanos tu correo y te avisamos
-          en cuanto puedas descargar Teilen.
+          Estamos afinando los últimos detalles en Android, pero si tienes iPhone ya puedes disfrutar de Teilen.
         </p>
+
+        <div className="mt-4 flex justify-center">
+          <a
+            href="https://apps.apple.com/cl/app/teilen/id6754208104"
+            aria-label="Descargar en App Store"
+            className="inline-flex overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
+            rel="noopener"
+          >
+            <Image
+              src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+              alt="Disponible en App Store"
+              width={180}
+              height={48}
+              className="h-12 w-auto"
+            />
+          </a>
+        </div>
 
         {/* Lista de espera */}
         <div className="mt-6 rounded-2xl border border-black/10 bg-neutral-50 p-4 fhd:p-5">
@@ -103,7 +120,7 @@ export function DownloadModal({ open, onClose }: Props) {
           ) : (
             <>
               <p className="text-sm fhd:text-base text-black/70 text-center">
-                Déjanos tu correo y te avisamos cuando abramos la descarga.
+                ¿Usas Android? Déjanos tu correo y te avisamos cuando abramos la descarga.
               </p>
 
               {/* Honeypot escondido para bots */}
