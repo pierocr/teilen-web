@@ -47,8 +47,8 @@ const faqs: FAQ[] = [
   {
     question: "¿En qué plataformas está disponible?",
     answer: [
-      "Estamos desarrollando las apps para iOS y Android. Además puedes acceder a la versión web desde el navegador.",
-      "Suscríbete en la app para recibir las invitaciones beta y las novedades de lanzamiento oficial.",
+      "Teilen está disponible en iOS y Android. Descarga la app desde App Store o Google Play y sincroniza tus grupos en segundos.",
+      "También puedes acceder desde el navegador si prefieres revisar tus saldos en pantalla grande.",
     ],
   },
   {

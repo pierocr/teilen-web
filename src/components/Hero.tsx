@@ -17,11 +17,22 @@ type Tx = {
 };
 
 const txs: Tx[] = [
+  { emoji: "💼", nombre: "Pago cliente", fecha: "Hoy, 09:10", amount: +280000 },
+  { emoji: "💳", nombre: "Transferencia roomie", fecha: "Hoy, 08:20", amount: +120000 },
   { emoji: "🍽️", nombre: "Restaurante", fecha: "Hoy, 12:40", amount: -58490 },
   { emoji: "🛒", nombre: "Supermercado", fecha: "Ayer, 19:05", amount: -129990 },
   { emoji: "🏢", nombre: "Gastos comunes", fecha: "Lun, 09:10", amount: -95000 },
   { emoji: "💰", nombre: "Reembolso grupo", fecha: "Dom, 18:22", amount: +45000 },
+  { emoji: "🚗", nombre: "Carsharing", fecha: "Dom, 17:30", amount: -42000 },
+  { emoji: "🎟️", nombre: "Entradas concierto", fecha: "Sáb, 21:30", amount: -68000 },
 ];
+
+const CARD_BASE_BALANCE = 1175880;
+const BALANCE_LIMIT = 10_000_000;
+const INITIAL_BALANCE = CARD_BASE_BALANCE + txs[0].amount;
+
+const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 
 const formatoCLP = (v: number) =>
   new Intl.NumberFormat("es-CL", {
@@ -32,10 +43,6 @@ const formatoCLP = (v: number) =>
 
 export function Hero() {
   const [open, setOpen] = useState(false);
-
-  const saldoBase = 300000;
-  const totalTx = useMemo<number>(() => txs.reduce((acc, t) => acc + t.amount, 0), []);
-  const saldo = saldoBase + totalTx;
 
   const overlayStyle = useMemo(
     () => ({
@@ -143,36 +150,54 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-8 fhd:mt-10 flex flex-wrap items-center gap-3 fhd:gap-4"
         >
+          <a
+            href={APP_STORE_URL}
+            aria-label="Descargar Teilen en App Store"
+            className="inline-flex overflow-hidden rounded-2xl border border-white/30 bg-white/10 p-1 shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200"
+            rel="noopener"
+          >
+            <Image
+              src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+              alt="Disponible en App Store"
+              width={180}
+              height={48}
+              className="h-12 w-auto"
+            />
+          </a>
+          <a
+            href={PLAY_STORE_URL}
+            aria-label="Descargar Teilen en Google Play"
+            className="inline-flex overflow-hidden rounded-2xl border border-white/30 bg-white/10 p-1 shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200"
+            rel="noopener"
+          >
+            <Image
+              src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
+              alt="Disponible en Google Play"
+              width={194}
+              height={58}
+              className="h-12 w-auto"
+            />
+          </a>
           <button
             onClick={() => setOpen(true)}
-            className="btn-shine rounded-xl px-5 py-3 shadow"
-            style={{ backgroundColor: "#019a57", color: "white" }}
+            className="rounded-2xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5"
           >
-            Descargar la app
+            Ver experiencia teilen
           </button>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.25 }}
-          className="mt-14 w-full max-w-xl fhd:max-w-2xl rounded-3xl p-6 fhd:p-8 shadow-soft"
-          style={{
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(22px)",
-            background: "rgba(255,255,255,0.50)",
-            border: "1px solid rgba(255,255,255,0.45)",
-          }}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-3 text-[11px] uppercase tracking-[0.35em] text-white/70"
         >
-          <div className="text-sm text-black/60">Cuenta • Personal</div>
-          <div className="mt-2 text-5xl font-semibold">{formatoCLP(saldo)}</div>
+          Disponible en Chile y el mundo
+        </motion.p>
 
-          <div className="mt-5 space-y-3">
-            {txs.map((t, idx) => (
-              <GastoRow key={idx} {...t} />
-            ))}
-          </div>
-        </motion.div>
+        <div className="mt-14">
+          <AnimatedTxCard />
+        </div>
       </div>
 
       <DownloadModal open={open} onClose={() => setOpen(false)} />
@@ -180,27 +205,101 @@ export function Hero() {
   );
 }
 
-function GastoRow({ emoji, nombre, fecha, amount }: Tx) {
-  const esPositivo = amount > 0;
-  const color = esPositivo ? "#019a57" : "#ef4444";
-  const signo = esPositivo ? "+ " : "- ";
-  const valorAbs = Math.abs(amount);
+function AnimatedTxCard() {
+  const reduceMotion = useReducedMotion();
+  const [state, setState] = useState({ pointer: 0, balance: INITIAL_BALANCE });
+  const pointer = state.pointer;
+  const balance = state.balance;
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setInterval(() => {
+      setState((prev) => {
+        const nextPointer = (prev.pointer + 1) % txs.length;
+        const nextBalance = prev.balance + txs[nextPointer].amount;
+        if (Math.abs(nextBalance) > BALANCE_LIMIT) {
+          return { pointer: 0, balance: INITIAL_BALANCE };
+        }
+        return { pointer: nextPointer, balance: nextBalance };
+      });
+    }, 2400);
+    return () => clearInterval(id);
+  }, [reduceMotion]);
+
+  const orderedTxs = useMemo(() => {
+    if (reduceMotion) return txs;
+    return Array.from({ length: txs.length }, (_, idx) => txs[(pointer + idx) % txs.length]);
+  }, [pointer, reduceMotion]);
 
   return (
-    <div className="rounded-2xl bg-white/95 px-4 py-3 flex items-center justify-between shadow border border-black/5">
-      <div className="flex items-center gap-3">
-        <div className="text-xl" aria-hidden>
-          {emoji}
-        </div>
-        <div>
-          <div className="font-medium leading-none">{nombre}</div>
-          <div className="text-xs text-black/60">{fecha}</div>
-        </div>
-      </div>
-      <div className="font-semibold" style={{ color }}>
-        {signo}
-        {formatoCLP(valorAbs)}
-      </div>
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="mx-auto w-full max-w-md rounded-[36px] border border-white/30 bg-white/85 px-6 py-6 text-slate-900 shadow-[0_25px_80px_rgba(15,23,42,0.45)] backdrop-blur lg:mx-0 lg:max-w-xl"
+      style={{
+        backgroundImage:
+          "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(228,242,238,0.9) 70%)",
+      }}
+    >
+      <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Cuenta · Personal</p>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.p
+          key={`${pointer}-${balance}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.35 }}
+          className="mt-2 text-5xl font-semibold"
+        >
+          {formatoCLP(balance)}
+        </motion.p>
+      </AnimatePresence>
+
+      <motion.ul layout className="mt-6 space-y-3.5">
+        {orderedTxs.slice(0, 4).map((item, idx) => {
+          const esPositivo = item.amount > 0;
+          const color = esPositivo ? "#019a57" : "#ef4444";
+          const signo = esPositivo ? "+ " : "- ";
+          const valorAbs = Math.abs(item.amount);
+          const isActive = idx === 0 && !reduceMotion;
+
+          return (
+            <motion.li
+              key={`${item.nombre}-${idx}`}
+              layout
+              transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              className={`flex items-center justify-between rounded-[20px] border border-white/60 px-4 py-3 shadow-sm backdrop-blur ${
+                isActive ? "bg-white/95" : "bg-white/85"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="text-2xl" aria-hidden>
+                  {item.emoji}
+                </div>
+                <div>
+                  <p className="text-base font-semibold leading-none">{item.nombre}</p>
+                  <p className="text-[11px] text-slate-500">{item.fecha}</p>
+                </div>
+              </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={`${item.nombre}-${pointer}`}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="text-base font-semibold"
+                  style={{ color }}
+                >
+                  {signo}
+                  {formatoCLP(valorAbs)}
+                </motion.span>
+              </AnimatePresence>
+            </motion.li>
+          );
+        })}
+      </motion.ul>
+    </motion.div>
   );
 }

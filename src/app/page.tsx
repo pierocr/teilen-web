@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Hero } from "@/components/Hero";
 import AnimatedStats from "@/components/AnimatedStats";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -49,6 +50,10 @@ const faqItems = [
       "La app calcula automáticamente quién le debe a quién y te muestra la mejor ruta de pagos para dejar el grupo en cero sin cálculos manuales.",
   },
 ];
+
+const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
+const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 
 export default function Page() {
   const faqStructuredData = {
@@ -128,27 +133,78 @@ export default function Page() {
       </section>
 
       {/* CTA final */}
-{/*       <section className="mx-auto max-w-5xl px-5 pb-24">
-        <div className="rounded-3xl p-10 text-center shadow-soft bg-white/80">
-          <h3 className="text-2xl md:text-3xl font-semibold">
-            ¿Listo para dividir gastos sin drama?
-          </h3>
-          <p className="mt-3 text-black/70">
-            Pronto en iOS y Android. Regístrate para el acceso anticipado.
-          </p>
-
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <a href="#waitlist" className="btn-primary">
-              Unirme a la lista
-            </a>
-            <a href="#features" className="btn-outline hover:bg-black/5">
-              Ver características
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <div className="relative overflow-hidden rounded-[32px] border border-white/70 bg-gradient-to-br from-emerald-500/20 via-white to-teal-100 p-10 text-center shadow-soft">
+          <div
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(1,154,87,0.15),_transparent_55%)]"
+            aria-hidden="true"
+          />
+          <div className="relative z-10">
+            <span className="inline-flex items-center rounded-full bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700 shadow">
+              Descarga Teilen
+            </span>
+            <h3 className="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl">
+              Disponible en iOS y Android para Chile y el mundo
+            </h3>
+            <p className="mt-3 text-base leading-7 text-slate-600 md:text-lg">
+              Lleva la app líder para compartir gastos, dividir pagos y ordenar tus finanzas personales sin importar
+              dónde estés. Gratis, segura y con un diseño listo para tus grupos.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href={APP_STORE_URL}
+                aria-label="Descargar Teilen en App Store"
+                className="inline-flex overflow-hidden rounded-2xl border border-emerald-100 bg-white p-1 shadow transition hover:-translate-y-0.5 hover:border-emerald-400"
+                rel="noopener"
+              >
+                <Image
+                  src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+                  alt="Disponible en App Store"
+                  width={200}
+                  height={60}
+                  className="h-14 w-auto"
+                />
+              </a>
+              <a
+                href={PLAY_STORE_URL}
+                aria-label="Descargar Teilen en Google Play"
+                className="inline-flex overflow-hidden rounded-2xl border border-emerald-100 bg-white p-1 shadow transition hover:-translate-y-0.5 hover:border-emerald-400"
+                rel="noopener"
+              >
+                <Image
+                  src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
+                  alt="Disponible en Google Play"
+                  width={216}
+                  height={64}
+                  className="h-14 w-auto"
+                />
+              </a>
+            </div>
+            <p className="mt-4 text-xs uppercase tracking-[0.35em] text-emerald-700/80">
+              App global para compartir gastos · Sin costo de descarga
+            </p>
+            <a
+              href={UNIVERSAL_DOWNLOAD_URL}
+              className="mx-auto mt-6 flex max-w-lg items-center gap-4 rounded-2xl border border-emerald-100/80 bg-white/80 px-4 py-3 text-left shadow-sm transition hover:border-emerald-300 hover:shadow-md"
+            >
+              <Image
+                src="/qr-download.png"
+                alt="Código QR de descarga universal de Teilen"
+                width={108}
+                height={108}
+                className="h-24 w-24 rounded-xl border border-emerald-50 bg-white p-2"
+              />
+              <div className="text-sm leading-6 text-slate-700">
+                <p className="text-base font-semibold text-slate-900">Escanea con tu cámara</p>
+                <p>Elige el sistema operativo que quieras, nosotros detectamos tu store automáticamente.</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-emerald-600">
+                  {UNIVERSAL_DOWNLOAD_URL.replace("https://", "")}
+                </p>
+              </div>
             </a>
           </div>
         </div>
-      </section> 
-      
-      Agrego esto para hacer un commit*/}
+      </section>
 
       {/* Reseñas */}
       <section className="relative mx-auto max-w-6xl px-5 pb-24 pt-10 fhd:py-28">

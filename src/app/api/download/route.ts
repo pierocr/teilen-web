@@ -10,9 +10,9 @@ export const dynamic = "force-dynamic";
 /**
  * Reemplaza estas URLs por las reales cuando publiques.
  */
-const IOS_APP_STORE = "https://apps.apple.com/app/id0000000000"; // TODO: tu App Store URL
+const IOS_APP_STORE = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const ANDROID_PLAY_STORE =
-  "https://play.google.com/store/apps/details?id=com.tuapp.teilen"; // TODO: tu Play Store URL
+  "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const FALLBACK_LANDING = "/";
 
 /**
