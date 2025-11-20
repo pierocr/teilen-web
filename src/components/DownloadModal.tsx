@@ -147,7 +147,7 @@ export function DownloadModal({ open, onClose }: Props) {
                     className="h-24 w-24 rounded-xl border border-slate-100 bg-white p-2"
                   />
                   <span className="uppercase tracking-[0.25em] text-emerald-600">
-                    Scan
+                    Descarga aqui
                   </span>
                 </a>
               </div>
