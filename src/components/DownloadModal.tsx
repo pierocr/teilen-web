@@ -137,7 +137,7 @@ export function DownloadModal({ open, onClose }: Props) {
 
                 <a
                   href={UNIVERSAL_DOWNLOAD_URL}
-                  className="absolute -bottom-12 right-0 hidden w-40 flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-white/95 p-3 text-center text-xs font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl md:flex"
+                  className="absolute -bottom-12 right-0 flex w-40 flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-white/95 p-3 text-center text-xs font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl"
                 >
                   <Image
                     src="/qr-download.png"

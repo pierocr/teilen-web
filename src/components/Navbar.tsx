@@ -11,10 +11,20 @@ const LINKS = [
   { href: "#screens", label: "Screens" },
 ];
 
+const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
+
+  // Cierre QR con ESC
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && setQrOpen(false);
+    if (qrOpen) window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, [qrOpen]);
 
   // Cierre con ESC
   useEffect(() => {
@@ -62,6 +72,21 @@ export function Navbar() {
 
         {/* Acciones + Burger (siempre a la derecha) */}
         <div className="flex items-center gap-2 fhd:gap-3">
+          <button
+            type="button"
+            className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2 py-1 text-xs font-medium text-gray-700 shadow-sm transition hover:border-emerald-300"
+            onClick={() => setQrOpen(true)}
+            aria-label="Escanea el código QR para descargar"
+          >
+            <Image
+              src="/qr-download.png"
+              alt="QR"
+              width={24}
+              height={24}
+              className="h-6 w-6 rounded bg-white"
+            />
+            <span className="hidden lg:inline">QR</span>
+          </button>
           <button
             type="button"
             className="rounded-full px-3 py-1.5 fhd:px-4 fhd:py-2 text-sm fhd:text-base text-white whitespace-nowrap shadow-sm transition-colors"
@@ -149,6 +174,51 @@ export function Navbar() {
         </div>
       </div>
       <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
+
+      {/* QR Lightbox */}
+      {qrOpen && (
+        <div className="fixed inset-0 z-[100]">
+          <div
+            className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+            onClick={() => setQrOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="relative z-[101] flex min-h-full items-center justify-center p-4">
+            <a
+              href={UNIVERSAL_DOWNLOAD_URL}
+              className="relative flex flex-col items-center gap-4 rounded-3xl border border-white/20 bg-white p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setQrOpen(false);
+                }}
+                aria-label="Cerrar"
+                className="absolute right-3 top-3 rounded-full border border-black/10 px-2.5 py-0.5 text-xs font-medium text-slate-600 transition hover:bg-black/5"
+              >
+                ✕
+              </button>
+              <Image
+                src="/qr-download.png"
+                alt="Código QR para descargar Teilen"
+                width={240}
+                height={240}
+                className="h-60 w-60 rounded-2xl border border-slate-100 bg-white p-3"
+              />
+              <div className="text-center">
+                <p className="text-lg font-semibold text-slate-900">Escanea con tu cámara</p>
+                <p className="mt-1 text-sm text-slate-600">
+                  Detectamos tu sistema automáticamente
+                </p>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-emerald-600">
+                  teilen.cl/api/download
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
