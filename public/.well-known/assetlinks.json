@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.pierocr.teilenapp",
+    "sha256_cert_fingerprints": [
+      "65:17:AA:A0:21:A2:EB:37:02:4A:65:B4:4C:5D:EE:93:E0:CF:6D:46:33:38:27:60:52:D1:CC:8F:59:68:6B:A0"
+    ]
+  }
+}]

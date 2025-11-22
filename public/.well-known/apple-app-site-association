@@ -1,0 +1,9 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [{
+      "appID": "W677QVPZ4F.com.pierocr.teilenapp",
+      "paths": ["/invite/*", "/invite"]
+    }]
+  }
+}
