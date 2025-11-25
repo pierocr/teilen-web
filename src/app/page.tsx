@@ -185,19 +185,19 @@ export default function Page() {
             </p>
             <a
               href={UNIVERSAL_DOWNLOAD_URL}
-              className="mx-auto mt-6 flex max-w-lg items-center gap-4 rounded-2xl border border-emerald-100/80 bg-white/80 px-4 py-3 text-left shadow-sm transition hover:border-emerald-300 hover:shadow-md"
+              className="mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 rounded-2xl border border-emerald-100/80 bg-white/90 px-4 py-4 text-left shadow-sm transition hover:border-emerald-300 hover:shadow-md sm:max-w-2xl sm:flex-row sm:items-center sm:gap-5"
             >
               <Image
                 src="/qr-download.png"
                 alt="Código QR de descarga universal de Teilen"
                 width={108}
                 height={108}
-                className="h-24 w-24 rounded-xl border border-emerald-50 bg-white p-2"
+                className="h-24 w-24 flex-shrink-0 rounded-xl border border-emerald-50 bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
               />
-              <div className="text-sm leading-6 text-slate-700">
-                <p className="text-base font-semibold text-slate-900">Escanea con tu cámara</p>
+              <div className="space-y-1 text-sm leading-6 text-slate-700 sm:space-y-1.5">
+                <p className="text-base font-semibold text-slate-900 sm:text-lg">Escanea con tu cámara</p>
                 <p>Elige el sistema operativo que quieras, nosotros detectamos tu store automáticamente.</p>
-                <p className="text-xs uppercase tracking-[0.3em] text-emerald-600">
+                <p className="text-xs uppercase tracking-[0.25em] text-emerald-600 break-all sm:break-normal sm:tracking-[0.35em]">
                   {UNIVERSAL_DOWNLOAD_URL.replace("https://", "")}
                 </p>
               </div>
