@@ -19,3 +19,5 @@ export default function InvitePage({ searchParams }: { searchParams: SearchParam
 
   redirect(`/referral${suffix}`);
 }
+
+export const runtime = "edge";
