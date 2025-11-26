@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,9 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pieroc
 const UNIVERSAL_DOWNLOAD_URL = "/api/download";
 const APP_SCHEME = "teilen://referral";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function detectPlatform(userAgent: string) {
   const ua = userAgent.toLowerCase();
   if (/iphone|ipad|ipod|ios/.test(ua)) return "ios";
@@ -17,7 +20,7 @@ function detectPlatform(userAgent: string) {
   return "other";
 }
 
-export default function ReferralPage() {
+function ReferralContent() {
   const searchParams = useSearchParams();
 
   const code = useMemo(() => {
@@ -140,5 +143,13 @@ export default function ReferralPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ReferralPage() {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-white" />}>
+      <ReferralContent />
+    </Suspense>
   );
 }
