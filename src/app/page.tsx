@@ -1,10 +1,35 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { Hero } from "@/components/Hero";
-import AnimatedStats from "@/components/AnimatedStats";
-import { HowItWorks } from "@/components/HowItWorks";
-import { AppScreens } from "@/components/AppScreens";
-import FeaturesShowcase from "@/components/FeaturesShowcase";
-import Footer from "@/components/Footer"; // ⬅️ nuevo
+import { StatsLoading } from "@/components/skeletons/StatsLoading";
+import { FeaturesLoading } from "@/components/skeletons/FeaturesLoading";
+import { HowItWorksLoading } from "@/components/skeletons/HowItWorksLoading";
+import { howToSchema, aggregateRatingSchema } from "@/lib/schema";
+
+// Code splitting: componentes below-fold se cargan cuando son necesarios
+const AnimatedStats = dynamic(() => import("@/components/AnimatedStats"), {
+  loading: () => <StatsLoading />,
+  ssr: true,
+});
+
+const FeaturesShowcase = dynamic(() => import("@/components/FeaturesShowcase"), {
+  loading: () => <FeaturesLoading />,
+  ssr: true,
+});
+
+const HowItWorks = dynamic(() => import("@/components/HowItWorks").then(mod => ({ default: mod.HowItWorks })), {
+  loading: () => <HowItWorksLoading />,
+  ssr: true,
+});
+
+const AppScreens = dynamic(() => import("@/components/AppScreens").then(mod => ({ default: mod.AppScreens })), {
+  ssr: true,
+});
+
+const Footer = dynamic(() => import("@/components/Footer"), {
+  ssr: true,
+});
 
 const testimonials = [
   {
@@ -76,17 +101,29 @@ export default function Page() {
 
       {/* Métricas */}
       <section className="mx-auto max-w-6xl px-5 py-16 fhd:py-20">
-        <AnimatedStats />
+        <Suspense fallback={<StatsLoading />}>
+          <AnimatedStats />
+        </Suspense>
       </section>
 
       {/* Cómo funciona */}
       <section id="how" className="scroll-mt-24">
-        <HowItWorks />
+        <Suspense fallback={<HowItWorksLoading />}>
+          <HowItWorks />
+        </Suspense>
+
+        {/* HowTo Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
       </section>
 
       {/* Características — versión moderna con mockup + animaciones CSS */}
       <section id="features" className="scroll-mt-24">
-        <FeaturesShowcase />
+        <Suspense fallback={<FeaturesLoading />}>
+          <FeaturesShowcase />
+        </Suspense>
       </section>
 
       {/* FAQ para snippet enriquecido */}
@@ -256,6 +293,12 @@ export default function Page() {
             ))}
           </div>
         </div>
+
+        {/* AggregateRating Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
+        />
       </section>
 
       {/* Footer global */}

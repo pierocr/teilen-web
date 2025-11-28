@@ -119,7 +119,9 @@ const FEATURES: Feature[] = [
 
 export default function FeaturesShowcase() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [inView, setInView] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -132,6 +134,23 @@ export default function FeaturesShowcase() {
       { threshold: 0.2 }
     );
     io.observe(rootRef.current);
+    return () => io.disconnect();
+  }, []);
+
+  // Lazy load video only when it's near viewport
+  useEffect(() => {
+    if (!videoRef.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setShouldLoadVideo(true);
+          }
+        });
+      },
+      { rootMargin: '100px' } // Start loading 100px before visible
+    );
+    io.observe(videoRef.current);
     return () => io.disconnect();
   }, []);
 
@@ -170,16 +189,19 @@ export default function FeaturesShowcase() {
         {/* Left: sticky phone/video */}
         <div className="relative lg:sticky lg:top-28">
           <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px] fhd:w-[320px]">
-            {/* Reemplaza src por tu archivo en /public o /app */}
-            {/* Coloca el mp4 en public/videos/teilen-demo.mp4 */}
             <video
+              ref={videoRef}
               className="phone-screen"
-              src="/videos/teilen-demo.mp4"
+              {...(shouldLoadVideo && { src: "/videos/teilen-demo.mp4" })}
               autoPlay
               muted
               loop
               playsInline
-            />
+              preload="none"
+              aria-label="Demo de la aplicación Teilen"
+            >
+              Tu navegador no soporta video HTML5.
+            </video>
             {/* brillo sobre la pantalla */}
             <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] ring-1 ring-black/10 shadow-2xl" />
           </div>

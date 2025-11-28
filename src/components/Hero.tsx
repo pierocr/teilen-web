@@ -92,11 +92,13 @@ export function Hero() {
       <Navbar />
 
       <Image
-        src="/hero.jpg"
+        src="/hero.webp"
         alt="Personas compartiendo una comida mientras coordinan gastos con Teilen en sus teléfonos"
         width={2400}
         height={1400}
         priority
+        quality={85}
+        sizes="100vw"
         className="absolute inset-0 h-full w-full object-cover object-center"
         onError={handleImageError}
       />

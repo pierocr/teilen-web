@@ -6,17 +6,17 @@ const steps = [
   {
     title: "Crea tu grupo",
     desc: "Invita a tus amigos o familiares a unirse a tu grupo mediante un enlace o código QR.",
-    img: "/images/how-group.png",
+    img: "/images/how-group.webp",
   },
   {
     title: "Agrega tus gastos",
     desc: "Elige quién pagó y divídelo de distintas formas: igual, porcentual o personalizada.",
-    img: "/images/how-scan.png",
+    img: "/images/how-scan.webp",
   },
   {
     title: "Notificación de todos tus gastos",
     desc: "Cada vez que realices un gasto, todos los miembros del grupo serán notificados al instante.",
-    img: "/images/how-pay.png",
+    img: "/images/how-pay.webp",
   },
 ];
 

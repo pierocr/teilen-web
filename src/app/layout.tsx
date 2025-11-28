@@ -3,11 +3,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
+import { Toaster } from "@/components/Toaster";
+import { MobileCTA } from "@/components/MobileCTA";
+import { PWAInstaller } from "@/components/PWAInstaller";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700"], // Reduced from 5 to 3 weights for better performance
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -40,9 +44,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/logo_teilen.png", type: "image/png", sizes: "192x192" },
+      { url: "/logo_teilen.webp", type: "image/webp", sizes: "192x192" },
     ],
-    apple: [{ url: "/logo_teilen.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/logo_teilen.webp", sizes: "180x180", type: "image/webp" }],
   },
 
   openGraph: {
@@ -84,6 +88,24 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+
+  // PWA Configuration
+  manifest: "/manifest.json",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#019a57" },
+    { media: "(prefers-color-scheme: dark)", color: "#019a57" },
+  ],
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Teilen",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 const GA_MEASUREMENT_ID = "G-KZ0R9BG6N5";
@@ -98,7 +120,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Teilen",
     url: "https://www.teilen.cl",
-    logo: "https://www.teilen.cl/logo_teilen.png",
+    logo: "https://www.teilen.cl/logo_teilen.webp",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
       "Teilen es la plataforma para dividir gastos, coordinar finanzas grupales y saldar cuentas sin fricción.",
@@ -168,6 +190,10 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${font.className} min-h-dvh antialiased`}>
+        {/* Skip to main content for keyboard users */}
+        <a href="#main-content" className="skip-link">
+          Saltar al contenido principal
+        </a>
         {/* OJO: ya no ponemos <Navbar /> aquí */}
         <script
           type="application/ld+json"
@@ -181,8 +207,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(appStructuredData) }}
         />
-        <main>{children}</main>
-        {/* Si tienes <Footer />, déjalo aquí debajo */}
+        <main id="main-content">{children}</main>
+        <MobileCTA />
+        <Toaster />
+        <PWAInstaller />
       </body>
     </html>
   );
