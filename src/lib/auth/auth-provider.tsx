@@ -250,6 +250,6 @@ function clearToken() {
 function normalizeUser(data: AuthUser): AuthUser {
   return {
     ...data,
-    nombre: data.nombre ?? (data as any).nombreCompleto ?? null,
+    nombre: data.nombre ?? data.nombreCompleto ?? null,
   };
 }

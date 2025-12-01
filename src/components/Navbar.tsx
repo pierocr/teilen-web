@@ -12,7 +12,7 @@ const LINKS = [
 ];
 
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
-const SHOW_LOGIN = (process.env.NEXT_PUBLIC_SHOW_LOGIN_CTA ?? "true").toLowerCase() !== "false";
+const SHOW_LOGIN = (process.env.NEXT_PUBLIC_SHOW_LOGIN_CTA ?? "false").toLowerCase() !== "false";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
