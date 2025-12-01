@@ -7,6 +7,8 @@ import { useGrupos } from "@/lib/grupos/useGrupos";
 import { useGastos } from "@/lib/gastos/useGastos";
 import { cn } from "@/lib/utils";
 
+export const runtime = 'edge';
+
 export default function GrupoDetallePage() {
   const params = useParams();
   const router = useRouter();
