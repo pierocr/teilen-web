@@ -117,7 +117,7 @@ export default function PersonalesPage() {
         {loading && (
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-sm">Cargando movimientos...</div>
         )}
-        {!loading && !error && (resumen?.resumen || resumen?.transacciones)?.length === 0 && (
+        {!loading && !error && resumen?.transacciones?.length === 0 && (
           <div className="rounded-xl border border-dashed border-slate-200 bg-white p-6 text-sm text-slate-600 shadow-sm">
             No hay movimientos en este mes.
           </div>

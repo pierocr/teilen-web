@@ -59,10 +59,6 @@ export default function CuentaPage() {
           <Field label="Nombre" value={perfil.nombre || "-"} />
           <Field label="Correo" value={perfil.correo} />
           <Field label="Teléfono" value={perfil.telefono || "-"} />
-          <Field label="Ciudad" value={perfil.ciudad || "-"} />
-          <Field label="País" value={perfil.pais || "-"} />
-          <Field label="Bio" value={perfil.bio || "-"} />
-          <Field label="Fecha de nacimiento" value={perfil.fecha_nacimiento || "-"} />
         </div>
       ) : (
         <div className="rounded-xl border border-dashed border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-sm">

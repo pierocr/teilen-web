@@ -28,28 +28,18 @@ export function PrivateLayoutShell({ children }: PropsWithChildren) {
               Teilen · Área privada
             </Link>
             <nav className="hidden gap-3 text-sm text-slate-600 md:flex">
-              {nav.map((item) =>
-                item.disabled ? (
-                  <span
-                    key={item.label}
-                    className="rounded-md px-3 py-2 text-slate-400"
-                    title="Próximas fases"
-                  >
-                    {item.label}
-                  </span>
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={cn(
-                      "rounded-md px-3 py-2 font-medium hover:bg-emerald-50 hover:text-emerald-700",
-                      pathname === item.href ? "bg-emerald-50 text-emerald-700" : ""
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              )}
+              {nav.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    "rounded-md px-3 py-2 font-medium hover:bg-emerald-50 hover:text-emerald-700",
+                    pathname === item.href ? "bg-emerald-50 text-emerald-700" : ""
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
           <div className="flex items-center gap-3">
