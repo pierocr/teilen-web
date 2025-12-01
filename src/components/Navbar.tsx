@@ -12,6 +12,7 @@ const LINKS = [
 ];
 
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
+const SHOW_LOGIN = (process.env.NEXT_PUBLIC_SHOW_LOGIN_CTA ?? "true").toLowerCase() !== "false";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -95,6 +96,14 @@ export function Navbar() {
           >
             Descargar app
           </button>
+          {SHOW_LOGIN && (
+            <Link
+              href="/login"
+              className="hidden md:inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-emerald-700"
+            >
+              Iniciar sesión
+            </Link>
+          )}
 
           {/* Burger solo en mobile */}
           <button
@@ -159,6 +168,15 @@ export function Navbar() {
           </ul>
 
           <div className="mt-6 border-t pt-4 flex flex-col gap-2">
+            {SHOW_LOGIN && (
+              <Link
+                href="/login"
+                className="rounded-full bg-emerald-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-emerald-700"
+                onClick={() => setOpen(false)}
+              >
+                Iniciar sesión
+              </Link>
+            )}
             <button
               type="button"
               className="rounded-full px-4 py-2 text-white text-center shadow-sm transition-colors"

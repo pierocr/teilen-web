@@ -22,9 +22,16 @@ export default function NotFound() {
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             href="/"
-            className="px-6 py-3 bg-brand text-white rounded-2xl font-semibold hover:bg-brand-dark transition shadow-soft inline-block"
+            className="px-6 py-3 rounded-2xl border border-slate-200 bg-white text-slate-800 font-semibold hover:border-emerald-200 transition shadow"
           >
             Volver al inicio
+          </Link>
+
+          <Link
+            href="/login"
+            className="px-6 py-3 border-2 border-emerald-500 text-emerald-700 rounded-2xl font-semibold hover:bg-emerald-50 transition inline-block"
+          >
+            Iniciar sesión web
           </Link>
 
           <Link

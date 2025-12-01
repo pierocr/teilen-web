@@ -1,0 +1,176 @@
+├── public/
+│   ├── demo/
+│   │   ├── card-1.jpg (2689.2 KB)
+│   │   ├── card-1.webp (174.5 KB)
+│   │   ├── card-2.jpg (905.3 KB)
+│   │   ├── card-2.webp (201.1 KB)
+│   │   ├── card-3.jpg (1702.4 KB)
+│   │   └── card-3.webp (198.9 KB)
+│   ├── icons/
+│   │   ├── apple-icon-180.png (5.9 KB)
+│   │   ├── apple-splash-1125-2436.jpg (24.4 KB)
+│   │   ├── apple-splash-1136-640.jpg (7.0 KB)
+│   │   ├── apple-splash-1170-2532.jpg (26.2 KB)
+│   │   ├── apple-splash-1179-2556.jpg (26.3 KB)
+│   │   ├── apple-splash-1206-2622.jpg (27.7 KB)
+│   │   ├── apple-splash-1242-2208.jpg (25.1 KB)
+│   │   ├── apple-splash-1242-2688.jpg (28.5 KB)
+│   │   ├── apple-splash-1260-2736.jpg (29.4 KB)
+│   │   ├── apple-splash-1284-2778.jpg (30.2 KB)
+│   │   ├── apple-splash-1290-2796.jpg (30.1 KB)
+│   │   ├── apple-splash-1320-2868.jpg (31.4 KB)
+│   │   ├── apple-splash-1334-750.jpg (8.8 KB)
+│   │   ├── apple-splash-1488-2266.jpg (30.1 KB)
+│   │   ├── apple-splash-1536-2048.jpg (29.3 KB)
+│   │   ├── apple-splash-1620-2160.jpg (32.0 KB)
+│   │   ├── apple-splash-1640-2360.jpg (34.5 KB)
+│   │   ├── apple-splash-1668-2224.jpg (33.9 KB)
+│   │   ├── apple-splash-1668-2388.jpg (35.4 KB)
+│   │   ├── apple-splash-1792-828.jpg (10.5 KB)
+│   │   ├── apple-splash-2048-1536.jpg (26.6 KB)
+│   │   ├── apple-splash-2048-2732.jpg (47.1 KB)
+│   │   ├── apple-splash-2160-1620.jpg (29.9 KB)
+│   │   ├── apple-splash-2208-1242.jpg (20.3 KB)
+│   │   ├── apple-splash-2224-1668.jpg (31.0 KB)
+│   │   ├── apple-splash-2266-1488.jpg (27.0 KB)
+│   │   ├── apple-splash-2360-1640.jpg (30.7 KB)
+│   │   ├── apple-splash-2388-1668.jpg (32.2 KB)
+│   │   ├── apple-splash-2436-1125.jpg (18.5 KB)
+│   │   ├── apple-splash-2532-1170.jpg (19.7 KB)
+│   │   ├── apple-splash-2556-1179.jpg (19.7 KB)
+│   │   ├── apple-splash-2622-1206.jpg (20.8 KB)
+│   │   ├── apple-splash-2688-1242.jpg (21.8 KB)
+│   │   ├── apple-splash-2732-2048.jpg (43.5 KB)
+│   │   ├── apple-splash-2736-1260.jpg (22.4 KB)
+│   │   ├── apple-splash-2778-1284.jpg (23.4 KB)
+│   │   ├── apple-splash-2796-1290.jpg (23.5 KB)
+│   │   ├── apple-splash-2868-1320.jpg (24.6 KB)
+│   │   ├── apple-splash-640-1136.jpg (9.0 KB)
+│   │   ├── apple-splash-750-1334.jpg (11.5 KB)
+│   │   ├── apple-splash-828-1792.jpg (14.6 KB)
+│   │   ├── manifest-icon-192.maskable.png (6.6 KB)
+│   │   └── manifest-icon-512.maskable.png (27.5 KB)
+│   ├── images/
+│   │   ├── how-group.png (1574.2 KB)
+│   │   ├── how-group.webp (102.1 KB)
+│   │   ├── how-pay.png (1061.3 KB)
+│   │   ├── how-pay.webp (39.1 KB)
+│   │   ├── how-scan.png (361.8 KB)
+│   │   ├── how-scan.webp (33.1 KB)
+│   │   ├── people-sharing.jpg (328.7 KB)
+│   │   └── people-sharing.webp (195.9 KB)
+│   ├── screens/
+│   │   ├── actividad.jpg (309.8 KB)
+│   │   ├── gasto.jpg (391.2 KB)
+│   │   ├── grupos.jpg (527.4 KB)
+│   │   └── home.jpg (579.7 KB)
+│   ├── videos/
+│   │   └── teilen-demo.mp4 (4115.8 KB)
+│   ├── _headers (0.1 KB)
+│   ├── Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg (11.7 KB)
+│   ├── file.svg (0.4 KB)
+│   ├── GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png (5.2 KB)
+│   ├── globe.svg (1.0 KB)
+│   ├── hero.jpg (1552.8 KB)
+│   ├── hero.webp (218.1 KB)
+│   ├── logo_mail.png (90.9 KB)
+│   ├── logo_teilen.png (1402.5 KB)
+│   ├── logo_teilen.webp (93.6 KB)
+│   ├── manifest.json (2.5 KB)
+│   ├── next.svg (1.3 KB)
+│   ├── qr-download.png (1.3 KB)
+│   ├── sw.js (2.2 KB)
+│   ├── teilen-og.png (685.6 KB)
+│   ├── teilen-og2.png (1402.5 KB)
+│   ├── vercel.svg (0.1 KB)
+│   └── window.svg (0.4 KB)
+├── scripts/
+├── src/
+│   ├── app/
+│   │   ├── [locale]/
+│   │   │   ├── centro-de-ayuda/
+│   │   │   ├── contacto/
+│   │   │   ├── cookies/
+│   │   │   ├── preguntas-frecuentes/
+│   │   │   ├── privacidad/
+│   │   │   └── terminos/
+│   │   ├── api/
+│   │   │   ├── contact/
+│   │   │   │   └── route.ts (1.1 KB)
+│   │   │   ├── download/
+│   │   │   │   └── route.ts (1.4 KB)
+│   │   │   ├── waitlist/
+│   │   │   │   └── route.ts (8.5 KB)
+│   │   ├── centro-de-ayuda/
+│   │   │   └── page.tsx (7.0 KB)
+│   │   ├── contacto/
+│   │   │   └── page.tsx (6.0 KB)
+│   │   ├── cookies/
+│   │   │   └── page.tsx (6.7 KB)
+│   │   ├── invite/
+│   │   │   └── page.tsx (0.6 KB)
+│   │   ├── preguntas-frecuentes/
+│   │   │   └── page.tsx (5.7 KB)
+│   │   ├── privacidad/
+│   │   │   └── page.tsx (10.6 KB)
+│   │   ├── referral/
+│   │   │   ├── page.tsx (0.2 KB)
+│   │   │   └── ReferralClient.tsx (12.4 KB)
+│   │   ├── terminos/
+│   │   │   └── page.tsx (9.0 KB)
+│   │   ├── error.tsx (2.3 KB)
+│   │   ├── favicon.ico (15.0 KB)
+│   │   ├── globals.css (7.7 KB)
+│   │   ├── layout.tsx (6.1 KB)
+│   │   ├── loading.tsx (1.2 KB)
+│   │   ├── not-found.tsx (2.0 KB)
+│   │   ├── page.tsx (12.8 KB)
+│   │   ├── robots.ts (0.3 KB)
+│   │   └── sitemap.ts (0.5 KB)
+│   ├── components/
+│   │   ├── skeletons/
+│   │   │   ├── FeaturesLoading.tsx (1.4 KB)
+│   │   │   ├── HowItWorksLoading.tsx (1.0 KB)
+│   │   │   └── StatsLoading.tsx (0.8 KB)
+│   │   ├── AnimatedStats.tsx (5.3 KB)
+│   │   ├── AppDemo.tsx (9.2 KB)
+│   │   ├── AppScreens.tsx (1.6 KB)
+│   │   ├── ContactForm.tsx (4.5 KB)
+│   │   ├── DownloadBadges.tsx (0.4 KB)
+│   │   ├── DownloadModal.tsx (6.9 KB)
+│   │   ├── ExpenseCalculator.tsx (10.1 KB)
+│   │   ├── Feature.tsx (0.8 KB)
+│   │   ├── FeaturesShowcase.tsx (8.3 KB)
+│   │   ├── Footer.tsx (8.7 KB)
+│   │   ├── Hero.tsx (11.0 KB)
+│   │   ├── HowItWorks.tsx (2.3 KB)
+│   │   ├── MobileCTA.tsx (1.0 KB)
+│   │   ├── Navbar.tsx (7.8 KB)
+│   │   ├── PWAInstaller.tsx (0.8 KB)
+│   │   ├── ScrollFold.tsx (1.5 KB)
+│   │   └── Toaster.tsx (0.2 KB)
+│   ├── emails/
+│   │   └── WaitlistJoin.tsx (6.6 KB)
+│   ├── i18n/
+│   ├── lib/
+│   │   ├── analytics.ts (1.0 KB)
+│   │   ├── schema.ts (2.6 KB)
+│   │   ├── utils.ts (0.1 KB)
+│   │   └── validations.ts (0.5 KB)
+│   ├── messages/
+│   │   ├── de/
+│   │   ├── en/
+│   │   └── es/
+├── eslint.config.mjs (0.5 KB)
+├── IMPLEMENTATION_SUMMARY.md (14.1 KB)
+├── next-env.d.ts (0.3 KB)
+├── next.config.ts (0.4 KB)
+├── og-image-template.html (4.2 KB)
+├── package-lock.json (218.9 KB)
+├── package.json (0.9 KB)
+├── postcss.config.mjs (0.1 KB)
+├── project-structure.txt (0.6 KB)
+├── PWA_ICONS_SETUP.md (4.0 KB)
+├── README.md (1.4 KB)
+├── tailwind.config.ts (0.7 KB)
+└── tsconfig.json (0.7 KB)

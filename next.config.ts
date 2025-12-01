@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      // { protocol: "https", hostname: "TU-CDN.com" },
+      // Avatares/portadas servidas desde Supabase Storage
+      { protocol: "https", hostname: "**.supabase.co" },
     ],
     // unoptimized: true, // solo si lo necesitas en Cloudflare Pages
   },
