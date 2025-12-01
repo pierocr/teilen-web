@@ -4,7 +4,6 @@ import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "@/components/Toaster";
-import { MobileCTA } from "@/components/MobileCTA";
 import { PWAInstaller } from "@/components/PWAInstaller";
 
 const font = Plus_Jakarta_Sans({
@@ -208,7 +207,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(appStructuredData) }}
         />
         <main id="main-content">{children}</main>
-        <MobileCTA />
         <Toaster />
         <PWAInstaller />
       </body>
