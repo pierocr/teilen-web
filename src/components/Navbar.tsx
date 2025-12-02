@@ -47,10 +47,10 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo_teilen.png"
+            src="/logo_teilen_navidad.png"
             alt="Teilen"
-            width={36}
-            height={36}
+            width={40}
+            height={40}
             priority
             className="rounded-sm"
           />

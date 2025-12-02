@@ -95,7 +95,7 @@ function ReferralContent() {
       await navigator.clipboard.writeText(code);
       toast.success("Código copiado al portapapeles");
       trackEvent("referral_code_copied", { code });
-    } catch (error) {
+    } catch {
       toast.error("No se pudo copiar el código");
     }
   };
@@ -168,7 +168,7 @@ function ReferralContent() {
             )}
           </div>
           <p className="text-sm text-slate-600">
-            Compártelo o presiona "Abrir app". Si aún no tienes Teilen, instala y vuelve: el código se mantiene.
+            Compártelo o presiona &ldquo;Abrir app&rdquo;. Si aún no tienes Teilen, instala y vuelve: el código se mantiene.
           </p>
         </div>
 

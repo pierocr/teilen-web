@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Navbar } from "./Navbar";

@@ -79,7 +79,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       try {
         setStatus("checking");
         await applySession(currentToken, session?.user);
-      } catch (_err) {
+      } catch {
         clearToken();
         setUser(null);
         setStatus("unauthenticated");

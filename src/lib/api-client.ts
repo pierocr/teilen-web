@@ -17,7 +17,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   const data = await safeParseJSON(res);
 
   if (!res.ok) {
-    const message = (data as any)?.error || res.statusText || "Error en la solicitud";
+    const message = (data as { error?: string })?.error || res.statusText || "Error en la solicitud";
     throw new Error(message);
   }
   return data as T;
@@ -26,7 +26,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
 async function safeParseJSON(res: Response) {
   try {
     return await res.json();
-  } catch (_err) {
+  } catch {
     return null;
   }
 }

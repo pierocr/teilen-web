@@ -37,7 +37,7 @@ export function ContactForm() {
         const error = await response.json()
         toast.error(error.error || 'Error al enviar el mensaje')
       }
-    } catch (error) {
+    } catch {
       toast.error('Error de conexión. Verifica tu internet')
     } finally {
       setIsSubmitting(false)

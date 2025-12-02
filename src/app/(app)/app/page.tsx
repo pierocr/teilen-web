@@ -133,10 +133,6 @@ function StatCard({ title, value, loading, emphasized, positive, negative }: Sta
   );
 }
 
-function formatCurrency(value: number) {
-  return formatClp(value || 0);
-}
-
 function BalanceBar({ debes, teDeben, loading }: { debes: number; teDeben: number; loading: boolean }) {
   const total = Math.max(debes, 0) + Math.max(teDeben, 0);
   const debesPct = total > 0 ? (debes / total) * 100 : 0;

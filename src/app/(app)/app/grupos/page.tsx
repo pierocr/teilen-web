@@ -177,7 +177,3 @@ function BadgeDeuda({ neto }: { neto: number }) {
     </span>
   );
 }
-
-function formatCurrency(value: number) {
-  return formatClp(value || 0);
-}

@@ -5,7 +5,6 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useGrupos } from "@/lib/grupos/useGrupos";
 import { useGastos } from "@/lib/gastos/useGastos";
-import { cn } from "@/lib/utils";
 
 export const runtime = 'edge';
 

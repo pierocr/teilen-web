@@ -1,10 +1,8 @@
 "use client";
 
 import { useAmigos } from "@/lib/amigos/useAmigos";
-import { useAuth } from "@/lib/auth/auth-provider";
 
 export default function AmigosPage() {
-  const { user } = useAuth();
   const { amigos, loading, error, refresh } = useAmigos();
 
   return (

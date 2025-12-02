@@ -152,7 +152,7 @@ export function ExpenseCalculator() {
           </div>
 
           <div className="space-y-3">
-            {splits.map((participant, index) => (
+            {splits.map((participant) => (
               <div
                 key={participant.id}
                 className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100"
