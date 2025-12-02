@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.teilen.cl",
     siteName: "Teilen",
-    title: "Teilen | Divide gastos compartidos sin drama",
+    title: "Teilen | Divide gastos compartidos sin drama con amigos",
     description:
       "Organiza grupos, registra gastos y liquida saldos al instante. Teilen simplifica las finanzas compartidas desde el primer registro.",
     locale: "es_CL",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen | Divide gastos compartidos sin drama",
+    title: "Teilen | Divide gastos compartidos sin drama con amigos",
     description:
       "La app para dividir cuentas, automatizar reembolsos y mantener presupuestos grupales claros.",
     images: ["/teilen-og.png"],
