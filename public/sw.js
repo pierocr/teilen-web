@@ -6,7 +6,7 @@ const RUNTIME_CACHE = 'teilen-runtime'
 const PRECACHE_ASSETS = [
   '/',
   '/hero.webp',
-  '/teilen-og.png',
+  '/teilen-og.webp',
   '/favicon.ico',
 ]
 

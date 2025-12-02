@@ -58,12 +58,12 @@ export const metadata: Metadata = {
     locale: "es_CL",
     images: [
       {
-        url: "/teilen-og.png",
-        secureUrl: "https://www.teilen.cl/teilen-og.png",
+        url: "/teilen-og.webp",
+        secureUrl: "https://www.teilen.cl/teilen-og.webp",
         width: 1200,
         height: 630,
-        type: "image/png",
-        alt: "Teilen - Divide gastos compartidos sin drama",
+        type: "image/webp",
+        alt: "Teilen - Divide gastos compartidos sin drama con amigos",
       },
     ],
   },
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "Teilen | Divide gastos compartidos sin drama con amigos",
     description:
       "La app para dividir cuentas, automatizar reembolsos y mantener presupuestos grupales claros.",
-    images: ["/teilen-og.png"],
+    images: ["/teilen-og.webp"],
   },
 
   robots: {

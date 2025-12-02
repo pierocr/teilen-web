@@ -5,7 +5,7 @@ export const howToSchema = {
   "@type": "HowTo",
   "name": "Cómo usar Teilen para dividir gastos compartidos",
   "description": "Guía paso a paso para gestionar gastos compartidos con amigos, roommates o familia usando Teilen",
-  "image": "https://www.teilen.cl/teilen-og.png",
+  "image": "https://www.teilen.cl/teilen-og.webp",
   "totalTime": "PT5M",
   "estimatedCost": {
     "@type": "MonetaryAmount",
