@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
@@ -90,10 +90,6 @@ export const metadata: Metadata = {
 
   // PWA Configuration
   manifest: "/manifest.json",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#019a57" },
-    { media: "(prefers-color-scheme: dark)", color: "#019a57" },
-  ],
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -105,6 +101,13 @@ export const metadata: Metadata = {
   other: {
     "mobile-web-app-capable": "yes",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#019a57" },
+    { media: "(prefers-color-scheme: dark)", color: "#019a57" },
+  ],
 };
 
 const GA_MEASUREMENT_ID = "G-KZ0R9BG6N5";

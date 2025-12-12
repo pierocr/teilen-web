@@ -50,7 +50,7 @@ export function Footer() {
                 alt="Teilen"
                 width={120}
                 height={40}
-                className="h-10 w-auto select-none"
+                className="h-10 w-[120px] select-none"
                 priority={false}
               />
               <span className="sr-only">Teilen</span>
@@ -74,7 +74,7 @@ export function Footer() {
                   alt="Disponible en App Store"
                   width={180}
                   height={48}
-                  className="h-12 w-auto"
+                  className="h-12 w-[180px]"
                 />
               </a>
 
@@ -89,7 +89,7 @@ export function Footer() {
                   alt="Disponible en Google Play"
                   width={180}
                   height={48}
-                  className="h-12 w-auto"
+                  className="h-12 w-[180px]"
                 />
               </a>
             </div>

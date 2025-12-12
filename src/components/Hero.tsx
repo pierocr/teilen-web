@@ -163,7 +163,7 @@ export function Hero() {
               alt="Disponible en App Store"
               width={180}
               height={48}
-              className="h-12 w-auto"
+              className="h-12 w-[180px]"
             />
           </a>
           <a
@@ -177,7 +177,7 @@ export function Hero() {
               alt="Disponible en Google Play"
               width={194}
               height={58}
-              className="h-12 w-auto"
+              className="h-[58px] w-[194px]"
             />
           </a>
           <button

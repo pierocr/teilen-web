@@ -95,7 +95,7 @@ export function DownloadModal({ open, onClose }: Props) {
                     alt="Disponible en App Store"
                     width={190}
                     height={56}
-                    className="h-14 w-auto"
+                    className="h-[56px] w-[190px]"
                   />
                 </a>
                 <a
@@ -109,7 +109,7 @@ export function DownloadModal({ open, onClose }: Props) {
                     alt="Disponible en Google Play"
                     width={204}
                     height={60}
-                    className="h-14 w-auto"
+                    className="h-[60px] w-[204px]"
                   />
                 </a>
               </div>

@@ -52,7 +52,7 @@ export function Navbar() {
             width={40}
             height={40}
             priority
-            className="rounded-sm"
+            className="h-10 w-10 rounded-sm"
           />
           <span className="hidden sm:block text-lg font-semibold">Teilen</span>
         </Link>

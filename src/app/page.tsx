@@ -199,7 +199,7 @@ export default function Page() {
                   alt="Disponible en App Store"
                   width={200}
                   height={60}
-                  className="h-14 w-auto"
+                  className="h-[60px] w-[200px]"
                 />
               </a>
               <a
@@ -213,7 +213,7 @@ export default function Page() {
                   alt="Disponible en Google Play"
                   width={216}
                   height={64}
-                  className="h-14 w-auto"
+                  className="h-[64px] w-[216px]"
                 />
               </a>
             </div>

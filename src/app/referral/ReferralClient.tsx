@@ -247,7 +247,7 @@ function ReferralContent() {
               alt="Disponible en App Store"
               width={200}
               height={60}
-              className="h-12 w-auto"
+              className="h-[60px] w-[200px]"
             />
           </Link>
           <Link
@@ -261,7 +261,7 @@ function ReferralContent() {
               alt="Disponible en Google Play"
               width={216}
               height={64}
-              className="h-12 w-auto"
+              className="h-[64px] w-[216px]"
             />
           </Link>
         </div>
