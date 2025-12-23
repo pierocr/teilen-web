@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
@@ -9,37 +8,42 @@ import { PWAInstaller } from "@/components/PWAInstaller";
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "600", "700"], // Reduced from 5 to 3 weights for better performance
+  weight: ["400", "600", "700"],
   preload: true,
 });
 
 export const metadata: Metadata = {
-  // Base para que las URLs relativas (como la imagen OG) se resuelvan absolutas
   metadataBase: new URL("https://www.teilen.cl"),
 
   applicationName: "Teilen",
+
   title: {
-    default: "Teilen | Divide gastos compartidos sin drama",
-    template: "%s · Teilen",
+    default: "Teilen – Dividir cuentas es fácil",
+    template: "%s | Teilen",
   },
+
   description:
-    "Teilen es la app para dividir gastos compartidos, ordenar presupuestos y saldar cuentas con amigos, pareja o roomies en segundos.",
+    "Divide gastos compartidos, ordena presupuestos y salda cuentas fácilmente con amigos, pareja o roomies. Teilen hace dividir cuentas simple y sin drama.",
+
   keywords: [
     "dividir gastos",
-    "app dividir cuentas",
-    "app finanzas en pareja",
+    "dividir cuentas",
+    "app gastos compartidos",
+    "finanzas en pareja",
     "gastos entre amigos",
     "app para roomies",
-    "balanza de gastos",
     "control de gastos grupales",
   ],
+
   category: "finance",
   authors: [{ name: "Teilen", url: "https://www.teilen.cl" }],
   creator: "Teilen",
   publisher: "Teilen",
+
   alternates: {
     canonical: "/",
   },
+
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -52,9 +56,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.teilen.cl",
     siteName: "Teilen",
-    title: "Teilen | Divide gastos compartidos sin drama con amigos",
+    title: "Teilen – Dividir cuentas es fácil",
     description:
-      "Organiza grupos, registra gastos y liquida saldos al instante. Teilen simplifica las finanzas compartidas desde el primer registro.",
+      "Organiza gastos, salda cuentas y mantén tus finanzas compartidas claras desde el primer día con Teilen.",
     locale: "es_CL",
     images: [
       {
@@ -63,16 +67,16 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/webp",
-        alt: "Teilen - Divide gastos compartidos sin drama con amigos",
+        alt: "Teilen – Dividir cuentas es fácil",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen | Divide gastos compartidos sin drama con amigos",
+    title: "Teilen – Dividir cuentas es fácil",
     description:
-      "La app para dividir cuentas, automatizar reembolsos y mantener presupuestos grupales claros.",
+      "La app para dividir gastos compartidos, automatizar saldos y organizar finanzas en grupo.",
     images: ["/teilen-og.webp"],
   },
 
@@ -88,18 +92,22 @@ export const metadata: Metadata = {
     },
   },
 
-  // PWA Configuration
   manifest: "/manifest.json",
+
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "Teilen",
   },
+
   formatDetection: {
     telephone: false,
   },
+
   other: {
     "mobile-web-app-capable": "yes",
+    "application-name": "Teilen",
+    "apple-mobile-web-app-title": "Teilen",
   },
 };
 
@@ -117,7 +125,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const structuredData = {
+  const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Teilen",
@@ -125,7 +133,7 @@ export default function RootLayout({
     logo: "https://www.teilen.cl/logo_teilen.webp",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
-      "Teilen es la plataforma para dividir gastos, coordinar finanzas grupales y saldar cuentas sin fricción.",
+      "Teilen es la plataforma para dividir gastos, coordinar finanzas compartidas y saldar cuentas sin fricción.",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -140,10 +148,12 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Teilen",
+    alternateName: "Teilen – Dividir cuentas es fácil",
     url: "https://www.teilen.cl",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://www.google.com/search?q=site:teilen.cl+{search_term_string}",
+      target:
+        "https://www.google.com/search?q=site:teilen.cl+{search_term_string}",
       "query-input": "required name=search_term_string",
     },
   };
@@ -163,11 +173,6 @@ export default function RootLayout({
     description:
       "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y saldar cuentas de forma transparente.",
     inLanguage: "es",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "126",
-    },
     publisher: {
       "@type": "Organization",
       name: "Teilen",
@@ -192,23 +197,29 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${font.className} min-h-dvh antialiased`}>
-        {/* Skip to main content for keyboard users */}
         <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
-        {/* OJO: ya no ponemos <Navbar /> aquí */}
+
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationStructuredData),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteStructuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteStructuredData),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(appStructuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(appStructuredData),
+          }}
         />
+
         <main id="main-content">{children}</main>
         <Toaster />
         <PWAInstaller />
