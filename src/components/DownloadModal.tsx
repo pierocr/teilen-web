@@ -93,9 +93,9 @@ export function DownloadModal({ open, onClose }: Props) {
                   <Image
                     src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
                     alt="Disponible en App Store"
-                    width={190}
-                    height={56}
-                    className="h-[56px] w-[190px]"
+                    width={174}
+                    height={58}
+                    className="h-[58px] w-[174px]"
                   />
                 </a>
                 <a
@@ -107,9 +107,9 @@ export function DownloadModal({ open, onClose }: Props) {
                   <Image
                     src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
                     alt="Disponible en Google Play"
-                    width={204}
-                    height={60}
-                    className="h-[60px] w-[204px]"
+                    width={196}
+                    height={58}
+                    className="h-[58px] w-[196px]"
                   />
                 </a>
               </div>

@@ -2,9 +2,64 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { useState } from "react";
 
 export function Footer() {
   const year = new Date().getFullYear();
+
+  const useCases: {
+    title: string;
+    description: string;
+    bullets: string[];
+  }[] = [
+    {
+      title: "Para parejas",
+      description: "Lleven el control sin mezclarlo con las finanzas personales.",
+      bullets: [
+        "Crea un grupo “Nosotros” y registra arriendo, súper y suscripciones.",
+        "Divide gastos al 50/50 o con porcentajes distintos según ingresos.",
+        "Ve saldos claros y liquida con un clic sin perder el historial.",
+      ],
+    },
+    {
+      title: "Vacaciones en grupo",
+      description: "Organiza viajes sin pelear por quién pagó qué.",
+      bullets: [
+        "Grupo “Viaje a Medellín”: sube vuelos, Airbnb y traslados.",
+        "Define cuotas iguales o por persona (ej. alguien se queda menos días).",
+        "Recibe un saldo único por cada integrante para cerrar el viaje.",
+      ],
+    },
+    {
+      title: "Compañeros de piso",
+      description: "Arriendo, cuentas y compras comunes siempre equilibradas.",
+      bullets: [
+        "Gastos fijos (luz, agua, internet) y variables (limpieza, insumos).",
+        "Asigna quién pagó y cuánto le toca a cada roomie.",
+        "Liquidación mensual automática con recordatorios claros.",
+      ],
+    },
+    {
+      title: "Cuentas de restaurante",
+      description: "Evita la calculadora grupal y los cobros cruzados.",
+      bullets: [
+        "Saca foto del total y reparte por persona o por ítem.",
+        "Incluye propina e impuestos sin perder proporciones.",
+        "Recibe QR/links para que cada quien pague su parte al instante.",
+      ],
+    },
+    {
+      title: "Freelancers",
+      description: "Separa gastos del proyecto y cobra sin confusión.",
+      bullets: [
+        "Crea un proyecto y registra gastos reembolsables y tus honorarios.",
+        "Adjunta recibos y marca qué corresponde cobrar al cliente.",
+        "Genera un saldo consolidado para enviar en tu factura.",
+      ],
+    },
+  ];
+
+  const [activeCase, setActiveCase] = useState<typeof useCases[number] | null>(null);
 
   const nav = {
     producto: [
@@ -14,13 +69,7 @@ export function Footer() {
       { label: "Divide gastos de grupo", href: "#" },
       { label: "Tarjeta virtual gratis", href: "#" },
     ],
-    casos: [
-      { label: "Para parejas", href: "#" },
-      { label: "Vacaciones en grupo", href: "#" },
-      { label: "Compañeros de piso", href: "#" },
-      { label: "Cuentas de restaurante", href: "#" },
-      { label: "Freelancers", href: "#" },
-    ],
+    casos: useCases.map(({ title }) => ({ label: title, href: "#" })),
     ayuda: [
       { label: "Centro de ayuda", href: "/centro-de-ayuda" },
       { label: "Contáctanos", href: "/contacto" },
@@ -72,9 +121,9 @@ export function Footer() {
                 <Image
                   src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
                   alt="Disponible en App Store"
-                  width={180}
-                  height={48}
-                  className="h-12 w-[180px]"
+                  width={174}
+                  height={58}
+                  className="h-[58px] w-[174px]"
                 />
               </a>
 
@@ -87,9 +136,9 @@ export function Footer() {
                 <Image
                   src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
                   alt="Disponible en Google Play"
-                  width={180}
-                  height={48}
-                  className="h-12 w-[180px]"
+                  width={196}
+                  height={58}
+                  className="h-[58px] w-[196px]"
                 />
               </a>
             </div>
@@ -116,7 +165,15 @@ export function Footer() {
           </div>
 
           <FooterColumn title="Producto" items={nav.producto} className="lg:col-span-2" />
-          <FooterColumn title="Casos de uso" items={nav.casos} className="lg:col-span-2" />
+          <UseCasesColumn
+            title="Casos de uso"
+            items={useCases}
+            className="lg:col-span-2"
+            onSelect={(title) => {
+              const match = useCases.find((c) => c.title === title);
+              if (match) setActiveCase(match);
+            }}
+          />
           <FooterColumn title="Ayuda" items={nav.ayuda} className="lg:col-span-2" />
           <FooterColumn title="Empresa" items={nav.empresa} className="lg:col-span-2" />
         </div>
@@ -151,6 +208,63 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {activeCase && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-black/50 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="use-case-title"
+        >
+          <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-gray-200">
+            <div className="flex items-start justify-between gap-4 px-5 py-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Caso de uso</p>
+                <h3 id="use-case-title" className="mt-1 text-2xl font-semibold text-gray-900">
+                  {activeCase.title}
+                </h3>
+                <p className="mt-1 text-sm text-gray-600">{activeCase.description}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveCase(null)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition hover:text-gray-800 hover:border-gray-300"
+                aria-label="Cerrar"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="px-5 pb-5">
+              <ul className="space-y-2.5 text-sm text-gray-700">
+                {activeCase.bullets.map((bullet) => (
+                  <li key={bullet} className="flex gap-3">
+                    <span className="mt-0.5 inline-flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-emerald-500" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => setActiveCase(null)}
+                  className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
+                >
+                  Empezar con este caso
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveCase(null)}
+                  className="inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-gray-300"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
@@ -178,6 +292,37 @@ function FooterColumn({
             >
               {item.label}
             </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function UseCasesColumn({
+  title,
+  items,
+  className = "",
+  onSelect,
+}: {
+  title: string;
+  items: { title: string; description: string; bullets: string[] }[];
+  className?: string;
+  onSelect: (title: string) => void;
+}) {
+  return (
+    <nav className={`min-w-[12rem] ${className}`} aria-label={title}>
+      <h3 className="text-sm fhd:text-base font-semibold tracking-wide text-gray-900">{title}</h3>
+      <ul className="mt-4 space-y-3">
+        {items.map((item) => (
+          <li key={item.title}>
+            <button
+              type="button"
+              onClick={() => onSelect(item.title)}
+              className="text-left text-sm fhd:text-base text-gray-600 transition hover:text-emerald-700"
+            >
+              {item.title}
+            </button>
           </li>
         ))}
       </ul>
