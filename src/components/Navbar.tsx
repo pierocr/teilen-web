@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { DownloadModal } from "./DownloadModal";
 
 const LINKS = [
+  { href: "/premium", label: "Premium" },
   { href: "#how", label: "Cómo funciona" },
   { href: "#features", label: "Características" },
   { href: "#screens", label: "Screens" },
@@ -61,12 +62,21 @@ export function Navbar() {
         <ul className="hidden md:flex items-center justify-center gap-6 text-base fhd:text-lg">
           {LINKS.map((l) => (
             <li key={l.href} className="whitespace-nowrap">
-              <a
-                href={l.href}
-                className="hover:text-gray-700 transition-colors"
-              >
-                {l.label}
-              </a>
+              {l.href.startsWith("/") ? (
+                <Link
+                  href={l.href}
+                  className="hover:text-gray-700 transition-colors"
+                >
+                  {l.label}
+                </Link>
+              ) : (
+                <a
+                  href={l.href}
+                  className="hover:text-gray-700 transition-colors"
+                >
+                  {l.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -156,13 +166,23 @@ export function Navbar() {
           <ul className="flex flex-col gap-3 text-base">
             {LINKS.map((l) => (
               <li key={l.href} className="whitespace-nowrap">
-                <a
-                  href={l.href}
-                  className="block rounded-md px-3 py-2 hover:bg-gray-50"
-                  onClick={() => setOpen(false)}
-                >
-                  {l.label}
-                </a>
+                {l.href.startsWith("/") ? (
+                  <Link
+                    href={l.href}
+                    className="block rounded-md px-3 py-2 hover:bg-gray-50"
+                    onClick={() => setOpen(false)}
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={l.href}
+                    className="block rounded-md px-3 py-2 hover:bg-gray-50"
+                    onClick={() => setOpen(false)}
+                  >
+                    {l.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo } from "react";
 import { useGrupos } from "@/lib/grupos/useGrupos";
 import { cn } from "@/lib/utils";
@@ -74,12 +75,15 @@ export default function GruposPage() {
           >
             <div className="flex items-center gap-3">
               {isValidImageUrl(grupo.imagen) ? (
-                // Usamos <img> directo para evitar bloqueos si el dominio no está permitido
-                <img
+                <Image
                   src={grupo.imagen!}
                   alt={grupo.nombre}
+                  width={48}
+                  height={48}
                   className="h-12 w-12 rounded-xl object-cover"
                   referrerPolicy="no-referrer"
+                  unoptimized
+                  sizes="48px"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}

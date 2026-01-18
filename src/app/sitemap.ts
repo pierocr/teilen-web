@@ -7,6 +7,7 @@ const staticRoutes = [
   "/centro-de-ayuda",
   "/contacto",
   "/cookies",
+  "/premium",
   "/terminos",
   "/privacidad",
   "/preguntas-frecuentes",
