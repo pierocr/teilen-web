@@ -47,7 +47,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo_teilen_navidad.png"
+            src="/logo_teilen.png"
             alt="Teilen"
             width={40}
             height={40}
