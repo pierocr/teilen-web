@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { DownloadModal } from "@/components/DownloadModal";
 
@@ -12,7 +13,7 @@ const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 type Feature = {
   title: string;
   description: string;
-  icon: () => JSX.Element;
+  icon: () => ReactElement;
 };
 
 const features: Feature[] = [
