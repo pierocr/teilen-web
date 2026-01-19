@@ -134,16 +134,22 @@ export function PremiumLanding() {
               <p className="inline-flex items-center gap-2 rounded-full border border-[#f5d67230] bg-[#f5d6721a] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#f5d672]">
                 Oferta lanzamiento
               </p>
-              <div className="flex flex-wrap items-end gap-2 text-4xl font-extrabold leading-none md:text-5xl">
-                <span>$4.990</span>
-                <span className="text-lg font-semibold text-white/70 md:text-xl">/mes</span>
+
+              <div className="flex items-center gap-3 text-sm font-semibold text-white/70">
+                <span className="line-through text-white/50">$4.990/mes</span>
+                <span className="inline-flex items-center rounded-full bg-[#f5d6721f] px-3 py-1 text-[#f5d672]">
+                  -50% por los primeros 3 meses
+                </span>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#f5d6721f] px-3 py-1.5 text-sm font-semibold text-[#f5d672]">
-                <span>-50% oferta lanzamiento</span>
+
+              <div className="flex flex-wrap items-end gap-2 text-5xl font-extrabold leading-none md:text-6xl">
+                <span>$2.495</span>
+                <span className="text-xl font-semibold text-white/70 md:text-2xl">/mes</span>
               </div>
+
               <p className="max-w-xl text-sm leading-7 text-white/70 md:text-base">
                 Disponible solo desde la app. Activa Premium en iOS o Android y lleva tus grupos, reportes y
-                recordatorios sin límites.
+                recordatorios sin límites. Luego $4.990/mes.
               </p>
             </div>
 
