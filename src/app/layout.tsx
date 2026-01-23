@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     locale: "es_CL",
     images: [
       {
-        url: "/teilen-og.webp",
-        secureUrl: "https://www.teilen.cl/teilen-og.webp",
+        url: "/teilen-og2.webp",
+        secureUrl: "https://www.teilen.cl/teilen-og2.webp",
         width: 1200,
         height: 630,
         type: "image/webp",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     title: "Teilen – Dividir cuentas es fácil",
     description:
       "La app para dividir gastos compartidos, automatizar saldos y organizar finanzas en grupo.",
-    images: ["/teilen-og.webp"],
+    images: ["/teilen-og2.webp"],
   },
 
   robots: {
