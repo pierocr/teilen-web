@@ -1,8 +1,6 @@
 
 "use client";
 
-export const runtime = "edge";
-
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";

@@ -1,8 +1,6 @@
 
 "use client";
 
-export const runtime = "edge";
-
 import Image from "next/image";
 import { useMemo } from "react";
 import { useGrupos } from "@/lib/grupos/useGrupos";

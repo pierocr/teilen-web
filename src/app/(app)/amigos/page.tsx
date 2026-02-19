@@ -1,8 +1,6 @@
 
 "use client";
 
-export const runtime = "edge";
-
 import { useAmigos } from "@/lib/amigos/useAmigos";
 
 export default function AmigosPage() {

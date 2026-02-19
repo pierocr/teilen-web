@@ -1,8 +1,6 @@
 
 "use client";
 
-export const runtime = "edge";
-
 import { useActividad } from "@/lib/actividad/useActividad";
 import { formatClp } from "@/lib/number";
 

@@ -1,14 +1,10 @@
-export const runtime = "edge";
-
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
-import { cookies } from "next/headers";
 import { Toaster } from "@/components/Toaster";
 import { PWAInstaller } from "@/components/PWAInstaller";
 import { LanguageProvider } from "@/components/LanguageProvider";
-import { isSupportedLocale, type Locale } from "@/lib/i18n";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -125,14 +121,11 @@ export const viewport: Viewport = {
 
 const GA_MEASUREMENT_ID = "G-KZ0R9BG6N5";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const localeCookie = cookieStore.get("teilen_locale")?.value ?? "es";
-  const initialLocale: Locale = isSupportedLocale(localeCookie) ? localeCookie : "es";
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -205,7 +198,7 @@ export default async function RootLayout({
         </Script>
       </head>
       <body className={`${font.className} min-h-dvh antialiased`}>
-        <LanguageProvider initialLocale={initialLocale}>
+        <LanguageProvider>
           <a href="#main-content" className="skip-link">
             Saltar al contenido principal
           </a>
