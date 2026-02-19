@@ -217,14 +217,9 @@ export default function FeaturesShowcase() {
                     {f.icon}
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-lg font-semibold tracking-tight">
-                        {f.title}
-                      </h3>
-                      {f.pill && (
-                        <span className="badge">{f.pill}</span>
-                      )}
-                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      {f.title}
+                    </h3>
                     <p className="mt-1 text-sm text-slate-600">
                       {f.desc}
                     </p>

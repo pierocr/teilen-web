@@ -165,7 +165,7 @@ export function Hero() {
           </motion.p>
         </div>
 
-        <PhoneShowcase prefersReduce={prefersReduce} className="mt-2 lg:mt-0 lg:justify-self-end lg:translate-x-6" />
+        <PhoneShowcase prefersReduce={!!prefersReduce} className="mt-2 lg:mt-0 lg:justify-self-end lg:translate-x-6" />
       </div>
 
       <DownloadModal open={open} onClose={() => setOpen(false)} />
