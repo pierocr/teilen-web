@@ -1,4 +1,7 @@
+
 "use client";
+
+export const runtime = "edge";
 
 import Image from "next/image";
 import { useMemo } from "react";

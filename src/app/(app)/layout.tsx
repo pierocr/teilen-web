@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { ReactNode } from "react";
 import { AuthProvider } from "@/lib/auth/auth-provider";
 import { AuthGuard } from "@/components/auth/AuthGuard";

@@ -1,4 +1,7 @@
+
 "use client";
+
+export const runtime = "edge";
 
 import { useMemo } from "react";
 import { useAuth } from "@/lib/auth/auth-provider";
