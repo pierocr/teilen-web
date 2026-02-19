@@ -39,3 +39,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 npm run lint - Para revisar el código
 npm run lint:fix - Para auto-corregir problemas
 npm run dev:clean - Para limpiar cache y correr dev
+
+un commit mas
