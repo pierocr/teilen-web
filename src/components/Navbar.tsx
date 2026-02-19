@@ -4,22 +4,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { DownloadModal } from "./DownloadModal";
-
-const LINKS = [
-  { href: "/premium", label: "Premium" },
-  { href: "#how", label: "Cómo funciona" },
-  { href: "#features", label: "Características" },
-  { href: "#screens", label: "Screens" },
-];
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslations } from "./LanguageProvider";
 
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 const SHOW_LOGIN = (process.env.NEXT_PUBLIC_SHOW_LOGIN_CTA ?? "false").toLowerCase() !== "false";
 
 export function Navbar() {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const links = [
+    { href: "/premium", label: t.navbar.links.premium },
+    { href: "#how", label: t.navbar.links.how },
+    { href: "#features", label: t.navbar.links.features },
+    { href: "#screens", label: t.navbar.links.screens },
+  ];
 
   // Cierre QR con ESC
   useEffect(() => {
@@ -42,100 +45,127 @@ export function Navbar() {
     if (open && panelRef.current) panelRef.current.focus();
   }, [open]);
 
+  // Estado visual al hacer scroll
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 14);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-40 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80 text-gray-900">
-      <nav className="mx-auto flex h-16 fhd:h-20 max-w-6xl items-center justify-between px-4 md:px-5 fhd:px-6">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/logo_teilen.png"
-            alt="Teilen"
-            width={40}
-            height={40}
-            priority
-            className="h-10 w-10 rounded-sm"
+    <header className="fixed inset-x-0 top-0 z-40 text-gray-900">
+      <div
+        className={`mx-auto mt-2 max-w-6xl px-3 transition-all duration-300 md:px-4 ${
+          scrolled ? "mt-3" : "mt-2"
+        }`}
+      >
+        <nav
+          className={`relative flex h-16 fhd:h-20 items-center justify-between rounded-2xl border px-4 md:px-5 fhd:px-6 transition-all duration-300 ${
+            scrolled
+              ? "border-white/70 bg-white/92 shadow-[0_12px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl"
+              : "border-white/60 bg-white/84 shadow-[0_8px_28px_rgba(15,23,42,0.12)] backdrop-blur-md"
+          }`}
+        >
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(120deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_48%,rgba(255,255,255,0.55)_100%)]"
+            aria-hidden="true"
           />
-          <span className="hidden sm:block text-lg font-semibold">Teilen</span>
-        </Link>
-
-        {/* Menú desktop */}
-        <ul className="hidden md:flex items-center justify-center gap-6 text-base fhd:text-lg">
-          {LINKS.map((l) => (
-            <li key={l.href} className="whitespace-nowrap">
-              {l.href.startsWith("/") ? (
-                <Link
-                  href={l.href}
-                  className="hover:text-gray-700 transition-colors"
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <a
-                  href={l.href}
-                  className="hover:text-gray-700 transition-colors"
-                >
-                  {l.label}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        {/* Acciones + Burger (siempre a la derecha) */}
-        <div className="flex items-center gap-2 fhd:gap-3">
-          <button
-            type="button"
-            className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2 py-1 text-xs font-medium text-gray-700 shadow-sm transition hover:border-emerald-300"
-            onClick={() => setQrOpen(true)}
-            aria-label="Escanea el código QR para descargar"
-          >
-            <Image
-              src="/qr-download.png"
-              alt="QR"
-              width={24}
-              height={24}
-              className="h-6 w-6 rounded bg-white"
-            />
-            <span className="hidden lg:inline">QR</span>
-          </button>
-          <button
-            type="button"
-            className="rounded-full px-3 py-1.5 fhd:px-4 fhd:py-2 text-sm fhd:text-base text-white whitespace-nowrap shadow-sm transition-colors"
-            style={{ backgroundColor: "#019a57" }}
-            onClick={() => setDownloadOpen(true)}
-          >
-            Descargar app
-          </button>
-          {SHOW_LOGIN && (
-            <Link
-              href="/login"
-              className="hidden md:inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-emerald-700"
-            >
-              Iniciar sesión
+          <div className="relative z-10 flex w-full items-center justify-between">
+        {/* Logo */}
+            <Link href="/" className="flex items-center gap-3">
+              <Image
+                src="/logo_teilen.png"
+                alt="Teilen"
+                width={40}
+                height={40}
+                priority
+                className="h-10 w-10 rounded-lg ring-1 ring-emerald-100"
+              />
+              <span className="hidden text-[30px] font-semibold tracking-tight text-slate-900 sm:block">
+                Teilen
+              </span>
             </Link>
-          )}
 
-          {/* Burger solo en mobile */}
-          <button
-            type="button"
-            className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50"
-            aria-label="Abrir menú"
-            aria-expanded={open}
-            aria-controls="mobile-drawer"
-            onClick={() => setOpen(true)}
-          >
-            {/* Ícono simple */}
-            <span className="sr-only">Abrir menú</span>
-            ☰
-          </button>
-        </div>
-      </nav>
+            {/* Menú desktop */}
+            <ul className="hidden items-center justify-center gap-2 md:flex">
+              {links.map((l) => (
+                <li key={l.href} className="whitespace-nowrap">
+                  {l.href.startsWith("/") ? (
+                    <Link
+                      href={l.href}
+                      className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-lg"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={l.href}
+                      className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-lg"
+                    >
+                      {l.label}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            {/* Acciones + Burger */}
+            <div className="flex items-center gap-2 fhd:gap-3">
+              <LanguageSwitcher className="hidden lg:inline-flex" />
+              <button
+                type="button"
+                className="hidden items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50/30 lg:flex"
+                onClick={() => setQrOpen(true)}
+                aria-label={t.navbar.qrLabel}
+              >
+                <Image
+                  src="/qr-download.png"
+                  alt="QR"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 rounded bg-white"
+                />
+                <span className="hidden xl:inline">{t.navbar.qrShort}</span>
+              </button>
+              <button
+                type="button"
+                className="rounded-full border border-emerald-500/90 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white whitespace-nowrap shadow-[0_10px_24px_rgba(1,154,87,0.35)] transition hover:-translate-y-px hover:bg-emerald-700 fhd:px-5 fhd:py-2.5 fhd:text-base"
+                onClick={() => setDownloadOpen(true)}
+              >
+                {t.navbar.downloadApp}
+              </button>
+              {SHOW_LOGIN && (
+                <Link
+                  href="/login"
+                  className="hidden md:inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-px hover:border-slate-300 hover:text-slate-900"
+                >
+                  {t.navbar.login}
+                </Link>
+              )}
+
+              {/* Burger solo en mobile */}
+              <button
+                type="button"
+                className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-700 hover:bg-slate-50 md:hidden"
+                aria-label={t.navbar.openMenu}
+                aria-expanded={open}
+                aria-controls="mobile-drawer"
+                onClick={() => setOpen(true)}
+              >
+                <span className="sr-only">{t.navbar.openMenu}</span>
+                ☰
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
 
       {/* Overlay clickeable */}
       {open && (
         <button
           className="fixed inset-0 z-40 bg-black/30 md:hidden"
-          aria-label="Cerrar menú"
+          aria-label={t.navbar.closeMenu}
           onClick={() => setOpen(false)}
         />
       )}
@@ -151,11 +181,11 @@ export function Navbar() {
         aria-modal="true"
       >
         <div className="flex items-center justify-between px-4 h-16 border-b">
-          <span className="text-base font-semibold">Menú</span>
+          <span className="text-base font-semibold">{t.navbar.menuTitle}</span>
           <button
             type="button"
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50"
-            aria-label="Cerrar menú"
+            aria-label={t.navbar.closeMenu}
             onClick={() => setOpen(false)}
           >
             ×
@@ -164,7 +194,7 @@ export function Navbar() {
 
         <div className="p-4">
           <ul className="flex flex-col gap-3 text-base">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <li key={l.href} className="whitespace-nowrap">
                 {l.href.startsWith("/") ? (
                   <Link
@@ -187,6 +217,10 @@ export function Navbar() {
             ))}
           </ul>
 
+          <div className="mt-4">
+            <LanguageSwitcher className="w-full" buttonClassName="w-full justify-between" />
+          </div>
+
           <div className="mt-6 border-t pt-4 flex flex-col gap-2">
             {SHOW_LOGIN && (
               <Link
@@ -194,7 +228,7 @@ export function Navbar() {
                 className="rounded-full bg-emerald-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-emerald-700"
                 onClick={() => setOpen(false)}
               >
-                Iniciar sesión
+                {t.navbar.login}
               </Link>
             )}
             <button
@@ -206,7 +240,7 @@ export function Navbar() {
                 setOpen(false);
               }}
             >
-              Descargar app
+              {t.navbar.downloadApp}
             </button>
           </div>
         </div>
@@ -232,7 +266,7 @@ export function Navbar() {
                   e.preventDefault();
                   setQrOpen(false);
                 }}
-                aria-label="Cerrar"
+                aria-label={t.navbar.close}
                 className="absolute right-3 top-3 rounded-full border border-black/10 px-2.5 py-0.5 text-xs font-medium text-slate-600 transition hover:bg-black/5"
               >
                 ✕
@@ -245,10 +279,8 @@ export function Navbar() {
                 className="h-60 w-60 rounded-2xl border border-slate-100 bg-white p-3"
               />
               <div className="text-center">
-                <p className="text-lg font-semibold text-slate-900">Escanea con tu cámara</p>
-                <p className="mt-1 text-sm text-slate-600">
-                  Detectamos tu sistema automáticamente
-                </p>
+                <p className="text-lg font-semibold text-slate-900">{t.navbar.qrTitle}</p>
+                <p className="mt-1 text-sm text-slate-600">{t.navbar.qrDescription}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.3em] text-emerald-600">
                   teilen.cl/api/download
                 </p>

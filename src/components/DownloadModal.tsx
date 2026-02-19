@@ -2,33 +2,22 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
+import { useLocale } from "./LanguageProvider";
+import { getHomeMessages } from "@/lib/home-i18n";
 
 type Props = {
   open: boolean;
   onClose: () => void;
 };
 
-const highlights = [
-  {
-    title: "Balances vivos",
-    description:
-      "Cada abono y gasto se refleja al instante para que nadie pierda de vista el saldo real.",
-  },
-  {
-    title: "Recordatorios humanos",
-    description: "Automatiza avisos amables y evita perseguir a tus amigos por WhatsApp.",
-  },
-  {
-    title: "Pagos ordenados",
-    description: "Calculamos la mejor ruta para liquidar sin transferencias innecesarias.",
-  },
-];
-
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 
 export function DownloadModal({ open, onClose }: Props) {
+  const { locale } = useLocale();
+  const home = getHomeMessages(locale);
+
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     if (open) window.addEventListener("keydown", onEsc);
@@ -49,7 +38,7 @@ export function DownloadModal({ open, onClose }: Props) {
         <div className="relative w-full max-w-5xl rounded-[28px] border border-white/50 bg-white/95 p-5 sm:p-7 lg:p-9 shadow-[0_24px_100px_rgba(15,23,42,0.35)] max-h-[92vh] overflow-y-auto overscroll-contain">
           <button
             onClick={onClose}
-            aria-label="Cerrar"
+            aria-label={home.downloadModal.close}
             className="absolute right-5 top-5 rounded-full border border-black/10 px-3 py-1 text-xs sm:text-sm font-medium text-slate-600 transition hover:bg-black/5"
           >
             ✕
@@ -58,19 +47,18 @@ export function DownloadModal({ open, onClose }: Props) {
           <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-[1.05fr_0.8fr] lg:gap-12">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-800 ring-1 ring-emerald-200">
-                Disponible en iOS y Android
+                {home.downloadModal.badge}
               </span>
 
               <h2 className="mt-5 text-2xl font-bold leading-tight text-slate-900 md:text-3xl lg:text-[34px]">
-                Comparte gastos y ordena tus finanzas personales desde un mismo lugar
+                {home.downloadModal.title}
               </h2>
               <p className="mt-3 text-base leading-7 text-slate-600 md:text-lg">
-                Disfruta Teilen desde Chile hacia el mundo: grupos, viajes, parejas y equipos pueden sincronizar
-                cada movimiento sin depender de hojas de cálculo.
+                {home.downloadModal.description}
               </p>
 
               <ul className="mt-5 space-y-3.5 text-sm leading-6 text-slate-600 md:text-base">
-                {highlights.map((item) => (
+                {home.downloadModal.highlights.map((item) => (
                   <li key={item.title} className="flex gap-3">
                     <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-semibold">
                       ✓
@@ -86,13 +74,13 @@ export function DownloadModal({ open, onClose }: Props) {
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <a
                   href={APP_STORE_URL}
-                  aria-label="Descargar Teilen en App Store"
+                  aria-label={home.stores.appStoreAria}
                   className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
                   rel="noopener"
                 >
                   <Image
                     src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
-                    alt="Disponible en App Store"
+                    alt={home.stores.appStoreAlt}
                     width={174}
                     height={58}
                     className="h-[58px] w-[174px]"
@@ -100,13 +88,13 @@ export function DownloadModal({ open, onClose }: Props) {
                 </a>
                 <a
                   href={PLAY_STORE_URL}
-                  aria-label="Descargar Teilen en Google Play"
+                  aria-label={home.stores.googlePlayAria}
                   className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
                   rel="noopener"
                 >
                   <Image
                     src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
-                    alt="Disponible en Google Play"
+                    alt={home.stores.googlePlayAlt}
                     width={196}
                     height={58}
                     className="h-[58px] w-[196px]"
@@ -114,7 +102,7 @@ export function DownloadModal({ open, onClose }: Props) {
                 </a>
               </div>
               <p className="mt-3 text-xs uppercase tracking-[0.35em] text-slate-400">
-                Chile · Latinoamérica · Resto del mundo
+                {home.downloadModal.markets}
               </p>
             </div>
 
@@ -127,7 +115,7 @@ export function DownloadModal({ open, onClose }: Props) {
                 <div className="rounded-[22px] border border-slate-100 bg-slate-900/5 p-2">
                   <Image
                     src="/screens/home.jpg"
-                    alt="Pantalla principal de Teilen mostrando saldos y grupos"
+                    alt={home.downloadModal.phoneImageAlt}
                     width={900}
                     height={1800}
                     priority={false}
@@ -141,13 +129,13 @@ export function DownloadModal({ open, onClose }: Props) {
                 >
                   <Image
                     src="/qr-download.png"
-                    alt="QR para descargar Teilen"
+                    alt={home.downloadModal.qrAlt}
                     width={120}
                     height={120}
                     className="h-24 w-24 rounded-xl border border-slate-100 bg-white p-2"
                   />
                   <span className="uppercase tracking-[0.25em] text-emerald-600">
-                    Descarga aqui
+                    {home.downloadModal.qrLabel}
                   </span>
                 </a>
               </div>

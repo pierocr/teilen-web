@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "./LanguageProvider";
+import { getHomeMessages } from "@/lib/home-i18n";
 
 type Feature = {
   id: string;
-  title: string;
-  desc: string;
   icon: React.ReactNode;
-  pill?: string;
 };
 
 const FEATURES: Feature[] = [
   {
     id: "scan",
-    title: "Escáner de boletas con IA",
-    desc: "Detecta ítems, impuestos y propinas. Divide en segundos.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
@@ -27,12 +24,9 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: ""
   },
   {
     id: "pay",
-    title: "Pagos simples",
-    desc: "Enlaza tu método favorito y liquida al instante.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
@@ -45,12 +39,9 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: ""
   },
   {
     id: "rules",
-    title: "Grupos & reglas",
-    desc: "Crea grupos, define porcentajes y lleva el historial.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
@@ -66,8 +57,6 @@ const FEATURES: Feature[] = [
   },
   {
     id: "audit",
-    title: "Auditoría en tiempo real",
-    desc: "Transparencia total del quién-pagó-qué y cuándo.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
@@ -80,12 +69,9 @@ const FEATURES: Feature[] = [
         />
       </svg>
     ),
-    pill: ""
   },
   {
     id: "personal",
-    title: "Control de gastos personales",
-    desc: "Presupuesta tus gastos, clasifica compras y recibe alertas inteligentes.",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <circle
@@ -118,10 +104,19 @@ const FEATURES: Feature[] = [
 ];
 
 export default function FeaturesShowcase() {
+  const { locale } = useLocale();
+  const home = getHomeMessages(locale);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [inView, setInView] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const localizedFeatures = FEATURES.map((feature) => ({
+    ...feature,
+    ...(home.features.items.find((item) => item.id === feature.id) ?? {
+      title: feature.id,
+      desc: "",
+    }),
+  }));
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -158,9 +153,8 @@ export default function FeaturesShowcase() {
     <section
       id="caracteristicas"
       ref={rootRef}
-      className="relative mx-auto max-w-7xl px-5 py-24 sm:py-28 fhd:py-32"
+      className="relative mx-auto max-w-6xl px-5 py-20 sm:py-24 fhd:py-28"
     >
-      {/* aurora background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
@@ -168,27 +162,22 @@ export default function FeaturesShowcase() {
         <div className="aurora-gradient absolute left-1/2 top-0 h-[42rem] w-[42rem] -translate-x-1/2 blur-[50px] opacity-60" />
       </div>
 
-      {/* Headline */}
       <div className="mb-10 sm:mb-14">
-        <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur md:text-sm dark:border-white/10 dark:bg-white/5">
-          ✨ Características
-          <span className="ml-1 hidden rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-700 dark:text-emerald-300 sm:inline">
-            estilo Teilen
-          </span>
-        </div>
-        <h2 className="mt-4 text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl fhd:text-6xl">
-          Potentes, pero fáciles.
-          <span className="block text-muted-foreground mt-3 text-lg font-normal sm:text-xl fhd:text-2xl">
-            Todo lo que de verdad usa la gente.
+        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700">
+          {home.features.badge}
+        </span>
+        <h2 className="mt-5 text-balance text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl fhd:text-6xl">
+          {home.features.title}
+          <span className="mt-3 block text-lg font-normal text-slate-600 sm:text-xl fhd:text-2xl">
+            {home.features.subtitle}
           </span>
         </h2>
       </div>
 
-      {/* Layout */}
       <div className="grid items-start gap-10 fhd:gap-12 lg:grid-cols-2">
-        {/* Left: sticky phone/video */}
         <div className="relative lg:sticky lg:top-28">
-          <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px] fhd:w-[320px]">
+          <div className="mx-auto w-fit rounded-[2.8rem] border border-slate-100 bg-white p-4 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+            <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px] fhd:w-[320px]">
             <video
               ref={videoRef}
               className="phone-screen"
@@ -198,38 +187,27 @@ export default function FeaturesShowcase() {
               loop
               playsInline
               preload="none"
-              aria-label="Demo de la aplicación Teilen"
+              aria-label={home.features.videoAriaLabel}
             >
-              Tu navegador no soporta video HTML5.
+              {home.features.unsupportedVideoText}
             </video>
-            {/* brillo sobre la pantalla */}
             <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] ring-1 ring-black/10 shadow-2xl" />
           </div>
-
-          {/* People/photo background hint */}
-          {/* <div className="absolute -right-6 -top-10 -z-10 hidden aspect-[16/10] w-[520px] overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-200/30 to-emerald-500/10 shadow-xl saturate-150 backdrop-blur-sm lg:block">
-            <img
-              src="/images/people-sharing.jpg"
-              alt=""
-              className="h-full w-full object-cover opacity-70"
-            />
-          </div> */}
+          </div>
         </div>
 
-        {/* Right: features list */}
         <ul
           className={`grid gap-4 sm:gap-6 fhd:gap-7`}
-            data-inview={inView ? "true" : "false"}
+          data-inview={inView ? "true" : "false"}
         >
-          {FEATURES.map((f, i) => (
+          {localizedFeatures.map((f, i) => (
             <li
               key={f.id}
               style={{ viewTransitionName: `feat-${f.id}` }}
               className="group relative"
             >
               <div
-                className="card-3d overflow-hidden rounded-3xl border border-black/10 bg-white/80 p-5 shadow-xl backdrop-blur transition-all duration-500
-                           dark:border-white/10 dark:bg-white/5"
+                className="card-3d overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500"
                 style={{
                   transitionDelay: `${i * 70}ms`
                 }}
@@ -247,13 +225,12 @@ export default function FeaturesShowcase() {
                         <span className="badge">{f.pill}</span>
                       )}
                     </div>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1 text-sm text-slate-600">
                       {f.desc}
                     </p>
                   </div>
                 </div>
 
-                {/* glow */}
                 <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100">
                   <div className="absolute -inset-10 animate-pulse-slow bg-[conic-gradient(var(--tw-gradient-stops))] from-emerald-300/20 via-teal-400/10 to-emerald-300/20" />
                 </div>

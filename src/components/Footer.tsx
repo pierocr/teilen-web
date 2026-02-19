@@ -3,84 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslations } from "./LanguageProvider";
 
 export function Footer() {
+  const t = useTranslations();
   const year = new Date().getFullYear();
 
-  const useCases: {
-    title: string;
-    description: string;
-    bullets: string[];
-  }[] = [
-    {
-      title: "Para parejas",
-      description: "Lleven el control sin mezclarlo con las finanzas personales.",
-      bullets: [
-        "Crea un grupo “Nosotros” y registra arriendo, súper y suscripciones.",
-        "Divide gastos al 50/50 o con porcentajes distintos según ingresos.",
-        "Ve saldos claros y liquida con un clic sin perder el historial.",
-      ],
-    },
-    {
-      title: "Vacaciones en grupo",
-      description: "Organiza viajes sin pelear por quién pagó qué.",
-      bullets: [
-        "Grupo “Viaje a Medellín”: sube vuelos, Airbnb y traslados.",
-        "Define cuotas iguales o por persona (ej. alguien se queda menos días).",
-        "Recibe un saldo único por cada integrante para cerrar el viaje.",
-      ],
-    },
-    {
-      title: "Compañeros de piso",
-      description: "Arriendo, cuentas y compras comunes siempre equilibradas.",
-      bullets: [
-        "Gastos fijos (luz, agua, internet) y variables (limpieza, insumos).",
-        "Asigna quién pagó y cuánto le toca a cada roomie.",
-        "Liquidación mensual automática con recordatorios claros.",
-      ],
-    },
-    {
-      title: "Cuentas de restaurante",
-      description: "Evita la calculadora grupal y los cobros cruzados.",
-      bullets: [
-        "Saca foto del total y reparte por persona o por ítem.",
-        "Incluye propina e impuestos sin perder proporciones.",
-        "Recibe QR/links para que cada quien pague su parte al instante.",
-      ],
-    },
-    {
-      title: "Freelancers",
-      description: "Separa gastos del proyecto y cobra sin confusión.",
-      bullets: [
-        "Crea un proyecto y registra gastos reembolsables y tus honorarios.",
-        "Adjunta recibos y marca qué corresponde cobrar al cliente.",
-        "Genera un saldo consolidado para enviar en tu factura.",
-      ],
-    },
-  ];
+  const useCases = t.footer.useCases;
 
   const [activeCase, setActiveCase] = useState<typeof useCases[number] | null>(null);
 
   const nav = {
-    producto: [
-      { label: "Estadísticas claras de gasto", href: "#" },
-      { label: "Solicitudes de pago fáciles", href: "#" },
-      { label: "Seguimiento automático", href: "#" },
-      { label: "Divide gastos de grupo", href: "#" },
-      { label: "Tarjeta virtual gratis", href: "#" },
-    ],
+    producto: t.footer.links.product.map((label) => ({ label, href: "#" })),
     casos: useCases.map(({ title }) => ({ label: title, href: "#" })),
     ayuda: [
-      { label: "Centro de ayuda", href: "/centro-de-ayuda" },
-      { label: "Contáctanos", href: "/contacto" },
-      { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
+      { label: t.footer.links.help.center, href: "/centro-de-ayuda" },
+      { label: t.footer.links.help.contact, href: "/contacto" },
+      { label: t.footer.links.help.faq, href: "/preguntas-frecuentes" },
     ],
     empresa: [
-      { label: "Sobre Teilen", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Prensa", href: "#" },
-      { label: "Empleos", href: "#" },
-      { label: "Documentos legales", href: "/terminos" },
+      { label: t.footer.links.company.about, href: "#" },
+      { label: t.footer.links.company.blog, href: "#" },
+      { label: t.footer.links.company.press, href: "#" },
+      { label: t.footer.links.company.jobs, href: "#" },
+      { label: t.footer.links.company.legal, href: "/terminos" },
     ],
   };
 
@@ -95,32 +42,31 @@ export function Footer() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <Image
-                src="/logo_mail.png"
+                src="/logo_teilen.png"
                 alt="Teilen"
-                width={120}
+                width={40}
                 height={40}
-                className="h-10 w-[120px] select-none"
+                className="h-10 w-10 rounded-lg ring-1 ring-emerald-100 select-none"
                 priority={false}
               />
-              <span className="sr-only">Teilen</span>
+              <span className="text-[42px] font-semibold tracking-tight text-slate-900">Teilen</span>
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600 fhd:text-base fhd:leading-7">
-              La forma moderna de dividir gastos con amigos, pareja y equipos.
-              Claro, rápido y sin drama.
+              {t.footer.brandDescription}
             </p>
 
             {/* Badges de tiendas */}
             <div className="mt-6 flex flex-wrap items-center gap-3 fhd:gap-4">
               <a
                 href="https://apps.apple.com/cl/app/teilen/id6754208104"
-                aria-label="Descargar en App Store"
+                aria-label={t.footer.stores.appStoreAria}
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"
               >
                 <Image
                   src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
-                  alt="Disponible en App Store"
+                  alt={t.footer.stores.appStoreAlt}
                   width={174}
                   height={58}
                   className="h-[58px] w-[174px]"
@@ -129,13 +75,13 @@ export function Footer() {
 
               <a
                 href="https://play.google.com/store/apps/details?id=com.pierocr.teilenapp"
-                aria-label="Obtener en Google Play"
+                aria-label={t.footer.stores.googlePlayAria}
                 className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
                 rel="noopener"
               >
                 <Image
                   src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
-                  alt="Disponible en Google Play"
+                  alt={t.footer.stores.googlePlayAlt}
                   width={196}
                   height={58}
                   className="h-[58px] w-[196px]"
@@ -147,26 +93,26 @@ export function Footer() {
             <form
               className="mt-6 flex max-w-sm items-center gap-2"
               onSubmit={(e) => e.preventDefault()}
-              aria-label="Suscripción a novedades"
+              aria-label={t.footer.newsletterAria}
             >
               <input
                 type="email"
                 required
-                placeholder="Tu correo"
+                placeholder={t.footer.emailPlaceholder}
                 className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 outline-none ring-emerald-500/30 focus:ring-4"
               />
               <button
                 type="submit"
                 className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-emerald-700 active:translate-y-px"
               >
-                Unirme
+                {t.footer.join}
               </button>
             </form>
           </div>
 
-          <FooterColumn title="Producto" items={nav.producto} className="lg:col-span-2" />
+          <FooterColumn title={t.footer.columns.product} items={nav.producto} className="lg:col-span-2" />
           <UseCasesColumn
-            title="Casos de uso"
+            title={t.footer.columns.useCases}
             items={useCases}
             className="lg:col-span-2"
             onSelect={(title) => {
@@ -174,8 +120,8 @@ export function Footer() {
               if (match) setActiveCase(match);
             }}
           />
-          <FooterColumn title="Ayuda" items={nav.ayuda} className="lg:col-span-2" />
-          <FooterColumn title="Empresa" items={nav.empresa} className="lg:col-span-2" />
+          <FooterColumn title={t.footer.columns.help} items={nav.ayuda} className="lg:col-span-2" />
+          <FooterColumn title={t.footer.columns.company} items={nav.empresa} className="lg:col-span-2" />
         </div>
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
@@ -184,26 +130,18 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4 text-sm fhd:text-base text-gray-600">
             <span>© {year} Teilen</span>
             <span className="hidden md:inline text-gray-300">|</span>
-            <Link href="/privacidad" className="hover:text-emerald-700">Privacidad</Link>
-            <Link href="/terminos" className="hover:text-emerald-700">Términos</Link>
-            <Link href="/cookies" className="hover:text-emerald-700">Cookies</Link>
+            <Link href="/privacidad" className="hover:text-emerald-700">{t.footer.links.legal.privacy}</Link>
+            <Link href="/terminos" className="hover:text-emerald-700">{t.footer.links.legal.terms}</Link>
+            <Link href="/cookies" className="hover:text-emerald-700">{t.footer.links.legal.cookies}</Link>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 fhd:gap-5">
             <div className="relative">
-              <select
-                aria-label="Seleccionar idioma"
-                className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm fhd:text-base text-gray-800 shadow-sm focus:outline-none"
-                defaultValue="es"
-              >
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="pt">Português</option>
-              </select>
+              <LanguageSwitcher />
             </div>
 
             <div className="flex items-center gap-3">
-              <SocialIcon label="Instagram" href="https://www.instagram.com/teilen.app/" kind="ig" />
+              <SocialIcon label={t.footer.instagram} href="https://www.instagram.com/teilen.app/" kind="ig" />
             </div>
           </div>
         </div>
@@ -219,20 +157,20 @@ export function Footer() {
           <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-gray-200">
             <div className="flex items-start justify-between gap-4 px-5 py-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Caso de uso</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">{t.footer.useCaseModal.label}</p>
                 <h3 id="use-case-title" className="mt-1 text-2xl font-semibold text-gray-900">
                   {activeCase.title}
                 </h3>
                 <p className="mt-1 text-sm text-gray-600">{activeCase.description}</p>
               </div>
-              <button
-                type="button"
-                onClick={() => setActiveCase(null)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition hover:text-gray-800 hover:border-gray-300"
-                aria-label="Cerrar"
-              >
-                ×
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveCase(null)}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition hover:text-gray-800 hover:border-gray-300"
+                  aria-label={t.footer.useCaseModal.close}
+                >
+                  ×
+                </button>
             </div>
 
             <div className="px-5 pb-5">
@@ -251,14 +189,14 @@ export function Footer() {
                   onClick={() => setActiveCase(null)}
                   className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
                 >
-                  Empezar con este caso
+                  {t.footer.useCaseModal.startWithCase}
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveCase(null)}
                   className="inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-gray-300"
                 >
-                  Cerrar
+                  {t.footer.useCaseModal.close}
                 </button>
               </div>
             </div>
