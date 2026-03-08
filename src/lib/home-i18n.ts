@@ -105,7 +105,7 @@ type HomeMessages = {
   };
 };
 
-const homeMessages: Record<Locale, HomeMessages> = {
+const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
   es: {
     stores: {
       appStoreAria: "Descargar Teilen en App Store",
@@ -515,7 +515,7 @@ const homeMessages: Record<Locale, HomeMessages> = {
       },
     },
   },
-  pt: {
+  pr: {
     stores: {
       appStoreAria: "Baixar Teilen na App Store",
       googlePlayAria: "Baixar Teilen no Google Play",
@@ -720,6 +720,476 @@ const homeMessages: Record<Locale, HomeMessages> = {
       },
     },
   },
+};
+
+const deHomeMessages: HomeMessages = {
+  ...baseHomeMessages.en,
+  stores: {
+    appStoreAria: "Teilen im App Store herunterladen",
+    googlePlayAria: "Teilen bei Google Play herunterladen",
+    appStoreAlt: "Im App Store verfügbar",
+    googlePlayAlt: "Bei Google Play verfügbar",
+  },
+  hero: {
+    badge: "App zum Teilen von Ausgaben",
+    words: ["teilen", "organisieren", "verwalten"],
+    titlePrefix: "So kannst du",
+    titleSuffix: "deine Gruppenausgaben verwalten",
+    description:
+      "Sieh Salden in Echtzeit, teile Rechnungen in Sekunden und gleiche Schulden ohne Diskussionen aus. Alles in einer App.",
+    demoButton: "Teilen-Erlebnis ansehen",
+    availability: "Verfügbar in Chile und weltweit",
+  },
+  animatedStats: {
+    badge: "Teilen-Erlebnis",
+    title: "Geld verwalten war noch nie so einfach",
+    description: "Erstelle Gruppen, teile und verfolge Ausgaben an einem Ort. Klar, schnell und für den Alltag gemacht.",
+    cards: [
+      {
+        title: "Monatliche Ausgaben",
+        chipLabel: "Pizza in Nunoa",
+        chipRight: "−$5490",
+        chipSub: "Gestern, 09:02",
+        emoji: "🍕",
+        img: "/demo/card-1.webp",
+      },
+      {
+        title: "Urlaub",
+        chipLabel: "Flug",
+        chipRight: "-$1.200.000",
+        chipSub: "Heute, 11:28",
+        emoji: "✈️",
+        img: "/demo/card-2.webp",
+      },
+      {
+        title: "Treffen mit Freunden",
+        chipLabel: "Café in Providencia",
+        chipRight: "−$25.000",
+        chipSub: "Fr, 16:45",
+        emoji: "☕",
+        img: "/demo/card-3.webp",
+      },
+    ],
+  },
+  howItWorks: {
+    badge: "So funktioniert's",
+    title: "Wie funktioniert es?",
+    description: "Alles, was du brauchst, um Ausgaben unkompliziert zu teilen.",
+    steps: [
+      {
+        title: "Erstelle deine Gruppe",
+        desc: "Lade Freunde oder Familie über einen Link oder QR-Code ein.",
+        img: "/images/how-group.webp",
+      },
+      {
+        title: "Füge Ausgaben hinzu",
+        desc: "Wähle, wer gezahlt hat, und teile gleichmäßig, prozentual oder individuell.",
+        img: "/images/how-scan.webp",
+      },
+      {
+        title: "Sofortige Benachrichtigungen",
+        desc: "Bei jeder neuen Ausgabe werden alle Gruppenmitglieder sofort informiert.",
+        img: "/images/how-pay.webp",
+      },
+    ],
+  },
+  features: {
+    badge: "Funktionen",
+    title: "Leistungsstark, aber einfach.",
+    subtitle: "Alles, was Menschen wirklich nutzen.",
+    videoAriaLabel: "Teilen App-Demo",
+    unsupportedVideoText: "Dein Browser unterstützt kein HTML5-Video.",
+    items: [
+      { id: "scan", title: "KI-Belegscanner", desc: "Erkennt Positionen, Steuern und Trinkgeld. Teilen in Sekunden." },
+      { id: "pay", title: "Einfache Zahlungen", desc: "Verbinde deine bevorzugte Methode und gleiche sofort aus." },
+      { id: "rules", title: "Gruppen und Regeln", desc: "Erstelle Gruppen, setze Prozentsätze und behalte den Verlauf." },
+      { id: "audit", title: "Echtzeit-Transparenz", desc: "Volle Übersicht darüber, wer was wann bezahlt hat." },
+      { id: "personal", title: "Kontrolle persönlicher Ausgaben", desc: "Plane Ausgaben, kategorisiere Käufe und erhalte smarte Hinweise." },
+    ],
+  },
+  appScreens: {
+    badge: "Screens",
+    title: "So sieht Teilen aus",
+    subtitle: "Eine moderne, klare Oberfläche, damit Ausgaben teilen wirklich einfach wird.",
+    imageAlt: "Teilen App-Screenshot",
+  },
+  downloadModal: {
+    close: "Schließen",
+    badge: "Verfügbar für iOS und Android",
+    title: "Teile Ausgaben und organisiere deine persönlichen Finanzen an einem Ort",
+    description:
+      "Nutze Teilen von Chile aus weltweit: Gruppen, Reisen, Paare und Teams synchronisieren jede Bewegung ohne Tabellen.",
+    highlights: [
+      { title: "Live-Salden", description: "Jede Zahlung und Ausgabe aktualisiert sich sofort, damit alle den echten Stand sehen." },
+      { title: "Menschliche Erinnerungen", description: "Automatisiere freundliche Erinnerungen und vermeide ständiges Nachfragen per WhatsApp." },
+      { title: "Geordnete Zahlungen", description: "Wir berechnen die effizienteste Ausgleichsroute ohne unnötige Überweisungen." },
+    ],
+    markets: "Chile · Lateinamerika · Rest der Welt",
+    phoneImageAlt: "Teilen-Startbildschirm mit Salden und Gruppen",
+    qrAlt: "QR zum Herunterladen von Teilen",
+    qrLabel: "Hier herunterladen",
+  },
+  page: {
+    faq: {
+      badge: "Häufige Fragen",
+      title: "Kläre deine Fragen, bevor du Teilen herunterlädst",
+      description:
+        "Antworten auf die wichtigsten Fragen zu gemeinsamen Ausgaben, Ausgleichen von Salden und Organisation von Gruppen.",
+      items: [
+        {
+          question: "Was unterscheidet Teilen von anderen Apps zum Teilen von Ausgaben?",
+          answer:
+            "Teilen ist für Chile und darüber hinaus entwickelt: Ausgaben in lokaler Währung erfassen, gleich oder individuell teilen, Erinnerungen senden und klare Berichte exportieren.",
+        },
+        {
+          question: "Funktioniert es für Reisen, Paare oder WGs?",
+          answer:
+            "Ja. Du kannst mehrere Gruppen erstellen, Kontakte einladen und Einkäufe, Erstattungen und offene Salden in Echtzeit verfolgen.",
+        },
+        {
+          question: "Wie werden Salden in Teilen ausgeglichen?",
+          answer:
+            "Die App berechnet automatisch, wer wem etwas schuldet, und zeigt den effizientesten Zahlungsweg, um die Gruppe auf null zu bringen.",
+        },
+      ],
+    },
+    cta: {
+      badge: "Teilen herunterladen",
+      title: "Verfügbar für iOS und Android in Chile und weltweit",
+      description:
+        "Nutze die führende App für geteilte Ausgaben, Aufteilung von Zahlungen und persönliche Finanzorganisation. Kostenlos und sicher.",
+      availability: "Globale App für geteilte Ausgaben · Kostenloser Download",
+      qrTitle: "Mit deiner Kamera scannen",
+      qrDescription: "Wähle dein Betriebssystem, wir erkennen den passenden Store automatisch.",
+      qrAlt: "Universeller Download-QR von Teilen",
+    },
+    testimonials: {
+      badge: "Bewertungen",
+      title: "Was unsere Community sagt",
+      description: "Echte Erfahrungsberichte von Pilotnutzer:innen, die Teilen bereits nutzen.",
+      starsLabel: "5 von 5 Sternen",
+      items: [
+        {
+          quote:
+            "“Mit Teilen haben wir Miete und Nebenkosten endlich im Griff. Die Übersicht ist klar und alle wissen genau, was zu zahlen ist.”",
+          author: "Constanza R.",
+          context: "Nunoa · Wohnt mit 3 Mitbewohnern",
+        },
+        {
+          quote:
+            "“Für unsere Chiloe-Reise war es perfekt. Jede Ausgabe wurde sofort erfasst und am Ende reichten ein paar Klicks zum Ausgleichen.”",
+          author: "Diego M.",
+          context: "Valparaiso · Gruppenreisen",
+        },
+        {
+          quote:
+            "“Mein Partner und ich sind viel besser organisiert: die App merkt sich alles und vermeidet unangenehme Geldgespräche.”",
+          author: "Camila & Seba",
+          context: "Santiago Zentrum · Junges Paar",
+        },
+        {
+          quote:
+            "“Ich verwalte die Kasse eines Sportvereins, und mit Teilen sehen wir Beiträge und Erstattungen klar. Alle sind sofort informiert.”",
+          author: "Maria Jose L.",
+          context: "Providencia · Amateurverein",
+        },
+      ],
+    },
+  },
+};
+
+const utHomeMessages: HomeMessages = {
+  ...baseHomeMessages.en,
+  stores: {
+    appStoreAria: "Scarica Teilen su App Store",
+    googlePlayAria: "Scarica Teilen su Google Play",
+    appStoreAlt: "Disponibile su App Store",
+    googlePlayAlt: "Disponibile su Google Play",
+  },
+  hero: {
+    badge: "App per dividere spese",
+    words: ["dividere", "condividere", "gestire"],
+    titlePrefix: "Il modo per",
+    titleSuffix: "gestire le spese di gruppo",
+    description:
+      "Vedi i saldi in tempo reale, dividi i conti in pochi secondi e chiudi i debiti senza discussioni. Tutto in un'unica app.",
+    demoButton: "Scopri l'esperienza Teilen",
+    availability: "Disponibile in Cile e nel mondo",
+  },
+  animatedStats: {
+    badge: "Esperienza Teilen",
+    title: "Gestire il denaro non è mai stato così semplice",
+    description: "Crea gruppi, dividi e controlla le spese in un unico posto. Chiaro, rapido e pensato per la vita reale.",
+    cards: [
+      { title: "Spese mensili", chipLabel: "Pizza a Nunoa", chipRight: "−$5490", chipSub: "Ieri, 09:02", emoji: "🍕", img: "/demo/card-1.webp" },
+      { title: "Vacanza", chipLabel: "Volo", chipRight: "-$1.200.000", chipSub: "Oggi, 11:28", emoji: "✈️", img: "/demo/card-2.webp" },
+      { title: "Incontro amici", chipLabel: "Caffè a Providencia", chipRight: "−$25.000", chipSub: "Ven, 16:45", emoji: "☕", img: "/demo/card-3.webp" },
+    ],
+  },
+  howItWorks: {
+    badge: "Come funziona",
+    title: "Come funziona?",
+    description: "Tutto ciò che ti serve per dividere le spese senza complicazioni.",
+    steps: [
+      { title: "Crea il tuo gruppo", desc: "Invita amici o familiari con un link o un codice QR.", img: "/images/how-group.webp" },
+      { title: "Aggiungi spese", desc: "Scegli chi ha pagato e dividi in parti uguali, percentuali o personalizzate.", img: "/images/how-scan.webp" },
+      { title: "Notifiche immediate", desc: "Ogni nuova spesa invia una notifica istantanea a tutto il gruppo.", img: "/images/how-pay.webp" },
+    ],
+  },
+  features: {
+    badge: "Funzionalità",
+    title: "Potente, ma semplice.",
+    subtitle: "Tutto ciò che le persone usano davvero.",
+    videoAriaLabel: "Demo dell'app Teilen",
+    unsupportedVideoText: "Il tuo browser non supporta video HTML5.",
+    items: [
+      { id: "scan", title: "Scanner ricevute con IA", desc: "Rileva articoli, tasse e mance. Dividi in pochi secondi." },
+      { id: "pay", title: "Pagamenti semplici", desc: "Collega il metodo che preferisci e salda subito." },
+      { id: "rules", title: "Gruppi e regole", desc: "Crea gruppi, imposta percentuali e mantieni la cronologia." },
+      { id: "audit", title: "Controllo in tempo reale", desc: "Trasparenza totale su chi ha pagato cosa e quando." },
+      { id: "personal", title: "Controllo spese personali", desc: "Pianifica, classifica gli acquisti e ricevi avvisi intelligenti." },
+    ],
+  },
+  appScreens: {
+    badge: "Schermate",
+    title: "Guarda come si presenta Teilen",
+    subtitle: "Interfaccia moderna e pulita per rendere la divisione spese davvero semplice.",
+    imageAlt: "Schermata app Teilen",
+  },
+  downloadModal: {
+    close: "Chiudi",
+    badge: "Disponibile su iOS e Android",
+    title: "Condividi spese e organizza le tue finanze personali in un solo posto",
+    description:
+      "Usa Teilen dal Cile al mondo: gruppi, viaggi, coppie e team possono sincronizzare ogni movimento senza fogli di calcolo.",
+    highlights: [
+      { title: "Saldi live", description: "Ogni pagamento e spesa si aggiorna all'istante così tutti vedono il saldo reale." },
+      { title: "Promemoria umani", description: "Automatizza promemoria gentili ed evita di inseguire amici su WhatsApp." },
+      { title: "Pagamenti ordinati", description: "Calcoliamo il percorso migliore per saldare senza trasferimenti inutili." },
+    ],
+    markets: "Cile · America Latina · Resto del mondo",
+    phoneImageAlt: "Schermata principale Teilen con saldi e gruppi",
+    qrAlt: "QR per scaricare Teilen",
+    qrLabel: "Scarica qui",
+  },
+  page: {
+    faq: {
+      badge: "Domande frequenti",
+      title: "Rispondi ai tuoi dubbi prima di scaricare Teilen",
+      description:
+        "Risposte alle domande più comuni su spese condivise, saldi e gestione dei gruppi per usare Teilen con fiducia.",
+      items: [
+        {
+          question: "Cosa rende Teilen diversa dalle altre app per dividere spese?",
+          answer:
+            "Teilen è pensata per il Cile e oltre: registra spese in valuta locale, dividi in modo uguale o personalizzato, invia promemoria ed esporta report chiari.",
+        },
+        {
+          question: "Funziona per viaggi, coppie o coinquilini?",
+          answer:
+            "Sì. Puoi creare più gruppi, invitare contatti e seguire acquisti, rimborsi e saldi in sospeso in tempo reale.",
+        },
+        {
+          question: "Come vengono saldati i bilanci in Teilen?",
+          answer:
+            "L'app calcola automaticamente chi deve a chi e suggerisce il percorso di pagamento più efficiente per azzerare il gruppo.",
+        },
+      ],
+    },
+    cta: {
+      badge: "Scarica Teilen",
+      title: "Disponibile su iOS e Android in Cile e nel mondo",
+      description:
+        "Usa l'app leader per spese condivise, divisione pagamenti e organizzazione finanziaria personale ovunque tu sia.",
+      availability: "App globale per spese condivise · Download gratuito",
+      qrTitle: "Scansiona con la tua fotocamera",
+      qrDescription: "Scegli il sistema operativo che preferisci e rileveremo automaticamente il tuo store.",
+      qrAlt: "QR universale di download per Teilen",
+    },
+    testimonials: {
+      badge: "Recensioni",
+      title: "Cosa dice la nostra community",
+      description: "Testimonianze reali di utenti pilota che usano già Teilen per dividere spese senza drammi.",
+      starsLabel: "5 su 5 stelle",
+      items: [
+        {
+          quote:
+            "“Con Teilen siamo riusciti a organizzare affitto e bollette di casa. Il riepilogo è chiaro e tutti sanno quanto devono pagare.”",
+          author: "Constanza R.",
+          context: "Nunoa · Vive con 3 coinquilini",
+        },
+        {
+          quote:
+            "“Perfetta per il nostro viaggio a Chiloe. Ogni spesa è stata registrata subito e alla fine sono bastati pochi tocchi per saldare tutto.”",
+          author: "Diego M.",
+          context: "Valparaiso · Viaggi di gruppo",
+        },
+        {
+          quote:
+            "“Con il mio partner siamo molto più organizzati: l'app ricorda chi ha pagato ogni cosa ed evita momenti imbarazzanti con i conti.”",
+          author: "Camila & Seba",
+          context: "Santiago Centro · Coppia giovane",
+        },
+        {
+          quote:
+            "“Gestisco la tesoreria di un club sportivo locale e Teilen ci ha aiutato a tracciare contributi e rimborsi con chiarezza.”",
+          author: "Maria Jose L.",
+          context: "Providencia · Club amatoriale",
+        },
+      ],
+    },
+  },
+};
+
+const frHomeMessages: HomeMessages = {
+  ...baseHomeMessages.en,
+  stores: {
+    appStoreAria: "Télécharger Teilen sur l'App Store",
+    googlePlayAria: "Télécharger Teilen sur Google Play",
+    appStoreAlt: "Disponible sur l'App Store",
+    googlePlayAlt: "Disponible sur Google Play",
+  },
+  hero: {
+    badge: "Application de partage de dépenses",
+    words: ["partager", "organiser", "gérer"],
+    titlePrefix: "La façon de",
+    titleSuffix: "gérer vos dépenses de groupe",
+    description:
+      "Voyez les soldes en temps réel, partagez les additions en quelques secondes et régularisez sans disputes. Tout dans une seule app.",
+    demoButton: "Découvrir l'expérience Teilen",
+    availability: "Disponible au Chili et dans le monde",
+  },
+  animatedStats: {
+    badge: "Expérience Teilen",
+    title: "Gérer l'argent n'a jamais été aussi simple",
+    description:
+      "Créez des groupes, partagez et suivez les dépenses au même endroit. Clair, rapide et pensé pour la vraie vie.",
+    cards: [
+      { title: "Dépenses mensuelles", chipLabel: "Pizza à Nunoa", chipRight: "−$5490", chipSub: "Hier, 09:02", emoji: "🍕", img: "/demo/card-1.webp" },
+      { title: "Vacances", chipLabel: "Vol", chipRight: "-$1.200.000", chipSub: "Aujourd'hui, 11:28", emoji: "✈️", img: "/demo/card-2.webp" },
+      { title: "Sortie entre amis", chipLabel: "Café à Providencia", chipRight: "−$25.000", chipSub: "Ven, 16:45", emoji: "☕", img: "/demo/card-3.webp" },
+    ],
+  },
+  howItWorks: {
+    badge: "Comment ça marche",
+    title: "Comment ça fonctionne ?",
+    description: "Tout ce qu'il faut pour partager les dépenses simplement.",
+    steps: [
+      { title: "Créez votre groupe", desc: "Invitez vos amis ou votre famille via un lien ou un QR code.", img: "/images/how-group.webp" },
+      { title: "Ajoutez des dépenses", desc: "Choisissez qui a payé et répartissez en parts égales, en pourcentage ou personnalisé.", img: "/images/how-scan.webp" },
+      { title: "Notifications instantanées", desc: "Chaque nouvelle dépense notifie immédiatement tous les membres du groupe.", img: "/images/how-pay.webp" },
+    ],
+  },
+  features: {
+    badge: "Fonctionnalités",
+    title: "Puissante, mais simple.",
+    subtitle: "Tout ce que les gens utilisent vraiment.",
+    videoAriaLabel: "Démo de l'app Teilen",
+    unsupportedVideoText: "Votre navigateur ne prend pas en charge la vidéo HTML5.",
+    items: [
+      { id: "scan", title: "Scanner de reçus IA", desc: "Détecte articles, taxes et pourboires. Répartition en secondes." },
+      { id: "pay", title: "Paiements simples", desc: "Connectez votre méthode préférée et régularisez instantanément." },
+      { id: "rules", title: "Groupes et règles", desc: "Créez des groupes, définissez des pourcentages et gardez l'historique." },
+      { id: "audit", title: "Suivi en temps réel", desc: "Transparence totale sur qui a payé quoi et quand." },
+      { id: "personal", title: "Contrôle des dépenses personnelles", desc: "Planifiez vos dépenses, classez vos achats et recevez des alertes intelligentes." },
+    ],
+  },
+  appScreens: {
+    badge: "Écrans",
+    title: "Découvrez l'apparence de Teilen",
+    subtitle: "Interface moderne et claire pour rendre le partage de dépenses vraiment simple.",
+    imageAlt: "Écran de l'app Teilen",
+  },
+  downloadModal: {
+    close: "Fermer",
+    badge: "Disponible sur iOS et Android",
+    title: "Partagez vos dépenses et organisez vos finances personnelles au même endroit",
+    description:
+      "Utilisez Teilen du Chili vers le monde : groupes, voyages, couples et équipes peuvent synchroniser chaque mouvement sans tableurs.",
+    highlights: [
+      { title: "Soldes en direct", description: "Chaque paiement et dépense se met à jour instantanément pour afficher le vrai solde." },
+      { title: "Rappels humains", description: "Automatisez des rappels amicaux et arrêtez de relancer vos amis sur WhatsApp." },
+      { title: "Paiements optimisés", description: "Nous calculons le meilleur chemin de règlement pour éviter les virements inutiles." },
+    ],
+    markets: "Chili · Amérique latine · Reste du monde",
+    phoneImageAlt: "Écran d'accueil Teilen montrant soldes et groupes",
+    qrAlt: "QR pour télécharger Teilen",
+    qrLabel: "Télécharger ici",
+  },
+  page: {
+    faq: {
+      badge: "Questions fréquentes",
+      title: "Levez vos doutes avant de télécharger Teilen",
+      description:
+        "Réponses aux questions les plus posées sur le partage des dépenses, la régularisation des soldes et l'organisation des groupes.",
+      items: [
+        {
+          question: "Qu'est-ce qui différencie Teilen des autres apps de partage de dépenses ?",
+          answer:
+            "Teilen est pensée pour le Chili et au-delà : enregistrez les dépenses en devise locale, répartissez de façon égale ou personnalisée, envoyez des rappels et exportez des rapports clairs.",
+        },
+        {
+          question: "Est-ce adapté aux voyages, couples ou colocations ?",
+          answer:
+            "Oui. Vous pouvez créer plusieurs groupes, inviter vos contacts et suivre achats, remboursements et soldes en attente en temps réel.",
+        },
+        {
+          question: "Comment les soldes sont-ils réglés dans Teilen ?",
+          answer:
+            "L'application calcule automatiquement qui doit à qui et montre le chemin de paiement le plus efficace pour remettre le groupe à zéro.",
+        },
+      ],
+    },
+    cta: {
+      badge: "Télécharger Teilen",
+      title: "Disponible sur iOS et Android au Chili et dans le monde",
+      description:
+        "Utilisez l'app leader pour dépenses partagées, division des paiements et organisation financière personnelle, où que vous soyez.",
+      availability: "App globale pour dépenses partagées · Téléchargement gratuit",
+      qrTitle: "Scannez avec votre caméra",
+      qrDescription: "Choisissez votre système d'exploitation et nous détecterons automatiquement votre store.",
+      qrAlt: "QR universel de téléchargement de Teilen",
+    },
+    testimonials: {
+      badge: "Avis",
+      title: "Ce que dit notre communauté",
+      description: "Témoignages réels d'utilisateurs pilotes qui utilisent déjà Teilen pour partager les dépenses sans stress.",
+      starsLabel: "5 sur 5 étoiles",
+      items: [
+        {
+          quote:
+            "“Avec Teilen, nous avons enfin organisé loyer et charges de l'appartement. Le résumé est clair et chacun sait ce qu'il doit payer.”",
+          author: "Constanza R.",
+          context: "Nunoa · Vit avec 3 colocataires",
+        },
+        {
+          quote:
+            "“Parfait pour notre voyage à Chiloe. Chaque dépense a été enregistrée tout de suite et à la fin quelques clics ont suffi pour tout régler.”",
+          author: "Diego M.",
+          context: "Valparaiso · Voyages en groupe",
+        },
+        {
+          quote:
+            "“Avec mon partenaire, nous sommes bien mieux organisés : l'app se souvient de qui a payé quoi et évite les moments gênants.”",
+          author: "Camila & Seba",
+          context: "Centre de Santiago · Jeune couple",
+        },
+        {
+          quote:
+            "“Je gère la trésorerie d'un club sportif et Teilen nous a aidés à suivre cotisations et remboursements avec clarté.”",
+          author: "Maria Jose L.",
+          context: "Providencia · Club amateur",
+        },
+      ],
+    },
+  },
+};
+
+const homeMessages: Record<Locale, HomeMessages> = {
+  ...baseHomeMessages,
+  de: deHomeMessages,
+  ut: utHomeMessages,
+  fr: frHomeMessages,
 };
 
 export function getHomeMessages(locale: Locale): HomeMessages {

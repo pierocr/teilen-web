@@ -12,7 +12,10 @@ type LanguageSwitcherProps = {
 const FLAGS: Record<(typeof SUPPORTED_LOCALES)[number], string> = {
   es: "🇪🇸",
   en: "🇺🇸",
-  pt: "🇧🇷",
+  de: "🇩🇪",
+  pr: "🇧🇷",
+  ut: "🇮🇹",
+  fr: "🇫🇷",
 };
 
 export function LanguageSwitcher({ className = "", buttonClassName = "" }: LanguageSwitcherProps) {

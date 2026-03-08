@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { getMessages, isSupportedLocale, type Locale } from "@/lib/i18n";
+import { getMessages, normalizeLocale, type Locale } from "@/lib/i18n";
 
 type LocaleContextValue = {
   locale: Locale;
@@ -24,14 +24,16 @@ export function LanguageProvider({
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored && isSupportedLocale(stored)) {
-      setLocale(stored);
+    const normalizedStored = normalizeLocale(stored);
+    if (normalizedStored) {
+      setLocale(normalizedStored);
       return;
     }
 
     const browserLocale = navigator.language.split("-")[0].toLowerCase();
-    if (isSupportedLocale(browserLocale)) {
-      setLocale(browserLocale);
+    const normalizedBrowserLocale = normalizeLocale(browserLocale);
+    if (normalizedBrowserLocale) {
+      setLocale(normalizedBrowserLocale);
     }
   }, []);
 

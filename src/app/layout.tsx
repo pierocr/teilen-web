@@ -140,7 +140,7 @@ export default function RootLayout({
         "@type": "ContactPoint",
         email: "contacto@teilen.cl",
         contactType: "customer support",
-        availableLanguage: ["es-CL", "es"],
+        availableLanguage: ["es", "en", "de", "pr", "ut", "fr"],
       },
     ],
   };
@@ -173,7 +173,7 @@ export default function RootLayout({
     },
     description:
       "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y saldar cuentas de forma transparente.",
-    inLanguage: "es",
+    inLanguage: ["es", "en", "de", "pr", "ut", "fr"],
     publisher: {
       "@type": "Organization",
       name: "Teilen",

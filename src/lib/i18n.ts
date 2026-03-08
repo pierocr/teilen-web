@@ -1,6 +1,10 @@
-export const SUPPORTED_LOCALES = ["es", "en", "pt"] as const;
+export const SUPPORTED_LOCALES = ["es", "en", "de", "pr", "ut", "fr"] as const;
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
+const LOCALE_ALIASES: Record<string, Locale> = {
+  pt: "pr",
+  it: "ut",
+};
 
 type LocalizedUseCase = {
   title: string;
@@ -78,14 +82,17 @@ type Messages = {
   };
 };
 
-const messages: Record<Locale, Messages> = {
+const baseMessages: Record<"es" | "en" | "pr", Messages> = {
   es: {
     language: {
       select: "Seleccionar idioma",
       names: {
         es: "Español",
         en: "English",
-        pt: "Português",
+        de: "Deutsch",
+        pr: "Português",
+        ut: "Italiano",
+        fr: "Français",
       },
     },
     navbar: {
@@ -210,7 +217,10 @@ const messages: Record<Locale, Messages> = {
       names: {
         es: "Spanish",
         en: "English",
-        pt: "Portuguese",
+        de: "German",
+        pr: "Portuguese",
+        ut: "Italian",
+        fr: "French",
       },
     },
     navbar: {
@@ -329,13 +339,16 @@ const messages: Record<Locale, Messages> = {
       instagram: "Instagram",
     },
   },
-  pt: {
+  pr: {
     language: {
       select: "Selecionar idioma",
       names: {
         es: "Espanhol",
         en: "Inglês",
-        pt: "Português",
+        de: "Alemão",
+        pr: "Português",
+        ut: "Italiano",
+        fr: "Francês",
       },
     },
     navbar: {
@@ -456,8 +469,411 @@ const messages: Record<Locale, Messages> = {
   },
 };
 
+const messages: Record<Locale, Messages> = {
+  ...baseMessages,
+  de: {
+    ...baseMessages.en,
+    language: {
+      select: "Sprache auswählen",
+      names: {
+        es: "Spanisch",
+        en: "Englisch",
+        de: "Deutsch",
+        pr: "Portugiesisch",
+        ut: "Italienisch",
+        fr: "Französisch",
+      },
+    },
+    navbar: {
+      links: {
+        premium: "Premium",
+        how: "So funktioniert's",
+        features: "Funktionen",
+        screens: "Screens",
+      },
+      qrLabel: "QR-Code scannen zum Herunterladen",
+      qrShort: "QR",
+      downloadApp: "App herunterladen",
+      login: "Anmelden",
+      openMenu: "Menü öffnen",
+      menuTitle: "Menü",
+      closeMenu: "Menü schließen",
+      close: "Schließen",
+      qrTitle: "Mit deiner Kamera scannen",
+      qrDescription: "Wir erkennen dein System automatisch",
+    },
+    footer: {
+      stores: {
+        appStoreAria: "Im App Store herunterladen",
+        googlePlayAria: "Bei Google Play holen",
+        appStoreAlt: "Im App Store verfügbar",
+        googlePlayAlt: "Bei Google Play verfügbar",
+      },
+      brandDescription:
+        "Die moderne Art, Ausgaben mit Freunden, Partnern und Teams zu teilen. Klar, schnell und ohne Drama.",
+      newsletterAria: "Newsletter-Anmeldung",
+      emailPlaceholder: "Deine E-Mail",
+      join: "Beitreten",
+      columns: {
+        product: "Produkt",
+        useCases: "Anwendungsfälle",
+        help: "Hilfe",
+        company: "Unternehmen",
+      },
+      links: {
+        product: [
+          "Klare Ausgabenübersicht",
+          "Einfache Zahlungsanfragen",
+          "Automatische Verfolgung",
+          "Gruppenausgaben teilen",
+          "Kostenlose virtuelle Karte",
+        ],
+        help: {
+          center: "Hilfe-Center",
+          contact: "Kontakt",
+          faq: "FAQ",
+        },
+        company: {
+          about: "Über Teilen",
+          blog: "Blog",
+          press: "Presse",
+          jobs: "Jobs",
+          legal: "Rechtliche Dokumente",
+        },
+        legal: {
+          privacy: "Datenschutz",
+          terms: "Bedingungen",
+          cookies: "Cookies",
+        },
+      },
+      useCases: [
+        {
+          title: "Für Paare",
+          description: "Behalte den Überblick, ohne gemeinsame und private Finanzen zu vermischen.",
+          bullets: [
+            "Erstelle eine Gruppe „Wir“ und erfasse Miete, Einkäufe und Abos.",
+            "Teile 50/50 oder mit individuellen Prozentsätzen nach Einkommen.",
+            "Sieh klare Salden und gleiche mit einem Klick aus.",
+          ],
+        },
+        {
+          title: "Gruppenreisen",
+          description: "Reisen planen ohne Streit darüber, wer was bezahlt hat.",
+          bullets: [
+            "Erstelle eine Gruppe „Reise nach Medellín“ für Flüge, Airbnb und Transport.",
+            "Nutze gleiche Anteile oder individuelle Aufteilungen (z. B. bei kürzerem Aufenthalt).",
+            "Erhalte einen finalen Saldo pro Person, um die Reise sauber abzuschließen.",
+          ],
+        },
+        {
+          title: "WGs",
+          description: "Miete, Rechnungen und gemeinsame Einkäufe immer im Gleichgewicht.",
+          bullets: [
+            "Erfasse feste Kosten (Strom, Wasser, Internet) und variable Ausgaben.",
+            "Lege fest, wer bezahlt hat und wie viel jede Person schuldet.",
+            "Monatlicher Ausgleich mit klaren Erinnerungen.",
+          ],
+        },
+        {
+          title: "Restaurantrechnungen",
+          description: "Kein Chaos mit Taschenrechnern und gegenseitigen Zahlungen.",
+          bullets: [
+            "Erfasse den Gesamtbetrag und teile pro Person oder pro Position.",
+            "Inklusive Trinkgeld und Steuern bei korrekten Anteilen.",
+            "Teile QR/Links, damit jede Person sofort ihren Anteil bezahlt.",
+          ],
+        },
+        {
+          title: "Freelancer",
+          description: "Projektkosten trennen und Kund:innen klar abrechnen.",
+          bullets: [
+            "Erstelle ein Projekt und erfasse erstattbare Ausgaben plus Honorare.",
+            "Hänge Belege an und markiere, was dem Kunden berechnet wird.",
+            "Erzeuge einen konsolidierten Saldo für deine Rechnung.",
+          ],
+        },
+      ],
+      useCaseModal: {
+        label: "Anwendungsfall",
+        startWithCase: "Mit diesem Fall starten",
+        close: "Schließen",
+      },
+      instagram: "Instagram",
+    },
+  },
+  ut: {
+    ...baseMessages.en,
+    language: {
+      select: "Seleziona lingua",
+      names: {
+        es: "Spagnolo",
+        en: "Inglese",
+        de: "Tedesco",
+        pr: "Portoghese",
+        ut: "Italiano",
+        fr: "Francese",
+      },
+    },
+    navbar: {
+      links: {
+        premium: "Premium",
+        how: "Come funziona",
+        features: "Funzionalità",
+        screens: "Schermate",
+      },
+      qrLabel: "Scansiona il QR per scaricare",
+      qrShort: "QR",
+      downloadApp: "Scarica app",
+      login: "Accedi",
+      openMenu: "Apri menu",
+      menuTitle: "Menu",
+      closeMenu: "Chiudi menu",
+      close: "Chiudi",
+      qrTitle: "Scansiona con la tua fotocamera",
+      qrDescription: "Rileviamo automaticamente il tuo sistema",
+    },
+    footer: {
+      stores: {
+        appStoreAria: "Scarica su App Store",
+        googlePlayAria: "Scarica su Google Play",
+        appStoreAlt: "Disponibile su App Store",
+        googlePlayAlt: "Disponibile su Google Play",
+      },
+      brandDescription:
+        "Il modo moderno per dividere spese con amici, partner e team. Chiaro, veloce e senza drammi.",
+      newsletterAria: "Iscrizione alle novità",
+      emailPlaceholder: "La tua email",
+      join: "Iscrivimi",
+      columns: {
+        product: "Prodotto",
+        useCases: "Casi d'uso",
+        help: "Aiuto",
+        company: "Azienda",
+      },
+      links: {
+        product: [
+          "Panoramica chiara delle spese",
+          "Richieste di pagamento semplici",
+          "Monitoraggio automatico",
+          "Dividi spese di gruppo",
+          "Carta virtuale gratuita",
+        ],
+        help: {
+          center: "Centro assistenza",
+          contact: "Contattaci",
+          faq: "FAQ",
+        },
+        company: {
+          about: "Su Teilen",
+          blog: "Blog",
+          press: "Stampa",
+          jobs: "Lavoro",
+          legal: "Documenti legali",
+        },
+        legal: {
+          privacy: "Privacy",
+          terms: "Termini",
+          cookies: "Cookie",
+        },
+      },
+      useCases: [
+        {
+          title: "Per coppie",
+          description: "Tieni tutto sotto controllo senza mescolare finanze personali e condivise.",
+          bullets: [
+            "Crea un gruppo “Noi” e registra affitto, spesa e abbonamenti.",
+            "Dividi 50/50 o con percentuali personalizzate in base al reddito.",
+            "Vedi saldi chiari e regola tutto con un tocco.",
+          ],
+        },
+        {
+          title: "Viaggi di gruppo",
+          description: "Organizza viaggi senza discutere su chi ha pagato cosa.",
+          bullets: [
+            "Crea un gruppo “Viaggio a Medellín” per voli, Airbnb e trasporti.",
+            "Usa quote uguali o divisioni personalizzate (es. permanenze diverse).",
+            "Ottieni un saldo finale per ogni persona per chiudere tutto.",
+          ],
+        },
+        {
+          title: "Coinquilini",
+          description: "Affitto, bollette e acquisti comuni sempre bilanciati.",
+          bullets: [
+            "Registra costi fissi (luce, acqua, internet) e variabili.",
+            "Assegna chi ha pagato e quanto deve ogni coinquilino.",
+            "Chiusura mensile con promemoria chiari.",
+          ],
+        },
+        {
+          title: "Conti al ristorante",
+          description: "Niente più calcoli infiniti e pagamenti incrociati.",
+          bullets: [
+            "Inserisci il totale e dividi per persona o per voce.",
+            "Includi mancia e tasse mantenendo le proporzioni.",
+            "Condividi QR/link così ognuno paga subito la sua parte.",
+          ],
+        },
+        {
+          title: "Freelance",
+          description: "Separa i costi del progetto e fattura senza confusione.",
+          bullets: [
+            "Crea un progetto e registra spese rimborsabili e compensi.",
+            "Allega ricevute e segna cosa addebitare al cliente.",
+            "Genera un saldo consolidato da includere in fattura.",
+          ],
+        },
+      ],
+      useCaseModal: {
+        label: "Caso d'uso",
+        startWithCase: "Inizia con questo caso",
+        close: "Chiudi",
+      },
+      instagram: "Instagram",
+    },
+  },
+  fr: {
+    ...baseMessages.en,
+    language: {
+      select: "Choisir la langue",
+      names: {
+        es: "Espagnol",
+        en: "Anglais",
+        de: "Allemand",
+        pr: "Portugais",
+        ut: "Italien",
+        fr: "Français",
+      },
+    },
+    navbar: {
+      links: {
+        premium: "Premium",
+        how: "Comment ça marche",
+        features: "Fonctionnalités",
+        screens: "Écrans",
+      },
+      qrLabel: "Scannez le QR pour télécharger",
+      qrShort: "QR",
+      downloadApp: "Télécharger l'app",
+      login: "Se connecter",
+      openMenu: "Ouvrir le menu",
+      menuTitle: "Menu",
+      closeMenu: "Fermer le menu",
+      close: "Fermer",
+      qrTitle: "Scannez avec votre caméra",
+      qrDescription: "Nous détectons votre système automatiquement",
+    },
+    footer: {
+      stores: {
+        appStoreAria: "Télécharger sur l'App Store",
+        googlePlayAria: "Obtenir sur Google Play",
+        appStoreAlt: "Disponible sur l'App Store",
+        googlePlayAlt: "Disponible sur Google Play",
+      },
+      brandDescription:
+        "La façon moderne de partager les dépenses avec amis, partenaires et équipes. Clair, rapide et sans drame.",
+      newsletterAria: "Abonnement aux nouveautés",
+      emailPlaceholder: "Votre e-mail",
+      join: "Rejoindre",
+      columns: {
+        product: "Produit",
+        useCases: "Cas d'usage",
+        help: "Aide",
+        company: "Entreprise",
+      },
+      links: {
+        product: [
+          "Vision claire des dépenses",
+          "Demandes de paiement simples",
+          "Suivi automatique",
+          "Partage des dépenses de groupe",
+          "Carte virtuelle gratuite",
+        ],
+        help: {
+          center: "Centre d'aide",
+          contact: "Contactez-nous",
+          faq: "FAQ",
+        },
+        company: {
+          about: "À propos de Teilen",
+          blog: "Blog",
+          press: "Presse",
+          jobs: "Emplois",
+          legal: "Documents légaux",
+        },
+        legal: {
+          privacy: "Confidentialité",
+          terms: "Conditions",
+          cookies: "Cookies",
+        },
+      },
+      useCases: [
+        {
+          title: "Pour les couples",
+          description: "Gardez le contrôle sans mélanger finances personnelles et partagées.",
+          bullets: [
+            "Créez un groupe « Nous » et enregistrez loyer, courses et abonnements.",
+            "Partagez 50/50 ou avec des pourcentages personnalisés selon les revenus.",
+            "Voyez des soldes clairs et régularisez en un clic.",
+          ],
+        },
+        {
+          title: "Voyages en groupe",
+          description: "Organisez vos voyages sans disputes sur qui a payé quoi.",
+          bullets: [
+            "Créez un groupe « Voyage à Medellín » pour vols, Airbnb et transports.",
+            "Utilisez un partage égal ou personnalisé (séjours plus courts, par exemple).",
+            "Obtenez un solde final par personne pour clôturer proprement.",
+          ],
+        },
+        {
+          title: "Colocation",
+          description: "Loyer, factures et achats communs toujours équilibrés.",
+          bullets: [
+            "Suivez les charges fixes (électricité, eau, internet) et variables.",
+            "Indiquez qui a payé et combien chaque colocataire doit.",
+            "Règlement mensuel avec rappels clairs.",
+          ],
+        },
+        {
+          title: "Addition au restaurant",
+          description: "Fini les calculs interminables et les paiements croisés.",
+          bullets: [
+            "Entrez le total et répartissez par personne ou par article.",
+            "Incluez pourboires et taxes sans perdre les proportions.",
+            "Partagez QR/liens pour que chacun paie sa part immédiatement.",
+          ],
+        },
+        {
+          title: "Freelances",
+          description: "Séparez les frais du projet et facturez clairement.",
+          bullets: [
+            "Créez un projet et suivez frais remboursables et honoraires.",
+            "Ajoutez les justificatifs et marquez ce qui doit être facturé au client.",
+            "Générez un solde consolidé à inclure dans votre facture.",
+          ],
+        },
+      ],
+      useCaseModal: {
+        label: "Cas d'usage",
+        startWithCase: "Commencer avec ce cas",
+        close: "Fermer",
+      },
+      instagram: "Instagram",
+    },
+  },
+};
+
+export function normalizeLocale(value: string | null | undefined): Locale | null {
+  if (!value) return null;
+  const normalized = value.trim().toLowerCase().slice(0, 2);
+  if (SUPPORTED_LOCALES.includes(normalized as Locale)) {
+    return normalized as Locale;
+  }
+  return LOCALE_ALIASES[normalized] ?? null;
+}
+
 export function isSupportedLocale(value: string): value is Locale {
-  return SUPPORTED_LOCALES.includes(value as Locale);
+  return normalizeLocale(value) !== null;
 }
 
 export function getMessages(locale: Locale): Messages {
