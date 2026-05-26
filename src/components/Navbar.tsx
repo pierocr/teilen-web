@@ -18,10 +18,12 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const links = [
-    { href: "/premium", label: t.navbar.links.premium },
-    { href: "#how", label: t.navbar.links.how },
-    { href: "#features", label: t.navbar.links.features },
-    { href: "#screens", label: t.navbar.links.screens },
+    { href: "#how", label: "Cómo funciona" },
+    { href: "#features", label: "Funcionalidades" },
+    { href: "#ahorros", label: "Ahorros" },
+    { href: "#recordatorios", label: "Recordatorios" },
+    { href: "#premium", label: "Premium" },
+    { href: "#faq", label: "FAQ" },
   ];
 
   // Cierre QR con ESC
@@ -56,7 +58,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 text-gray-900">
       <div
-        className={`mx-auto max-w-6xl px-0 transition-all duration-300 sm:px-3 md:px-4 ${
+        className={`mx-auto max-w-7xl px-0 transition-all duration-300 sm:px-3 md:px-4 ${
           scrolled ? "sm:mt-3" : "sm:mt-2"
         }`}
       >
@@ -80,28 +82,28 @@ export function Navbar() {
                 width={40}
                 height={40}
                 priority
-                className="h-8 w-8 rounded-lg ring-1 ring-emerald-100 min-[380px]:h-9 min-[380px]:w-9 sm:h-10 sm:w-10"
+                className="h-8 w-8 min-[380px]:h-9 min-[380px]:w-9 sm:h-10 sm:w-10"
               />
-              <span className="block text-lg font-semibold tracking-tight text-slate-900 min-[380px]:text-xl sm:text-2xl md:text-[30px]">
+              <span className="block text-lg font-semibold tracking-tight text-slate-900 min-[380px]:text-xl sm:text-2xl md:text-[28px]">
                 Teilen
               </span>
             </Link>
 
             {/* Menú desktop */}
-            <ul className="hidden items-center justify-center gap-2 md:flex">
+            <ul className="hidden items-center justify-center gap-1 md:flex">
               {links.map((l) => (
                 <li key={l.href} className="whitespace-nowrap">
                   {l.href.startsWith("/") ? (
                     <Link
                       href={l.href}
-                      className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-lg"
+                      className="rounded-xl px-2.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-base"
                     >
                       {l.label}
                     </Link>
                   ) : (
                     <a
                       href={l.href}
-                      className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-lg"
+                      className="rounded-xl px-2.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100/80 hover:text-slate-900 fhd:text-base"
                     >
                       {l.label}
                     </a>

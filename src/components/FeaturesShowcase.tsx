@@ -11,6 +11,81 @@ type Feature = {
 
 const FEATURES: Feature[] = [
   {
+    id: "groups",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <path
+          d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8-1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM3.5 20a4.5 4.5 0 0 1 9 0M13 18.5a3.8 3.8 0 0 1 7.5 0"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "personal",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <path
+          d="M6 4h12v16H6zM9 8h6M9 12h6M9 16h3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "recurring",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <path
+          d="M17 3v4h-4M7 21v-4h4M18.6 9A7 7 0 0 0 6.4 6.4L4 8.8M5.4 15A7 7 0 0 0 17.6 17.6L20 15.2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "reminders",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <path
+          d="M8 3v3M16 3v3M4 8h16M5 5h14v15H5zM8 12h4M8 16h7"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "goals",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6">
+        <path
+          d="M12 20a8 8 0 1 0-8-8 8 8 0 0 0 8 8Zm0-4a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0-4 6-6"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
     id: "scan",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
@@ -26,11 +101,11 @@ const FEATURES: Feature[] = [
     ),
   },
   {
-    id: "pay",
+    id: "currency",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
-          d="M3 7h18v10H3zM3 10h18M7 15h4"
+          d="M7 7h10M7 17h10M8 7c2 0 3 2 3 5s-1 5-3 5M16 7c-2 0-3 2-3 5s1 5 3 5M12 4v16"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -41,11 +116,11 @@ const FEATURES: Feature[] = [
     ),
   },
   {
-    id: "rules",
+    id: "notifications",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6">
         <path
-          d="M12 7a3 3 0 110-6 3 3 0 010 6zM4 22a4 4 0 014-4h8a4 4 0 014 4M3 10h6M15 10h6"
+          d="M18 9a6 6 0 0 0-12 0v4l-2 3h16l-2-3V9ZM10 19a2 2 0 0 0 4 0"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -55,52 +130,6 @@ const FEATURES: Feature[] = [
       </svg>
     )
   },
-  {
-    id: "audit",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path
-          d="M3 12l6 6L21 6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "personal",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <circle
-          cx="12"
-          cy="12"
-          r="8"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M12 7v5l3.5 2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8 14.5l-2.5 2.5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
-  }
 ];
 
 export default function FeaturesShowcase() {
@@ -134,7 +163,7 @@ export default function FeaturesShowcase() {
     <section
       id="caracteristicas"
       ref={rootRef}
-      className="relative mx-auto max-w-6xl px-5 py-10 sm:py-20 fhd:py-28"
+      className="relative mx-auto max-w-7xl px-5 py-10 sm:py-20 fhd:py-28"
     >
       <div
         aria-hidden

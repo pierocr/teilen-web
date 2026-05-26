@@ -120,7 +120,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
         appStoreAlt: "Disponible en App Store",
         googlePlayAlt: "Disponible en Google Play",
       },
-      brandDescription: "La forma moderna de dividir gastos con amigos, pareja y equipos. Claro, rápido y sin drama.",
+      brandDescription: "Teilen te ayuda a organizar gastos compartidos y personales desde una app simple, clara y moderna.",
       newsletterAria: "Suscripción a novedades",
       emailPlaceholder: "Tu correo",
       join: "Unirme",

@@ -2,22 +2,27 @@
 
 import Image from "next/image";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Navbar } from "./Navbar";
-import { DownloadModal } from "./DownloadModal";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
 
 // TODO: Generate /screens/home.webp from /screens/home.jpg and switch this source to the WebP asset.
-const HERO_SCREEN = "/screens/home.jpg";
+const HERO_SCREEN = "/appPrincipal.png";
 
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 
+const HERO_BULLETS = [
+  "Gastos grupales y personales",
+  "Recordatorios y pagos recurrentes",
+  "Metas de ahorro",
+  "Disponible en iOS y Android",
+];
+
 export function Hero() {
   const { locale } = useLocale();
   const home = getHomeMessages(locale);
-  const [open, setOpen] = useState(false);
   const prefersReduce = useReducedMotion();
 
   const overlayStyle = useMemo(
@@ -38,7 +43,7 @@ export function Hero() {
       <div className="absolute inset-0" style={overlayStyle} />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/10" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-7 px-5 pb-7 pt-20 sm:gap-10 sm:pb-6 sm:pt-22 md:pt-26 md:pb-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-10">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-7 px-5 pb-7 pt-20 sm:gap-10 sm:pb-6 sm:pt-22 md:pt-26 md:pb-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-10">
         <div className="relative z-20 mx-auto w-full max-w-[680px] lg:mx-0">
           <motion.span
             initial={{ opacity: 0, y: 14 }}
@@ -53,19 +58,37 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-4 text-[2.55rem] font-extrabold leading-[1.04] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-7xl fhd:text-8xl"
+            className="mt-4 max-w-3xl text-[2.45rem] font-extrabold leading-[1.06] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-6xl lg:text-[4rem] fhd:text-7xl"
           >
-            Divide gastos, salda cuentas y evita malos ratos.
+            Organiza tus cuentas fácil con Teilen
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-4 max-w-2xl text-base leading-7 text-white/82 sm:mt-5 md:text-xl fhd:text-2xl"
+            className="mt-4 max-w-2xl text-base leading-7 text-white/78 sm:mt-5 md:text-lg md:leading-8 fhd:text-xl"
           >
             {home.hero.description}
           </motion.p>
+
+          <motion.ul
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.16 }}
+            className="mt-5 grid max-w-2xl grid-cols-1 gap-2 text-sm text-white/82 sm:grid-cols-2"
+          >
+            {HERO_BULLETS.map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-300/18 text-emerald-100 ring-1 ring-emerald-200/25">
+                  <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
+                    <path d="M7.8 13.4 4.4 10l1.1-1.1 2.3 2.3 6.7-6.7 1.1 1.1-7.8 7.8Z" />
+                  </svg>
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </motion.ul>
 
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -101,12 +124,12 @@ export function Hero() {
                 className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
               />
             </a>
-            <button
-              onClick={() => setOpen(true)}
-              className="rounded-2xl border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5 sm:px-5 sm:py-3 sm:text-sm"
+            <a
+              href="#how"
+              className="inline-flex items-center justify-center rounded-2xl border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-white/15 sm:px-5 sm:py-3 sm:text-sm"
             >
-              {home.hero.demoButton}
-            </button>
+              Ver cómo funciona
+            </a>
           </motion.div>
 
           <motion.p
@@ -119,10 +142,8 @@ export function Hero() {
           </motion.p>
         </div>
 
-        <PhoneShowcase prefersReduce={!!prefersReduce} className="hidden sm:block sm:mt-2 lg:mt-0 lg:justify-self-end lg:translate-x-6" />
+        <PhoneShowcase prefersReduce={!!prefersReduce} className="hidden sm:block sm:mt-2 lg:mt-0 lg:justify-self-end" />
       </div>
-
-      <DownloadModal open={open} onClose={() => setOpen(false)} />
     </section>
   );
 }
@@ -168,7 +189,7 @@ function PhoneShowcase({
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.15 }}
-      className={`relative mx-auto w-full max-w-[500px] ${className}`}
+      className={`relative mx-auto w-full max-w-[430px] ${className}`}
     >
       <motion.div
         style={
@@ -182,7 +203,7 @@ function PhoneShowcase({
                 y: parallaxShiftY,
               }
         }
-        className="relative mx-auto aspect-[9/19.5] w-[220px] max-w-[68vw] rounded-[2.4rem] bg-gradient-to-b from-slate-900 via-slate-950 to-black p-2 shadow-[0_36px_90px_rgba(2,6,23,0.62)] sm:w-[260px] sm:max-w-[76vw] sm:rounded-[2.6rem] sm:p-[10px] md:w-[290px] md:max-w-[84vw] md:rounded-[2.8rem] md:shadow-[0_60px_140px_rgba(2,6,23,0.75)]"
+        className="relative mx-auto aspect-[9/19.5] w-[210px] max-w-[66vw] rounded-[2.25rem] bg-gradient-to-b from-slate-900 via-slate-950 to-black p-2 shadow-[0_32px_80px_rgba(2,6,23,0.58)] sm:w-[240px] sm:max-w-[72vw] sm:rounded-[2.45rem] sm:p-[9px] md:w-[260px] md:max-w-[78vw] md:rounded-[2.65rem] md:shadow-[0_48px_110px_rgba(2,6,23,0.68)]"
       >
         <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] border border-white/20 sm:rounded-[2.6rem] md:rounded-[2.8rem]" />
         <div className="pointer-events-none absolute -right-4 top-8 h-[58%] w-8 rounded-full bg-emerald-400/18 blur-2xl" />
@@ -197,7 +218,7 @@ function PhoneShowcase({
             alt="Pantalla real de la app Teilen"
             fill
             priority
-            sizes="(max-width: 1024px) 84vw, 290px"
+            sizes="(max-width: 1024px) 78vw, 260px"
             className="object-cover object-top"
           />
 

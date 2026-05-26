@@ -119,9 +119,9 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       titlePrefix: "La forma de",
       titleSuffix: "tus gastos en grupo",
       description:
-        "Teilen calcula automáticamente cuánto debe cada persona, ordena pagos y mantiene tus grupos claros en tiempo real.",
-      demoButton: "Ver experiencia Teilen",
-      availability: "Disponible en Chile y el mundo",
+        "Divide gastos, programa pagos recurrentes, crea recordatorios y sigue tus metas de ahorro desde una sola app.",
+      demoButton: "Ver cómo funciona",
+      availability: "Disponible en iOS y Android",
     },
     animatedStats: {
       badge: "Experiencia Teilen",
@@ -158,63 +158,83 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
     howItWorks: {
       badge: "Cómo funciona",
       title: "¿Cómo funciona?",
-      description: "Todo lo que necesitas para dividir sin complicaciones.",
+      description: "Todo lo que necesitas para ordenar tus cuentas en pocos pasos.",
       steps: [
         {
-          title: "Crea tu grupo",
-          desc: "Invita con enlace o QR.",
+          title: "Crea tu espacio",
+          desc: "Arma un grupo o usa tu cuenta personal para organizar tus gastos.",
           img: "/images/how-group.webp",
         },
         {
           title: "Agrega tus gastos",
-          desc: "Define quién pagó y cómo se divide.",
+          desc: "Indica quién pagó, cuánto fue y cómo quieres dividirlo.",
           img: "/images/how-scan.webp",
         },
         {
-          title: "Notifica al grupo",
-          desc: "Todos ven cada gasto al instante.",
+          title: "Programa y recuerda",
+          desc: "Crea gastos recurrentes y recordatorios para tus próximas cuentas.",
           img: "/images/how-pay.webp",
+        },
+        {
+          title: "Sigue tus avances",
+          desc: "Revisa saldos, pagos, gastos personales y metas de ahorro desde una vista clara.",
+          img: "/demo/card-2.webp",
         },
       ],
     },
     features: {
       badge: "Características",
-      title: "Potentes, pero fáciles.",
-      subtitle: "Todo lo que de verdad usa la gente.",
+      title: "Todo lo que necesitas para tus cuentas",
+      subtitle: "Funciones simples para organizar gastos compartidos, gastos personales y metas.",
       videoAriaLabel: "Demo de la aplicación Teilen",
       unsupportedVideoText: "Tu navegador no soporta video HTML5.",
       items: [
         {
-          id: "scan",
-          title: "Escáner de boletas con IA",
-          desc: "Detecta ítems, impuestos y propinas. Divide en segundos.",
-        },
-        {
-          id: "pay",
-          title: "Saldos claros",
-          desc: "Ve exactamente quién debe pagarle a quién y registra los pagos cuando se realicen.",
-        },
-        {
-          id: "rules",
-          title: "Grupos & reglas",
-          desc: "Crea grupos, define porcentajes y lleva el historial.",
-        },
-        {
-          id: "audit",
-          title: "Auditoría en tiempo real",
-          desc: "Transparencia total del quién-pagó-qué y cuándo.",
+          id: "groups",
+          title: "Gastos grupales",
+          desc: "Divide cuentas con amigos, pareja, familia o compañeros en segundos.",
         },
         {
           id: "personal",
-          title: "Control de gastos personales",
-          desc: "Presupuesta tus gastos, clasifica compras y recibe alertas inteligentes.",
+          title: "Gastos personales",
+          desc: "Registra tus compras, revisa tu historial y ordena tus movimientos del mes.",
+        },
+        {
+          id: "recurring",
+          title: "Gastos recurrentes",
+          desc: "Programa suscripciones, servicios y cuentas frecuentes para grupos o gastos personales.",
+        },
+        {
+          id: "reminders",
+          title: "Recordatorios",
+          desc: "Crea avisos para próximos vencimientos y mantén tus pagos importantes a la vista.",
+        },
+        {
+          id: "goals",
+          title: "Metas de ahorro",
+          desc: "Crea objetivos, registra avances y visualiza cuánto falta para lograrlos.",
+        },
+        {
+          id: "scan",
+          title: "Boletas con IA",
+          desc: "Escanea boletas y crea gastos con menos pasos, según disponibilidad en la app.",
+        },
+        {
+          id: "currency",
+          title: "Conversor de monedas",
+          desc: "Convierte entre más de 160 monedas para viajes y compras internacionales.",
+        },
+        {
+          id: "notifications",
+          title: "Notificaciones",
+          desc: "Recibe avisos de nuevos gastos, pagos registrados y vencimientos importantes.",
         },
       ],
     },
     appScreens: {
       badge: "Pantallas",
       title: "Mira cómo luce Teilen",
-      subtitle: "Interfaz limpia y moderna, optimizada para que dividir gastos sea realmente simple.",
+      subtitle: "Capturas de la app para revisar grupos, actividad, gastos y saldos desde una vista clara.",
       imageAlt: "Captura de pantalla de Teilen",
     },
     downloadModal: {
@@ -222,19 +242,19 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       badge: "Disponible en iOS y Android",
       title: "Comparte gastos y ordena tus finanzas personales desde un mismo lugar",
       description:
-        "Disfruta Teilen desde Chile hacia el mundo: grupos, viajes, parejas y equipos pueden sincronizar cada movimiento sin depender de hojas de cálculo.",
+        "Usa Teilen para organizar grupos, gastos personales, recordatorios y metas desde una experiencia simple para iOS y Android.",
       highlights: [
         {
-          title: "Balances vivos",
-          description: "Cada abono y gasto se refleja al instante para que nadie pierda de vista el saldo real.",
+          title: "Saldos claros",
+          description: "Cada gasto y pago registrado actualiza la vista para que todos vean el detalle.",
         },
         {
-          title: "Recordatorios humanos",
-          description: "Automatiza avisos amables y evita perseguir a tus amigos por WhatsApp.",
+          title: "Recordatorios útiles",
+          description: "Crea avisos para vencimientos, servicios y cuentas importantes.",
         },
         {
-          title: "Pagos ordenados",
-          description: "Calculamos la mejor ruta para liquidar sin transferencias innecesarias.",
+          title: "Metas visibles",
+          description: "Registra avances de ahorro y revisa cuánto falta para completar tus objetivos.",
         },
       ],
       markets: "Chile · Latinoamérica · Resto del mundo",
@@ -245,24 +265,54 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
     page: {
       faq: {
         badge: "Preguntas frecuentes",
-        title: "Resuelve tus dudas antes de descargar Teilen",
+        title: "Preguntas frecuentes",
         description:
-          "Respondemos lo que más nos consultan sobre compartir gastos, saldar cuentas y organizar grupos para que pruebes Teilen con confianza.",
+          "Todo lo que necesitas saber antes de empezar con Teilen.",
         items: [
           {
-            question: "¿Qué hace diferente a Teilen frente a otras apps para dividir gastos?",
+            question: "¿Qué puedo hacer con Teilen?",
             answer:
-              "Teilen está pensada para el mercado chileno: permite registrar gastos en pesos, dividirlos en partes iguales o personalizadas, enviar recordatorios y exportar reportes claros para tu grupo.",
+              "Puedes dividir gastos en grupos, registrar gastos personales, crear recordatorios, programar gastos recurrentes y seguir tus metas de ahorro.",
           },
           {
-            question: "¿Sirve para viajes, parejas o grupos de roomies?",
+            question: "¿Sirve para parejas, viajes o roomies?",
             answer:
-              "Sí. Puedes crear distintos grupos, invitar a tus contactos y llevar el detalle de cada compra, reembolso y saldo pendiente en tiempo real.",
+              "Sí. Puedes crear grupos para cada situación, invitar a otras personas por enlace o QR y mantener los saldos siempre claros.",
           },
           {
-            question: "¿Cómo se liquidan los saldos en Teilen?",
+            question: "¿Puedo usar Teilen solo para mis gastos personales?",
             answer:
-              "La app calcula automáticamente quién le debe a quién y te muestra la mejor ruta de pagos para dejar el grupo en cero sin cálculos manuales.",
+              "Sí. También puedes registrar gastos personales, crear recordatorios y seguir tus metas de ahorro.",
+          },
+          {
+            question: "¿Puedo programar gastos mensuales?",
+            answer:
+              "Sí. Puedes crear gastos recurrentes para suscripciones, servicios, arriendo, cuentas del hogar o pagos compartidos.",
+          },
+          {
+            question: "¿Teilen tiene recordatorios?",
+            answer:
+              "Sí. Puedes crear recordatorios para próximos vencimientos y revisar cuáles están activos, próximos o vencidos.",
+          },
+          {
+            question: "¿Puedo crear metas de ahorro?",
+            answer:
+              "Sí. Puedes crear metas, registrar avances, ver tu ahorro acumulado y revisar cuánto falta para completarlas.",
+          },
+          {
+            question: "¿Puedo escanear boletas?",
+            answer:
+              "Según disponibilidad en la app, Teilen permite escanear boletas para ayudarte a crear gastos con menos pasos.",
+          },
+          {
+            question: "¿Está disponible para iOS y Android?",
+            answer:
+              "Sí. Puedes descargar Teilen desde App Store y Google Play.",
+          },
+          {
+            question: "¿Qué incluye Teilen Premium?",
+            answer:
+              "Premium desbloquea herramientas avanzadas como más grupos, gastos completos, reportes, comprobantes, funciones con IA y módulos financieros extendidos, según disponibilidad en la app.",
           },
         ],
       },
@@ -270,8 +320,8 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
         badge: "Descarga Teilen",
         title: "Disponible en iOS y Android para Chile y el mundo",
         description:
-          "Lleva la app líder para compartir gastos, dividir pagos y ordenar tus finanzas personales sin importar dónde estés. Gratis, segura y con un diseño listo para tus grupos.",
-        availability: "App global para compartir gastos · Sin costo de descarga",
+          "Organiza tus gastos compartidos y personales desde una app clara, moderna y fácil de usar desde el primer día.",
+        availability: "Disponible en iOS y Android",
         qrTitle: "Escanea con tu cámara",
         qrDescription: "Elige el sistema operativo que quieras, nosotros detectamos tu store automáticamente.",
         qrAlt: "Código QR de descarga universal de Teilen",
@@ -279,32 +329,32 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       testimonials: {
         badge: "Reseñas",
         title: "Lo que dice nuestra comunidad",
-        description: "Testimonios reales de usuarios piloto que ya están usando Teilen para dividir gastos sin drama.",
+        description: "Experiencias de personas que usan Teilen para organizar cuentas, grupos y metas.",
         starsLabel: "5 de 5 estrellas",
         items: [
           {
             quote:
-              "“Con Teilen logramos ordenar el arriendo y los servicios del depto. El resumen es transparente y todos quedamos tranquilos con lo que toca pagar.”",
+              "“Con Teilen organizamos arriendo, servicios y compras del departamento. Todo queda claro y actualizado para todos.”",
             author: "Constanza R.",
             context: "Ñuñoa · Convive con 3 roomies",
           },
           {
             quote:
-              "“Para nuestro viaje a Chiloé fue ideal. Cada gasto quedó registrado al tiro y al final bastó un par de clics para saldar entre el grupo completo.”",
+              "“En nuestro viaje registramos cada gasto al instante. Al final, revisar los saldos fue muy simple.”",
             author: "Diego M.",
             context: "Valparaíso · Viajes en grupo",
           },
           {
             quote:
-              "“Con mi pareja nos organizamos mejor: la app recuerda quién pagó cada cosa y evita esos malos ratos por las cuentas de la casa.”",
+              "“Con mi pareja usamos Teilen para ordenar las cuentas del hogar y nuestras metas. Nos ayuda a tener todo más claro.”",
             author: "Camila & Seba",
             context: "Santiago Centro · Pareja joven",
           },
           {
             quote:
-              "“Soy tesorera de un club deportivo y Teilen nos permitió llevar los aportes y reembolsos con claridad. Los socios quedan informados al instante.”",
+              "“Me gusta porque puedo usarlo para grupos, recordatorios y también para mis gastos personales.”",
             author: "María José L.",
-            context: "Providencia · Club amateur",
+            context: "Providencia · Gastos personales",
           },
         ],
       },

@@ -1,32 +1,45 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslations } from "./LanguageProvider";
+
+const nav = {
+  producto: [
+    { label: "Dividir gastos", href: "#features" },
+    { label: "Gastos personales", href: "#features" },
+    { label: "Gastos recurrentes", href: "#recurrentes" },
+    { label: "Recordatorios", href: "#recordatorios" },
+    { label: "Metas de ahorro", href: "#ahorros" },
+    { label: "Premium", href: "#premium" },
+  ],
+  casos: [
+    { label: "Parejas", href: "#casos-de-uso" },
+    { label: "Viajes", href: "#casos-de-uso" },
+    { label: "Roomies", href: "#casos-de-uso" },
+    { label: "Cuentas del hogar", href: "#casos-de-uso" },
+    { label: "Salidas con amigos", href: "#casos-de-uso" },
+    { label: "Suscripciones", href: "#recurrentes" },
+  ],
+  herramientas: [
+    { label: "Escáner de boletas", href: "#features" },
+    { label: "Conversor de monedas", href: "#features" },
+    { label: "Reportes", href: "#premium" },
+    { label: "Notificaciones", href: "#features" },
+  ],
+  ayuda: [
+    { label: "Preguntas frecuentes", href: "#faq" },
+    { label: "Contacto", href: "/contacto" },
+    { label: "Privacidad", href: "/privacidad" },
+    { label: "Términos", href: "/terminos" },
+  ],
+};
 
 export function Footer() {
   const t = useTranslations();
   const year = new Date().getFullYear();
-
-  const useCases = t.footer.useCases;
-
-  const [activeCase, setActiveCase] = useState<typeof useCases[number] | null>(null);
-
-  const nav = {
-    producto: [
-      { label: t.footer.links.product[0], href: "#features" },
-      { label: t.footer.links.product[1], href: "#how" },
-      { label: t.footer.links.product[2], href: "#screens" },
-      { label: t.footer.links.product[3], href: "/premium" },
-    ],
-    ayuda: [
-      { label: t.footer.links.help.center, href: "/centro-de-ayuda" },
-      { label: t.footer.links.help.contact, href: "/contacto" },
-      { label: t.footer.links.help.faq, href: "/preguntas-frecuentes" },
-    ],
-  };
 
   return (
     <footer className="relative mt-12 border-t border-black/10 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 sm:mt-24">
@@ -34,26 +47,23 @@ export function Footer() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 fhd:px-10">
         <div className="grid grid-cols-1 gap-8 py-10 sm:gap-12 sm:py-14 fhd:gap-16 fhd:py-16 md:grid-cols-2 lg:grid-cols-12">
-          {/* Columna marca + texto + badges */}
           <div className="lg:col-span-4">
-            {/* Logo */}
             <div className="flex items-center gap-3">
               <Image
-                src="/logo_teilen.webp"
+                src="/logo_teilen.png"
                 alt="Teilen"
                 width={40}
                 height={40}
-                className="h-10 w-10 rounded-lg ring-1 ring-emerald-100 select-none"
+                className="h-10 w-10 select-none"
                 priority={false}
               />
               <span className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-[42px]">Teilen</span>
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600 fhd:text-base fhd:leading-7">
-              {t.footer.brandDescription}
+              Teilen te ayuda a organizar gastos compartidos y personales desde una app simple, clara y moderna.
             </p>
 
-            {/* Badges de tiendas */}
             <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3 fhd:gap-4">
               <a
                 href="https://apps.apple.com/cl/app/teilen/id6754208104"
@@ -85,20 +95,12 @@ export function Footer() {
                 />
               </a>
             </div>
-
           </div>
 
-          <FooterColumn title={t.footer.columns.product} items={nav.producto} className="lg:col-span-2" />
-          <UseCasesColumn
-            title={t.footer.columns.useCases}
-            items={useCases}
-            className="lg:col-span-2"
-            onSelect={(title) => {
-              const match = useCases.find((c) => c.title === title);
-              if (match) setActiveCase(match);
-            }}
-          />
-          <FooterColumn title={t.footer.columns.help} items={nav.ayuda} className="lg:col-span-2" />
+          <FooterColumn title="Producto" items={nav.producto} className="lg:col-span-2" />
+          <FooterColumn title="Casos de uso" items={nav.casos} className="lg:col-span-2" />
+          <FooterColumn title="Herramientas" items={nav.herramientas} className="lg:col-span-2" />
+          <FooterColumn title="Ayuda" items={nav.ayuda} className="lg:col-span-2" />
         </div>
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
@@ -113,78 +115,14 @@ export function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4 fhd:gap-5">
-            <div className="relative">
-              <LanguageSwitcher />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <SocialIcon label={t.footer.instagram} href="https://www.instagram.com/teilen.app/" kind="ig" />
-            </div>
+            <LanguageSwitcher />
+            <SocialIcon label={t.footer.instagram} href="https://www.instagram.com/teilen.app/" kind="ig" />
           </div>
         </div>
       </div>
-
-      {activeCase && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-black/50 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="use-case-title"
-        >
-          <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-gray-200">
-            <div className="flex items-start justify-between gap-4 px-5 py-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">{t.footer.useCaseModal.label}</p>
-                <h3 id="use-case-title" className="mt-1 text-2xl font-semibold text-gray-900">
-                  {activeCase.title}
-                </h3>
-                <p className="mt-1 text-sm text-gray-600">{activeCase.description}</p>
-              </div>
-                <button
-                  type="button"
-                  onClick={() => setActiveCase(null)}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition hover:text-gray-800 hover:border-gray-300"
-                  aria-label={t.footer.useCaseModal.close}
-                >
-                  ×
-                </button>
-            </div>
-
-            <div className="px-5 pb-5">
-              <ul className="space-y-2.5 text-sm text-gray-700">
-                {activeCase.bullets.map((bullet) => (
-                  <li key={bullet} className="flex gap-3">
-                    <span className="mt-0.5 inline-flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-emerald-500" />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => setActiveCase(null)}
-                  className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
-                >
-                  {t.footer.useCaseModal.startWithCase}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveCase(null)}
-                  className="inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-gray-300"
-                >
-                  {t.footer.useCaseModal.close}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </footer>
   );
 }
-
-/* ---------- Helpers ---------- */
 
 function FooterColumn({
   title,
@@ -214,37 +152,6 @@ function FooterColumn({
   );
 }
 
-function UseCasesColumn({
-  title,
-  items,
-  className = "",
-  onSelect,
-}: {
-  title: string;
-  items: { title: string; description: string; bullets: string[] }[];
-  className?: string;
-  onSelect: (title: string) => void;
-}) {
-  return (
-    <nav className={`min-w-[12rem] ${className}`} aria-label={title}>
-      <h3 className="text-sm fhd:text-base font-semibold tracking-wide text-gray-900">{title}</h3>
-      <ul className="mt-4 space-y-3">
-        {items.map((item) => (
-          <li key={item.title}>
-            <button
-              type="button"
-              onClick={() => onSelect(item.title)}
-              className="text-left text-sm fhd:text-base text-gray-600 transition hover:text-emerald-700"
-            >
-              {item.title}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
 function SocialIcon({
   label,
   href,
@@ -252,23 +159,14 @@ function SocialIcon({
 }: {
   label: string;
   href: string;
-  kind: "x" | "in" | "ig" | "fb" | "yt";
+  kind: "ig";
 }) {
   const paths: Record<string, ReactNode> = {
-    x: <path d="M3 3l7.3 9.1L3.7 21H6l5.3-6.6L15.7 21H21l-7.5-9.4L20.3 3H18l-5 6.2L8.4 3H3z" />,
-    in: <path d="M4 3a2 2 0 110 4 2 2 0 010-4zM4 8h4v13H4V8zm6 0h4v2h.1c.6-1.1 2.1-2.2 4.3-2.2 4.6 0 5.4 3 5.4 6.9V21h-4v-6.6c0-1.6 0-3.6-2.2-3.6-2.2 0-2.6 1.7-2.6 3.5V21h-4V8z" />,
     ig: (
       <>
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" fill="white" />
         <circle cx="18" cy="6" r="1.2" fill="white" />
-      </>
-    ),
-    fb: <path d="M13 3h4V7h-4v3h3.5l-.5 4H13v7H9v-7H7v-4h2V7.5C9 5 10.1 3 13 3z" />,
-    yt: (
-      <>
-        <path d="M2 8.5C2 6.6 3.6 5 5.5 5h13c1.9 0 3.5 1.6 3.5 3.5v7c0 1.9-1.6 3.5-3.5 3.5h-13A3.5 3.5 0 012 15.5v-7z" />
-        <path d="M10 10l6 3-6 3V10z" fill="white" />
       </>
     ),
   };

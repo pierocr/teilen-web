@@ -11,7 +11,7 @@ export default function AnimatedStats() {
   const home = getHomeMessages(locale);
 
   return (
-    <section id="experience" className="relative mx-auto max-w-6xl sm:px-5">
+    <section id="experience" className="relative mx-auto max-w-7xl sm:px-5">
       <div className="relative overflow-hidden rounded-[24px] border border-emerald-100/80 bg-gradient-to-br from-white via-emerald-50/35 to-teal-50/55 px-5 py-8 shadow-[0_22px_60px_rgba(15,23,42,0.12)] sm:rounded-[34px] sm:px-6 sm:py-14 md:px-10 md:py-16">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_220px_at_12%_0%,rgba(1,154,87,0.13),transparent_60%)]"

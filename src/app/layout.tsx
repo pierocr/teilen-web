@@ -19,21 +19,26 @@ export const metadata: Metadata = {
   applicationName: "Teilen",
 
   title: {
-    default: "Teilen - Divide gastos y salda cuentas",
+    default: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
     template: "%s | Teilen",
   },
 
   description:
-    "Divide gastos compartidos, calcula saldos y registra pagos con amigos, pareja o roomies. Teilen mantiene tus grupos claros en tiempo real.",
+    "Teilen te ayuda a dividir gastos, crear recordatorios, programar gastos recurrentes y seguir metas de ahorro desde una app simple para iOS y Android.",
 
   keywords: [
     "dividir gastos",
     "dividir cuentas",
-    "app gastos compartidos",
-    "finanzas en pareja",
-    "gastos entre amigos",
-    "app para roomies",
-    "control de gastos grupales",
+    "gastos compartidos",
+    "gastos personales",
+    "gastos recurrentes",
+    "recordatorios de pago",
+    "metas de ahorro",
+    "app para dividir gastos",
+    "app de gastos personales",
+    "finanzas personales",
+    "cuentas compartidas",
+    "Chile",
   ],
 
   category: "finance",
@@ -57,9 +62,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.teilen.cl",
     siteName: "Teilen",
-    title: "Teilen - Divide gastos y salda cuentas",
+    title: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
     description:
-      "Organiza gastos compartidos, ve quién debe pagarle a quién y registra pagos cuando se realicen.",
+      "Divide gastos, crea recordatorios, programa gastos recurrentes y sigue metas de ahorro desde una app simple para iOS y Android.",
     locale: "es_CL",
     images: [
       {
@@ -68,16 +73,16 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/webp",
-        alt: "Teilen - Divide gastos y salda cuentas",
+        alt: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen - Divide gastos y salda cuentas",
+    title: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
     description:
-      "La app para dividir gastos compartidos, calcular saldos y organizar finanzas en grupo.",
+      "La app para dividir gastos, organizar cuentas, programar recordatorios y seguir metas de ahorro.",
     images: ["/teilen-og2.webp"],
   },
 
@@ -134,7 +139,7 @@ export default function RootLayout({
     logo: "https://www.teilen.cl/logo_teilen.webp",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
-      "Teilen es la plataforma para dividir gastos, coordinar finanzas compartidas y registrar pagos con claridad.",
+      "Teilen ayuda a organizar gastos compartidos, gastos personales, recordatorios y metas financieras desde una app simple.",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -149,7 +154,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Teilen",
-    alternateName: "Teilen - Divide gastos y salda cuentas",
+    alternateName: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
     url: "https://www.teilen.cl",
     potentialAction: {
       "@type": "SearchAction",
@@ -172,7 +177,7 @@ export default function RootLayout({
       priceCurrency: "CLP",
     },
     description:
-      "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y registrar pagos de forma transparente.",
+      "Teilen permite dividir gastos compartidos, registrar gastos personales, crear recordatorios, programar gastos recurrentes y seguir metas de ahorro.",
     inLanguage: ["es", "en", "de", "pr", "ut", "fr"],
     publisher: {
       "@type": "Organization",
@@ -230,3 +235,4 @@ export default function RootLayout({
     </html>
   );
 }
+
