@@ -71,7 +71,7 @@ export function PremiumLanding() {
           <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_22px_60px_rgba(0,0,0,0.45)]">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_12px_30px_rgba(0,0,0,0.35)]">
               <Image
-                src="/logo_teilen.png"
+                src="/logo_teilen.webp"
                 alt="Teilen Premium"
                 width={56}
                 height={56}

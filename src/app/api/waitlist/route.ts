@@ -55,7 +55,7 @@ function renderHtml({
   email: string;
   createdAtLabel: string;
 }) {
-  const logo = `${baseUrl}/logo_teilen.png`; // <- nuevo logo
+  const logo = `${baseUrl}/logo_teilen.webp`;
   const hero = `${baseUrl}/hero.jpg`;
   const emailEsc = escapeHtml(email);
 

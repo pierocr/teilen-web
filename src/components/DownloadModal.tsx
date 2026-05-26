@@ -35,7 +35,7 @@ export function DownloadModal({ open, onClose }: Props) {
       />
 
       <div className="relative z-[101] flex min-h-full items-center justify-center px-3 py-6 sm:px-4 sm:py-10 overflow-y-auto">
-        <div className="relative w-full max-w-5xl rounded-[28px] border border-white/50 bg-white/95 p-5 sm:p-7 lg:p-9 shadow-[0_24px_100px_rgba(15,23,42,0.35)] max-h-[92vh] overflow-y-auto overscroll-contain">
+        <div className="relative w-full max-w-5xl rounded-[22px] border border-white/50 bg-white/95 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.35)] max-h-[92vh] overflow-y-auto overscroll-contain sm:rounded-[28px] sm:p-7 lg:p-9">
           <button
             onClick={onClose}
             aria-label={home.downloadModal.close}
@@ -44,20 +44,20 @@ export function DownloadModal({ open, onClose }: Props) {
             ✕
           </button>
 
-          <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-[1.05fr_0.8fr] lg:gap-12">
+          <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 md:grid-cols-[1.05fr_0.8fr] lg:gap-12">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-800 ring-1 ring-emerald-200">
                 {home.downloadModal.badge}
               </span>
 
-              <h2 className="mt-5 text-2xl font-bold leading-tight text-slate-900 md:text-3xl lg:text-[34px]">
+              <h2 className="mt-4 text-xl font-bold leading-tight text-slate-900 sm:mt-5 sm:text-2xl md:text-3xl lg:text-[34px]">
                 {home.downloadModal.title}
               </h2>
-              <p className="mt-3 text-base leading-7 text-slate-600 md:text-lg">
+              <p className="mt-2 text-sm leading-6 text-slate-600 sm:mt-3 sm:text-base sm:leading-7 md:text-lg">
                 {home.downloadModal.description}
               </p>
 
-              <ul className="mt-5 space-y-3.5 text-sm leading-6 text-slate-600 md:text-base">
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600 sm:mt-5 sm:space-y-3.5 md:text-base">
                 {home.downloadModal.highlights.map((item) => (
                   <li key={item.title} className="flex gap-3">
                     <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-semibold">
@@ -71,7 +71,7 @@ export function DownloadModal({ open, onClose }: Props) {
                 ))}
               </ul>
 
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
                 <a
                   href={APP_STORE_URL}
                   aria-label={home.stores.appStoreAria}
@@ -83,7 +83,7 @@ export function DownloadModal({ open, onClose }: Props) {
                     alt={home.stores.appStoreAlt}
                     width={174}
                     height={58}
-                    className="h-[58px] w-[174px]"
+                    className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
                   />
                 </a>
                 <a
@@ -97,16 +97,16 @@ export function DownloadModal({ open, onClose }: Props) {
                     alt={home.stores.googlePlayAlt}
                     width={196}
                     height={58}
-                    className="h-[58px] w-[196px]"
+                    className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
                   />
                 </a>
               </div>
-              <p className="mt-3 text-xs uppercase tracking-[0.35em] text-slate-400">
+              <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:text-xs sm:tracking-[0.35em]">
                 {home.downloadModal.markets}
               </p>
             </div>
 
-            <div className="relative mx-auto w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
+            <div className="relative mx-auto w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[300px]">
               <div
                 className="pointer-events-none absolute -inset-4 rounded-[40px] bg-gradient-to-br from-emerald-400/30 via-slate-100 to-slate-900/5 blur-3xl"
                 aria-hidden="true"
@@ -125,14 +125,14 @@ export function DownloadModal({ open, onClose }: Props) {
 
                 <a
                   href={UNIVERSAL_DOWNLOAD_URL}
-                  className="absolute -bottom-12 right-0 flex w-40 flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-white/95 p-3 text-center text-xs font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl"
+                  className="absolute -bottom-10 right-0 flex w-32 flex-col items-center gap-1.5 rounded-2xl border border-slate-100 bg-white/95 p-2.5 text-center text-[10px] font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl sm:-bottom-12 sm:w-40 sm:gap-2 sm:p-3 sm:text-xs"
                 >
                   <Image
                     src="/qr-download.png"
                     alt={home.downloadModal.qrAlt}
                     width={120}
                     height={120}
-                    className="h-24 w-24 rounded-xl border border-slate-100 bg-white p-2"
+                    className="h-16 w-16 rounded-xl border border-slate-100 bg-white p-1.5 sm:h-24 sm:w-24 sm:p-2"
                   />
                   <span className="uppercase tracking-[0.25em] text-emerald-600">
                     {home.downloadModal.qrLabel}

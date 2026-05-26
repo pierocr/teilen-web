@@ -50,7 +50,7 @@ export function LanguageSwitcher({ className = "", buttonClassName = "" }: Langu
   return (
     <div
       ref={rootRef}
-      className={`relative inline-flex ${className}`}
+      className={`relative ${className || "inline-flex"}`}
     >
       <button
         type="button"

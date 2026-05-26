@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import React, { useEffect, useMemo, useState } from "react";
 import { Navbar } from "./Navbar";
 import { DownloadModal } from "./DownloadModal";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
 
+// TODO: Generate /screens/home.webp from /screens/home.jpg and switch this source to the WebP asset.
 const HERO_SCREEN = "/screens/home.jpg";
 
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
@@ -18,58 +19,32 @@ export function Hero() {
   const home = getHomeMessages(locale);
   const [open, setOpen] = useState(false);
   const prefersReduce = useReducedMotion();
-  const timerRef = useRef<number | null>(null);
 
   const overlayStyle = useMemo(
     () => ({
       background: `
-        radial-gradient(900px 520px at 12% 8%, rgba(6,182,120,0.28), transparent 55%),
-        radial-gradient(680px 420px at 88% 18%, rgba(5,150,105,0.22), transparent 58%),
-        linear-gradient(145deg, #041012 0%, #0a2228 44%, #0e2f35 100%)
+        radial-gradient(900px 520px at 14% 10%, rgba(6,95,70,0.34), transparent 58%),
+        radial-gradient(700px 420px at 86% 16%, rgba(20,184,166,0.16), transparent 62%),
+        linear-gradient(145deg, #041011 0%, #07191c 48%, #0b2425 100%)
       `,
     }),
     []
   );
 
-  const words: string[] = useMemo(() => home.hero.words, [home.hero.words]);
-  const [wIndex, setWIndex] = useState<number>(0);
-
-  const longest = useMemo<string>(
-    () => words.reduce((a, b) => (a.length > b.length ? a : b)),
-    [words]
-  );
-
-  useEffect(() => {
-    if (words.length <= 1) return;
-
-    timerRef.current = window.setInterval(() => {
-      setWIndex((i) => (i + 1) % words.length);
-    }, 2200);
-
-    return () => {
-      if (timerRef.current !== null) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-  }, [words.length]);
-
   return (
-    <section className="relative min-h-[76vh] overflow-hidden">
+    <section className="relative overflow-hidden sm:min-h-[76vh]">
       <Navbar />
 
       <div className="absolute inset-0" style={overlayStyle} />
-      <div className="pointer-events-none absolute -left-20 top-24 h-64 w-64 rounded-full bg-emerald-300/20 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-white/8" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/10" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-6 pt-22 md:pt-26 md:pb-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-10">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-7 px-5 pb-7 pt-20 sm:gap-10 sm:pb-6 sm:pt-22 md:pt-26 md:pb-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-10">
         <div className="relative z-20 mx-auto w-full max-w-[680px] lg:mx-0">
           <motion.span
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="inline-flex items-center rounded-full border border-emerald-300/40 bg-white/10 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100 backdrop-blur"
+            className="inline-flex max-w-full items-center rounded-full border border-emerald-300/40 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100 backdrop-blur sm:px-4 sm:text-[11px] sm:tracking-[0.24em]"
           >
             {home.hero.badge}
           </motion.span>
@@ -78,37 +53,16 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-5 text-5xl font-extrabold leading-[1.06] tracking-tight text-white md:text-7xl fhd:text-8xl"
+            className="mt-4 text-[2.55rem] font-extrabold leading-[1.04] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-7xl fhd:text-8xl"
           >
-            <span className="md:whitespace-nowrap">{home.hero.titlePrefix}&nbsp;</span>
-
-            <span className="relative inline-block align-baseline whitespace-nowrap text-emerald-300">
-              <span className="invisible">{longest}</span>
-              <span className="absolute inset-0">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={words[wIndex]}
-                    initial={{ opacity: 0, y: prefersReduce ? 0 : 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: prefersReduce ? 0 : -18 }}
-                    transition={{ duration: 0.45 }}
-                    className="inline-block"
-                  >
-                    {words[wIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </span>
-
-            <br className="hidden md:block" />
-            <span>&nbsp;{home.hero.titleSuffix}</span>
+            Divide gastos, salda cuentas y evita malos ratos.
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 max-w-2xl text-lg text-white/82 md:text-xl fhd:text-2xl"
+            className="mt-4 max-w-2xl text-base leading-7 text-white/82 sm:mt-5 md:text-xl fhd:text-2xl"
           >
             {home.hero.description}
           </motion.p>
@@ -117,7 +71,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-8 flex flex-wrap items-center gap-3 fhd:gap-4"
+            className="mt-6 flex flex-wrap items-center gap-2.5 sm:mt-8 sm:gap-3 fhd:gap-4"
           >
             <a
               href={APP_STORE_URL}
@@ -130,7 +84,7 @@ export function Hero() {
                 alt={home.stores.appStoreAlt}
                 width={174}
                 height={58}
-                className="h-[58px] w-[174px]"
+                className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
               />
             </a>
             <a
@@ -144,12 +98,12 @@ export function Hero() {
                 alt={home.stores.googlePlayAlt}
                 width={196}
                 height={58}
-                className="h-[58px] w-[196px]"
+                className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
               />
             </a>
             <button
               onClick={() => setOpen(true)}
-              className="rounded-2xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5"
+              className="rounded-2xl border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5 sm:px-5 sm:py-3 sm:text-sm"
             >
               {home.hero.demoButton}
             </button>
@@ -159,13 +113,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-6 text-[11px] uppercase tracking-[0.35em] text-white/70"
+            className="mt-4 text-[10px] uppercase tracking-[0.2em] text-white/70 sm:mt-6 sm:text-[11px] sm:tracking-[0.35em]"
           >
             {home.hero.availability}
           </motion.p>
         </div>
 
-        <PhoneShowcase prefersReduce={!!prefersReduce} className="mt-2 lg:mt-0 lg:justify-self-end lg:translate-x-6" />
+        <PhoneShowcase prefersReduce={!!prefersReduce} className="hidden sm:block sm:mt-2 lg:mt-0 lg:justify-self-end lg:translate-x-6" />
       </div>
 
       <DownloadModal open={open} onClose={() => setOpen(false)} />
@@ -228,16 +182,16 @@ function PhoneShowcase({
                 y: parallaxShiftY,
               }
         }
-        className="relative mx-auto aspect-[9/19.5] w-[290px] max-w-[84vw] rounded-[2.8rem] bg-gradient-to-b from-slate-900 via-slate-950 to-black p-[10px] shadow-[0_60px_140px_rgba(2,6,23,0.75)]"
+        className="relative mx-auto aspect-[9/19.5] w-[220px] max-w-[68vw] rounded-[2.4rem] bg-gradient-to-b from-slate-900 via-slate-950 to-black p-2 shadow-[0_36px_90px_rgba(2,6,23,0.62)] sm:w-[260px] sm:max-w-[76vw] sm:rounded-[2.6rem] sm:p-[10px] md:w-[290px] md:max-w-[84vw] md:rounded-[2.8rem] md:shadow-[0_60px_140px_rgba(2,6,23,0.75)]"
       >
-        <div className="pointer-events-none absolute inset-0 rounded-[2.8rem] border border-white/20" />
+        <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] border border-white/20 sm:rounded-[2.6rem] md:rounded-[2.8rem]" />
         <div className="pointer-events-none absolute -right-4 top-8 h-[58%] w-8 rounded-full bg-emerald-400/18 blur-2xl" />
-        <div className="pointer-events-none absolute left-1/2 top-2.5 z-20 h-5 w-[44%] -translate-x-1/2 rounded-b-2xl bg-black/95" />
+        <div className="pointer-events-none absolute left-1/2 top-2 z-20 h-4 w-[44%] -translate-x-1/2 rounded-b-2xl bg-black/95 sm:top-2.5 sm:h-5" />
         <div className="pointer-events-none absolute -right-[3px] top-[32%] h-16 w-[4px] rounded-full bg-slate-800" />
         <div className="pointer-events-none absolute -left-[3px] top-[24%] h-10 w-[4px] rounded-full bg-slate-800" />
         <div className="pointer-events-none absolute -left-[3px] top-[34%] h-10 w-[4px] rounded-full bg-slate-800" />
 
-        <div className="relative h-full w-full overflow-hidden rounded-[2.2rem] border border-white/8 bg-black">
+        <div className="relative h-full w-full overflow-hidden rounded-[1.9rem] border border-white/8 bg-black sm:rounded-[2rem] md:rounded-[2.2rem]">
           <Image
             src={HERO_SCREEN}
             alt="Pantalla real de la app Teilen"

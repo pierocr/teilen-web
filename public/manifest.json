@@ -1,7 +1,7 @@
 {
   "name": "Teilen - Divide gastos con amigos",
   "short_name": "Teilen",
-  "description": "La app chilena para dividir gastos compartidos con amigos, roommates y familia. Escanea boletas, divide pagos y liquida al instante.",
+  "description": "La app chilena para dividir gastos compartidos con amigos, roommates y familia. Escanea boletas, calcula saldos y registra pagos.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

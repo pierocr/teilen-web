@@ -15,41 +15,38 @@ export function Footer() {
   const [activeCase, setActiveCase] = useState<typeof useCases[number] | null>(null);
 
   const nav = {
-    producto: t.footer.links.product.map((label) => ({ label, href: "#" })),
-    casos: useCases.map(({ title }) => ({ label: title, href: "#" })),
+    producto: [
+      { label: t.footer.links.product[0], href: "#features" },
+      { label: t.footer.links.product[1], href: "#how" },
+      { label: t.footer.links.product[2], href: "#screens" },
+      { label: t.footer.links.product[3], href: "/premium" },
+    ],
     ayuda: [
       { label: t.footer.links.help.center, href: "/centro-de-ayuda" },
       { label: t.footer.links.help.contact, href: "/contacto" },
       { label: t.footer.links.help.faq, href: "/preguntas-frecuentes" },
     ],
-    empresa: [
-      { label: t.footer.links.company.about, href: "#" },
-      { label: t.footer.links.company.blog, href: "#" },
-      { label: t.footer.links.company.press, href: "#" },
-      { label: t.footer.links.company.jobs, href: "#" },
-      { label: t.footer.links.company.legal, href: "/terminos" },
-    ],
   };
 
   return (
-    <footer className="relative mt-24 border-t border-black/10 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <footer className="relative mt-12 border-t border-black/10 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 sm:mt-24">
       <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 fhd:px-10">
-        <div className="grid grid-cols-1 gap-12 fhd:gap-16 py-14 fhd:py-16 md:grid-cols-2 lg:grid-cols-12">
-          {/* Columna marca + texto + badges + newsletter */}
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 fhd:px-10">
+        <div className="grid grid-cols-1 gap-8 py-10 sm:gap-12 sm:py-14 fhd:gap-16 fhd:py-16 md:grid-cols-2 lg:grid-cols-12">
+          {/* Columna marca + texto + badges */}
           <div className="lg:col-span-4">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <Image
-                src="/logo_teilen.png"
+                src="/logo_teilen.webp"
                 alt="Teilen"
                 width={40}
                 height={40}
                 className="h-10 w-10 rounded-lg ring-1 ring-emerald-100 select-none"
                 priority={false}
               />
-              <span className="text-[42px] font-semibold tracking-tight text-slate-900">Teilen</span>
+              <span className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-[42px]">Teilen</span>
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600 fhd:text-base fhd:leading-7">
@@ -57,7 +54,7 @@ export function Footer() {
             </p>
 
             {/* Badges de tiendas */}
-            <div className="mt-6 flex flex-wrap items-center gap-3 fhd:gap-4">
+            <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3 fhd:gap-4">
               <a
                 href="https://apps.apple.com/cl/app/teilen/id6754208104"
                 aria-label={t.footer.stores.appStoreAria}
@@ -69,7 +66,7 @@ export function Footer() {
                   alt={t.footer.stores.appStoreAlt}
                   width={174}
                   height={58}
-                  className="h-[58px] w-[174px]"
+                  className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
                 />
               </a>
 
@@ -84,30 +81,11 @@ export function Footer() {
                   alt={t.footer.stores.googlePlayAlt}
                   width={196}
                   height={58}
-                  className="h-[58px] w-[196px]"
+                  className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
                 />
               </a>
             </div>
 
-            {/* Newsletter (visual; conecta tu acción real cuando la tengas) */}
-            <form
-              className="mt-6 flex max-w-sm items-center gap-2"
-              onSubmit={(e) => e.preventDefault()}
-              aria-label={t.footer.newsletterAria}
-            >
-              <input
-                type="email"
-                required
-                placeholder={t.footer.emailPlaceholder}
-                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 outline-none ring-emerald-500/30 focus:ring-4"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-emerald-700 active:translate-y-px"
-              >
-                {t.footer.join}
-              </button>
-            </form>
           </div>
 
           <FooterColumn title={t.footer.columns.product} items={nav.producto} className="lg:col-span-2" />
@@ -121,12 +99,11 @@ export function Footer() {
             }}
           />
           <FooterColumn title={t.footer.columns.help} items={nav.ayuda} className="lg:col-span-2" />
-          <FooterColumn title={t.footer.columns.company} items={nav.empresa} className="lg:col-span-2" />
         </div>
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
 
-        <div className="flex flex-col gap-6 py-8 fhd:py-10 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-5 py-6 sm:gap-6 sm:py-8 fhd:py-10 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-4 text-sm fhd:text-base text-gray-600">
             <span>© {year} Teilen</span>
             <span className="hidden md:inline text-gray-300">|</span>

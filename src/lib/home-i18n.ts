@@ -1,4 +1,4 @@
-import { type Locale } from "@/lib/i18n";
+﻿import { type Locale } from "@/lib/i18n";
 
 type HomeMessages = {
   stores: {
@@ -119,7 +119,7 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       titlePrefix: "La forma de",
       titleSuffix: "tus gastos en grupo",
       description:
-        "Ve tu saldo en tiempo real, reparte cuentas en segundos y liquida deudas sin discusiones. Todo desde una sola app.",
+        "Teilen calcula automáticamente cuánto debe cada persona, ordena pagos y mantiene tus grupos claros en tiempo real.",
       demoButton: "Ver experiencia Teilen",
       availability: "Disponible en Chile y el mundo",
     },
@@ -162,17 +162,17 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       steps: [
         {
           title: "Crea tu grupo",
-          desc: "Invita a tus amigos o familiares a unirse a tu grupo mediante un enlace o código QR.",
+          desc: "Invita con enlace o QR.",
           img: "/images/how-group.webp",
         },
         {
           title: "Agrega tus gastos",
-          desc: "Elige quién pagó y divídelo de distintas formas: igual, porcentual o personalizada.",
+          desc: "Define quién pagó y cómo se divide.",
           img: "/images/how-scan.webp",
         },
         {
-          title: "Notificación de todos tus gastos",
-          desc: "Cada vez que realices un gasto, todos los miembros del grupo serán notificados al instante.",
+          title: "Notifica al grupo",
+          desc: "Todos ven cada gasto al instante.",
           img: "/images/how-pay.webp",
         },
       ],
@@ -191,8 +191,8 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
         },
         {
           id: "pay",
-          title: "Pagos simples",
-          desc: "Enlaza tu método favorito y liquida al instante.",
+          title: "Saldos claros",
+          desc: "Ve exactamente quién debe pagarle a quién y registra los pagos cuando se realicen.",
         },
         {
           id: "rules",
@@ -395,8 +395,8 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
         },
         {
           id: "pay",
-          title: "Simple payments",
-          desc: "Link your preferred method and settle instantly.",
+          title: "Clear balances",
+          desc: "See exactly who should pay whom and record payments when they happen.",
         },
         {
           id: "rules",
@@ -600,8 +600,8 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
         },
         {
           id: "pay",
-          title: "Pagamentos simples",
-          desc: "Conecte seu método favorito e quite na hora.",
+          title: "Saldos claros",
+          desc: "Veja exatamente quem deve pagar a quem e registre os pagamentos quando forem feitos.",
         },
         {
           id: "rules",
@@ -801,7 +801,7 @@ const deHomeMessages: HomeMessages = {
     unsupportedVideoText: "Dein Browser unterstützt kein HTML5-Video.",
     items: [
       { id: "scan", title: "KI-Belegscanner", desc: "Erkennt Positionen, Steuern und Trinkgeld. Teilen in Sekunden." },
-      { id: "pay", title: "Einfache Zahlungen", desc: "Verbinde deine bevorzugte Methode und gleiche sofort aus." },
+      { id: "pay", title: "Klare Salden", desc: "Sieh genau, wer wem zahlen soll, und erfasse Zahlungen, wenn sie erfolgen." },
       { id: "rules", title: "Gruppen und Regeln", desc: "Erstelle Gruppen, setze Prozentsätze und behalte den Verlauf." },
       { id: "audit", title: "Echtzeit-Transparenz", desc: "Volle Übersicht darüber, wer was wann bezahlt hat." },
       { id: "personal", title: "Kontrolle persönlicher Ausgaben", desc: "Plane Ausgaben, kategorisiere Käufe und erhalte smarte Hinweise." },
@@ -944,7 +944,7 @@ const utHomeMessages: HomeMessages = {
     unsupportedVideoText: "Il tuo browser non supporta video HTML5.",
     items: [
       { id: "scan", title: "Scanner ricevute con IA", desc: "Rileva articoli, tasse e mance. Dividi in pochi secondi." },
-      { id: "pay", title: "Pagamenti semplici", desc: "Collega il metodo che preferisci e salda subito." },
+      { id: "pay", title: "Saldi chiari", desc: "Vedi esattamente chi deve pagare chi e registra i pagamenti quando avvengono." },
       { id: "rules", title: "Gruppi e regole", desc: "Crea gruppi, imposta percentuali e mantieni la cronologia." },
       { id: "audit", title: "Controllo in tempo reale", desc: "Trasparenza totale su chi ha pagato cosa e quando." },
       { id: "personal", title: "Controllo spese personali", desc: "Pianifica, classifica gli acquisti e ricevi avvisi intelligenti." },
@@ -1088,7 +1088,7 @@ const frHomeMessages: HomeMessages = {
     unsupportedVideoText: "Votre navigateur ne prend pas en charge la vidéo HTML5.",
     items: [
       { id: "scan", title: "Scanner de reçus IA", desc: "Détecte articles, taxes et pourboires. Répartition en secondes." },
-      { id: "pay", title: "Paiements simples", desc: "Connectez votre méthode préférée et régularisez instantanément." },
+      { id: "pay", title: "Soldes clairs", desc: "Voyez exactement qui doit payer qui et enregistrez les paiements lorsqu'ils sont effectués." },
       { id: "rules", title: "Groupes et règles", desc: "Créez des groupes, définissez des pourcentages et gardez l'historique." },
       { id: "audit", title: "Suivi en temps réel", desc: "Transparence totale sur qui a payé quoi et quand." },
       { id: "personal", title: "Contrôle des dépenses personnelles", desc: "Planifiez vos dépenses, classez vos achats et recevez des alertes intelligentes." },

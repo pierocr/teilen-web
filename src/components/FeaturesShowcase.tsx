@@ -107,9 +107,7 @@ export default function FeaturesShowcase() {
   const { locale } = useLocale();
   const home = getHomeMessages(locale);
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [inView, setInView] = useState(false);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const localizedFeatures = FEATURES.map((feature) => ({
     ...feature,
     ...(home.features.items.find((item) => item.id === feature.id) ?? {
@@ -132,28 +130,11 @@ export default function FeaturesShowcase() {
     return () => io.disconnect();
   }, []);
 
-  // Lazy load video only when it's near viewport
-  useEffect(() => {
-    if (!videoRef.current) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setShouldLoadVideo(true);
-          }
-        });
-      },
-      { rootMargin: '100px' } // Start loading 100px before visible
-    );
-    io.observe(videoRef.current);
-    return () => io.disconnect();
-  }, []);
-
   return (
     <section
       id="caracteristicas"
       ref={rootRef}
-      className="relative mx-auto max-w-6xl px-5 py-20 sm:py-24 fhd:py-28"
+      className="relative mx-auto max-w-6xl px-5 py-10 sm:py-20 fhd:py-28"
     >
       <div
         aria-hidden
@@ -162,42 +143,21 @@ export default function FeaturesShowcase() {
         <div className="aurora-gradient absolute left-1/2 top-0 h-[42rem] w-[42rem] -translate-x-1/2 blur-[50px] opacity-60" />
       </div>
 
-      <div className="mb-10 sm:mb-14">
-        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700">
+      <div className="mb-7 sm:mb-14">
+        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
           {home.features.badge}
         </span>
-        <h2 className="mt-5 text-balance text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl fhd:text-6xl">
+        <h2 className="mt-4 text-balance text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:mt-5 sm:text-5xl fhd:text-6xl">
           {home.features.title}
-          <span className="mt-3 block text-lg font-normal text-slate-600 sm:text-xl fhd:text-2xl">
+          <span className="mt-2 block text-sm font-normal leading-6 text-slate-600 sm:mt-3 sm:text-xl fhd:text-2xl">
             {home.features.subtitle}
           </span>
         </h2>
       </div>
 
-      <div className="grid items-start gap-10 fhd:gap-12 lg:grid-cols-2">
-        <div className="relative lg:sticky lg:top-28">
-          <div className="mx-auto w-fit rounded-[2.8rem] border border-slate-100 bg-white p-4 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
-            <div className="phone-frame group mx-auto w-[200px] sm:w-[240px] md:w-[280px] fhd:w-[320px]">
-            <video
-              ref={videoRef}
-              className="phone-screen"
-              {...(shouldLoadVideo && { src: "/videos/teilen-demo.mp4" })}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-label={home.features.videoAriaLabel}
-            >
-              {home.features.unsupportedVideoText}
-            </video>
-            <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] ring-1 ring-black/10 shadow-2xl" />
-          </div>
-          </div>
-        </div>
-
+      <div>
         <ul
-          className={`grid gap-4 sm:gap-6 fhd:gap-7`}
+          className={`grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 fhd:gap-7`}
           data-inview={inView ? "true" : "false"}
         >
           {localizedFeatures.map((f, i) => (
@@ -207,20 +167,20 @@ export default function FeaturesShowcase() {
               className="group relative"
             >
               <div
-                className="card-3d overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500"
+                className="card-3d overflow-hidden rounded-2xl border border-slate-100 bg-white p-3 shadow-[0_12px_34px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 sm:rounded-3xl sm:p-5 sm:shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
                 style={{
                   transitionDelay: `${i * 70}ms`
                 }}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
                   <div className="feature-icon">
                     {f.icon}
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-lg font-semibold tracking-tight">
+                    <h3 className="text-sm font-semibold leading-tight tracking-tight sm:text-lg">
                       {f.title}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
                       {f.desc}
                     </p>
                   </div>

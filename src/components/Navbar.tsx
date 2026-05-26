@@ -56,33 +56,33 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 text-gray-900">
       <div
-        className={`mx-auto mt-2 max-w-6xl px-3 transition-all duration-300 md:px-4 ${
-          scrolled ? "mt-3" : "mt-2"
+        className={`mx-auto max-w-6xl px-0 transition-all duration-300 sm:px-3 md:px-4 ${
+          scrolled ? "sm:mt-3" : "sm:mt-2"
         }`}
       >
         <nav
-          className={`relative flex h-16 fhd:h-20 items-center justify-between rounded-2xl border px-4 md:px-5 fhd:px-6 transition-all duration-300 ${
+          className={`relative flex h-16 items-center justify-between border-x-0 border-b border-t-0 px-5 transition-all duration-300 sm:h-16 sm:rounded-2xl sm:border sm:px-4 md:px-5 fhd:h-20 fhd:px-6 ${
             scrolled
               ? "border-white/70 bg-white/92 shadow-[0_12px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl"
               : "border-white/60 bg-white/84 shadow-[0_8px_28px_rgba(15,23,42,0.12)] backdrop-blur-md"
           }`}
         >
           <div
-            className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(120deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_48%,rgba(255,255,255,0.55)_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_48%,rgba(255,255,255,0.55)_100%)] sm:rounded-2xl"
             aria-hidden="true"
           />
           <div className="relative z-10 flex w-full items-center justify-between">
         {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex shrink-0 items-center gap-1.5 sm:gap-3">
               <Image
                 src="/logo_teilen.png"
                 alt="Teilen"
                 width={40}
                 height={40}
                 priority
-                className="h-10 w-10 rounded-lg ring-1 ring-emerald-100"
+                className="h-8 w-8 rounded-lg ring-1 ring-emerald-100 min-[380px]:h-9 min-[380px]:w-9 sm:h-10 sm:w-10"
               />
-              <span className="hidden text-[30px] font-semibold tracking-tight text-slate-900 sm:block">
+              <span className="block text-lg font-semibold tracking-tight text-slate-900 min-[380px]:text-xl sm:text-2xl md:text-[30px]">
                 Teilen
               </span>
             </Link>
@@ -111,7 +111,7 @@ export function Navbar() {
             </ul>
 
             {/* Acciones + Burger */}
-            <div className="flex items-center gap-2 fhd:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 fhd:gap-3">
               <LanguageSwitcher className="hidden lg:inline-flex" />
               <button
                 type="button"
@@ -130,10 +130,11 @@ export function Navbar() {
               </button>
               <button
                 type="button"
-                className="rounded-full border border-emerald-500/90 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white whitespace-nowrap shadow-[0_10px_24px_rgba(1,154,87,0.35)] transition hover:-translate-y-px hover:bg-emerald-700 fhd:px-5 fhd:py-2.5 fhd:text-base"
+                className="rounded-full border border-emerald-500/90 bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white whitespace-nowrap shadow-[0_10px_24px_rgba(1,154,87,0.35)] transition hover:-translate-y-px hover:bg-emerald-700 min-[380px]:px-3 sm:px-4 sm:py-2 sm:text-sm fhd:px-5 fhd:py-2.5 fhd:text-base"
                 onClick={() => setDownloadOpen(true)}
               >
-                {t.navbar.downloadApp}
+                <span className="sm:hidden">Descargar</span>
+                <span className="hidden sm:inline">{t.navbar.downloadApp}</span>
               </button>
               {SHOW_LOGIN && (
                 <Link
@@ -147,7 +148,7 @@ export function Navbar() {
               {/* Burger solo en mobile */}
               <button
                 type="button"
-                className="ml-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-700 hover:bg-slate-50 md:hidden"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-700 hover:bg-slate-50 md:hidden"
                 aria-label={t.navbar.openMenu}
                 aria-expanded={open}
                 aria-controls="mobile-drawer"

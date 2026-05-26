@@ -133,10 +133,10 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
       links: {
         product: [
           "Estadísticas claras de gasto",
-          "Solicitudes de pago fáciles",
+          "Registro de pagos",
           "Seguimiento automático",
           "Divide gastos de grupo",
-          "Tarjeta virtual gratis",
+          "Historial compartido",
         ],
         help: {
           center: "Centro de ayuda",
@@ -163,7 +163,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Crea un grupo “Nosotros” y registra arriendo, súper y suscripciones.",
             "Divide gastos al 50/50 o con porcentajes distintos según ingresos.",
-            "Ve saldos claros y liquida con un clic sin perder el historial.",
+            "Ve saldos claros y registra los pagos cuando se realicen.",
           ],
         },
         {
@@ -190,7 +190,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Saca foto del total y reparte por persona o por ítem.",
             "Incluye propina e impuestos sin perder proporciones.",
-            "Recibe QR/links para que cada quien pague su parte al instante.",
+            "Registra los pagos de cada persona para mantener el grupo al día.",
           ],
         },
         {
@@ -261,10 +261,10 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
       links: {
         product: [
           "Clear spending insights",
-          "Simple payment requests",
+          "Payment records",
           "Automatic tracking",
           "Split group expenses",
-          "Free virtual card",
+          "Shared history",
         ],
         help: {
           center: "Help center",
@@ -291,7 +291,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Create a “Us” group and track rent, groceries and subscriptions.",
             "Split 50/50 or assign custom percentages based on income.",
-            "See clear balances and settle in one tap without losing history.",
+            "See clear balances and record payments when they happen.",
           ],
         },
         {
@@ -318,7 +318,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Capture the total and split by person or by item.",
             "Include tips and taxes while preserving proportions.",
-            "Share QR/links so everyone pays their part instantly.",
+            "Record each person's payments to keep the group up to date.",
           ],
         },
         {
@@ -389,10 +389,10 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
       links: {
         product: [
           "Estatísticas claras de gastos",
-          "Solicitações de pagamento fáceis",
+          "Registro de pagamentos",
           "Acompanhamento automático",
           "Divida gastos em grupo",
-          "Cartão virtual grátis",
+          "Histórico compartilhado",
         ],
         help: {
           center: "Central de ajuda",
@@ -419,7 +419,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Crie um grupo “Nós” e registre aluguel, mercado e assinaturas.",
             "Divida 50/50 ou com porcentagens diferentes conforme a renda.",
-            "Veja saldos claros e quite com um clique sem perder histórico.",
+            "Veja saldos claros e registre os pagamentos quando forem feitos.",
           ],
         },
         {
@@ -446,7 +446,7 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
           bullets: [
             "Tire foto do total e divida por pessoa ou por item.",
             "Inclua gorjeta e impostos sem perder proporções.",
-            "Compartilhe QR/links para cada pessoa pagar na hora.",
+            "Registre os pagamentos de cada pessoa para manter o grupo em dia.",
           ],
         },
         {
@@ -523,10 +523,10 @@ const messages: Record<Locale, Messages> = {
       links: {
         product: [
           "Klare Ausgabenübersicht",
-          "Einfache Zahlungsanfragen",
+          "Zahlungen erfassen",
           "Automatische Verfolgung",
           "Gruppenausgaben teilen",
-          "Kostenlose virtuelle Karte",
+          "Gemeinsamer Verlauf",
         ],
         help: {
           center: "Hilfe-Center",
@@ -553,7 +553,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Erstelle eine Gruppe „Wir“ und erfasse Miete, Einkäufe und Abos.",
             "Teile 50/50 oder mit individuellen Prozentsätzen nach Einkommen.",
-            "Sieh klare Salden und gleiche mit einem Klick aus.",
+            "Sieh klare Salden und erfasse Zahlungen, wenn sie erfolgen.",
           ],
         },
         {
@@ -580,7 +580,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Erfasse den Gesamtbetrag und teile pro Person oder pro Position.",
             "Inklusive Trinkgeld und Steuern bei korrekten Anteilen.",
-            "Teile QR/Links, damit jede Person sofort ihren Anteil bezahlt.",
+            "Erfasse die Zahlungen jeder Person, damit die Gruppe aktuell bleibt.",
           ],
         },
         {
@@ -653,10 +653,10 @@ const messages: Record<Locale, Messages> = {
       links: {
         product: [
           "Panoramica chiara delle spese",
-          "Richieste di pagamento semplici",
+          "Registro pagamenti",
           "Monitoraggio automatico",
           "Dividi spese di gruppo",
-          "Carta virtuale gratuita",
+          "Storico condiviso",
         ],
         help: {
           center: "Centro assistenza",
@@ -683,7 +683,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Crea un gruppo “Noi” e registra affitto, spesa e abbonamenti.",
             "Dividi 50/50 o con percentuali personalizzate in base al reddito.",
-            "Vedi saldi chiari e regola tutto con un tocco.",
+            "Vedi saldi chiari e registra i pagamenti quando avvengono.",
           ],
         },
         {
@@ -710,7 +710,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Inserisci il totale e dividi per persona o per voce.",
             "Includi mancia e tasse mantenendo le proporzioni.",
-            "Condividi QR/link così ognuno paga subito la sua parte.",
+            "Registra i pagamenti di ogni persona per tenere il gruppo aggiornato.",
           ],
         },
         {
@@ -783,10 +783,10 @@ const messages: Record<Locale, Messages> = {
       links: {
         product: [
           "Vision claire des dépenses",
-          "Demandes de paiement simples",
+          "Enregistrement des paiements",
           "Suivi automatique",
           "Partage des dépenses de groupe",
-          "Carte virtuelle gratuite",
+          "Historique partagé",
         ],
         help: {
           center: "Centre d'aide",
@@ -813,7 +813,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Créez un groupe « Nous » et enregistrez loyer, courses et abonnements.",
             "Partagez 50/50 ou avec des pourcentages personnalisés selon les revenus.",
-            "Voyez des soldes clairs et régularisez en un clic.",
+            "Voyez des soldes clairs et enregistrez les paiements lorsqu'ils sont effectués.",
           ],
         },
         {
@@ -840,7 +840,7 @@ const messages: Record<Locale, Messages> = {
           bullets: [
             "Entrez le total et répartissez par personne ou par article.",
             "Incluez pourboires et taxes sans perdre les proportions.",
-            "Partagez QR/liens pour que chacun paie sa part immédiatement.",
+            "Enregistrez les paiements de chaque personne pour garder le groupe à jour.",
           ],
         },
         {

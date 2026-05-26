@@ -1,4 +1,4 @@
-
+﻿
 "use client";
 
 import Image from "next/image";
@@ -8,7 +8,7 @@ import { Hero } from "@/components/Hero";
 import { StatsLoading } from "@/components/skeletons/StatsLoading";
 import { FeaturesLoading } from "@/components/skeletons/FeaturesLoading";
 import { HowItWorksLoading } from "@/components/skeletons/HowItWorksLoading";
-import { howToSchema, aggregateRatingSchema } from "@/lib/schema";
+import { howToSchema } from "@/lib/schema";
 import { getHomeMessages } from "@/lib/home-i18n";
 import { useLocale } from "@/components/LanguageProvider";
 
@@ -39,6 +39,14 @@ const Footer = dynamic(() => import("@/components/Footer"), {
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
+// TODO: Generate these WebP files from the current JPG screenshots, then replace the values below:
+// /screens/home.webp, /screens/grupos.webp, /screens/gasto.webp, /screens/actividad.webp.
+const SCREEN_IMAGES = [
+  "/screens/home.jpg",
+  "/screens/grupos.jpg",
+  "/screens/gasto.jpg",
+  "/screens/actividad.jpg",
+];
 
 export default function Page() {
   const { locale } = useLocale();
@@ -64,13 +72,6 @@ export default function Page() {
       {/* Hero con Navbar overlay */}
       <Hero />
 
-      {/* Métricas */}
-      <section className="mx-auto max-w-6xl px-5 py-20 fhd:py-24">
-        <Suspense fallback={<StatsLoading />}>
-          <AnimatedStats />
-        </Suspense>
-      </section>
-
       {/* Cómo funciona */}
       <section id="how" className="scroll-mt-24">
         <Suspense fallback={<HowItWorksLoading />}>
@@ -84,33 +85,45 @@ export default function Page() {
         />
       </section>
 
-      {/* Características — versión moderna con mockup + animaciones CSS */}
+      {/* Características */}
       <section id="features" className="scroll-mt-24">
         <Suspense fallback={<FeaturesLoading />}>
           <FeaturesShowcase />
         </Suspense>
       </section>
 
+      {/* Experiencia Teilen */}
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:py-20 fhd:py-24">
+        <Suspense fallback={<StatsLoading />}>
+          <AnimatedStats />
+        </Suspense>
+      </section>
+
+      {/* Screens de la app: 4 en fila en desktop */}
+      <section id="screens" className="scroll-mt-24">
+        <AppScreens images={SCREEN_IMAGES} />
+      </section>
+
       {/* FAQ para snippet enriquecido */}
-      <section id="faq" className="mx-auto max-w-6xl px-5 py-20 fhd:py-24">
-        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700">
+      <section id="faq" className="mx-auto max-w-6xl px-5 py-10 sm:py-20 fhd:py-24">
+        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
           {home.page.faq.badge}
         </span>
-        <h2 className="mt-5 text-4xl font-bold text-slate-900 md:text-5xl fhd:text-6xl">
+        <h2 className="mt-4 text-2xl font-bold text-slate-900 sm:mt-5 sm:text-4xl md:text-5xl fhd:text-6xl">
           {home.page.faq.title}
         </h2>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg fhd:text-xl">
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg fhd:text-xl">
           {home.page.faq.description}
         </p>
 
-        <div className="mt-10 grid gap-6 fhd:gap-8 md:grid-cols-3">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-6 fhd:gap-8 md:grid-cols-3">
           {faqItems.map((item) => (
             <article
               key={item.question}
-              className="flex h-full flex-col rounded-3xl border border-slate-100 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)]"
+              className="flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-[0_12px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)] sm:rounded-3xl sm:p-6"
             >
-              <h3 className="text-lg font-semibold text-slate-900">{item.question}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{item.answer}</p>
+              <h3 className="text-sm font-semibold leading-tight text-slate-900 sm:text-lg">{item.question}</h3>
+              <p className="mt-2 text-xs leading-5 text-slate-600 sm:mt-3 sm:text-sm sm:leading-6">{item.answer}</p>
             </article>
           ))}
         </div>
@@ -121,36 +134,24 @@ export default function Page() {
         />
       </section>
 
-      {/* Screens de la app: 4 en fila en desktop */}
-      <section id="screens" className="scroll-mt-24">
-        <AppScreens
-          images={[
-            "/screens/home.jpg",
-            "/screens/grupos.jpg",
-            "/screens/gasto.jpg",
-            "/screens/actividad.jpg",
-          ]}
-        />
-      </section>
-
       {/* CTA final */}
-      <section className="mx-auto max-w-6xl px-5 pb-24">
-        <div className="relative overflow-hidden rounded-[36px] border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/45 to-teal-50 p-10 text-center shadow-[0_35px_90px_rgba(15,23,42,0.12)] md:p-12">
+      <section className="mx-auto max-w-6xl px-5 pb-12 sm:pb-24">
+        <div className="relative overflow-hidden rounded-[24px] border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/45 to-teal-50 p-5 text-center shadow-[0_22px_60px_rgba(15,23,42,0.12)] sm:rounded-[36px] sm:p-10 md:p-12">
           <div
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(1,154,87,0.15),_transparent_52%)]"
             aria-hidden="true"
           />
           <div className="relative z-10">
-            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-white px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700 shadow-sm">
+            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 shadow-sm sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
               {home.page.cta.badge}
             </span>
-            <h3 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">
+            <h3 className="mt-4 text-2xl font-semibold text-slate-900 sm:mt-5 sm:text-3xl md:text-4xl">
               {home.page.cta.title}
             </h3>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
+            <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg">
               {home.page.cta.description}
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-6 sm:gap-4">
               <a
                 href={APP_STORE_URL}
                 aria-label={home.stores.appStoreAria}
@@ -162,7 +163,7 @@ export default function Page() {
                   alt={home.stores.appStoreAlt}
                   width={174}
                   height={58}
-                  className="h-[58px] w-[174px]"
+                  className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
                 />
               </a>
               <a
@@ -176,11 +177,11 @@ export default function Page() {
                   alt={home.stores.googlePlayAlt}
                   width={196}
                   height={58}
-                  className="h-[58px] w-[196px]"
+                  className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
                 />
               </a>
             </div>
-            <p className="mt-4 text-xs uppercase tracking-[0.35em] text-emerald-700/80">
+            <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-emerald-700/80 sm:text-xs sm:tracking-[0.35em]">
               {home.page.cta.availability}
             </p>
             <a
@@ -192,7 +193,7 @@ export default function Page() {
                 alt={home.page.cta.qrAlt}
                 width={108}
                 height={108}
-                className="h-24 w-24 flex-shrink-0 rounded-xl border border-emerald-50 bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+                className="mx-auto h-20 w-20 flex-shrink-0 rounded-xl border border-emerald-50 bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] sm:mx-0 sm:h-24 sm:w-24"
               />
               <div className="space-y-1 text-sm leading-6 text-slate-700 sm:space-y-1.5">
                 <p className="text-base font-semibold text-slate-900 sm:text-lg">{home.page.cta.qrTitle}</p>
@@ -207,31 +208,31 @@ export default function Page() {
       </section>
 
       {/* Reseñas */}
-      <section className="relative mx-auto max-w-6xl px-5 pb-24 pt-10 fhd:py-28">
+      <section className="relative mx-auto max-w-6xl px-5 pb-14 pt-4 sm:pb-24 sm:pt-10 fhd:py-28">
         <div
           className="absolute inset-x-10 -top-10 h-40 rounded-full bg-emerald-200/30 blur-3xl"
           aria-hidden="true"
         />
-        <div className="relative rounded-[34px] border border-slate-100 bg-white p-10 fhd:p-12 shadow-[0_30px_90px_rgba(15,23,42,0.12)]">
+        <div className="relative rounded-[24px] border border-slate-100 bg-white p-5 shadow-[0_22px_60px_rgba(15,23,42,0.12)] sm:rounded-[34px] sm:p-10 fhd:p-12">
           <div className="flex items-center justify-between gap-4 fhd:gap-6 flex-wrap">
             <div>
-              <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700">
+              <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
                 {home.page.testimonials.badge}
               </span>
-              <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl fhd:text-5xl">
+              <h2 className="mt-4 text-2xl font-semibold text-slate-900 sm:mt-5 sm:text-3xl md:text-4xl fhd:text-5xl">
                 {home.page.testimonials.title}
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 md:text-lg fhd:max-w-2xl fhd:text-xl">
+              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg fhd:max-w-2xl fhd:text-xl">
                 {home.page.testimonials.description}
               </p>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 fhd:gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 fhd:gap-8 md:grid-cols-2 lg:grid-cols-4">
             {testimonials.map((item) => (
               <article
                 key={item.author}
-                className="flex h-full flex-col justify-between rounded-2xl border border-slate-100 bg-white p-6 fhd:p-7 shadow-[0_14px_38px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)]"
+                className="flex h-full flex-col justify-between rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)] sm:p-6 fhd:p-7"
               >
                 <div className="flex items-center gap-1 text-amber-500">
                   {Array.from({ length: 5 }).map((_, starIndex) => (
@@ -246,7 +247,7 @@ export default function Page() {
                   ))}
                   <span className="sr-only">{home.page.testimonials.starsLabel}</span>
                 </div>
-                <p className="mt-4 text-base leading-7 text-slate-700">{item.quote}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">{item.quote}</p>
                 <div className="mt-6">
                   <p className="text-sm font-semibold text-slate-900">{item.author}</p>
                   <p className="text-xs uppercase tracking-wide text-emerald-700">{item.context}</p>
@@ -255,12 +256,6 @@ export default function Page() {
             ))}
           </div>
         </div>
-
-        {/* AggregateRating Schema Markup */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
-        />
       </section>
 
       {/* Footer global */}

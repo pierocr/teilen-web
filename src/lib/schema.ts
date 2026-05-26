@@ -5,7 +5,7 @@ export const howToSchema = {
   "@type": "HowTo",
   "name": "Cómo usar Teilen para dividir gastos compartidos",
   "description": "Guía paso a paso para gestionar gastos compartidos con amigos, roommates o familia usando Teilen",
-  "image": "https://www.teilen.cl/teilen-og.webp",
+  "image": "https://www.teilen.cl/teilen-og2.webp",
   "totalTime": "PT5M",
   "estimatedCost": {
     "@type": "MonetaryAmount",
@@ -71,21 +71,3 @@ export const createReviewSchema = (review: {
   }
 })
 
-export const aggregateRatingSchema = {
-  "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "Teilen",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "iOS, Android",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "CLP"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "126",
-    "reviewCount": "98"
-  }
-}

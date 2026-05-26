@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   applicationName: "Teilen",
 
   title: {
-    default: "Teilen – Dividir cuentas es fácil",
+    default: "Teilen - Divide gastos y salda cuentas",
     template: "%s | Teilen",
   },
 
   description:
-    "Divide gastos compartidos, ordena presupuestos y salda cuentas fácilmente con amigos, pareja o roomies. Teilen hace dividir cuentas simple y sin drama.",
+    "Divide gastos compartidos, calcula saldos y registra pagos con amigos, pareja o roomies. Teilen mantiene tus grupos claros en tiempo real.",
 
   keywords: [
     "dividir gastos",
@@ -57,9 +57,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.teilen.cl",
     siteName: "Teilen",
-    title: "Teilen – Dividir cuentas es fácil",
+    title: "Teilen - Divide gastos y salda cuentas",
     description:
-      "Organiza gastos, salda cuentas y mantén tus finanzas compartidas claras desde el primer día con Teilen.",
+      "Organiza gastos compartidos, ve quién debe pagarle a quién y registra pagos cuando se realicen.",
     locale: "es_CL",
     images: [
       {
@@ -68,16 +68,16 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/webp",
-        alt: "Teilen – Dividir cuentas es fácil",
+        alt: "Teilen - Divide gastos y salda cuentas",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen – Dividir cuentas es fácil",
+    title: "Teilen - Divide gastos y salda cuentas",
     description:
-      "La app para dividir gastos compartidos, automatizar saldos y organizar finanzas en grupo.",
+      "La app para dividir gastos compartidos, calcular saldos y organizar finanzas en grupo.",
     images: ["/teilen-og2.webp"],
   },
 
@@ -134,7 +134,7 @@ export default function RootLayout({
     logo: "https://www.teilen.cl/logo_teilen.webp",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
-      "Teilen es la plataforma para dividir gastos, coordinar finanzas compartidas y saldar cuentas sin fricción.",
+      "Teilen es la plataforma para dividir gastos, coordinar finanzas compartidas y registrar pagos con claridad.",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -149,7 +149,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Teilen",
-    alternateName: "Teilen – Dividir cuentas es fácil",
+    alternateName: "Teilen - Divide gastos y salda cuentas",
     url: "https://www.teilen.cl",
     potentialAction: {
       "@type": "SearchAction",
@@ -172,7 +172,7 @@ export default function RootLayout({
       priceCurrency: "CLP",
     },
     description:
-      "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y saldar cuentas de forma transparente.",
+      "Teilen permite dividir gastos compartidos, mantener presupuestos grupales y registrar pagos de forma transparente.",
     inLanguage: ["es", "en", "de", "pr", "ut", "fr"],
     publisher: {
       "@type": "Organization",
