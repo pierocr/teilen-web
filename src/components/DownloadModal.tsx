@@ -114,7 +114,7 @@ export function DownloadModal({ open, onClose }: Props) {
               <div className="relative rounded-[26px] border border-white/60 bg-white/80 p-3 shadow-xl backdrop-blur">
                 <div className="rounded-[22px] border border-slate-100 bg-slate-900/5 p-2">
                   <Image
-                    src="/screens/home.jpg"
+                    src="/screens/home.webp"
                     alt={home.downloadModal.phoneImageAlt}
                     width={900}
                     height={1800}

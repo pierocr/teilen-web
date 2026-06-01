@@ -2,7 +2,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
 
@@ -32,14 +31,9 @@ export default function AnimatedStats() {
 
         <div className="relative mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-6 md:grid-cols-3 fhd:gap-8">
           {home.animatedStats.cards.map((c, i) => (
-            <motion.article
+            <article
               key={c.title + i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.35, delay: i * 0.08 }}
-              whileHover={{ y: -4 }}
-              className="group relative overflow-hidden rounded-2xl border border-white/70 bg-slate-900/5 shadow-[0_14px_34px_rgba(15,23,42,0.16)] sm:rounded-3xl sm:shadow-[0_20px_45px_rgba(15,23,42,0.16)]"
+              className="group relative overflow-hidden rounded-2xl border border-white/70 bg-slate-900/5 shadow-[0_14px_34px_rgba(15,23,42,0.16)] transition-transform duration-300 hover:-translate-y-1 sm:rounded-3xl sm:shadow-[0_20px_45px_rgba(15,23,42,0.16)]"
             >
               <div className="relative h-[210px] min-[390px]:h-[235px] sm:h-[390px] fhd:h-[430px]">
                 <div className="absolute inset-0 bg-neutral-200" />
@@ -49,7 +43,6 @@ export default function AnimatedStats() {
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  priority={i === 1}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
               </div>
@@ -78,7 +71,7 @@ export default function AnimatedStats() {
               </div>
 
               <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-black/10 group-hover:ring-black/20" />
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

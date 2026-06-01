@@ -159,6 +159,31 @@
   @keyframes shine { 0%{transform:translateX(-150%)} 100%{transform:translateX(150%)} }
   .btn-shine:hover::after{ opacity:1; }
 
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-hero-in {
+    animation: heroFadeUp .58s ease-out both;
+  }
+
+  .phone-hero-parallax {
+    --phone-rx: 0deg;
+    --phone-ry: 0deg;
+    --phone-tx: 0px;
+    --phone-ty: 0px;
+    transform: perspective(1700px) rotateX(var(--phone-rx)) rotateY(var(--phone-ry)) translate3d(var(--phone-tx), var(--phone-ty), 0);
+    transition: transform 180ms ease-out;
+    will-change: transform;
+  }
+
   /* ======== NUEVO: Animaciones y estilos para FeaturesShowcase ======== */
 
   /* keyframes */
@@ -291,6 +316,12 @@
 
   /* Respeta prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
+    .animate-hero-in { animation: none; }
+    .phone-hero-parallax {
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
     .animate-pulse-slow { animation: none; }
     .phone-frame { animation: none; }
     .card-3d,

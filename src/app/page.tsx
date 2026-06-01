@@ -39,13 +39,11 @@ const Footer = dynamic(() => import("@/components/Footer"), {
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
-// TODO: Generate these WebP files from the current JPG screenshots, then replace the values below:
-// /screens/home.webp, /screens/grupos.webp, /screens/gasto.webp, /screens/actividad.webp.
 const SCREEN_IMAGES = [
-  "/screens/home.jpg",
-  "/screens/grupos.jpg",
-  "/screens/gasto.jpg",
-  "/screens/actividad.jpg",
+  "/screens/home.webp",
+  "/screens/grupos.webp",
+  "/screens/gasto.webp",
+  "/screens/actividad.webp",
 ];
 const SCREEN_LABELS = ["Ordena tus gastos", "Divide gastos", "Programa cuentas", "Revisa actividad"];
 
