@@ -52,10 +52,12 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/logo_teilen.webp", type: "image/webp", sizes: "192x192" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icons/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icons/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/icons/manifest-icon-192.maskable.png", type: "image/png", sizes: "192x192" },
     ],
-    apple: [{ url: "/logo_teilen.webp", sizes: "180x180", type: "image/webp" }],
+    apple: [{ url: "/icons/apple-icon-180.png", sizes: "180x180", type: "image/png" }],
   },
 
   openGraph: {
@@ -136,7 +138,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Teilen",
     url: "https://www.teilen.cl",
-    logo: "https://www.teilen.cl/logo_teilen.webp",
+    logo: "https://www.teilen.cl/logo_teilen.png",
     sameAs: ["https://www.instagram.com/teilen.app/"],
     description:
       "Teilen ayuda a organizar gastos compartidos, gastos personales, recordatorios y metas financieras desde una app simple.",
@@ -235,4 +237,3 @@ export default function RootLayout({
     </html>
   );
 }
-
