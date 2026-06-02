@@ -11,6 +11,7 @@ import { HowItWorksLoading } from "@/components/skeletons/HowItWorksLoading";
 import { howToSchema } from "@/lib/schema";
 import { getHomeMessages } from "@/lib/home-i18n";
 import { useLocale } from "@/components/LanguageProvider";
+import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
 // Code splitting: componentes below-fold se cargan cuando son necesarios
 const AnimatedStats = dynamic(() => import("@/components/AnimatedStats"), {
@@ -38,7 +39,6 @@ const Footer = dynamic(() => import("@/components/Footer"), {
 
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
-const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 const SCREEN_IMAGES = [
   "/screens/home.webp",
   "/screens/grupos.webp",

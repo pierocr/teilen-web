@@ -51,7 +51,7 @@ export function Hero() {
           <h1
             className="animate-hero-in mt-4 max-w-3xl text-[2.45rem] font-extrabold leading-[1.06] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-6xl lg:text-[4rem] fhd:text-7xl"
           >
-            Organiza tus cuentas fácil con Teilen
+            Teilen App: divide gastos, organiza cuentas y alcanza tus metas
           </h1>
 
           <p

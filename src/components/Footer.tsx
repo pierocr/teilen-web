@@ -8,12 +8,12 @@ import { useTranslations } from "./LanguageProvider";
 
 const nav = {
   producto: [
-    { label: "Dividir gastos", href: "#features" },
-    { label: "Gastos personales", href: "#features" },
-    { label: "Gastos recurrentes", href: "#recurrentes" },
-    { label: "Recordatorios", href: "#recordatorios" },
-    { label: "Metas de ahorro", href: "#ahorros" },
-    { label: "Premium", href: "#premium" },
+    { label: "Dividir gastos", href: "/dividir-gastos" },
+    { label: "Gastos compartidos", href: "/gastos-compartidos" },
+    { label: "Control de gastos", href: "/control-de-gastos" },
+    { label: "Recordatorios", href: "/recordatorios" },
+    { label: "Metas de ahorro", href: "/metas-de-ahorro" },
+    { label: "Premium", href: "/premium" },
   ],
   casos: [
     { label: "Parejas", href: "#casos-de-uso" },
@@ -24,13 +24,13 @@ const nav = {
     { label: "Suscripciones", href: "#recurrentes" },
   ],
   herramientas: [
-    { label: "Escáner de boletas", href: "#features" },
-    { label: "Conversor de monedas", href: "#features" },
-    { label: "Reportes", href: "#premium" },
-    { label: "Notificaciones", href: "#features" },
+    { label: "Escáner de boletas", href: "/#features" },
+    { label: "Conversor de monedas", href: "/#features" },
+    { label: "Reportes", href: "/premium" },
+    { label: "Notificaciones", href: "/#features" },
   ],
   ayuda: [
-    { label: "Preguntas frecuentes", href: "#faq" },
+    { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
     { label: "Contacto", href: "/contacto" },
     { label: "Privacidad", href: "/privacidad" },
     { label: "Términos", href: "/terminos" },
@@ -61,7 +61,7 @@ export function Footer() {
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600 fhd:text-base fhd:leading-7">
-              Teilen te ayuda a organizar gastos compartidos y personales desde una app simple, clara y moderna.
+              Teilen App es una app chilena de finanzas personales para dividir gastos, organizar cuentas compartidas, crear recordatorios y seguir metas de ahorro.
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3 fhd:gap-4">

@@ -1,9 +1,13 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = "https://www.teilen.cl";
+import { SITE_URL } from "@/lib/seo";
 
 const staticRoutes = [
   "",
+  "/dividir-gastos",
+  "/gastos-compartidos",
+  "/control-de-gastos",
+  "/recordatorios",
+  "/metas-de-ahorro",
   "/centro-de-ayuda",
   "/contacto",
   "/cookies",
@@ -16,7 +20,7 @@ const staticRoutes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastmod = new Date().toISOString();
   return staticRoutes.map((path) => ({
-    url: `${baseUrl}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified: lastmod,
     changeFrequency: "monthly",
     priority: path === "" ? 1 : 0.7,

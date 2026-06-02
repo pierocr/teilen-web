@@ -119,7 +119,7 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       titlePrefix: "La forma de",
       titleSuffix: "tus gastos en grupo",
       description:
-        "Divide gastos, programa pagos recurrentes, crea recordatorios y sigue tus metas de ahorro desde una sola app.",
+        "Teilen es una app chilena de finanzas personales para dividir gastos, organizar cuentas compartidas, controlar gastos personales, programar pagos recurrentes, crear recordatorios y seguir metas de ahorro.",
       demoButton: "Ver cómo funciona",
       availability: "Disponible en iOS y Android",
     },
@@ -184,8 +184,8 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
     },
     features: {
       badge: "Características",
-      title: "Todo lo que necesitas para tus cuentas",
-      subtitle: "Funciones simples para organizar gastos compartidos, gastos personales y metas.",
+      title: "Funcionalidades para organizar tus finanzas personales",
+      subtitle: "Funciones simples para organizar gastos compartidos, dividir cuentas, controlar gastos personales y avanzar en tus metas.",
       videoAriaLabel: "Demo de la aplicación Teilen",
       unsupportedVideoText: "Tu navegador no soporta video HTML5.",
       items: [

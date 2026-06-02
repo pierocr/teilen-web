@@ -1,41 +1,36 @@
-// Enhanced schema markup for better SEO
+import { SITE_URL, absoluteUrl } from "@/lib/seo";
 
 export const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "Cómo usar Teilen para dividir gastos compartidos",
-  "description": "Guía paso a paso para gestionar gastos compartidos con amigos, roommates o familia usando Teilen",
-  "image": "https://www.teilen.cl/teilen-og2.webp",
+  "description": "Guía paso a paso para gestionar gastos compartidos con amigos, familia o cuentas personales usando Teilen App.",
+  "image": absoluteUrl("/teilen-og.webp"),
   "totalTime": "PT5M",
-  "estimatedCost": {
-    "@type": "MonetaryAmount",
-    "currency": "CLP",
-    "value": "0"
-  },
   "step": [
     {
       "@type": "HowToStep",
       "position": 1,
       "name": "Crear grupo",
-      "text": "Crea un grupo con tus amigos, roommates o familia. Invítalos mediante un enlace o código QR.",
-      "image": "https://www.teilen.cl/images/how-group.webp",
-      "url": "https://www.teilen.cl#how"
+      "text": "Crea un grupo con amigos, familia, pareja o personas con las que compartes cuentas. Invítalos mediante un enlace o código QR.",
+      "image": absoluteUrl("/images/how-group.webp"),
+      "url": `${SITE_URL}#how`
     },
     {
       "@type": "HowToStep",
       "position": 2,
       "name": "Agregar gastos",
-      "text": "Escanea tus boletas con IA o ingresa gastos manualmente. Elige quién pagó y divídelo de distintas formas: igual, porcentual o personalizada.",
-      "image": "https://www.teilen.cl/images/how-scan.webp",
-      "url": "https://www.teilen.cl#how"
+      "text": "Ingresa un gasto, elige quién pagó y define cómo dividirlo entre las personas del grupo.",
+      "image": absoluteUrl("/images/how-scan.webp"),
+      "url": `${SITE_URL}#how`
     },
     {
       "@type": "HowToStep",
       "position": 3,
-      "name": "Teilen calcula automáticamente",
-      "text": "Ve quién debe a quién en tiempo real. Cada vez que realices un gasto, todos los miembros del grupo serán notificados al instante.",
-      "image": "https://www.teilen.cl/images/how-pay.webp",
-      "url": "https://www.teilen.cl#how"
+      "name": "Revisar saldos y recordatorios",
+      "text": "Revisa saldos, pagos, gastos recurrentes, recordatorios y metas de ahorro desde una vista clara.",
+      "image": absoluteUrl("/images/how-pay.webp"),
+      "url": `${SITE_URL}#how`
     }
   ]
 }
@@ -70,4 +65,3 @@ export const createReviewSchema = (review: {
     "name": "Teilen"
   }
 })
-

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
+import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
 type Props = {
   open: boolean;
@@ -12,7 +13,6 @@ type Props = {
 
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
-const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 
 export function DownloadModal({ open, onClose }: Props) {
   const { locale } = useLocale();

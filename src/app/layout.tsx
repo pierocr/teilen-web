@@ -5,6 +5,16 @@ import Script from "next/script";
 import { Toaster } from "@/components/Toaster";
 import { PWAInstaller } from "@/components/PWAInstaller";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  SITE_URL,
+  SOCIAL_IMAGE,
+  absoluteUrl,
+  mobileApplicationJsonLd,
+  organizationJsonLd,
+  webSiteJsonLd,
+} from "@/lib/seo";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -14,17 +24,16 @@ const font = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.teilen.cl"),
+  metadataBase: new URL(SITE_URL),
 
-  applicationName: "Teilen",
+  applicationName: "Teilen App",
 
   title: {
-    default: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
+    default: DEFAULT_TITLE,
     template: "%s | Teilen",
   },
 
-  description:
-    "Teilen te ayuda a dividir gastos, crear recordatorios, programar gastos recurrentes y seguir metas de ahorro desde una app simple para iOS y Android.",
+  description: DEFAULT_DESCRIPTION,
 
   keywords: [
     "dividir gastos",
@@ -36,13 +45,15 @@ export const metadata: Metadata = {
     "metas de ahorro",
     "app para dividir gastos",
     "app de gastos personales",
+    "app de finanzas personales",
+    "Teilen App",
     "finanzas personales",
     "cuentas compartidas",
     "Chile",
   ],
 
   category: "finance",
-  authors: [{ name: "Teilen", url: "https://www.teilen.cl" }],
+  authors: [{ name: "Teilen", url: SITE_URL }],
   creator: "Teilen",
   publisher: "Teilen",
 
@@ -62,30 +73,28 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://www.teilen.cl",
+    url: SITE_URL,
     siteName: "Teilen",
-    title: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
-    description:
-      "Divide gastos, crea recordatorios, programa gastos recurrentes y sigue metas de ahorro desde una app simple para iOS y Android.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     locale: "es_CL",
     images: [
       {
-        url: "/teilen-og2.webp",
-        secureUrl: "https://www.teilen.cl/teilen-og2.webp",
+        url: SOCIAL_IMAGE,
+        secureUrl: absoluteUrl(SOCIAL_IMAGE),
         width: 1200,
         height: 630,
         type: "image/webp",
-        alt: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
+        alt: DEFAULT_TITLE,
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
-    description:
-      "La app para dividir gastos, organizar cuentas, programar recordatorios y seguir metas de ahorro.",
-    images: ["/teilen-og2.webp"],
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [SOCIAL_IMAGE],
   },
 
   robots: {
@@ -120,6 +129,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#019a57" },
     { media: "(prefers-color-scheme: dark)", color: "#019a57" },
@@ -133,63 +144,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const organizationStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Teilen",
-    url: "https://www.teilen.cl",
-    logo: "https://www.teilen.cl/logo_teilen.png",
-    sameAs: ["https://www.instagram.com/teilen.app/"],
-    description:
-      "Teilen ayuda a organizar gastos compartidos, gastos personales, recordatorios y metas financieras desde una app simple.",
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        email: "contacto@teilen.cl",
-        contactType: "customer support",
-        availableLanguage: ["es", "en", "de", "pr", "ut", "fr"],
-      },
-    ],
-  };
-
-  const webSiteStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Teilen",
-    alternateName: "Teilen | Divide gastos, organiza cuentas y alcanza tus metas",
-    url: "https://www.teilen.cl",
-    potentialAction: {
-      "@type": "SearchAction",
-      target:
-        "https://www.google.com/search?q=site:teilen.cl+{search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  const appStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "MobileApplication",
-    name: "Teilen",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "iOS, Android",
-    url: "https://www.teilen.cl",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "CLP",
-    },
-    description:
-      "Teilen permite dividir gastos compartidos, registrar gastos personales, crear recordatorios, programar gastos recurrentes y seguir metas de ahorro.",
-    inLanguage: ["es", "en", "de", "pr", "ut", "fr"],
-    publisher: {
-      "@type": "Organization",
-      name: "Teilen",
-      url: "https://www.teilen.cl",
-    },
-  };
+  const organizationStructuredData = organizationJsonLd();
+  const webSiteStructuredData = webSiteJsonLd();
+  const appStructuredData = mobileApplicationJsonLd();
 
   return (
-    <html lang="es">
+    <html lang="es-CL">
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

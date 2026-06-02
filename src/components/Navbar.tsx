@@ -6,8 +6,8 @@ import { useState, useRef, useEffect } from "react";
 import { DownloadModal } from "./DownloadModal";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslations } from "./LanguageProvider";
+import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
-const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 const SHOW_LOGIN = (process.env.NEXT_PUBLIC_SHOW_LOGIN_CTA ?? "false").toLowerCase() !== "false";
 
 export function Navbar() {

@@ -5,10 +5,10 @@ import Link from "next/link";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import { DownloadModal } from "@/components/DownloadModal";
+import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
-const UNIVERSAL_DOWNLOAD_URL = "https://www.teilen.cl/api/download";
 
 type Feature = {
   title: string;
