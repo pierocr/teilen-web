@@ -9,6 +9,7 @@ type HomeMessages = {
   };
   hero: {
     badge: string;
+    title: string;
     words: string[];
     titlePrefix: string;
     titleSuffix: string;
@@ -114,12 +115,13 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       googlePlayAlt: "Disponible en Google Play",
     },
     hero: {
-      badge: "App para dividir gastos",
+      badge: "Divide gastos sin enredos",
+      title: "Organiza tus gastos en segundos",
       words: ["dividir", "compartir", "administrar"],
       titlePrefix: "La forma de",
       titleSuffix: "tus gastos en grupo",
       description:
-        "Teilen es una app chilena de finanzas personales para dividir gastos, organizar cuentas compartidas, controlar gastos personales, programar pagos recurrentes, crear recordatorios y seguir metas de ahorro.",
+        "Crea un grupo, registra quién pagó y mira al instante quién debe cuánto.",
       demoButton: "Ver cómo funciona",
       availability: "Disponible en iOS y Android",
     },
@@ -369,6 +371,7 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
     },
     hero: {
       badge: "Expense splitting app",
+      title: "Organize expenses in seconds",
       words: ["split", "share", "manage"],
       titlePrefix: "The way to",
       titleSuffix: "manage your group expenses",
@@ -574,6 +577,7 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
     },
     hero: {
       badge: "App para dividir despesas",
+      title: "Organize despesas em segundos",
       words: ["dividir", "compartilhar", "organizar"],
       titlePrefix: "A forma de",
       titleSuffix: "organizar suas despesas em grupo",
@@ -782,6 +786,7 @@ const deHomeMessages: HomeMessages = {
   },
   hero: {
     badge: "App zum Teilen von Ausgaben",
+    title: "Organisiere Ausgaben in Sekunden",
     words: ["teilen", "organisieren", "verwalten"],
     titlePrefix: "So kannst du",
     titleSuffix: "deine Gruppenausgaben verwalten",
@@ -958,6 +963,7 @@ const utHomeMessages: HomeMessages = {
   },
   hero: {
     badge: "App per dividere spese",
+    title: "Organizza le spese in pochi secondi",
     words: ["dividere", "condividere", "gestire"],
     titlePrefix: "Il modo per",
     titleSuffix: "gestire le spese di gruppo",
@@ -1101,6 +1107,7 @@ const frHomeMessages: HomeMessages = {
   },
   hero: {
     badge: "Application de partage de dépenses",
+    title: "Organisez vos dépenses en quelques secondes",
     words: ["partager", "organiser", "gérer"],
     titlePrefix: "La façon de",
     titleSuffix: "gérer vos dépenses de groupe",

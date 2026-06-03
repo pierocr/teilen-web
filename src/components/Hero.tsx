@@ -12,10 +12,8 @@ const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 
 const HERO_BULLETS = [
-  "Gastos grupales y personales",
-  "Recordatorios y pagos recurrentes",
-  "Metas de ahorro",
-  "Disponible en iOS y Android",
+  "Cuentas claras al instante",
+  "Pagos y saldos ordenados",
 ];
 
 export function Hero() {
@@ -49,21 +47,21 @@ export function Hero() {
           </span>
 
           <h1
-            className="animate-hero-in mt-4 max-w-3xl text-[2.45rem] font-extrabold leading-[1.06] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-6xl lg:text-[4rem] fhd:text-7xl"
+            className="animate-hero-in mt-4 max-w-3xl text-[2.75rem] font-extrabold leading-[1.02] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-6xl lg:text-[4.35rem] fhd:text-7xl"
           >
-            Teilen App: divide gastos, organiza cuentas y alcanza tus metas
+            {home.hero.title}
           </h1>
 
           <p
             style={{ animationDelay: "90ms" }}
-            className="animate-hero-in mt-4 max-w-2xl text-base leading-7 text-white/78 sm:mt-5 md:text-lg md:leading-8 fhd:text-xl"
+            className="animate-hero-in mt-4 max-w-xl text-lg leading-7 text-white/82 sm:mt-5 md:text-xl md:leading-8"
           >
             {home.hero.description}
           </p>
 
           <ul
             style={{ animationDelay: "140ms" }}
-            className="animate-hero-in mt-5 grid max-w-2xl grid-cols-1 gap-2 text-sm text-white/82 sm:grid-cols-2"
+            className="animate-hero-in mt-5 flex max-w-2xl flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/82"
           >
             {HERO_BULLETS.map((item) => (
               <li key={item} className="flex items-center gap-2">
@@ -79,12 +77,12 @@ export function Hero() {
 
           <div
             style={{ animationDelay: "180ms" }}
-            className="animate-hero-in mt-6 flex flex-wrap items-center gap-2.5 sm:mt-8 sm:gap-3 fhd:gap-4"
+            className="animate-hero-in mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
           >
             <a
               href={APP_STORE_URL}
               aria-label={home.stores.appStoreAria}
-              className="inline-flex overflow-hidden rounded-2xl border border-white/30 bg-white/10 p-1 shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200"
+              className="inline-flex overflow-hidden rounded-2xl border border-white/40 bg-white/14 p-1.5 shadow-[0_18px_42px_rgba(0,0,0,0.28)] ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-white/18"
               rel="noopener"
             >
               <Image
@@ -92,13 +90,13 @@ export function Hero() {
                 alt={home.stores.appStoreAlt}
                 width={174}
                 height={58}
-                className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
+                className="h-[54px] w-[162px] sm:h-[62px] sm:w-[186px]"
               />
             </a>
             <a
               href={PLAY_STORE_URL}
               aria-label={home.stores.googlePlayAria}
-              className="inline-flex overflow-hidden rounded-2xl border border-white/30 bg-white/10 p-1 shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200"
+              className="inline-flex overflow-hidden rounded-2xl border border-white/40 bg-white/14 p-1.5 shadow-[0_18px_42px_rgba(0,0,0,0.28)] ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-white/18"
               rel="noopener"
             >
               <Image
@@ -106,14 +104,14 @@ export function Hero() {
                 alt={home.stores.googlePlayAlt}
                 width={196}
                 height={58}
-                className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
+                className="h-[54px] w-[182px] sm:h-[62px] sm:w-[210px]"
               />
             </a>
             <a
               href="#how"
-              className="inline-flex items-center justify-center rounded-2xl border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-white/15 sm:px-5 sm:py-3 sm:text-sm"
+              className="inline-flex items-center justify-center rounded-full px-2 py-2 text-sm font-semibold text-white/78 underline decoration-white/25 underline-offset-8 transition hover:text-white hover:decoration-emerald-200 sm:px-3"
             >
-              Ver cómo funciona
+              {home.hero.demoButton}
             </a>
           </div>
 
