@@ -12,8 +12,21 @@ const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 
 const HERO_BULLETS = [
-  "Cuentas claras al instante",
-  "Pagos y saldos ordenados",
+  "Saldos claros en tiempo real",
+  "Gastos personales y compartidos",
+  "Recordatorios y metas de ahorro",
+];
+
+const HERO_STATS = [
+  { value: "iOS + Android", label: "Disponible para todos tus grupos" },
+  { value: "160+", label: "Monedas para viajes y compras" },
+  { value: "Premium", label: "IA, reportes y grupos ilimitados" },
+];
+
+const BALANCE_ITEMS = [
+  { name: "Casa Las Condes", detail: "Servicios y supermercado", amount: "$42.800", tone: "emerald" },
+  { name: "Viaje al sur", detail: "Alojamiento y bencina", amount: "$18.450", tone: "sky" },
+  { name: "Meta: vacaciones", detail: "Progreso mensual", amount: "68%", tone: "amber" },
 ];
 
 export function Hero() {
@@ -32,36 +45,40 @@ export function Hero() {
   );
 
   return (
-    <section className="relative overflow-hidden sm:min-h-[76vh]">
+    <section className="relative overflow-hidden bg-slate-950 sm:min-h-[82vh]">
       <Navbar />
 
       <div className="absolute inset-0" style={overlayStyle} />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/10" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.08)_0%,transparent_30%,rgba(16,185,129,0.08)_100%)]" />
+      <div className="pointer-events-none absolute -left-28 top-28 h-72 w-72 rounded-full bg-emerald-400/18 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-4 h-80 w-80 rounded-full bg-teal-300/14 blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-white" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-7 px-5 pb-7 pt-20 sm:gap-10 sm:pb-6 sm:pt-22 md:pt-26 md:pb-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-10">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-9 px-5 pb-12 pt-24 sm:gap-10 sm:pb-16 sm:pt-28 md:pt-32 lg:grid-cols-[0.98fr_1.02fr] lg:gap-14 lg:pb-20">
         <div className="relative z-20 mx-auto w-full max-w-[680px] lg:mx-0">
           <span
-            className="inline-flex max-w-full items-center rounded-full border border-emerald-300/40 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100 backdrop-blur sm:px-4 sm:text-[11px] sm:tracking-[0.24em]"
+            className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-300/35 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100 shadow-[0_12px_38px_rgba(0,0,0,0.16)] backdrop-blur sm:px-4 sm:text-[11px] sm:tracking-[0.24em]"
           >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.95)]" />
             {home.hero.badge}
           </span>
 
           <h1
-            className="animate-hero-in mt-4 max-w-3xl text-[2.75rem] font-extrabold leading-[1.02] tracking-tight text-white min-[390px]:text-5xl sm:mt-5 md:text-6xl lg:text-[4.35rem] fhd:text-7xl"
+            className="animate-hero-in mt-5 max-w-3xl text-[2.85rem] font-extrabold leading-[0.98] tracking-tight text-white min-[390px]:text-5xl sm:mt-6 md:text-6xl lg:text-[4.45rem] fhd:text-7xl"
           >
             {home.hero.title}
           </h1>
 
           <p
             style={{ animationDelay: "90ms" }}
-            className="animate-hero-in mt-4 max-w-xl text-lg leading-7 text-white/82 sm:mt-5 md:text-xl md:leading-8"
+            className="animate-hero-in mt-5 max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-xl md:leading-9"
           >
             {home.hero.description}
           </p>
 
           <ul
             style={{ animationDelay: "140ms" }}
-            className="animate-hero-in mt-5 flex max-w-2xl flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/82"
+            className="animate-hero-in mt-6 flex max-w-2xl flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/82"
           >
             {HERO_BULLETS.map((item) => (
               <li key={item} className="flex items-center gap-2">
@@ -75,10 +92,8 @@ export function Hero() {
             ))}
           </ul>
 
-          <div
-            style={{ animationDelay: "180ms" }}
-            className="animate-hero-in mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
-          >
+          <div style={{ animationDelay: "180ms" }} className="animate-hero-in mt-8">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <a
               href={APP_STORE_URL}
               aria-label={home.stores.appStoreAria}
@@ -109,23 +124,91 @@ export function Hero() {
             </a>
             <a
               href="#how"
-              className="inline-flex items-center justify-center rounded-full px-2 py-2 text-sm font-semibold text-white/78 underline decoration-white/25 underline-offset-8 transition hover:text-white hover:decoration-emerald-200 sm:px-3"
+              className="inline-flex min-h-[54px] items-center justify-center rounded-2xl border border-white/18 bg-white/8 px-5 py-3 text-sm font-semibold text-white/82 shadow-[0_18px_42px_rgba(0,0,0,0.18)] backdrop-blur transition hover:-translate-y-0.5 hover:border-emerald-200/55 hover:bg-white/12 hover:text-white"
             >
               {home.hero.demoButton}
             </a>
+            </div>
           </div>
 
           <p
             style={{ animationDelay: "260ms" }}
-            className="animate-hero-in mt-4 text-[10px] uppercase tracking-[0.2em] text-white/70 sm:mt-6 sm:text-[11px] sm:tracking-[0.35em]"
+            className="animate-hero-in mt-5 text-[10px] uppercase tracking-[0.2em] text-white/66 sm:mt-6 sm:text-[11px] sm:tracking-[0.35em]"
           >
             {home.hero.availability}
           </p>
+
+          <div
+            style={{ animationDelay: "310ms" }}
+            className="animate-hero-in mt-7 grid max-w-2xl gap-3 border-t border-white/12 pt-5 sm:grid-cols-3"
+          >
+            {HERO_STATS.map((item) => (
+              <div key={item.value}>
+                <p className="text-sm font-bold text-white sm:text-base">{item.value}</p>
+                <p className="mt-1 text-xs leading-5 text-white/55">{item.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <PhoneShowcase className="hidden sm:block sm:mt-2 lg:mt-0 lg:justify-self-end" />
+        <ProductShowcase />
       </div>
     </section>
+  );
+}
+
+function ProductShowcase() {
+  return (
+    <div className="relative z-10 mx-auto hidden w-full max-w-[570px] sm:block lg:justify-self-end">
+      <div className="absolute -left-6 top-16 z-20 w-[235px] rounded-[26px] border border-white/16 bg-white/12 p-4 text-white shadow-[0_26px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:-left-10 md:w-[270px]">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-100/70">Resumen</p>
+            <p className="mt-1 text-2xl font-extrabold">$128.940</p>
+          </div>
+          <span className="rounded-full border border-emerald-300/25 bg-emerald-300/14 px-3 py-1 text-xs font-bold text-emerald-100">
+            al día
+          </span>
+        </div>
+        <div className="mt-4 space-y-2.5">
+          {BALANCE_ITEMS.map((item) => (
+            <div key={item.name} className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/10 p-3">
+              <div className="flex items-center gap-3">
+                <span
+                  className={`h-9 w-9 rounded-full ${
+                    item.tone === "emerald"
+                      ? "bg-emerald-300/20 text-emerald-100"
+                      : item.tone === "sky"
+                      ? "bg-sky-300/18 text-sky-100"
+                      : "bg-amber-300/18 text-amber-100"
+                  } flex items-center justify-center text-xs font-black`}
+                >
+                  {item.name.slice(0, 1)}
+                </span>
+                <div>
+                  <p className="text-xs font-bold">{item.name}</p>
+                  <p className="text-[11px] text-white/52">{item.detail}</p>
+                </div>
+              </div>
+              <p className="text-xs font-extrabold">{item.amount}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <PhoneShowcase className="relative z-10 ml-auto lg:mr-8" />
+
+      <div className="absolute -bottom-2 right-0 z-20 w-[255px] rounded-[24px] border border-white/16 bg-slate-950/78 p-4 text-white shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur-xl md:right-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">Próxima cuenta</p>
+        <div className="mt-3 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-bold">Internet hogar</p>
+            <p className="mt-1 text-xs text-white/52">Vence en 3 días</p>
+          </div>
+          <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black text-emerald-950">$29.990</span>
+        </div>
+      </div>
+    </div>
   );
 }
 

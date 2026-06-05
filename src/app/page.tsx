@@ -132,6 +132,21 @@ const premiumBenefits = [
   { title: "Escaneo con IA", text: "Escanea boletas y crea gastos con menos pasos." },
 ];
 
+const trustHighlights = [
+  {
+    title: "Hecha para grupos reales",
+    text: "Parejas, viajes, roomies, familias y salidas con amigos.",
+  },
+  {
+    title: "Todo queda trazable",
+    text: "Gastos, pagos, vencimientos y avances en una misma vista.",
+  },
+  {
+    title: "Descarga directa",
+    text: "Disponible en App Store y Google Play desde un enlace universal.",
+  },
+];
+
 export default function Page() {
   const { locale } = useLocale();
   const home = getHomeMessages(locale);
@@ -155,6 +170,8 @@ export default function Page() {
     <>
       {/* Hero con Navbar overlay */}
       <Hero />
+
+      <TrustStrip />
 
       {/* Cómo funciona */}
       <section id="how" className="scroll-mt-24">
@@ -362,6 +379,29 @@ export default function Page() {
       {/* Footer global */}
       <Footer />
     </>
+  );
+}
+
+function TrustStrip() {
+  return (
+    <section className="relative z-10 -mt-7 px-5">
+      <div className="mx-auto grid max-w-7xl gap-3 rounded-[24px] border border-slate-100 bg-white/95 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur sm:grid-cols-3 sm:rounded-[28px] sm:p-4">
+        {trustHighlights.map((item, index) => (
+          <article
+            key={item.title}
+            className="flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/70 p-4 sm:border-0 sm:bg-transparent"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-black text-white shadow-[0_12px_30px_rgba(1,154,87,0.28)]">
+              {index + 1}
+            </span>
+            <div>
+              <h2 className="text-sm font-bold text-slate-950 sm:text-base">{item.title}</h2>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
