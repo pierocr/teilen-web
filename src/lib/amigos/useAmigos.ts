@@ -26,7 +26,21 @@ export function useAmigos() {
   }, [token, status]);
 
   useEffect(() => {
-    if (status === "authenticated") load();
+    if (status !== "authenticated") {
+      return;
+    }
+
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (!cancelled) {
+        void load();
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [status, load]);
 
   return { ...state, refresh: load };

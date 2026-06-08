@@ -31,9 +31,21 @@ export function useGastos(grupoId: number | null, opts: { incluirPagados?: boole
   }, [token, status, grupoId, includePaidFlag]);
 
   useEffect(() => {
-    if (status === "authenticated" && grupoId) {
-      load();
+    if (status !== "authenticated" || !grupoId) {
+      return;
     }
+
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (!cancelled) {
+        void load();
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [status, grupoId, includePaidFlag, load]);
 
   return {

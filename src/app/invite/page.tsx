@@ -2,10 +2,15 @@ import { redirect } from "next/navigation";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
-export default function InvitePage({ searchParams }: { searchParams: SearchParams }) {
+export default async function InvitePage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const resolvedSearchParams = await searchParams;
   const params = new URLSearchParams();
 
-  Object.entries(searchParams || {}).forEach(([key, value]) => {
+  Object.entries(resolvedSearchParams || {}).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       const first = value[0];
       if (first) params.set(key, first);

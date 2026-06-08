@@ -21,8 +21,14 @@ function detectPlatform(userAgent: string) {
 
 function ReferralContent() {
   const searchParams = useSearchParams();
-  const [redirecting, setRedirecting] = useState(false);
-  const [platform, setPlatform] = useState<string>("");
+  const [redirecting] = useState(true);
+  const [platform] = useState<string>(() => {
+    if (typeof navigator === "undefined") {
+      return "other";
+    }
+
+    return detectPlatform(navigator.userAgent || "");
+  });
 
   const code = useMemo(() => {
     const raw =
@@ -45,34 +51,29 @@ function ReferralContent() {
   }, []);
 
   useEffect(() => {
-    const detectedPlatform = detectPlatform(navigator.userAgent || "");
-    setPlatform(detectedPlatform);
-
     // Track referral page visit
     trackEvent("referral_page_view", {
       code: code || "no_code",
-      platform: detectedPlatform,
+      platform,
       has_code: Boolean(code),
     });
 
-    setRedirecting(true);
-
     const openApp = () => {
-      trackEvent("referral_attempt_open_app", { code, platform: detectedPlatform });
+      trackEvent("referral_attempt_open_app", { code, platform });
       window.location.href = appLink;
     };
 
     const fallback = () => {
       const target =
-        detectedPlatform === "ios"
+        platform === "ios"
           ? APP_STORE_URL
-          : detectedPlatform === "android"
+          : platform === "android"
           ? PLAY_STORE_URL
           : UNIVERSAL_DOWNLOAD_URL;
 
       trackEvent("referral_redirect_store", {
         code,
-        platform: detectedPlatform,
+        platform,
         target
       });
 
@@ -86,7 +87,7 @@ function ReferralContent() {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
     };
-  }, [appLink, code]);
+  }, [appLink, code, platform]);
 
   const copyCode = async () => {
     if (!code) return;

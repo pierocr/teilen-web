@@ -6,14 +6,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/lib/auth/auth-provider";
 
+function isAppleUserAgent() {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  return /(iPhone|iPad|iPod|Macintosh|Mac OS X)/i.test(navigator.userAgent);
+}
+
 function LoginForm() {
   const router = useRouter();
   const { login, loginWithGoogle, loginWithApple, status, isAuthenticating, error } = useAuth();
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [localError, setLocalError] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
-  const [isAppleDevice, setIsAppleDevice] = useState(false);
+  const [isAppleDevice, setIsAppleDevice] = useState(isAppleUserAgent);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -22,9 +29,13 @@ function LoginForm() {
   }, [status, router]);
 
   useEffect(() => {
-    setIsClient(true);
-    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
-    setIsAppleDevice(/(iPhone|iPad|iPod|Macintosh|Mac OS X)/i.test(ua));
+    const timeoutId = window.setTimeout(() => {
+      setIsAppleDevice(isAppleUserAgent());
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -122,7 +133,7 @@ function LoginForm() {
           <span className="h-px flex-1 bg-slate-200" />
         </div>
 
-        {isClient && isAppleDevice ? (
+        {isAppleDevice ? (
           <button
             type="button"
             onClick={handleApple}

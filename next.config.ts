@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true, // <- evita que ESLint corte el build en Cloudflare
-  },
   images: {
     remotePatterns: [
       // Avatares/portadas servidas desde Supabase Storage

@@ -20,22 +20,20 @@ export function LanguageProvider({
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === "undefined") {
+      return initialLocale;
+    }
 
-  useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     const normalizedStored = normalizeLocale(stored);
     if (normalizedStored) {
-      setLocale(normalizedStored);
-      return;
+      return normalizedStored;
     }
 
     const browserLocale = navigator.language.split("-")[0].toLowerCase();
-    const normalizedBrowserLocale = normalizeLocale(browserLocale);
-    if (normalizedBrowserLocale) {
-      setLocale(normalizedBrowserLocale);
-    }
-  }, []);
+    return normalizeLocale(browserLocale) ?? initialLocale;
+  });
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, locale);
