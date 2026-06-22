@@ -6,7 +6,7 @@ export const BRAND_ALTERNATE_NAME = "Teilen App";
 export const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 export const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 export const UNIVERSAL_DOWNLOAD_URL = `${SITE_URL}/api/download`;
-export const SOCIAL_IMAGE = "/teilen-og.webp";
+export const SOCIAL_IMAGE = "/teilen-og-2026.webp";
 export const INSTAGRAM_URL = "https://www.instagram.com/teilen.app/";
 
 export const DEFAULT_TITLE = "Teilen App | Divide gastos, organiza cuentas y alcanza tus metas";

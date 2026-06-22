@@ -102,8 +102,8 @@ function ReferralContent() {
   };
 
   const shareViaWhatsApp = () => {
-    const text = `¡Únete a Teilen! Usa mi código de invitación: ${code}`;
-    const url = `https://wa.me/?text=${encodeURIComponent(text + " " + shareUrl)}`;
+    const text = `¿Dividimos los gastos en Teilen? Súmate con mi invitación y llevemos las cuentas claras 👇\n${shareUrl}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
     trackEvent("referral_share_whatsapp", { code });
   };
