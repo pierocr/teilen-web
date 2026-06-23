@@ -10,7 +10,8 @@ import { toast } from "sonner";
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const UNIVERSAL_DOWNLOAD_URL = "/api/download";
-const APP_SCHEME = "teilen://referral";
+const REFERRAL_APP_SCHEME = "teilen://referral";
+const FRIEND_INVITE_APP_SCHEME = "teilen://invite";
 
 function detectPlatform(userAgent: string) {
   const ua = userAgent.toLowerCase();
@@ -33,17 +34,25 @@ function ReferralContent() {
   const code = useMemo(() => {
     const raw =
       searchParams.get("code") ||
-      searchParams.get("ref") ||
       searchParams.get("c") ||
       "";
     return raw.trim().toUpperCase();
   }, [searchParams]);
 
+  const friendInviteToken = useMemo(() => {
+    const raw = searchParams.get("token") || searchParams.get("t") || "";
+    return raw.trim();
+  }, [searchParams]);
+
+  const isFriendInvite = Boolean(friendInviteToken);
+
   const appLink = useMemo(() => {
-    const hasCode = Boolean(code);
-    const suffix = hasCode ? `?code=${encodeURIComponent(code)}` : "";
-    return `${APP_SCHEME}${suffix}`;
-  }, [code]);
+    if (friendInviteToken) {
+      return `${FRIEND_INVITE_APP_SCHEME}?token=${encodeURIComponent(friendInviteToken)}`;
+    }
+    const suffix = code ? `?code=${encodeURIComponent(code)}` : "";
+    return `${REFERRAL_APP_SCHEME}${suffix}`;
+  }, [code, friendInviteToken]);
 
   const shareUrl = useMemo(() => {
     if (typeof window === "undefined") return "";
@@ -53,13 +62,16 @@ function ReferralContent() {
   useEffect(() => {
     // Track referral page visit
     trackEvent("referral_page_view", {
-      code: code || "no_code",
       platform,
       has_code: Boolean(code),
+      invite_type: isFriendInvite ? "friend" : "referral",
     });
 
     const openApp = () => {
-      trackEvent("referral_attempt_open_app", { code, platform });
+      trackEvent("referral_attempt_open_app", {
+        platform,
+        invite_type: isFriendInvite ? "friend" : "referral",
+      });
       window.location.href = appLink;
     };
 
@@ -72,9 +84,9 @@ function ReferralContent() {
           : UNIVERSAL_DOWNLOAD_URL;
 
       trackEvent("referral_redirect_store", {
-        code,
         platform,
-        target
+        target,
+        invite_type: isFriendInvite ? "friend" : "referral",
       });
 
       window.location.href = target;
@@ -87,7 +99,7 @@ function ReferralContent() {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
     };
-  }, [appLink, code, platform]);
+  }, [appLink, code, isFriendInvite, platform]);
 
   const copyCode = async () => {
     if (!code) return;
@@ -95,7 +107,7 @@ function ReferralContent() {
     try {
       await navigator.clipboard.writeText(code);
       toast.success("Código copiado al portapapeles");
-      trackEvent("referral_code_copied", { code });
+      trackEvent("referral_code_copied", { has_code: true });
     } catch {
       toast.error("No se pudo copiar el código");
     }
@@ -105,31 +117,46 @@ function ReferralContent() {
     const text = `¿Dividimos los gastos en Teilen? Súmate con mi invitación y llevemos las cuentas claras 👇\n${shareUrl}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
-    trackEvent("referral_share_whatsapp", { code });
+    trackEvent("referral_share_whatsapp", {
+      invite_type: isFriendInvite ? "friend" : "referral",
+    });
   };
 
   const shareViaTwitter = () => {
-    const text = `¡Únete a Teilen con mi código de invitación: ${code}!`;
+    const text = isFriendInvite
+      ? "¿Dividimos los gastos en Teilen? Súmate con mi invitación."
+      : `¡Únete a Teilen con mi código de invitación: ${code}!`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank");
-    trackEvent("referral_share_twitter", { code });
+    trackEvent("referral_share_twitter", {
+      invite_type: isFriendInvite ? "friend" : "referral",
+    });
   };
 
   const shareViaEmail = () => {
     const subject = "Únete a Teilen";
-    const body = `¡Hola! Te invito a usar Teilen para dividir gastos.\n\nUsa mi código de invitación: ${code}\n\nAbre este link: ${shareUrl}`;
+    const body = isFriendInvite
+      ? `¡Hola! Te invito a usar Teilen para dividir gastos y organizar nuestras cuentas.\n\nAbre este enlace seguro: ${shareUrl}`
+      : `¡Hola! Te invito a usar Teilen para dividir gastos.\n\nUsa mi código de invitación: ${code}\n\nAbre este link: ${shareUrl}`;
     const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = url;
-    trackEvent("referral_share_email", { code });
+    trackEvent("referral_share_email", {
+      invite_type: isFriendInvite ? "friend" : "referral",
+    });
   };
 
   const handleOpenApp = () => {
-    trackEvent("referral_manual_open_app", { code });
+    trackEvent("referral_manual_open_app", {
+      invite_type: isFriendInvite ? "friend" : "referral",
+    });
     window.location.href = appLink;
   };
 
   const handleGoToStore = () => {
-    trackEvent("referral_manual_go_to_store", { code, platform });
+    trackEvent("referral_manual_go_to_store", {
+      platform,
+      invite_type: isFriendInvite ? "friend" : "referral",
+    });
     window.location.href = UNIVERSAL_DOWNLOAD_URL;
   };
 
@@ -141,13 +168,14 @@ function ReferralContent() {
             TL
           </div>
           <h1 className="text-3xl font-bold text-slate-900 md:text-4xl">
-            Únete a Teilen con este código
+            {isFriendInvite ? "Te invitaron a conectar en Teilen" : "Únete a Teilen con este código"}
           </h1>
           <p className="text-base text-slate-600">
             Abriremos la app automáticamente. Si no la tienes instalada, te llevaremos a la tienda correcta.
           </p>
         </div>
 
+        {!isFriendInvite && (
         <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 px-4 py-5 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">
             Código de invitación
@@ -172,6 +200,7 @@ function ReferralContent() {
             Compártelo o presiona &ldquo;Abrir app&rdquo;. Si aún no tienes Teilen, instala y vuelve: el código se mantiene.
           </p>
         </div>
+        )}
 
         {/* Loading indicator */}
         {redirecting && (
@@ -197,10 +226,10 @@ function ReferralContent() {
         </div>
 
         {/* Share buttons */}
-        {code && (
+        {(code || isFriendInvite) && (
           <div className="border-t border-slate-200 pt-6">
             <p className="text-sm font-semibold text-slate-700 text-center mb-3">
-              Comparte tu código de invitación
+              {isFriendInvite ? "Comparte tu invitación" : "Comparte tu código de invitación"}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button

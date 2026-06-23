@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     absolute: title,
   },
   description,
+  referrer: "no-referrer",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/referral",
   },
