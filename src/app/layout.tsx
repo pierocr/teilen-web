@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "@/components/Toaster";
@@ -194,6 +195,7 @@ export default function RootLayout({
           <Toaster />
           <PWAInstaller />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
