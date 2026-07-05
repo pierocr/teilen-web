@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Política de Privacidad",
   description:
-    "Conoce cómo Teilen protege tus datos personales y garantiza la seguridad de tu información financiera y de tus grupos.",
+    "Conoce cómo Teilen recopila, usa, conserva y protege tus datos personales al utilizar la plataforma.",
   alternates: {
     canonical: "/privacidad",
   },
@@ -18,147 +18,209 @@ type Section = {
 
 const sections: Section[] = [
   {
-    title: "1. Introducción",
+    title: "1. Alcance y responsable del tratamiento",
     paragraphs: [
-      "En Teilen nos comprometemos a proteger tu privacidad y a manejar tus datos personales de forma responsable. Esta Política describe qué información recopilamos, por qué lo hacemos y cómo puedes ejercer tus derechos.",
-      "Si tienes preguntas o necesitas aclaraciones, puedes escribirnos en cualquier momento y estaremos felices de ayudarte.",
+      "Esta Política de Privacidad explica cómo Teilen recopila, utiliza, almacena, comunica y protege los datos personales de las personas que visitan nuestro sitio web, crean una cuenta, usan la aplicación o se comunican con nuestro equipo.",
+      "Para efectos de esta Política, Teilen actúa como responsable del tratamiento respecto de los datos personales necesarios para operar la plataforma, prestar soporte, resguardar la seguridad del servicio y cumplir obligaciones legales. Puedes contactarnos en contacto@teilen.cl para cualquier consulta relacionada con privacidad.",
+      "El tratamiento de datos se realiza conforme a la legislación aplicable en Chile, incluyendo la Ley N° 19.628 sobre protección de la vida privada y sus modificaciones, así como las obligaciones que correspondan cuando entre en vigencia la Ley N° 21.719 sobre protección y tratamiento de datos personales.",
     ],
   },
   {
-    title: "2. Información que recopilamos",
+    title: "2. Datos personales que podemos recopilar",
     paragraphs: [
-      "Recopilamos datos que nos permiten prestarte un servicio seguro y confiable. Estos datos pueden obtenerse cuando creas una cuenta, interactúas con la app o nos contactas para recibir soporte.",
+      "Recopilamos solo la información que resulta necesaria o pertinente para prestar Teilen, mantener la seguridad de la plataforma, mejorar la experiencia de uso y atender solicitudes de los usuarios.",
     ],
     bullets: [
       {
-        title: "Datos de identificación",
+        title: "Datos de identificación y contacto",
         description:
-          "Nombre y apellidos, número de teléfono, correo electrónico y país de residencia.",
+          "Nombre, apellidos, correo electrónico, número de teléfono, país de residencia y otros datos que nos entregues al crear o administrar tu cuenta.",
       },
       {
-        title: "Información de cuenta y uso",
+        title: "Datos de cuenta y autenticación",
         description:
-          "Grupos creados, gastos registrados, roles dentro de cada grupo y preferencias de notificaciones.",
+          "Identificadores de usuario, proveedor de inicio de sesión, estado de la cuenta, preferencias, idioma, sesiones y datos técnicos asociados al acceso.",
       },
       {
-        title: "Datos de transacciones",
+        title: "Contenido financiero ingresado por usuarios",
         description:
-          "Montos, descripciones, participantes y fechas de gastos o reembolsos que ingresas en Teilen.",
+          "Grupos, participantes, montos, conceptos, fechas, saldos, reembolsos, comentarios y otros antecedentes que tú o los miembros de tus grupos registren en Teilen.",
       },
       {
-        title: "Soporte y comunicaciones",
+        title: "Comunicaciones y soporte",
         description:
-          "Mensajes que envías a nuestro equipo, grabaciones de llamadas (cuando corresponda) y respuestas a encuestas o investigación de experiencia.",
+          "Mensajes enviados por formularios, correos electrónicos, solicitudes de ayuda, reportes de errores, respuestas a encuestas y antecedentes necesarios para resolver consultas.",
       },
       {
-        title: "Información técnica",
+        title: "Datos técnicos y de uso",
         description:
-          "Datos del dispositivo (modelo, sistema operativo, versión de la app), dirección IP aproximada y eventos técnicos necesarios para mantener la plataforma segura y performante.",
+          "Dirección IP aproximada, identificadores del dispositivo o navegador, sistema operativo, versión de la app, registros de actividad, eventos de rendimiento, errores y datos de analítica.",
+      },
+      {
+        title: "Cookies y tecnologías similares",
+        description:
+          "Información obtenida mediante cookies, almacenamiento local, píxeles o herramientas equivalentes, conforme a nuestra Política de Cookies.",
       },
     ],
   },
   {
-    title: "3. Cómo usamos tu información",
+    title: "3. Finalidades y bases del tratamiento",
     paragraphs: [
-      "Utilizamos tus datos personales solo cuando tenemos una base legal válida y con propósitos específicos:",
+      "Tratamos tus datos personales para finalidades específicas, explícitas y lícitas. Según el caso, el tratamiento puede fundarse en la ejecución del servicio solicitado, tu consentimiento, el cumplimiento de obligaciones legales, la prevención de fraudes, la seguridad de la plataforma o el interés legítimo de mejorar y proteger Teilen.",
     ],
     bullets: [
       {
         title: "Prestar y mejorar el servicio",
         description:
-          "Permitir que registres gastos, invites a otras personas, hagas seguimiento de saldos y recibas notificaciones relevantes.",
+          "Crear y administrar cuentas, registrar gastos, calcular saldos, gestionar grupos, enviar invitaciones, mostrar historial y habilitar funcionalidades esenciales.",
       },
       {
         title: "Seguridad y prevención de fraude",
         description:
-          "Monitorear comportamientos sospechosos, detectar accesos no autorizados y resguardar la integridad de la plataforma.",
+          "Detectar accesos no autorizados, prevenir abusos, investigar actividad sospechosa, proteger cuentas y mantener la integridad técnica de la plataforma.",
       },
       {
         title: "Comunicación contigo",
         description:
-          "Responder tus solicitudes de soporte, enviarte avisos sobre cambios importantes, recordatorios o novedades estrictamente relacionadas con Teilen.",
+          "Responder solicitudes, enviar avisos operacionales, confirmar acciones importantes, informar cambios relevantes y entregar soporte relacionado con Teilen.",
       },
       {
         title: "Análisis y producto",
         description:
-          "Generar métricas agregadas para entender el uso de la app, lanzar nuevas funcionalidades y mejorar tu experiencia.",
+          "Medir uso, rendimiento y errores; generar estadísticas agregadas; priorizar mejoras; y evaluar nuevas funcionalidades sin vender tu información personal.",
       },
       {
         title: "Cumplimiento legal",
         description:
-          "Dar respuesta a requerimientos regulatorios o judiciales cuando las autoridades competentes lo soliciten conforme a la ley aplicable.",
+          "Atender requerimientos de autoridades competentes, conservar registros cuando corresponda y ejercer o defender derechos conforme a la ley aplicable.",
       },
     ],
   },
   {
-    title: "4. Con quién compartimos los datos",
+    title: "4. Datos financieros y datos sensibles",
     paragraphs: [
-      "No vendemos tu información personal. Podemos compartir ciertos datos con proveedores que nos ayudan a operar Teilen, siempre bajo contratos que protegen tu privacidad.",
-      "Estos proveedores incluyen servicios de infraestructura en la nube, herramientas de análisis, canales de comunicación y plataformas de soporte. Compartimos solo lo necesario para que presten el servicio contratado y están obligados a usar la información exclusivamente para esos fines.",
-      "Si la ley nos obliga, podremos compartir información con autoridades competentes tras verificar la solicitud. En todos los casos evaluamos cuidadosamente cada requerimiento y solo entregamos lo estrictamente necesario.",
+      "Teilen permite registrar información financiera de carácter personal, como gastos, montos, participantes, saldos y reembolsos. Esta información se utiliza para entregar las funcionalidades de la plataforma y se muestra a los miembros de los grupos o personas con quienes decidas compartirla.",
+      "No necesitamos que ingreses datos sensibles, como información de salud, biometría, origen racial o étnico, opiniones políticas, creencias religiosas, orientación sexual u otros datos especialmente protegidos. Te recomendamos no incluir ese tipo de información en nombres de grupos, descripciones de gastos, comentarios o mensajes.",
     ],
   },
   {
-    title: "5. Conservación y eliminación",
+    title: "5. Con quiénes podemos compartir información",
     paragraphs: [
-      "Guardamos tus datos mientras mantengas tu cuenta activa o según sea necesario para cumplir los propósitos descritos en esta política.",
-      "Cuando solicites eliminar tu cuenta, borraremos o anonimizaremos tus datos dentro de plazos razonables, salvo que debamos conservar cierta información para cumplir obligaciones legales, resolver disputas o mantener registros financieros.",
+      "No vendemos tus datos personales. Podemos compartir información solo cuando sea necesario para operar Teilen, cumplir la ley o proteger nuestros derechos y los de nuestros usuarios.",
+    ],
+    bullets: [
+      {
+        title: "Miembros de tus grupos",
+        description:
+          "La información de gastos, saldos, participantes y actividad se muestra a las personas que integran los grupos o interacciones que tú creas, aceptas o administras.",
+      },
+      {
+        title: "Proveedores de servicio",
+        description:
+          "Trabajamos con proveedores de infraestructura, autenticación, base de datos, analítica, correo electrónico, comunicaciones, soporte y monitoreo técnico. Solo acceden a la información necesaria para prestar sus servicios y deben tratarla conforme a nuestras instrucciones.",
+      },
+      {
+        title: "Autoridades competentes",
+        description:
+          "Podemos entregar información si existe una obligación legal, orden judicial, requerimiento válido de autoridad competente o necesidad de ejercer o defender derechos.",
+      },
+      {
+        title: "Operaciones corporativas",
+        description:
+          "Si Teilen participa en una reorganización, fusión, adquisición, financiamiento o transferencia de activos, los datos podrían ser revisados o transferidos bajo obligaciones de confidencialidad y protección equivalentes.",
+      },
     ],
   },
   {
-    title: "6. Tus derechos de privacidad",
+    title: "6. Transferencias internacionales",
     paragraphs: [
-      "Dependiendo de tu país de residencia, puedes ejercer los siguientes derechos sobre tus datos personales:",
+      "Algunos proveedores que usamos para alojar, procesar, analizar o comunicar información pueden encontrarse en Chile o en otros países. Cuando exista una transferencia internacional de datos, adoptaremos medidas razonables para que la información reciba un nivel de protección adecuado, incluyendo contratos, controles de seguridad y limitaciones de finalidad.",
+    ],
+  },
+  {
+    title: "7. Conservación y eliminación",
+    paragraphs: [
+      "Conservamos los datos personales durante el tiempo necesario para cumplir las finalidades descritas en esta Política, mantener tu cuenta, prestar el servicio, resolver solicitudes, prevenir abusos y cumplir obligaciones legales o contractuales.",
+      "Cuando solicites eliminar tu cuenta, eliminaremos o anonimizaremos tus datos dentro de un plazo razonable, salvo que debamos conservar cierta información por obligaciones legales, registros de seguridad, prevención de fraude, resolución de disputas, respaldo técnico o defensa de derechos.",
+      "Los respaldos de seguridad pueden mantenerse por períodos limitados antes de su eliminación definitiva, de acuerdo con nuestros ciclos técnicos de respaldo y recuperación.",
+    ],
+  },
+  {
+    title: "8. Tus derechos de privacidad",
+    paragraphs: [
+      "Puedes ejercer los derechos que reconozca la legislación aplicable sobre tus datos personales. En Chile, estos derechos incluyen acceso, rectificación, cancelación o supresión, oposición, bloqueo y, cuando corresponda, portabilidad.",
     ],
     bullets: [
       {
         title: "Acceso",
-        description: "Solicitar una copia de los datos que tenemos sobre ti.",
+        description:
+          "Solicitar confirmación sobre si tratamos tus datos y acceder a una copia de la información disponible.",
       },
       {
         title: "Rectificación",
-        description: "Actualizar información incorrecta o incompleta.",
+        description: "Pedir que corrijamos datos inexactos, desactualizados o incompletos.",
       },
       {
-        title: "Eliminación",
-        description: "Pedir que borremos tus datos cuando ya no sean necesarios.",
-      },
-      {
-        title: "Oposición y limitación",
+        title: "Cancelación o supresión",
         description:
-          "Restringir temporalmente el tratamiento o rechazar ciertos usos, cuando la legislación lo permita.",
+          "Solicitar la eliminación de datos cuando ya no sean necesarios o cuando proceda legalmente.",
+      },
+      {
+        title: "Oposición y bloqueo",
+        description:
+          "Oponerte a determinados tratamientos o pedir el bloqueo temporal de datos en los casos permitidos por la normativa aplicable.",
       },
       {
         title: "Portabilidad",
         description:
-          "Recibir tus datos en un formato estructurado y legible, o solicitar que los enviemos a otro proveedor.",
+          "Solicitar la entrega de ciertos datos en un formato estructurado y de uso común, cuando este derecho resulte aplicable.",
+      },
+      {
+        title: "Revocación del consentimiento",
+        description:
+          "Retirar autorizaciones otorgadas para tratamientos basados en consentimiento, sin afectar la licitud del tratamiento realizado previamente.",
       },
     ],
   },
   {
-    title: "7. Seguridad",
+    title: "9. Cómo ejercer tus derechos",
     paragraphs: [
-      "Aplicamos medidas técnicas y organizativas para proteger tu información, incluyendo cifrado en tránsito, controles de acceso internos, monitoreo de seguridad y procesos de respuesta ante incidentes.",
-      "Aunque trabajamos para garantizar la seguridad de la información, ningún sistema es infalible. Te recomendamos mantener tus dispositivos actualizados, usar contraseñas seguras y reportar cualquier actividad sospechosa a nuestro equipo.",
+      "Para ejercer derechos o realizar consultas de privacidad, escribe a contacto@teilen.cl indicando el asunto Privacidad. Podremos pedir antecedentes razonables para verificar tu identidad y proteger tu información antes de responder.",
+      "Responderemos dentro de los plazos que exija la normativa aplicable. Si una solicitud es incompleta, desproporcionada, afecta derechos de terceros o existe una obligación legal de conservar información, podremos pedir antecedentes adicionales, responder parcialmente o rechazarla fundadamente.",
     ],
   },
   {
-    title: "8. Uso por menores de edad",
+    title: "10. Seguridad de la información",
     paragraphs: [
-      "Teilen está dirigido a personas mayores de 18 años. Si detectamos que un menor ha creado una cuenta o nos ha proporcionado datos personales sin autorización de sus representantes, tomaremos las medidas necesarias para eliminar esta información.",
+      "Aplicamos medidas técnicas y organizativas razonables para proteger la información, incluyendo cifrado en tránsito, controles de acceso, gestión de sesiones, monitoreo técnico, respaldo, revisión de incidentes y restricciones internas según roles.",
+      "Ningún sistema es completamente infalible. Por eso también te pedimos mantener tus dispositivos actualizados, usar credenciales seguras, cerrar sesión en equipos compartidos y avisarnos de inmediato si detectas actividad sospechosa.",
+      "En caso de una vulneración de seguridad que pueda afectar tus datos personales, evaluaremos el incidente y adoptaremos las medidas de contención, investigación, mitigación y comunicación que correspondan conforme a la ley aplicable.",
     ],
   },
   {
-    title: "9. Cambios a esta política",
+    title: "11. Menores de edad",
     paragraphs: [
-      "Podemos actualizar esta Política de Privacidad para reflejar mejoras en el servicio, cambios regulatorios o ajustes internos.",
-      "Cuando realicemos modificaciones sustanciales, te avisaremos mediante la app, correo electrónico o a través de nuestro sitio web, indicando la fecha en que comienza a regir la versión modificada.",
+      "Teilen está dirigido a personas mayores de 18 años. Si tomamos conocimiento de que un menor de edad creó una cuenta o nos entregó datos personales sin la autorización correspondiente de sus representantes legales, adoptaremos medidas razonables para eliminar o restringir esa información.",
     ],
   },
   {
-    title: "10. Cómo contactarnos",
+    title: "12. Cookies, analítica y medición",
     paragraphs: [
-      "Si deseas ejercer tus derechos, realizar una consulta o presentar un reclamo relacionado con tu privacidad, escríbenos y te responderemos a la brevedad.",
+      "Nuestro sitio y aplicación pueden utilizar cookies, almacenamiento local, píxeles y herramientas de analítica para mantener sesiones, recordar preferencias, medir rendimiento, entender uso agregado y mejorar la experiencia. Puedes revisar más detalles en nuestra Política de Cookies.",
+      "Algunas herramientas de analítica pueden generar mediciones agregadas sobre visitas, eventos, origen de tráfico o rendimiento. Configuramos estas herramientas con criterios de minimización y finalidad limitada cuando la tecnología lo permite.",
+    ],
+  },
+  {
+    title: "13. Cambios a esta Política",
+    paragraphs: [
+      "Podemos actualizar esta Política de Privacidad para reflejar cambios en Teilen, nuevas funcionalidades, ajustes operacionales, modificaciones regulatorias o mejores prácticas de seguridad y privacidad.",
+      "Cuando los cambios sean sustanciales, procuraremos informarlos mediante la aplicación, correo electrónico, sitio web u otro medio razonable, indicando la fecha de entrada en vigencia de la versión actualizada.",
+    ],
+  },
+  {
+    title: "14. Contacto",
+    paragraphs: [
+      "Si deseas ejercer tus derechos, realizar una consulta, reportar un incidente o presentar un reclamo relacionado con privacidad, escríbenos a contacto@teilen.cl. Para acelerar la gestión, incluye el asunto Privacidad y una descripción clara de tu solicitud.",
     ],
   },
 ];
@@ -186,12 +248,12 @@ export default function PrivacyPage() {
             Política de Privacidad de Teilen
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
-            Tu confianza es lo más importante. Por eso mantenemos procesos claros sobre cómo
-            protegemos y usamos tu información mientras divides gastos con tu equipo, amigos o
-            familia.
+            Este documento describe de forma clara y formal cómo recopilamos, usamos, protegemos y
+            conservamos tu información cuando utilizas Teilen para organizar gastos personales o
+            compartidos.
           </p>
           <p className="mt-6 text-sm font-medium text-slate-500">
-            Última actualización: 21 de noviembre de 2024
+            Última actualización: 5 de julio de 2026
           </p>
         </header>
 

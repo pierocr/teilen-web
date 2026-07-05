@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Política de Cookies",
   description:
-    "Descubre qué cookies utiliza Teilen, para qué se usan y cómo puedes gestionar tus preferencias desde la app o el navegador.",
+    "Conoce cómo Teilen utiliza cookies, almacenamiento local, píxeles y tecnologías similares, y cómo puedes gestionar tus preferencias.",
   alternates: {
     canonical: "/cookies",
   },
@@ -18,59 +18,135 @@ type Section = {
 
 const sections: Section[] = [
   {
-    title: "1. ¿Qué son las cookies?",
+    title: "1. Alcance de esta política",
     paragraphs: [
-      "Las cookies son archivos pequeños que se almacenan en tu dispositivo cuando visitas un sitio o usas una aplicación. Sirven para recordar tus preferencias, mantener tu sesión activa y ofrecerte una experiencia más personalizada.",
-      "También utilizamos tecnologías similares como píxeles o almacenamiento local con objetivos comparables a los descritos en esta política.",
+      "Esta Política de Cookies explica cómo Teilen utiliza cookies, almacenamiento local, píxeles, identificadores, SDK y tecnologías similares cuando visitas nuestro sitio web, utilizas la aplicación o interactúas con nuestros servicios digitales.",
+      "Esta política debe leerse junto con nuestros Términos y Condiciones y nuestra Política de Privacidad, donde explicamos con mayor detalle cómo tratamos datos personales.",
+      "Algunas tecnologías son necesarias para que Teilen funcione correctamente. Otras nos ayudan a medir rendimiento, recordar preferencias, mejorar la experiencia o entender el uso agregado del servicio.",
     ],
   },
   {
-    title: "2. Cookies que utiliza Teilen",
+    title: "2. Qué son las cookies y tecnologías similares",
     paragraphs: [
-      "Usamos cookies propias y de terceros para diferentes finalidades. La mayoría se puede desactivar desde tu navegador, aunque algunas son esenciales para que la plataforma funcione correctamente.",
+      "Las cookies son pequeños archivos que se almacenan en tu navegador o dispositivo para reconocerlo, recordar información o habilitar determinadas funcionalidades.",
+      "También podemos utilizar tecnologías similares, como almacenamiento local del navegador, etiquetas, píxeles, eventos de analítica, identificadores de sesión, registros técnicos y SDK integrados en aplicaciones.",
+      "En esta política usamos el término cookies para referirnos de forma general a todas estas tecnologías, salvo que indiquemos expresamente lo contrario.",
+    ],
+  },
+  {
+    title: "3. Categorías de cookies que podemos utilizar",
+    paragraphs: [
+      "Utilizamos cookies propias y de terceros para finalidades específicas. Algunas son estrictamente necesarias y otras pueden depender de la configuración disponible en tu navegador, dispositivo o futuras herramientas de preferencia que habilitemos.",
     ],
     bullets: [
       {
-        title: "Cookies esenciales",
+        title: "Cookies estrictamente necesarias",
         description:
-          "Permiten que la app funcione: inicio de sesión, mantener tu sesión segura y recordar elementos temporales como grupos o gastos recientes.",
+          "Permiten operar el sitio y la aplicación, mantener sesiones, autenticar usuarios, prevenir abusos, recordar acciones esenciales y proteger la seguridad de la plataforma.",
       },
       {
-        title: "Cookies de preferencia",
+        title: "Cookies funcionales o de preferencia",
         description:
-          "Guardan configuraciones como idioma, modo de visualización o características personalizadas de tus grupos.",
+          "Permiten recordar configuraciones como idioma, región, estado de instalación, preferencias visuales, formularios parcialmente completados o ajustes de experiencia.",
       },
       {
-        title: "Cookies de análisis",
+        title: "Cookies de analítica y rendimiento",
         description:
-          "Nos ayudan a entender cómo se usa Teilen, qué pantallas se visitan y qué funciones podemos mejorar. Recopilan datos agregados y no identifican directamente a los usuarios.",
+          "Nos ayudan a medir visitas, eventos, rendimiento, errores, origen de tráfico y uso agregado para mejorar Teilen y detectar problemas técnicos.",
+      },
+      {
+        title: "Cookies de comunicación y soporte",
+        description:
+          "Pueden ayudarnos a gestionar formularios, solicitudes de contacto, correos transaccionales, reportes de errores o interacciones con canales de soporte.",
+      },
+      {
+        title: "Cookies de marketing o medición promocional",
+        description:
+          "Podrían utilizarse para medir campañas, descargas, conversiones o efectividad de comunicaciones, siempre bajo criterios de proporcionalidad y de acuerdo con la normativa aplicable.",
       },
     ],
   },
   {
-    title: "3. Cookies de terceros",
+    title: "4. Cookies propias y de terceros",
     paragraphs: [
-      "Podemos trabajar con proveedores que instalan cookies en tu dispositivo para medir métricas, enviar comunicaciones transaccionales o mostrar materiales promocionales sobre Teilen en otros sitios.",
-      "Cada proveedor tiene sus propias políticas de privacidad. Revisamos cuidadosamente los acuerdos y exigimos que usen la información únicamente según nuestras instrucciones.",
+      "Las cookies propias son gestionadas directamente por Teilen para operar el servicio, recordar preferencias, mantener sesiones o realizar mediciones internas.",
+      "Las cookies de terceros son gestionadas por proveedores que nos prestan servicios de infraestructura, analítica, autenticación, comunicaciones, monitoreo, soporte, tiendas de aplicaciones o medición de campañas.",
+      "Estos terceros pueden tratar información conforme a sus propias políticas cuando actúan como responsables independientes. Cuando actúan como proveedores de Teilen, deben usar la información conforme a nuestras instrucciones y para las finalidades contratadas.",
     ],
   },
   {
-    title: "4. Cómo gestionar tus preferencias",
+    title: "5. Información que pueden recopilar",
     paragraphs: [
-      "Puedes modificar la configuración de cookies directamente en tu navegador. La mayoría permite bloquear o eliminar cookies existentes y definir niveles de privacidad por sitio.",
-      "Si desactivas cookies esenciales, algunas funciones de Teilen podrían dejar de operar correctamente, como mantener la sesión activa o guardar ciertos ajustes.",
+      "Dependiendo de la tecnología utilizada, las cookies pueden recopilar o almacenar información como identificadores de sesión, dirección IP aproximada, tipo de navegador, sistema operativo, dispositivo, páginas visitadas, eventos de interacción, origen de tráfico, errores, fecha y hora de acceso, preferencias y estado de autenticación.",
+      "Cuando esta información permita identificar directa o indirectamente a una persona, será tratada como dato personal conforme a nuestra Política de Privacidad y a la legislación aplicable.",
     ],
   },
   {
-    title: "5. Actualizaciones de esta política",
+    title: "6. Finalidades de uso",
     paragraphs: [
-      "Podemos actualizar la Política de Cookies cuando agreguemos nuevas funcionalidades, modifiquemos proveedores o cambien las regulaciones. Siempre publicaremos la fecha de la última revisión y, si los cambios son sustanciales, te avisaremos oportunamente.",
+      "Utilizamos cookies y tecnologías similares para finalidades limitadas y relacionadas con la prestación y mejora de Teilen.",
+    ],
+    bullets: [
+      {
+        title: "Operación del servicio",
+        description:
+          "Mantener sesiones, recordar acciones, permitir navegación, autenticar usuarios, prevenir fallos y habilitar funciones esenciales.",
+      },
+      {
+        title: "Seguridad",
+        description:
+          "Detectar abuso, accesos no autorizados, actividad sospechosa, tráfico anómalo, errores críticos o intentos de vulnerar la plataforma.",
+      },
+      {
+        title: "Preferencias",
+        description:
+          "Recordar idioma, región, configuraciones visuales, estado de instalación y otras decisiones que facilitan el uso del sitio o la aplicación.",
+      },
+      {
+        title: "Analítica",
+        description:
+          "Comprender el uso agregado, medir rendimiento, identificar pantallas con errores, priorizar mejoras y evaluar la calidad del servicio.",
+      },
+      {
+        title: "Comunicaciones",
+        description:
+          "Medir interacciones con formularios, enlaces, campañas, descargas o comunicaciones relevantes sobre Teilen.",
+      },
     ],
   },
   {
-    title: "6. Contacto",
+    title: "7. Duración de las cookies",
     paragraphs: [
-      "¿Necesitas más detalles sobre el uso de cookies? Escríbenos y resolveremos tus preguntas.",
+      "Algunas cookies son de sesión y se eliminan cuando cierras el navegador o finaliza la sesión. Otras son persistentes y pueden permanecer por más tiempo para recordar preferencias, mantener seguridad, medir rendimiento o cumplir finalidades técnicas.",
+      "La duración específica puede variar según el proveedor, navegador, dispositivo, configuración del usuario o cambios técnicos del servicio. Procuramos limitar la conservación al tiempo necesario para las finalidades descritas.",
+    ],
+  },
+  {
+    title: "8. Cómo gestionar o desactivar cookies",
+    paragraphs: [
+      "Puedes bloquear, eliminar o limitar cookies desde la configuración de tu navegador o dispositivo. La mayoría de los navegadores permite revisar cookies almacenadas, eliminarlas por sitio, bloquear cookies de terceros o configurar avisos antes de aceptarlas.",
+      "Si desactivas cookies estrictamente necesarias, algunas funciones de Teilen podrían no operar correctamente, incluyendo inicio de sesión, seguridad, navegación, preferencias o continuidad de determinadas acciones.",
+      "También puedes gestionar ciertas preferencias desde herramientas de terceros, como configuraciones de privacidad del navegador, controles de seguimiento del sistema operativo o paneles de exclusión ofrecidos por proveedores de analítica y publicidad.",
+    ],
+  },
+  {
+    title: "9. Relación con la Política de Privacidad",
+    paragraphs: [
+      "El uso de cookies puede implicar tratamiento de datos personales. En esos casos, aplican las reglas, derechos, bases de tratamiento, medidas de seguridad y canales de contacto descritos en nuestra Política de Privacidad.",
+      "Si tienes dudas sobre el tratamiento de tus datos o deseas ejercer derechos de privacidad, puedes escribirnos a contacto@teilen.cl indicando el asunto Privacidad.",
+    ],
+  },
+  {
+    title: "10. Actualizaciones de esta política",
+    paragraphs: [
+      "Podemos actualizar esta Política de Cookies cuando incorporemos nuevas funcionalidades, modifiquemos proveedores, ajustemos tecnologías, mejoremos controles de privacidad o cambien las exigencias legales aplicables.",
+      "La versión vigente será la publicada en esta página, con indicación de la fecha de última actualización. Si los cambios son sustanciales, procuraremos informarlos mediante el sitio web, la aplicación, correo electrónico u otro medio razonable.",
+    ],
+  },
+  {
+    title: "11. Contacto",
+    paragraphs: [
+      "Si necesitas más detalles sobre el uso de cookies o tecnologías similares, escríbenos a contacto@teilen.cl indicando el asunto Cookies.",
     ],
   },
 ];
@@ -98,12 +174,12 @@ export default function CookiesPage() {
             Política de Cookies de Teilen
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
-            En Teilen queremos ser transparentes sobre cómo mejoramos tu experiencia usando cookies
-            y tecnologías similares. Aquí encontrarás la información clave para tomar decisiones
-            informadas.
+            Este documento explica de forma clara qué cookies y tecnologías similares puede utilizar
+            Teilen, para qué finalidades se emplean y cómo puedes gestionarlas desde tu navegador,
+            dispositivo o configuración disponible.
           </p>
           <p className="mt-6 text-sm font-medium text-slate-500">
-            Última actualización: 21 de noviembre de 2024
+            Última actualización: 5 de julio de 2026
           </p>
         </header>
 

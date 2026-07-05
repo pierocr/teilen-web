@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import { DownloadModal } from "@/components/DownloadModal";
+import { PremiumPriceCards } from "@/components/premium/PremiumPriceCards";
 import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
@@ -129,43 +130,7 @@ export function PremiumLanding() {
         </section>
 
         <section className="mt-8 rounded-[28px] border border-[#f5d67240] bg-gradient-to-br from-[#1c1c26] via-[#161620] to-[#0f0f15] p-6 shadow-[0_32px_90px_rgba(0,0,0,0.65)] md:mt-10 md:p-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-            <div className="space-y-3">
-              <p className="inline-flex items-center gap-2 rounded-full border border-[#f5d67230] bg-[#f5d6721a] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#f5d672]">
-                Oferta lanzamiento
-              </p>
-
-              <div className="flex items-center gap-3 text-sm font-semibold text-white/70">
-                <span className="line-through text-white/50">$4.990/mes</span>
-                <span className="inline-flex items-center rounded-full bg-[#f5d6721f] px-3 py-1 text-[#f5d672]">
-                  -50% por los primeros 3 meses
-                </span>
-              </div>
-
-              <div className="flex flex-wrap items-end gap-2 text-5xl font-extrabold leading-none md:text-6xl">
-                <span>$2.495</span>
-                <span className="text-xl font-semibold text-white/70 md:text-2xl">/mes</span>
-              </div>
-
-              <p className="max-w-xl text-sm leading-7 text-white/70 md:text-base">
-                Disponible solo desde la app. Activa Premium en iOS o Android y lleva tus grupos, reportes y
-                recordatorios sin límites. Luego $4.990/mes.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start gap-3">
-              <button
-                type="button"
-                onClick={() => setDownloadOpen(true)}
-                className="w-full min-w-[220px] rounded-full bg-[#f5d672] px-5 py-3 text-center text-base font-bold text-[#0a0a0f] shadow-[0_18px_60px_rgba(245,214,114,0.32)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_70px_rgba(245,214,114,0.42)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5d672]"
-              >
-                Descarga la app
-              </button>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                Suscripción segura en App Store y Google Play
-              </p>
-            </div>
-          </div>
+          <PremiumPriceCards onDownload={() => setDownloadOpen(true)} variant="dark" />
 
           <div className="mt-6 flex flex-wrap items-center gap-3 text-sm font-semibold text-white/80">
             {trustBadges.map((item) => (

@@ -9,9 +9,9 @@ export const UNIVERSAL_DOWNLOAD_URL = `${SITE_URL}/api/download`;
 export const SOCIAL_IMAGE = "/teilen-og-2026.webp";
 export const INSTAGRAM_URL = "https://www.instagram.com/teilen.app/";
 
-export const DEFAULT_TITLE = "Teilen App | Divide gastos, organiza cuentas y alcanza tus metas";
+export const DEFAULT_TITLE = "Teilen | Divide gastos con pareja, amigos y grupos";
 export const DEFAULT_DESCRIPTION =
-  "Teilen es una app chilena para dividir gastos, organizar cuentas compartidas, crear recordatorios, programar gastos recurrentes y seguir metas de ahorro desde iOS y Android.";
+  "Organiza gastos compartidos, calcula saldos y mantén las cuentas claras con Teilen. Ideal para parejas, viajes, roomies y amigos.";
 
 export function absoluteUrl(path = "/") {
   if (path.startsWith("http")) return path;
@@ -97,7 +97,7 @@ export function organizationJsonLd() {
       },
     ],
     description:
-      "Teilen es una app chilena de finanzas personales para dividir gastos, organizar cuentas compartidas, crear recordatorios y seguir metas de ahorro.",
+      "Teilen es una app chilena para dividir gastos compartidos, calcular saldos y mantener cuentas claras entre parejas, viajes, roomies y amigos.",
   };
 }
 

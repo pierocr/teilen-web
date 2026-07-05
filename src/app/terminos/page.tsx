@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Términos y Condiciones",
   description:
-    "Lee las condiciones de uso de Teilen, obligaciones de los usuarios y reglas que rigen el servicio para dividir gastos.",
+    "Lee los términos que regulan el acceso, uso, responsabilidades y condiciones aplicables al servicio de Teilen.",
   alternates: {
     canonical: "/terminos",
   },
@@ -18,36 +18,40 @@ type Section = {
 
 const sections: Section[] = [
   {
-    title: "1. Aceptación de los términos",
+    title: "1. Aceptación y alcance",
     paragraphs: [
-      "Al crear una cuenta, acceder o utilizar Teilen aceptas estos Términos y cualquier política adicional que publiquemos, como la Política de Privacidad y la Política de Cookies.",
-      "Si no estás de acuerdo con alguna sección, debes dejar de utilizar el servicio. Podemos modificar estos Términos en cualquier momento y te avisaremos cuando existan cambios significativos.",
+      "Estos Términos y Condiciones regulan el acceso y uso de Teilen, incluyendo nuestro sitio web, aplicación, funcionalidades, contenidos, comunicaciones y servicios relacionados.",
+      "Al crear una cuenta, acceder o utilizar Teilen, declaras haber leído y aceptado estos Términos, junto con la Política de Privacidad, la Política de Cookies y cualquier condición adicional que informemos para funcionalidades específicas.",
+      "Si no estás de acuerdo con estos Términos, debes abstenerte de crear una cuenta o dejar de utilizar Teilen. El uso continuado del servicio después de una actualización implica la aceptación de la versión vigente, salvo que la ley exija una aceptación expresa.",
     ],
   },
   {
-    title: "2. Descripción del servicio",
+    title: "2. Descripción de Teilen",
     paragraphs: [
-      "Teilen es una aplicación que ayuda a organizar, dividir y dar seguimiento a gastos grupales. Ofrecemos herramientas para registrar transacciones, compartir resúmenes y coordinar pagos pendientes.",
-      "Algunas funcionalidades pueden estar sujetas a versiones beta, periodos de prueba o disponibilidad limitada por región.",
+      "Teilen es una plataforma tecnológica diseñada para ayudar a personas y grupos a registrar, organizar, dividir y dar seguimiento a gastos personales o compartidos.",
+      "El servicio puede incluir herramientas para crear grupos, registrar gastos, calcular saldos, generar resúmenes, enviar recordatorios, coordinar reembolsos, administrar metas o acceder a funcionalidades complementarias.",
+      "Teilen no es una entidad bancaria, institución financiera, procesador de pagos ni asesor financiero, contable, tributario o legal. Los cálculos, saldos y reportes disponibles en la plataforma son herramientas de organización y dependen de la información ingresada por los usuarios.",
     ],
   },
   {
     title: "3. Elegibilidad y cuentas",
     paragraphs: [
-      "Debes tener al menos 18 años para usar Teilen. Al registrarte, confirmas que tienes la capacidad legal para celebrar este acuerdo.",
-      "Es tu responsabilidad entregar información veraz, mantener la confidencialidad de tus credenciales y notificar actividades sospechosas. Puedes cerrar tu cuenta en cualquier momento desde la configuración o escribiéndonos.",
+      "Debes tener al menos 18 años y capacidad legal suficiente para usar Teilen. Al registrarte, declaras que la información entregada es verdadera, actual, completa y que estás autorizado para utilizar el servicio.",
+      "Eres responsable de mantener la confidencialidad de tus credenciales, proteger tus dispositivos, cerrar sesión en equipos compartidos y notificarnos inmediatamente cualquier acceso no autorizado o actividad sospechosa.",
+      "Podemos rechazar, suspender o cerrar cuentas cuando existan indicios razonables de uso indebido, fraude, suplantación, incumplimiento de estos Términos, riesgo para otros usuarios o exigencia legal.",
     ],
   },
   {
-    title: "4. Uso permitido",
+    title: "4. Uso permitido y obligaciones del usuario",
     paragraphs: [
-      "Queremos que Teilen sea un espacio seguro y confiable. Está prohibido:",
+      "Debes utilizar Teilen de buena fe, de manera lícita y conforme a estos Términos. Eres responsable de la información que ingresas, de las decisiones que tomas con base en ella y de contar con autorización para compartir datos de terceros cuando corresponda.",
+      "Está prohibido:",
     ],
     bullets: [
       {
         title: "Uso indebido o fraudulento",
         description:
-          "Registrar información falsa, suplantar identidades o manipular datos para obtener beneficios indebidos.",
+          "Registrar información falsa, manipular saldos, suplantar identidades, crear cuentas no autorizadas o usar Teilen para obtener beneficios indebidos.",
       },
       {
         title: "Interferencia técnica",
@@ -57,60 +61,103 @@ const sections: Section[] = [
       {
         title: "Violaciones legales",
         description:
-          "Utilizar Teilen para actividades ilegales, lavar activos o incumplir normativas financieras y tributarias.",
+          "Utilizar Teilen para actividades ilegales, lavado de activos, financiamiento ilícito, evasión tributaria, fraude o incumplimiento de normativa aplicable.",
       },
       {
         title: "Uso abusivo",
         description:
-          "Enviar spam, acosar a otros usuarios o compartir contenido ofensivo a través de las herramientas de comunicación.",
+          "Enviar spam, acosar a otros usuarios, publicar contenido ofensivo, discriminatorio, difamatorio, amenazante o que vulnere derechos de terceros.",
+      },
+      {
+        title: "Extracción no autorizada",
+        description:
+          "Extraer datos de forma automatizada, revender el servicio, utilizar bots no autorizados o intentar eludir limitaciones técnicas, comerciales o de seguridad.",
       },
     ],
   },
   {
-    title: "5. Contenido creado por usuarios",
+    title: "5. Información y contenido ingresado por usuarios",
     paragraphs: [
-      "Los datos y descripciones de tus gastos pertenecen a ti y a los miembros de tus grupos. No reclamamos propiedad sobre ese contenido, pero nos otorgas las licencias necesarias para operar la plataforma y mostrar la información a quienes corresponda.",
-      "Eres responsable de garantizar que tienes los derechos para compartir la información que ingresas en Teilen.",
+      "Los gastos, nombres de grupos, descripciones, montos, comentarios, participantes y demás información que ingreses en Teilen son responsabilidad de quien los registra o comparte.",
+      "No reclamamos propiedad sobre tu contenido. Sin embargo, nos otorgas una licencia limitada, no exclusiva y necesaria para alojarlo, procesarlo, mostrarlo a los usuarios autorizados, respaldarlo, transmitirlo técnicamente y operar la plataforma.",
+      "Debes evitar ingresar datos sensibles o información innecesaria de terceros. Si compartes información de otras personas, declaras contar con autorización suficiente para hacerlo y aceptas responder por cualquier reclamo derivado de ese uso.",
     ],
   },
   {
-    title: "6. Planes, pagos y terceros",
+    title: "6. Planes, precios, pagos y funcionalidades premium",
     paragraphs: [
-      "Teilen puede ofrecer funcionalidades gratuitas y de pago. Cuando existan cobros, los detalles de precio, ciclo de facturación y reembolsos se publicarán claramente antes de realizar la compra.",
-      "Si utilizas integraciones o servicios de terceros, sus términos y políticas aplicarán además de estos Términos. No somos responsables por la disponibilidad o funcionamiento de servicios externos.",
+      "Teilen puede ofrecer funcionalidades gratuitas, de prueba, promocionales o de pago. Cuando existan cobros, informaremos las características esenciales, precio, impuestos aplicables, periodicidad, forma de pago, renovación, cancelación y demás condiciones relevantes antes de la contratación.",
+      "Los pagos pueden ser procesados por plataformas de terceros, tiendas de aplicaciones u otros proveedores. En esos casos, también se aplicarán sus propios términos, políticas, comisiones, procedimientos de facturación, reembolsos y soporte.",
+      "Podemos modificar, incorporar o retirar planes y funcionalidades, respetando las condiciones contratadas, los derechos adquiridos y las normas obligatorias de protección al consumidor que resulten aplicables.",
     ],
   },
   {
-    title: "7. Propiedad intelectual",
+    title: "7. Servicios de terceros e integraciones",
+    paragraphs: [
+      "Teilen puede operar junto a servicios externos, como proveedores de autenticación, infraestructura, analítica, correo electrónico, tiendas de aplicaciones, enlaces de descarga o herramientas de soporte.",
+      "No controlamos los servicios de terceros ni somos responsables por su disponibilidad, seguridad, contenido, cambios, interrupciones o condiciones comerciales, salvo en aquello que la ley disponga expresamente.",
+      "Cuando accedas a sitios, aplicaciones o servicios de terceros desde Teilen, debes revisar sus propios términos y políticas antes de utilizarlos.",
+    ],
+  },
+  {
+    title: "8. Propiedad intelectual",
     paragraphs: [
       "El contenido visual, marcas, logotipos, código y documentación de Teilen son propiedad de Teilen o de nuestros licenciantes. No puedes utilizar nuestra identidad de marca sin autorización escrita.",
-      "Se permite el uso limitado para mencionar o enlazar nuestra app, siempre que no se genere confusión ni se sugiera una asociación inexistente.",
+      "Estos Términos no te transfieren derechos de propiedad intelectual sobre Teilen. Te otorgamos una autorización limitada, revocable, no exclusiva, no transferible y no sublicenciable para usar el servicio conforme a estos Términos.",
+      "Se permite mencionar o enlazar Teilen de manera razonable, siempre que no se genere confusión, no se sugiera patrocinio o asociación inexistente y no se dañe nuestra reputación o derechos.",
     ],
   },
   {
-    title: "8. Garantías y responsabilidad",
+    title: "9. Disponibilidad, cambios y versiones beta",
     paragraphs: [
-      "Teilen se proporciona \"tal cual\" sin garantías expresas o implícitas respecto de su disponibilidad o cumplimiento de requisitos específicos. Hacemos esfuerzos razonables para mantener el servicio estable, pero no garantizamos ausencia de errores o interrupciones.",
-      "En la medida permitida por la ley, nuestra responsabilidad total frente a cualquier reclamo se limita al monto pagado por ti durante los doce meses anteriores al hecho que dé origen a la responsabilidad.",
+      "Hacemos esfuerzos razonables para mantener Teilen disponible, seguro y actualizado. Sin embargo, el servicio puede verse afectado por mantenimientos, actualizaciones, errores, interrupciones de terceros, incidentes de seguridad, fuerza mayor o limitaciones técnicas.",
+      "Algunas funcionalidades pueden ofrecerse en versión beta, piloto, experimental o con disponibilidad limitada por región, dispositivo, sistema operativo, plan o invitación. Estas funcionalidades pueden modificarse o descontinuarse sin previo aviso cuando sea necesario.",
+      "Podemos actualizar, mejorar, restringir o retirar funcionalidades para proteger la seguridad, cumplir la ley, mejorar la experiencia, corregir errores o adaptar el servicio a nuevas necesidades.",
     ],
   },
   {
-    title: "9. Terminación",
+    title: "10. Garantías y limitación de responsabilidad",
     paragraphs: [
-      "Podemos suspender o cerrar cuentas cuando detectemos violaciones graves a estos Términos, conductas fraudulentas o riesgos para otros usuarios.",
-      "También puedes dejar de utilizar Teilen en cualquier momento; tu obligación de pagar montos pendientes o cumplir requisitos legales permanecerá vigente.",
+      "Teilen se proporciona en la medida disponible y permitida por la ley. No garantizamos que el servicio sea ininterrumpido, libre de errores, compatible con todos los dispositivos o suficiente para una finalidad específica no informada expresamente.",
+      "Los saldos, cálculos, reportes y recordatorios dependen de los datos ingresados por los usuarios. Debes revisar la información antes de tomar decisiones, realizar pagos, exigir reembolsos o usarla para fines contables, tributarios o legales.",
+      "En la medida permitida por la legislación aplicable, Teilen no será responsable por daños indirectos, lucro cesante, pérdida de datos, errores derivados de información ingresada por usuarios, conflictos entre miembros de un grupo o fallas atribuibles a servicios de terceros.",
+      "Nada en estos Términos limita derechos irrenunciables que la legislación aplicable, incluyendo normas de protección al consumidor cuando correspondan, otorgue a los usuarios.",
     ],
   },
   {
-    title: "10. Legislación aplicable",
+    title: "11. Privacidad, cookies y seguridad",
     paragraphs: [
-      "Estos Términos se rigen por las leyes de la República de Chile. Cualquier controversia se resolverá en los tribunales ordinarios de la ciudad de Santiago, sin perjuicio de los derechos que la legislación obligatoria otorgue a los consumidores.",
+      "El tratamiento de datos personales se rige por nuestra Política de Privacidad. El uso de cookies y tecnologías similares se regula en nuestra Política de Cookies.",
+      "Aplicamos medidas razonables de seguridad, pero también debes proteger tus credenciales, mantener actualizados tus dispositivos y avisarnos si detectas accesos no autorizados o actividad sospechosa.",
     ],
   },
   {
-    title: "11. Contacto",
+    title: "12. Suspensión, cierre y eliminación de cuenta",
     paragraphs: [
-      "Si necesitas aclarar alguna sección de estos Términos, escríbenos y te responderemos a la brevedad.",
+      "Puedes dejar de utilizar Teilen o solicitar el cierre de tu cuenta conforme a los mecanismos disponibles en la aplicación o escribiendo a contacto@teilen.cl.",
+      "Podemos suspender o cerrar cuentas, restringir funcionalidades o eliminar contenido cuando exista incumplimiento de estos Términos, riesgo de seguridad, requerimiento legal, uso abusivo, fraude, afectación a terceros o imposibilidad operativa de prestar el servicio.",
+      "El cierre de una cuenta no elimina obligaciones pendientes ni afecta derechos que hayan nacido antes de la terminación, incluyendo pagos, reclamos, investigaciones, cumplimiento legal, conservación de registros permitida o defensa de derechos.",
+    ],
+  },
+  {
+    title: "13. Modificaciones de estos Términos",
+    paragraphs: [
+      "Podemos actualizar estos Términos para reflejar cambios en el servicio, nuevas funcionalidades, ajustes comerciales, exigencias legales, mejoras de seguridad o buenas prácticas.",
+      "Cuando los cambios sean sustanciales, procuraremos informarlos mediante el sitio web, la aplicación, correo electrónico u otro medio razonable. La versión vigente será la publicada en esta página, con indicación de su fecha de última actualización.",
+      "Si no estás de acuerdo con una modificación, debes dejar de utilizar Teilen y, si corresponde, cancelar tu cuenta antes de que la nueva versión resulte aplicable.",
+    ],
+  },
+  {
+    title: "14. Legislación aplicable y resolución de controversias",
+    paragraphs: [
+      "Estos Términos se rigen por las leyes de la República de Chile, sin perjuicio de las normas imperativas que resulten aplicables por el lugar de residencia del usuario o por la naturaleza de la relación jurídica.",
+      "Cualquier controversia relacionada con Teilen se someterá a los tribunales competentes de Chile, salvo que una norma obligatoria establezca otro mecanismo o jurisdicción. Si tienes la calidad de consumidor, estos Términos no restringen los derechos que te otorgue la Ley N° 19.496 sobre protección de los derechos de los consumidores u otra normativa aplicable.",
+    ],
+  },
+  {
+    title: "15. Contacto",
+    paragraphs: [
+      "Si necesitas aclarar alguna sección de estos Términos, reportar un problema o realizar una solicitud formal, escríbenos a contacto@teilen.cl indicando el asunto Términos.",
     ],
   },
 ];
@@ -138,11 +185,12 @@ export default function TermsPage() {
             Términos y Condiciones de Teilen
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
-            El uso de Teilen implica ciertas reglas y responsabilidades para todos los miembros de
-            la comunidad. Léelas con calma para entender cómo te protegemos y qué esperamos de ti.
+            Este documento establece las reglas legales aplicables al acceso y uso de Teilen,
+            incluyendo responsabilidades del usuario, límites del servicio, planes, propiedad
+            intelectual, privacidad y resolución de controversias.
           </p>
           <p className="mt-6 text-sm font-medium text-slate-500">
-            Última actualización: 21 de noviembre de 2024
+            Última actualización: 5 de julio de 2026
           </p>
         </header>
 

@@ -1,157 +1,140 @@
-﻿
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import { Hero } from "@/components/Hero";
-import { StatsLoading } from "@/components/skeletons/StatsLoading";
-import { FeaturesLoading } from "@/components/skeletons/FeaturesLoading";
-import { HowItWorksLoading } from "@/components/skeletons/HowItWorksLoading";
-import { howToSchema } from "@/lib/schema";
-import { getHomeMessages } from "@/lib/home-i18n";
-import { useLocale } from "@/components/LanguageProvider";
-import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
+import Link from "next/link";
+import { useState } from "react";
+import { DownloadModal } from "@/components/DownloadModal";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { PremiumPriceCards } from "@/components/premium/PremiumPriceCards";
+import { APP_STORE_URL, PLAY_STORE_URL, UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
-// Code splitting: componentes below-fold se cargan cuando son necesarios
-const AnimatedStats = dynamic(() => import("@/components/AnimatedStats"), {
-  loading: () => <StatsLoading />,
-  ssr: true,
-});
-
-const FeaturesShowcase = dynamic(() => import("@/components/FeaturesShowcase"), {
-  loading: () => <FeaturesLoading />,
-  ssr: true,
-});
-
-const HowItWorks = dynamic(() => import("@/components/HowItWorks").then(mod => ({ default: mod.HowItWorks })), {
-  loading: () => <HowItWorksLoading />,
-  ssr: true,
-});
-
-const AppScreens = dynamic(() => import("@/components/AppScreens").then(mod => ({ default: mod.AppScreens })), {
-  ssr: true,
-});
-
-const Footer = dynamic(() => import("@/components/Footer"), {
-  ssr: true,
-});
-
-const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
-const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
-const SCREEN_IMAGES = [
-  "/screens/home.webp",
-  "/screens/grupos.webp",
-  "/screens/gasto.webp",
-  "/screens/actividad.webp",
+const navLinks = [
+  { href: "#how", label: "Cómo funciona" },
+  { href: "#features", label: "Funciones" },
+  { href: "#screens", label: "La app" },
+  { href: "#premium", label: "Premium" },
+  { href: "#faq", label: "FAQ" },
 ];
-const SCREEN_LABELS = ["Ordena tus gastos", "Divide gastos", "Programa cuentas", "Revisa actividad"];
 
-const spotlightSections = [
+const footerSections = [
   {
-    id: "recurrentes",
-    eyebrow: "Gastos recurrentes",
-    title: "Programa tus cuentas frecuentes",
-    description: "Crea gastos recurrentes para suscripciones, servicios mensuales y pagos compartidos.",
-    support: "Perfecto para esas cuentas que se repiten todos los meses.",
-    bullets: [
-      "Disponible para grupos.",
-      "Disponible para gastos personales.",
-      "Ideal para streaming, arriendo, cuentas del hogar y servicios.",
-      "Puedes editar o eliminar cuando lo necesites.",
-      "Revisa la próxima ejecución de cada gasto.",
+    title: "Producto",
+    links: [
+      { label: "Dividir gastos", href: "/dividir-gastos" },
+      { label: "Gastos compartidos", href: "/gastos-compartidos" },
+      { label: "Control de gastos", href: "/control-de-gastos" },
+      { label: "Recordatorios", href: "/recordatorios" },
+      { label: "Metas de ahorro", href: "/metas-de-ahorro" },
+      { label: "Premium", href: "/premium" },
     ],
   },
   {
-    id: "recordatorios",
-    eyebrow: "Recordatorios",
-    title: "Tus vencimientos siempre a la vista",
-    description: "Crea recordatorios para cuentas importantes y revisa qué viene esta semana.",
-    support: "Úsalo para luz, agua, internet, TAG, suscripciones, créditos o pagos mensuales.",
-    bullets: [
-      "Próximos vencimientos.",
-      "Recordatorios activos.",
-      "Filtro por esta semana.",
-      "Historial de vencidos.",
-      "Alertas según disponibilidad en la app.",
+    title: "Herramientas",
+    links: [
+      { label: "Funciones clave", href: "/#features" },
+      { label: "La app", href: "/#screens" },
+      { label: "Reportes", href: "/premium" },
+      { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
     ],
   },
   {
-    id: "ahorros",
-    eyebrow: "Ahorros y metas",
-    title: "Convierte tus metas en avances visibles",
-    description: "Crea objetivos de ahorro, registra avances y revisa cuánto falta para completarlos.",
-    support: "Ideal para matrimonio, pie para casa, viajes, auto o fondo de emergencia.",
-    bullets: [
-      "Metas personalizadas.",
-      "Ahorro acumulado.",
-      "Fecha objetivo.",
-      "Progreso visual.",
-      "Monto faltante.",
-      "Crecimiento estimado si aplica.",
+    title: "Legal y ayuda",
+    links: [
+      { label: "Contacto", href: "/contacto" },
+      { label: "Privacidad", href: "/privacidad" },
+      { label: "Términos", href: "/terminos" },
+      { label: "Cookies", href: "/cookies" },
     ],
   },
 ];
 
-const useCases = [
-  { title: "Parejas", text: "Organicen compras, servicios, salidas y metas en común." },
-  { title: "Viajes", text: "Registren cada gasto del viaje y revisen los saldos del grupo." },
-  { title: "Roomies", text: "Ordenen arriendo, servicios, compras y suscripciones compartidas." },
-  { title: "Familia", text: "Lleven gastos del hogar, recordatorios y pagos importantes." },
-  { title: "Salidas con amigos", text: "Dividan restaurantes, panoramas y compras compartidas en segundos." },
-  { title: "Gastos personales", text: "Registra tus movimientos, crea recordatorios y sigue tus metas." },
-];
-
-const premiumHighlights = [
+const howSteps = [
   {
-    title: "Grupos ilimitados",
-    text: "Crea y administra todos los grupos que quieras.",
+    title: "Crea un grupo",
+    text: "Invita a tu pareja, amigos o compañeros.",
     icon: "users",
   },
   {
-    title: "Escaneo con IA",
-    text: "Captura y categoriza tus gastos automáticamente.",
-    icon: "sparkles",
+    title: "Agrega un gasto",
+    text: "Indica el monto, quién pagó y entre quiénes se divide.",
+    icon: "receipt",
   },
   {
-    title: "Reportes premium",
-    text: "Reportes avanzados y exportaciones ilimitadas.",
-    icon: "file",
+    title: "Teilen calcula quién debe a quién",
+    text: "Saldos claros y actualizados para todos.",
+    icon: "split",
   },
 ];
 
-const premiumBenefits = [
-  { title: "Gastos completos", text: "Todo el detalle de tus gastos en un toque." },
-  { title: "Recurrentes y cuotas", text: "Pagos automáticos para cuentas que se repiten." },
-  { title: "Grupos ilimitados", text: "Crea todos los grupos que necesites sin restricciones." },
-  { title: "Reportes premium", text: "Exporta PDF y Excel listos para compartir." },
-  { title: "Comprobantes con imagen", text: "Guarda cada comprobante junto al gasto." },
-  { title: "Ahorro e inversiones", text: "Mira tu progreso en una sola vista clara." },
-  { title: "Finanzas personales", text: "Cartola mensual lista para revisar." },
-  { title: "Recordatorios ilimitados", text: "Mantén tus cuentas importantes siempre a la vista." },
-  { title: "Escaneo con IA", text: "Escanea boletas y crea gastos con menos pasos." },
+const features = [
+  { title: "Divide gastos", text: "Fácil y justo entre los integrantes.", icon: "chart" },
+  { title: "Registra pagos", text: "Lleva el historial de quién pagó qué.", icon: "card" },
+  { title: "Recordatorios", text: "No olvides pagos o pendientes.", icon: "bell" },
+  { title: "Metas de ahorro", text: "Ahorra en grupo, para lo que quieran.", icon: "target" },
 ];
 
-const trustHighlights = [
+const featureItems = [
+  ...features,
+  { title: "Gastos personales", text: "Controla tus movimientos propios.", icon: "wallet" },
+  { title: "Calculadora de divisas", text: "Convierte montos para viajes.", icon: "currency" },
+  { title: "Recordatorios de pagos", text: "Ten vencimientos a la vista.", icon: "calendar" },
+  { title: "Teilen Dash", text: "Juegos y dinámicas en la app.", icon: "game" },
+  { title: "Gastos con IA", text: "Crea gastos con menos pasos.", icon: "sparkles" },
+  { title: "Reportes por grupo", text: "Detalle claro de cada grupo.", icon: "report" },
+  { title: "Y mucho más", text: "Más herramientas para ordenar.", icon: "more" },
+];
+
+const faqItems = [
   {
-    title: "Hecha para grupos reales",
-    text: "Parejas, viajes, roomies, familias y salidas con amigos.",
+    question: "¿Qué puedo hacer con Teilen?",
+    answer:
+      "Puedes dividir gastos en grupos, registrar gastos personales, crear recordatorios, programar gastos recurrentes y seguir tus metas de ahorro.",
   },
   {
-    title: "Todo queda trazable",
-    text: "Gastos, pagos, vencimientos y avances en una misma vista.",
+    question: "¿Sirve para parejas, viajes o roomies?",
+    answer:
+      "Sí. Puedes crear grupos para cada situación, invitar a otras personas por enlace o QR y mantener los saldos siempre claros.",
   },
   {
-    title: "Descarga directa",
-    text: "Disponible en App Store y Google Play desde un enlace universal.",
+    question: "¿Puedo usar Teilen solo para mis gastos personales?",
+    answer:
+      "Sí. También puedes registrar gastos personales, crear recordatorios y seguir tus metas de ahorro.",
+  },
+  {
+    question: "¿Puedo programar gastos mensuales?",
+    answer:
+      "Sí. Puedes crear gastos recurrentes para suscripciones, servicios, arriendo, cuentas del hogar o pagos compartidos.",
+  },
+  {
+    question: "¿Teilen tiene recordatorios?",
+    answer:
+      "Sí. Puedes crear recordatorios para próximos vencimientos y revisar cuáles están activos, próximos o vencidos.",
+  },
+  {
+    question: "¿Puedo crear metas de ahorro?",
+    answer:
+      "Sí. Puedes crear metas, registrar avances, ver tu ahorro acumulado y revisar cuánto falta para completarlas.",
+  },
+  {
+    question: "¿Puedo escanear boletas?",
+    answer:
+      "Según disponibilidad en la app, Teilen permite escanear boletas para ayudarte a crear gastos con menos pasos.",
+  },
+  {
+    question: "¿Está disponible para iOS y Android?",
+    answer: "Sí. Puedes descargar Teilen desde App Store y Google Play.",
+  },
+  {
+    question: "¿Qué incluye Teilen Premium?",
+    answer:
+      "Premium desbloquea herramientas avanzadas como más grupos, gastos completos, reportes, comprobantes, funciones con IA y módulos financieros extendidos, según disponibilidad en la app.",
   },
 ];
 
 export default function Page() {
-  const { locale } = useLocale();
-  const home = getHomeMessages(locale);
-  const faqItems = home.page.faq.items;
-  const testimonials = home.page.testimonials.items;
+  const [downloadOpen, setDownloadOpen] = useState(false);
+
+  const openDownload = () => setDownloadOpen(true);
 
   const faqStructuredData = {
     "@context": "https://schema.org",
@@ -168,414 +151,592 @@ export default function Page() {
 
   return (
     <>
-      {/* Hero con Navbar overlay */}
-      <Hero />
+      <div className="min-h-screen overflow-x-hidden bg-white text-[#10231d]">
+        <Header onDownload={openDownload} />
 
-      <TrustStrip />
+        <section className="relative overflow-hidden border-b border-emerald-900/10 bg-[linear-gradient(105deg,#ffffff_0%,#f4fff9_48%,#e7fbf2_100%)]">
+          <div className="pointer-events-none absolute -right-24 top-28 h-[500px] w-[500px] rounded-full bg-emerald-200/40 blur-3xl" />
+          <div className="pointer-events-none absolute right-0 top-24 hidden h-[410px] w-[540px] rounded-l-full bg-[#bff2d9]/42 lg:block" />
+          <div className="pointer-events-none absolute bottom-0 right-0 hidden h-[220px] w-[350px] bg-[radial-gradient(circle_at_70%_70%,rgba(0,157,99,0.24),transparent_55%)] lg:block" />
 
-      {/* Cómo funciona */}
-      <section id="how" className="scroll-mt-24">
-        <Suspense fallback={<HowItWorksLoading />}>
-          <HowItWorks />
-        </Suspense>
+          <div className="relative mx-auto grid max-w-6xl items-start gap-8 px-5 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-24 lg:grid-cols-[1.06fr_0.94fr] lg:items-center lg:gap-8 lg:pb-8 lg:pt-28">
+            <div className="max-w-2xl">
+              <h1 className="text-[2.5rem] font-extrabold leading-[1.02] tracking-tight text-[#10231d] sm:text-[3.35rem] lg:text-[3.7rem]">
+                Divide gastos{" "}
+                <span className="text-[#009d63]">en segundos.</span>
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                Teilen te ayuda a saber quién pagó, cuánto debe cada persona y
+                mantener las cuentas claras desde el celular.
+              </p>
 
-        {/* HowTo Schema Markup */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-        />
-      </section>
-
-      {/* Características */}
-      <section id="features" className="scroll-mt-24">
-        <Suspense fallback={<FeaturesLoading />}>
-          <FeaturesShowcase />
-        </Suspense>
-      </section>
-
-      {spotlightSections.map((section, index) => (
-        <SpotlightSection key={section.id} section={section} flip={index % 2 === 1} />
-      ))}
-
-      <UseCasesSection />
-
-      {/* Experiencia Teilen */}
-      <section className="mx-auto max-w-7xl px-5 py-10 sm:py-20 fhd:py-24">
-        <Suspense fallback={<StatsLoading />}>
-          <AnimatedStats />
-        </Suspense>
-      </section>
-
-      {/* Screens de la app: 4 en fila en desktop */}
-      <section id="screens" className="scroll-mt-24">
-        <AppScreens images={SCREEN_IMAGES} labels={SCREEN_LABELS} />
-      </section>
-
-      <PremiumSection />
-
-      {/* FAQ para snippet enriquecido */}
-      <section id="faq" className="mx-auto max-w-7xl px-5 py-10 sm:py-20 fhd:py-24">
-        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-          {home.page.faq.badge}
-        </span>
-        <h2 className="mt-4 text-2xl font-bold text-slate-900 sm:mt-5 sm:text-4xl md:text-5xl fhd:text-6xl">
-          {home.page.faq.title}
-        </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg fhd:text-xl">
-          {home.page.faq.description}
-        </p>
-
-        <div className="mt-6 divide-y divide-slate-100 overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)] sm:mt-10 sm:rounded-[30px]">
-          {faqItems.map((item) => (
-            <details
-              key={item.question}
-              className="group bg-white open:bg-emerald-50/35"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 text-left text-sm font-semibold leading-5 text-slate-900 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500 sm:px-6 sm:py-5 sm:text-base [&::-webkit-details-marker]:hidden">
-                <span>{item.question}</span>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-emerald-700 transition group-open:rotate-45 group-open:border-emerald-200 group-open:bg-emerald-100">
-                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-                    <path d="M10 4v12M4 10h12" strokeLinecap="round" />
-                  </svg>
-                </span>
-              </summary>
-              <div className="px-4 pb-4 pr-14 text-sm leading-6 text-slate-600 sm:px-6 sm:pb-5 sm:pr-20 sm:text-base sm:leading-7">
-                {item.answer}
+              <div className="mt-6 flex flex-col items-start gap-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <StoreBadge store="apple" />
+                  <StoreBadge store="google" />
+                </div>
+                <a
+                  href="#how"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#009d63] bg-white/80 px-6 py-3 text-sm font-bold text-[#008a57] shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-50"
+                >
+                  <Icon kind="play" className="h-5 w-5 fill-current" />
+                  Ver cómo funciona
+                </a>
               </div>
-            </details>
-          ))}
-        </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-        />
-      </section>
-
-      {/* CTA final */}
-      <section className="mx-auto max-w-7xl px-5 pb-12 sm:pb-24">
-        <div className="relative overflow-hidden rounded-[24px] border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/45 to-teal-50 p-5 text-center shadow-[0_22px_60px_rgba(15,23,42,0.12)] sm:rounded-[36px] sm:p-10 md:p-12">
-          <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(1,154,87,0.15),_transparent_52%)]"
-            aria-hidden="true"
-          />
-          <div className="relative z-10">
-            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 shadow-sm sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-              {home.page.cta.badge}
-            </span>
-            <h3 className="mt-4 text-2xl font-semibold text-slate-900 sm:mt-5 sm:text-3xl md:text-4xl">
-              {home.page.cta.title}
-            </h3>
-            <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg">
-              {home.page.cta.description}
-            </p>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-6 sm:gap-4">
-              <a
-                href={APP_STORE_URL}
-                aria-label={home.stores.appStoreAria}
-                className="inline-flex overflow-hidden rounded-2xl border border-emerald-100 bg-white p-1 shadow transition hover:-translate-y-0.5 hover:border-emerald-400"
-                rel="noopener"
-              >
-                <Image
-                  src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
-                  alt={home.stores.appStoreAlt}
-                  width={174}
-                  height={58}
-                  className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
+              <div className="mt-6 flex max-w-xl items-start gap-2 text-sm font-extrabold leading-6 text-emerald-900 sm:text-base">
+                <Icon
+                  kind="shield"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-[#009d63] sm:h-6 sm:w-6"
                 />
-              </a>
-              <a
-                href={PLAY_STORE_URL}
-                aria-label={home.stores.googlePlayAria}
-                className="inline-flex overflow-hidden rounded-2xl border border-emerald-100 bg-white p-1 shadow transition hover:-translate-y-0.5 hover:border-emerald-400"
-                rel="noopener"
-              >
-                <Image
-                  src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
-                  alt={home.stores.googlePlayAlt}
-                  width={196}
-                  height={58}
-                  className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
-                />
-              </a>
+                <p>
+                  Tus datos siempre están seguros, protegidos y encriptados en
+                  Teilen.
+                </p>
+              </div>
             </div>
-            <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-emerald-700/80 sm:text-xs sm:tracking-[0.35em]">
-              {home.page.cta.availability}
-            </p>
+
+            <div className="relative mx-auto flex w-full max-w-[380px] justify-center lg:max-w-none">
+              <LeafDecoration className="absolute -right-10 bottom-4 hidden h-44 w-44 text-[#009d63]/34 lg:block" />
+              <LeafDecoration className="absolute -left-6 bottom-0 hidden h-28 w-28 -scale-x-100 text-[#009d63]/24 lg:block" />
+              <HeroImageMockup />
+            </div>
+          </div>
+        </section>
+
+        <section id="how" className="scroll-mt-24 bg-white px-5 py-8 sm:px-6 sm:py-10">
+          <SectionTitle>Cómo funciona</SectionTitle>
+          <div className="mx-auto mt-4 grid max-w-6xl gap-3 md:grid-cols-3">
+            {howSteps.map((step, index) => (
+              <article
+                key={step.title}
+                className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-[0_12px_34px_rgba(15,23,42,0.06)]"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-sm font-extrabold text-[#009d63]">
+                  {index + 1}
+                </span>
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[#009d63]">
+                  <Icon kind={step.icon} className="h-9 w-9" />
+                </span>
+                <div>
+                  <h2 className="text-base font-extrabold text-slate-950">{step.title}</h2>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">{step.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="features" className="scroll-mt-24 bg-white px-5 pb-10 sm:px-6 sm:pb-12">
+          <div className="mx-auto max-w-6xl">
+            <SectionTitle>Funciones clave</SectionTitle>
+            <div className="mx-auto mt-6 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {featureItems.map((item) => (
+                <SmallCard key={item.title} item={item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="screens" className="bg-white px-5 pb-10 sm:px-6 sm:pb-12">
+          <SectionTitle>La app en acción</SectionTitle>
+          <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 items-end justify-items-center gap-4 sm:grid-cols-3 sm:gap-10">
+            <ImagePhoneMockup
+              src="/screens/imagen_home.png"
+              alt="Pantalla principal de Teilen con balance de grupos"
+            />
+            <ImagePhoneMockup
+              src="/screens/imagen_grupo.png"
+              alt="Pantalla de grupo en Teilen con gastos compartidos"
+            />
+            <ImagePhoneMockup
+              src="/screens/imagen_reporte.png"
+              alt="Pantalla de reportes detallados de un grupo en Teilen"
+            />
+          </div>
+        </section>
+
+        <section id="premium" className="bg-white px-5 pb-8 sm:px-6 sm:pb-10">
+          <div className="mx-auto max-w-6xl">
+            <PremiumPriceCards onDownload={openDownload} />
+          </div>
+        </section>
+
+        <section id="faq" className="bg-white px-5 pb-12 sm:px-6 sm:pb-16">
+          <SectionTitle>Preguntas frecuentes</SectionTitle>
+          <p className="mx-auto mt-2 max-w-3xl text-center text-sm leading-6 text-slate-600 sm:text-base">
+            Todo lo que necesitas saber antes de empezar con Teilen.
+          </p>
+          <div className="mx-auto mt-6 grid max-w-6xl gap-3 md:grid-cols-2">
+            {faqItems.map((item) => (
+              <details
+                key={item.question}
+                className="group rounded-2xl border border-slate-200 bg-white shadow-[0_10px_28px_rgba(15,23,42,0.05)] open:bg-emerald-50/40"
+              >
+                <summary className="flex min-h-[72px] cursor-pointer list-none items-center justify-between gap-5 px-5 py-4 text-left text-sm font-extrabold text-slate-950 transition hover:bg-slate-50 sm:px-6 sm:text-base [&::-webkit-details-marker]:hidden">
+                  {item.question}
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#009d63] transition group-open:rotate-45">
+                    <Icon kind="plus" className="h-4 w-4" />
+                  </span>
+                </summary>
+                <p className="border-t border-emerald-100 px-5 pb-5 pt-4 pr-16 text-sm leading-6 text-slate-600 sm:px-6 sm:pr-20 sm:text-base sm:leading-7">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+          />
+        </section>
+
+        <HomeFooter />
+      </div>
+
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
+    </>
+  );
+}
+
+function Header({ onDownload }: { onDownload: () => void }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-200/80 bg-white/92 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
+        <Link href="/" className="flex items-center gap-3" aria-label="Teilen, inicio">
+          <Image
+            src="/logo_teilen.png"
+            alt="Teilen"
+            width={38}
+            height={38}
+            priority
+            className="h-9 w-9"
+          />
+          <span className="text-2xl font-extrabold tracking-tight text-[#063829]">Teilen</span>
+        </Link>
+
+        <ul className="hidden items-center justify-center gap-1 lg:flex">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-[#008a57]"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher className="hidden md:inline-flex" />
+          <button
+            type="button"
+            onClick={() => setQrOpen(true)}
+            className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 md:inline-flex"
+            aria-label="Ver QR para descargar Teilen"
+          >
+            <Image
+              src="/qr-download.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-6 w-6 rounded bg-white"
+            />
+            <span className="hidden xl:inline">QR</span>
+          </button>
+          <a
+            href={UNIVERSAL_DOWNLOAD_URL}
+            rel="noopener"
+            className="rounded-xl bg-[#009d63] px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,157,99,0.22)] transition hover:-translate-y-0.5 hover:bg-[#008a57] sm:hidden"
+          >
+            Descargar
+          </a>
+          <button
+            type="button"
+            onClick={onDownload}
+            className="hidden rounded-xl bg-[#009d63] px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,157,99,0.22)] transition hover:-translate-y-0.5 hover:bg-[#008a57] sm:inline-flex"
+          >
+            Descargar app
+          </button>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 lg:hidden"
+            aria-label="Abrir menú"
+            aria-expanded={menuOpen}
+          >
+            <Icon kind="menu" className="h-5 w-5" />
+          </button>
+        </div>
+      </nav>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="fixed inset-0 z-40 bg-slate-950/30 lg:hidden"
+          aria-label="Cerrar menú"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      <div
+        className={`fixed right-0 top-0 z-50 h-screen w-76 max-w-[82vw] transform bg-white shadow-2xl transition-transform duration-200 lg:hidden ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5">
+          <span className="text-base font-extrabold text-slate-950">Menú</span>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(false)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-700"
+            aria-label="Cerrar menú"
+          >
+            <Icon kind="plus" className="h-4 w-4 rotate-45" />
+          </button>
+        </div>
+        <div className="p-5">
+          <ul className="space-y-2">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-base font-semibold text-slate-800 transition hover:bg-emerald-50 hover:text-[#008a57]"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 border-t border-slate-100 pt-5">
+            <LanguageSwitcher className="w-full" buttonClassName="w-full justify-between" />
+            <button
+              type="button"
+              onClick={() => {
+                setQrOpen(true);
+                setMenuOpen(false);
+              }}
+              className="mt-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm"
+            >
+              <span className="flex items-center gap-2">
+                <Image
+                  src="/qr-download.png"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 rounded bg-white"
+                />
+                QR de descarga
+              </span>
+              <Icon kind="plus" className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {qrOpen && (
+        <div className="fixed inset-0 z-[100]">
+          <button
+            type="button"
+            className="absolute inset-0 bg-slate-950/75 backdrop-blur-sm"
+            aria-label="Cerrar QR"
+            onClick={() => setQrOpen(false)}
+          />
+          <div className="relative z-[101] flex min-h-full items-center justify-center p-4">
             <a
               href={UNIVERSAL_DOWNLOAD_URL}
-              className="mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 rounded-2xl border border-emerald-100/80 bg-white/95 px-4 py-4 text-left shadow-sm transition hover:border-emerald-300 hover:shadow-md sm:max-w-2xl sm:flex-row sm:items-center sm:gap-5"
+              className="relative flex flex-col items-center gap-4 rounded-3xl border border-white/20 bg-white p-6 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
             >
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setQrOpen(false);
+                }}
+                aria-label="Cerrar QR"
+                className="absolute right-3 top-3 rounded-full border border-black/10 px-2.5 py-0.5 text-xs font-medium text-slate-600 transition hover:bg-black/5"
+              >
+                ✕
+              </button>
               <Image
                 src="/qr-download.png"
-                alt={home.page.cta.qrAlt}
-                width={108}
-                height={108}
-                className="mx-auto h-20 w-20 flex-shrink-0 rounded-xl border border-emerald-50 bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] sm:mx-0 sm:h-24 sm:w-24"
+                alt="Código QR para descargar Teilen"
+                width={240}
+                height={240}
+                className="h-60 w-60 rounded-2xl border border-slate-100 bg-white p-3"
               />
-              <div className="space-y-1 text-sm leading-6 text-slate-700 sm:space-y-1.5">
-                <p className="text-base font-semibold text-slate-900 sm:text-lg">{home.page.cta.qrTitle}</p>
-                <p>{home.page.cta.qrDescription}</p>
-                <p className="text-xs uppercase tracking-[0.25em] text-emerald-600 break-all sm:break-normal sm:tracking-[0.35em]">
-                  {UNIVERSAL_DOWNLOAD_URL.replace("https://", "")}
+              <div className="text-center">
+                <p className="text-lg font-bold text-slate-900">Escanea para descargar</p>
+                <p className="mt-1 text-sm text-slate-600">Abre Teilen en App Store o Google Play.</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-emerald-600">
+                  teilen.cl/api/download
                 </p>
               </div>
             </a>
           </div>
         </div>
-      </section>
+      )}
+    </header>
+  );
+}
 
-      {/* Reseñas */}
-      <section className="relative mx-auto max-w-7xl px-5 pb-14 pt-4 sm:pb-24 sm:pt-10 fhd:py-28">
-        <div
-          className="absolute inset-x-10 -top-10 h-40 rounded-full bg-emerald-200/30 blur-3xl"
-          aria-hidden="true"
-        />
-        <div className="relative rounded-[24px] border border-slate-100 bg-white p-5 shadow-[0_22px_60px_rgba(15,23,42,0.12)] sm:rounded-[34px] sm:p-10 fhd:p-12">
-          <div className="flex items-center justify-between gap-4 fhd:gap-6 flex-wrap">
+function SectionTitle({
+  children,
+  align = "center",
+}: {
+  children: React.ReactNode;
+  align?: "left" | "center";
+}) {
+  return (
+    <div
+      className={`flex items-center gap-4 ${
+        align === "center" ? "mx-auto max-w-6xl justify-center" : ""
+      }`}
+    >
+      {align === "center" && <span className="hidden h-px w-24 bg-slate-200 sm:block" />}
+      <h2 className="text-xl font-extrabold tracking-tight text-slate-950 sm:text-2xl">
+        {children}
+      </h2>
+      {align === "center" && <span className="hidden h-px w-24 bg-slate-200 sm:block" />}
+    </div>
+  );
+}
+
+function SmallCard({
+  item,
+}: {
+  item: { title: string; text: string; icon: string };
+}) {
+  return (
+    <article className="flex min-h-[168px] flex-col items-center justify-start rounded-xl border border-slate-200 bg-white p-4 text-center shadow-[0_10px_28px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-emerald-200 sm:min-h-[176px]">
+      <span className="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[#009d63] sm:h-14 sm:w-14">
+        <Icon kind={item.icon} className="h-6 w-6 sm:h-7 sm:w-7" />
+      </span>
+      <h3 className="mt-3 min-h-[34px] text-sm font-extrabold leading-[1.2] text-slate-950">
+        {item.title}
+      </h3>
+      <p className="mt-1 text-xs leading-5 text-slate-600">
+        {item.text}
+      </p>
+    </article>
+  );
+}
+
+function StoreBadge({ store }: { store: "apple" | "google" }) {
+  const isApple = store === "apple";
+
+  return (
+    <a
+      href={isApple ? APP_STORE_URL : PLAY_STORE_URL}
+      rel="noopener"
+      aria-label={isApple ? "Descargar Teilen en App Store" : "Descargar Teilen en Google Play"}
+      className="inline-flex overflow-hidden rounded-lg bg-black shadow-[0_12px_26px_rgba(0,0,0,0.25)] transition hover:-translate-y-0.5"
+    >
+      <Image
+        src={
+          isApple
+            ? "/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+            : "/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
+        }
+        alt={isApple ? "Descargar en App Store" : "Disponible en Google Play"}
+        width={isApple ? 174 : 196}
+        height={58}
+        className={isApple ? "h-12 w-[144px]" : "h-12 w-[162px]"}
+      />
+    </a>
+  );
+}
+
+function HomeFooter() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-emerald-900/10 bg-white">
+      <div className="relative overflow-hidden bg-[#009d63] px-5 py-6 text-white sm:px-6">
+        <div className="pointer-events-none absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_12%_100%,transparent_0,transparent_70px,rgba(255,255,255,.4)_71px,transparent_72px),radial-gradient(circle_at_92%_20%,transparent_0,transparent_90px,rgba(255,255,255,.35)_91px,transparent_92px)]" />
+        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:text-left">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg">
+              <Image
+                src="/logo_teilen.png"
+                alt="Teilen"
+                width={42}
+                height={42}
+                className="h-10 w-10"
+              />
+            </span>
             <div>
-              <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-                {home.page.testimonials.badge}
-              </span>
-              <h2 className="mt-4 text-2xl font-semibold text-slate-900 sm:mt-5 sm:text-3xl md:text-4xl fhd:text-5xl">
-                {home.page.testimonials.title}
-              </h2>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7 md:text-lg fhd:max-w-2xl fhd:text-xl">
-                {home.page.testimonials.description}
+              <h2 className="text-2xl font-extrabold">Ordena tus cuentas desde hoy</h2>
+              <p className="mt-1 text-sm text-white/90">
+                Descarga Teilen para iOS y Android.
               </p>
             </div>
           </div>
-
-          <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 fhd:gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((item) => (
-              <article
-                key={item.author}
-                className="flex h-full flex-col justify-between rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)] sm:p-6 fhd:p-7"
-              >
-                <div className="flex items-center gap-1 text-amber-500">
-                  {Array.from({ length: 5 }).map((_, starIndex) => (
-                    <svg
-                      key={starIndex}
-                      viewBox="0 0 20 20"
-                      aria-hidden="true"
-                      className="h-4 w-4 fill-current"
-                    >
-                      <path d="M10 1.5l2.47 5.02 5.53.8-4 3.9.94 5.48L10 13.92l-4.94 2.78.94-5.48-4-3.9 5.53-.8L10 1.5z" />
-                    </svg>
-                  ))}
-                  <span className="sr-only">{home.page.testimonials.starsLabel}</span>
-                </div>
-                <p className="mt-4 text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">{item.quote}</p>
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-slate-900">{item.author}</p>
-                  <p className="text-xs uppercase tracking-wide text-emerald-700">{item.context}</p>
-                </div>
-              </article>
-            ))}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <StoreBadge store="apple" />
+            <StoreBadge store="google" />
           </div>
         </div>
-      </section>
-
-      {/* Footer global */}
-      <Footer />
-    </>
-  );
-}
-
-function TrustStrip() {
-  return (
-    <section className="relative z-10 -mt-7 px-5">
-      <div className="mx-auto grid max-w-7xl gap-3 rounded-[24px] border border-slate-100 bg-white/95 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur sm:grid-cols-3 sm:rounded-[28px] sm:p-4">
-        {trustHighlights.map((item, index) => (
-          <article
-            key={item.title}
-            className="flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/70 p-4 sm:border-0 sm:bg-transparent"
-          >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-black text-white shadow-[0_12px_30px_rgba(1,154,87,0.28)]">
-              {index + 1}
-            </span>
-            <div>
-              <h2 className="text-sm font-bold text-slate-950 sm:text-base">{item.title}</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{item.text}</p>
-            </div>
-          </article>
-        ))}
       </div>
-    </section>
-  );
-}
 
-function SpotlightSection({
-  section,
-  flip = false,
-}: {
-  section: (typeof spotlightSections)[number];
-  flip?: boolean;
-}) {
-  return (
-    <section id={section.id} className="scroll-mt-24 border-y border-slate-100 bg-slate-50/60">
-      <div className="mx-auto grid max-w-7xl gap-6 px-5 py-12 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-12">
-        <div className={flip ? "lg:order-2" : ""}>
-          <span className="inline-flex items-center rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-            {section.eyebrow}
-          </span>
-          <h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-            {section.title}
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-lg sm:leading-8">
-            {section.description}
-          </p>
-          <p className="mt-4 text-sm font-semibold text-emerald-800 sm:text-base">{section.support}</p>
-        </div>
-
-        <div className="rounded-[24px] border border-slate-100 bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.09)] sm:p-6">
-          <ul className="grid gap-3">
-            {section.bullets.map((item) => (
-              <li key={item} className="flex gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-700 sm:text-base">
-                <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                  <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
-                    <path d="M7.8 13.4 4.4 10l1.1-1.1 2.3 2.3 6.7-6.7 1.1 1.1-7.8 7.8Z" />
-                  </svg>
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function UseCasesSection() {
-  return (
-    <section id="casos-de-uso" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-12 sm:py-20">
-      <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-700 sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-        Casos de uso
-      </span>
-      <h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-        Úsalo en tu día a día
-      </h2>
-      <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:text-lg sm:leading-8">
-        Teilen se adapta a tus grupos, tus cuentas frecuentes y tus objetivos personales.
-      </p>
-
-      <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-        {useCases.map((item) => (
-          <article
-            key={item.title}
-            className="rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.08)] sm:rounded-3xl sm:p-6"
-          >
-            <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PremiumSection() {
-  return (
-    <section id="premium" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-10 sm:py-16">
-      <div className="relative overflow-hidden rounded-[28px] border border-emerald-500/25 bg-[#020806] p-5 text-white shadow-[0_28px_80px_rgba(2,6,23,0.28)] sm:rounded-[34px] sm:p-7 lg:p-8">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_360px_at_12%_8%,rgba(34,197,94,0.26),transparent_62%),radial-gradient(520px_300px_at_92%_6%,rgba(16,185,129,0.18),transparent_58%)]"
-          aria-hidden
-        />
-
-        <div className="relative grid gap-7 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 sm:py-10">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_1.85fr]">
           <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-300 shadow-[0_0_24px_rgba(34,197,94,0.16)]">
-                <PremiumIcon kind="check" className="h-4 w-4" />
-                Premium activo
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-white/5 px-3 py-1 text-xs font-bold text-emerald-300">
-                <PremiumIcon kind="sparkles" className="h-4 w-4" />
-                Todo incluido
-              </span>
-            </div>
-
-            <h2 className="mt-7 max-w-xl text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.03]">
-              Todo Premium, <span className="text-emerald-400">ya disponible.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-7 text-white/72 sm:text-xl sm:leading-8">
-              Accede a grupos ilimitados, escaneo con IA, reportes avanzados y herramientas para organizar tus cuentas con más detalle.
+            <Link href="/" className="inline-flex items-center gap-3" aria-label="Teilen, inicio">
+              <Image
+                src="/logo_teilen.png"
+                alt="Teilen"
+                width={36}
+                height={36}
+                className="h-9 w-9"
+              />
+              <span className="text-3xl font-extrabold tracking-tight text-[#063829]">Teilen</span>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">
+              App chilena para dividir gastos, organizar cuentas compartidas,
+              crear recordatorios y seguir metas de ahorro.
             </p>
-
-            <div className="mt-7 grid gap-4 sm:grid-cols-3">
-              {premiumHighlights.map((item) => (
-                <article key={item.title} className="text-center sm:text-left">
-                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-emerald-400/20 bg-emerald-500/12 text-emerald-400 shadow-[0_0_34px_rgba(34,197,94,0.16)] sm:mx-0">
-                    <PremiumIcon kind={item.icon} className="h-7 w-7" />
-                  </span>
-                  <h3 className="mt-4 text-sm font-bold text-white sm:text-base">{item.title}</h3>
-                  <p className="mt-1 text-xs leading-5 text-white/58 sm:text-sm">{item.text}</p>
-                </article>
-              ))}
-            </div>
-
-            <p className="mt-7 max-w-lg rounded-2xl border border-emerald-400/18 bg-emerald-500/8 px-4 py-3 text-sm leading-6 text-emerald-50/76">
-              La suscripción se gestiona desde la app y puede variar según disponibilidad en App Store o Google Play.
+            <p className="mt-3 flex max-w-sm items-start gap-2 text-sm font-bold leading-6 text-emerald-900">
+              <Icon kind="shield" className="mt-0.5 h-5 w-5 shrink-0 text-[#009d63]" />
+              Tus datos están protegidos y encriptados en Teilen.
             </p>
           </div>
 
-          <div className="relative lg:self-center">
-            <div className="mx-auto w-full max-w-[360px] rotate-0 rounded-[26px] border border-emerald-400/22 bg-[#10141b]/94 p-3.5 shadow-[0_24px_70px_rgba(0,0,0,0.38),0_0_45px_rgba(34,197,94,0.12)] sm:p-4 lg:rotate-2">
-              <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-emerald-500/60" />
-              <div className="flex items-center justify-between gap-4">
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-bold text-emerald-300">
-                  <PremiumIcon kind="sparkles" className="h-4 w-4" />
-                  Premium
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/8 text-white/78">
-                  <PremiumIcon kind="check" className="h-4 w-4" />
-                </span>
-              </div>
-
-              <div className="mt-4 rounded-[22px] border border-emerald-400/25 bg-[#061b12] p-4 shadow-[0_0_30px_rgba(34,197,94,0.1)]">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-emerald-950">
-                    <PremiumIcon kind="check" className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <h3 className="text-base font-extrabold text-white">Tu suscripción está activa</h3>
-                    <p className="mt-0.5 text-xs font-semibold text-white/58">Plan activo · Renovación automática</p>
-                  </div>
-                </div>
-                <ul className="mt-4 space-y-2.5 text-xs font-bold text-white/86">
-                  {premiumHighlights.map((item) => (
-                    <li key={item.title} className="flex items-center gap-3">
-                      <PremiumIcon kind={item.icon} className="h-4 w-4 text-emerald-400" />
-                      <span>{item.title}</span>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {footerSections.map((section) => (
+              <nav key={section.title} aria-label={section.title}>
+                <h3 className="text-sm font-extrabold text-slate-950">{section.title}</h3>
+                <ul className="mt-3 space-y-2.5">
+                  {section.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm font-medium text-slate-600 transition hover:text-[#008a57]"
+                      >
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </nav>
+            ))}
+          </div>
+        </div>
 
-              <div className="mt-3 grid gap-2.5">
-                {premiumBenefits.slice(0, 6).map((item) => (
-                  <div key={item.title} className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.055] p-2.5">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-emerald-950">
-                      <PremiumIcon kind="check" className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <p className="text-xs font-extrabold text-white">{item.title}</p>
-                      <p className="mt-0.5 text-[11px] font-medium leading-4 text-white/54">{item.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="mt-8 flex flex-col gap-4 border-t border-slate-200 pt-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
+            <span>© {year} Teilen</span>
+            <Link href="/privacidad" className="font-medium hover:text-[#008a57]">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="font-medium hover:text-[#008a57]">
+              Términos
+            </Link>
+            <Link href="/cookies" className="font-medium hover:text-[#008a57]">
+              Cookies
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <SocialIcon label="Instagram de Teilen" href="https://www.instagram.com/teilen.app/" />
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 }
 
-function PremiumIcon({
+function SocialIcon({ label, href }: { label: string; href: string }) {
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-emerald-300 hover:text-[#008a57]"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" fill="white" />
+        <circle cx="18" cy="6" r="1.2" fill="white" />
+      </svg>
+    </a>
+  );
+}
+
+function HeroImageMockup() {
+  return (
+    <div className="relative z-10 aspect-[887/1774] w-[250px] sm:w-[285px] lg:w-[262px] lg:translate-y-3">
+      <div className="absolute inset-0 rounded-[2.4rem] bg-[#101010] p-2 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-black/20">
+        <div className="absolute left-1/2 top-3 z-20 h-5 w-[42%] -translate-x-1/2 rounded-full bg-black" />
+        <div className="absolute -right-1 top-[28%] h-16 w-1 rounded-full bg-slate-800" />
+        <div className="absolute -left-1 top-[22%] h-10 w-1 rounded-full bg-slate-800" />
+        <div className="relative h-full overflow-hidden rounded-[2rem] bg-white ring-1 ring-white/10">
+          <Image
+            src="/screens/imagen_home.png"
+            alt="Pantalla principal de Teilen con balance de grupos"
+            fill
+            priority
+            sizes="(max-width: 640px) 270px, 330px"
+            className="object-cover object-top"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ImagePhoneMockup({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative aspect-[9/19.5] w-full max-w-[148px] sm:w-[200px] sm:max-w-none lg:w-[208px]">
+      <div className="absolute inset-0 rounded-[2.4rem] bg-[#101010] p-2 shadow-[0_28px_70px_rgba(15,23,42,0.18)] ring-1 ring-black/20">
+        <div className="absolute left-1/2 top-3 z-20 h-5 w-[42%] -translate-x-1/2 rounded-full bg-black" />
+        <div className="absolute -right-1 top-[28%] h-16 w-1 rounded-full bg-slate-800" />
+        <div className="absolute -left-1 top-[22%] h-10 w-1 rounded-full bg-slate-800" />
+        <div className="relative h-full overflow-hidden rounded-[2rem] bg-white ring-1 ring-white/10">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 640px) 190px, 220px"
+            className="object-cover object-top"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LeafDecoration({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 180 180" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M38 148c49-2 88-41 103-104-61 13-99 52-103 104Z"
+        fill="currentColor"
+      />
+      <path
+        d="M58 132c18-32 40-55 69-73M73 117l-2-31M91 95l31 2"
+        stroke="white"
+        strokeOpacity=".45"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path d="M21 158c18-32 43-55 75-70" stroke="currentColor" strokeWidth="16" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function Icon({
   kind,
   className = "h-5 w-5",
 }: {
@@ -592,40 +753,209 @@ function PremiumIcon({
     "aria-hidden": true,
   };
 
-  if (kind === "users") {
+  if (kind === "download") {
     return (
       <svg viewBox="0 0 24 24" {...common}>
-        <path d="M16 11a4 4 0 1 0-8 0" />
-        <path d="M3 21a7 7 0 0 1 14 0" />
-        <path d="M17 7a3 3 0 0 1 0 6" />
-        <path d="M20 21a5 5 0 0 0-3-4.6" />
+        <path d="M12 3v12" />
+        <path d="m7 10 5 5 5-5" />
+        <path d="M5 19h14" />
       </svg>
     );
   }
 
-  if (kind === "file") {
+  if (kind === "play") {
     return (
-      <svg viewBox="0 0 24 24" {...common}>
-        <path d="M7 3h7l4 4v14H7z" />
-        <path d="M14 3v5h5" />
-        <path d="M10 13h6M10 17h4" />
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d="M8 5v14l11-7-11-7Z" />
       </svg>
     );
   }
 
-  if (kind === "check") {
+  if (kind === "menu") {
     return (
       <svg viewBox="0 0 24 24" {...common}>
-        <path d="m6 12 4 4 8-8" />
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    );
+  }
+
+  if (kind === "shield") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6l8-3Z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    );
+  }
+
+  if (kind === "heart") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+        <path d="M12 21s-7.3-4.7-9.4-9.2C.9 8.1 3.1 4.5 6.9 4.5c2 0 3.7 1.1 5.1 2.9 1.4-1.8 3.1-2.9 5.1-2.9 3.8 0 6 3.6 4.3 7.3C19.3 16.3 12 21 12 21Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "bag" || kind === "travel") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+        <path d="M5 7h14l1 13H4L5 7Z" />
+        <path d="M8 11h8" />
+      </svg>
+    );
+  }
+
+  if (kind === "home" || kind === "house") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+        <path d="M3 11.2 12 3l9 8.2-1.8 2L18 12.1V21h-5v-6h-2v6H6v-8.9l-1.2 1.1-1.8-2Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "users" || kind === "friends" || kind === "couple") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+        <path d="M8.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM15.8 11.4a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20.2c.5-4 2.8-6.5 6-6.5s5.5 2.5 6 6.5H2.5ZM13.4 14.2c2.8.3 4.7 2.4 5.1 6h3c-.4-3.8-2.6-6.3-5.6-6.3-.9 0-1.7.1-2.5.3Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "receipt") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M6 3h12v18l-2-1.2-2 1.2-2-1.2-2 1.2-2-1.2L6 21V3Z" />
+        <path d="M9 8h6M9 12h6M9 16h3" />
+      </svg>
+    );
+  }
+
+  if (kind === "split") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M7 7h10M7 17h10M12 7v10" />
+        <path d="m9 10 3-3 3 3M9 14l3 3 3-3" />
+      </svg>
+    );
+  }
+
+  if (kind === "chart") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+        <path d="M11 3a9 9 0 1 0 8.5 12H11V3Zm2 0v10h10A10 10 0 0 0 13 3Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "card") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <rect x="3" y="5" width="18" height="14" rx="3" />
+        <path d="M3 10h18M7 15h4" />
+      </svg>
+    );
+  }
+
+  if (kind === "bell") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+        <path d="M12 22a3 3 0 0 0 2.8-2H9.2A3 3 0 0 0 12 22ZM19 17H5l1.6-2.1V10a5.4 5.4 0 0 1 10.8 0v4.9L19 17Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "target") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="m15 9 5-5M17 4h3v3" />
+      </svg>
+    );
+  }
+
+  if (kind === "wallet") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M4 7.5h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.8A2.8 2.8 0 0 1 5.8 4H18" />
+        <path d="M16 13.5h5" />
+        <path d="M17.5 13.5h.1" />
+      </svg>
+    );
+  }
+
+  if (kind === "currency") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M7 7h10l-3-3" />
+        <path d="m17 7-3 3" />
+        <path d="M17 17H7l3 3" />
+        <path d="m7 17 3-3" />
+        <path d="M12 8v8" />
+      </svg>
+    );
+  }
+
+  if (kind === "calendar") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <rect x="4" y="5" width="16" height="15" rx="3" />
+        <path d="M8 3v4M16 3v4M4 10h16" />
+        <path d="m9 15 2 2 4-4" />
+      </svg>
+    );
+  }
+
+  if (kind === "game") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M7 9h10a5 5 0 0 1 4.7 6.7l-.4 1.2a2.3 2.3 0 0 1-3.8.9L15 15H9l-2.5 2.8a2.3 2.3 0 0 1-3.8-.9l-.4-1.2A5 5 0 0 1 7 9Z" />
+        <path d="M8 12v4M6 14h4M16.5 13.5h.1M18.5 15.5h.1" />
+      </svg>
+    );
+  }
+
+  if (kind === "sparkles") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" />
+        <path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8L19 14Z" />
+        <path d="M5 13l.7 1.8 1.8.7-1.8.7L5 19l-.7-1.8-1.8-.7 1.8-.7L5 13Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "report") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M6 3h9l3 3v15H6z" />
+        <path d="M15 3v4h4" />
+        <path d="M9 17v-4M12 17V9M15 17v-6" />
+      </svg>
+    );
+  }
+
+  if (kind === "more") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M12 5v14M5 12h14" />
+        <path d="M18 6 6 18" />
+      </svg>
+    );
+  }
+
+  if (kind === "fork") {
+    return (
+      <svg viewBox="0 0 24 24" {...common}>
+        <path d="M7 3v8M4 3v8M10 3v8M4 11h6M7 11v10M16 3v18M16 3c2.5 1.8 4 4.2 4 7 0 2-1.6 3.5-4 3.5" />
       </svg>
     );
   }
 
   return (
     <svg viewBox="0 0 24 24" {...common}>
-      <path d="M12 3l1.4 4.2L18 9l-4.6 1.8L12 15l-1.4-4.2L6 9l4.6-1.8L12 3Z" />
-      <path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8L19 14Z" />
-      <path d="M5 13l.7 1.8L7.5 15.5l-1.8.7L5 18l-.7-1.8-1.8-.7 1.8-.7L5 13Z" />
+      <path d="M12 5v14M5 12h14" />
     </svg>
   );
 }
