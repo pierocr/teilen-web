@@ -34,7 +34,9 @@ export function PrivateLayoutShell({ children }: PropsWithChildren) {
                   href={item.href}
                   className={cn(
                     "rounded-md px-3 py-2 font-medium hover:bg-emerald-50 hover:text-emerald-700",
-                    pathname === item.href ? "bg-emerald-50 text-emerald-700" : ""
+                    pathname === item.href || (item.href !== "/app" && pathname.startsWith(item.href))
+                      ? "bg-emerald-50 text-emerald-700"
+                      : ""
                   )}
                 >
                   {item.label}
@@ -61,15 +63,7 @@ export function PrivateLayoutShell({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-10">
-        <section className="mb-6 rounded-2xl border border-dashed border-emerald-200 bg-white/70 px-4 py-3 text-sm text-emerald-700">
-          <p className="font-semibold">Solo lectura (Fase 1)</p>
-          <p className="text-emerald-700/80">
-            Reutilizando el backend móvil. Grupos, Gastos, Amigos, Actividad y Cuenta vendrán en próximas fases.
-          </p>
-        </section>
-        {children}
-      </main>
+      <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
     </div>
   );
 }

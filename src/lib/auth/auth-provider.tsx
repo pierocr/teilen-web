@@ -9,8 +9,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Session, User as SupabaseUser } from "@supabase/supabase-js";
-import { AuthUser, fetchProfile, loginRequest, registerFromSupabaseProfile } from "./api";
+import { AuthUser, fetchSession, loginRequest, logoutRequest } from "./api";
 import { supabaseBrowser } from "../supabase-browser";
 
 type AuthStatus = "checking" | "authenticated" | "unauthenticated";
@@ -38,95 +37,32 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProfileWithRegistration = useCallback(
-    async (accessToken: string, supabaseUser?: SupabaseUser | null) => {
-      try {
-        return await fetchProfile(accessToken);
-      } catch (err) {
-        if (!supabaseUser) throw err;
-
-        try {
-          await registerFromSupabaseProfile(supabaseUser);
-        } catch (registerErr) {
-          console.warn("No se pudo registrar usuario desde Supabase:", registerErr);
-        }
-
-        return await fetchProfile(accessToken);
-      }
-    },
-    []
-  );
-
-  const applySession = useCallback(
-    async (accessToken: string, supabaseUser?: SupabaseUser | null) => {
-      saveToken(accessToken);
-      setToken(accessToken);
-      const profile = await fetchProfileWithRegistration(accessToken, supabaseUser);
-      setUser(normalizeUser(profile));
+  const refreshProfileInternal = useCallback(async () => {
+    try {
+      setStatus("checking");
+      const result = await fetchSession();
+      setUser(normalizeUser(result.user));
+      setToken("cookie-session");
+      clearLegacyToken();
       setStatus("authenticated");
-    },
-    [fetchProfileWithRegistration]
-  );
-
-  const refreshProfileInternal = useCallback(
-    async (session: Session | null, activeToken?: string) => {
-      const currentToken = activeToken ?? token ?? session?.access_token ?? null;
-      if (!currentToken) {
-        setStatus("unauthenticated");
-        setUser(null);
-        return;
-      }
-      try {
-        setStatus("checking");
-        await applySession(currentToken, session?.user);
-      } catch {
-        clearToken();
-        setUser(null);
-        setStatus("unauthenticated");
-      }
-    },
-    [applySession, token]
-  );
+    } catch {
+      setUser(null);
+      setToken(null);
+      clearLegacyToken();
+      setStatus("unauthenticated");
+    }
+  }, []);
 
   // Lee token al hidratar + maneja callback de OAuth
   useEffect(() => {
     const bootstrap = async () => {
       try {
-        const stored = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-
-        if (typeof window !== "undefined") {
-          const url = new URL(window.location.href);
-          const code = url.searchParams.get("code");
-          if (code) {
-            const { error: exchangeError } = await supabaseBrowser.auth.exchangeCodeForSession(code);
-            if (exchangeError) {
-              console.warn("No se pudo completar el login OAuth:", exchangeError.message);
-            } else {
-              url.searchParams.delete("code");
-              url.searchParams.delete("state");
-              window.history.replaceState({}, document.title, url.toString());
-            }
-          }
-        }
-
-        const { data: sessionData } = await supabaseBrowser.auth.getSession();
-        const session = sessionData?.session;
-
-        if (session?.access_token) {
-          await refreshProfileInternal(session, session.access_token);
-          return;
-        }
-
-        if (stored) {
-          await refreshProfileInternal(null, stored);
-          return;
-        }
-
-        setStatus("unauthenticated");
+        await refreshProfileInternal();
       } catch (err) {
         console.warn("Error inicializando autenticación web:", err);
-        clearToken();
+        clearLegacyToken();
         setUser(null);
+        setToken(null);
         setStatus("unauthenticated");
       }
     };
@@ -140,8 +76,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
     try {
       const result = await loginRequest(payload);
       const normalizedUser = normalizeUser(result.user);
-      saveToken(result.token);
-      setToken(result.token);
+      clearLegacyToken();
+      setToken("cookie-session");
       setUser(normalizedUser);
       setStatus("authenticated");
     } catch (err) {
@@ -164,7 +100,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         const { data, error: oauthError } = await supabaseBrowser.auth.signInWithOAuth({
           provider,
           options: {
-            redirectTo: `${window.location.origin}/login`,
+            redirectTo: `${window.location.origin}/auth/callback`,
             scopes: provider === "google" ? "email profile" : undefined,
           },
         });
@@ -189,7 +125,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
     supabaseBrowser.auth.signOut().catch((err) => {
       console.warn("No se pudo cerrar sesión en Supabase:", err);
     });
-    clearToken();
+    logoutRequest().catch((err) => {
+      console.warn("No se pudo cerrar sesión backend:", err);
+    });
+    clearLegacyToken();
     setUser(null);
     setToken(null);
     setStatus("unauthenticated");
@@ -198,7 +137,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     const { data: authListener } = supabaseBrowser.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
-        clearToken();
+        clearLegacyToken();
         setUser(null);
         setToken(null);
         setStatus("unauthenticated");
@@ -206,7 +145,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       }
 
       if (session?.access_token) {
-        refreshProfileInternal(session, session.access_token).catch((err) => {
+        refreshProfileInternal().catch((err) => {
           console.warn("No se pudo refrescar sesión Supabase:", err);
         });
       }
@@ -239,11 +178,7 @@ export function useAuth() {
   return ctx;
 }
 
-function saveToken(token: string) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, token);
-}
-function clearToken() {
+function clearLegacyToken() {
   if (typeof window === "undefined") return;
   localStorage.removeItem(STORAGE_KEY);
 }

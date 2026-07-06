@@ -7,11 +7,19 @@ export type AuthUser = {
   nombre?: string | null;
   nombreCompleto?: string | null;
   correo: string;
+  telefono?: string | null;
+  direccion?: string | null;
+  ciudad?: string | null;
+  pais?: string | null;
+  bio?: string | null;
+  codigo_pais?: string | null;
+  fecha_nacimiento?: string | null;
+  auth_uid?: string | null;
+  uuid_auth?: string | null;
   imagen_perfil?: string | null;
 };
 
 export type LoginResponse = {
-  token: string;
   user: AuthUser;
 };
 
@@ -21,20 +29,34 @@ export type ProfileResponse = {
   correo: string;
   telefono?: string | null;
   imagen_perfil?: string | null;
+  direccion?: string | null;
+  ciudad?: string | null;
+  pais?: string | null;
+  bio?: string | null;
+  codigo_pais?: string | null;
+  fecha_nacimiento?: string | null;
+  auth_uid?: string | null;
+  uuid_auth?: string | null;
+};
+
+export type ProfileEnvelope = {
+  full?: boolean;
+  data?: ProfileResponse;
+  serverTime?: string;
 };
 
 export function loginRequest(payload: { correo: string; password: string }) {
-  return apiRequest<LoginResponse>("/auth/login", {
+  return apiRequest<LoginResponse>("/api/auth/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
 export function fetchProfile(token: string) {
-  return apiRequest<ProfileResponse>("/auth/perfil", {
+  return apiRequest<ProfileEnvelope | ProfileResponse>("/usuarios/perfil", {
     method: "GET",
     authToken: token,
-  });
+  }).then(normalizeProfileResponse);
 }
 
 export function registerFromSupabaseProfile(user: SupabaseUser) {
@@ -68,4 +90,21 @@ export function registerFromSupabaseProfile(user: SupabaseUser) {
       uuid_auth: user.id,
     }),
   });
+}
+
+export function fetchSession() {
+  return apiRequest<LoginResponse>("/api/auth/session", {
+    method: "GET",
+  });
+}
+
+export function logoutRequest() {
+  return apiRequest<{ ok: boolean }>("/api/auth/logout", {
+    method: "POST",
+  });
+}
+
+function normalizeProfileResponse(payload: ProfileEnvelope | ProfileResponse) {
+  if (payload && "data" in payload && payload.data) return payload.data;
+  return payload as ProfileResponse;
 }
