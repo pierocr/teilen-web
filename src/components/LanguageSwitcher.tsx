@@ -13,8 +13,8 @@ const FLAGS: Record<(typeof SUPPORTED_LOCALES)[number], string> = {
   es: "🇪🇸",
   en: "🇺🇸",
   de: "🇩🇪",
-  pr: "🇧🇷",
-  ut: "🇮🇹",
+  pt: "🇧🇷",
+  it: "🇮🇹",
   fr: "🇫🇷",
 };
 
@@ -54,8 +54,10 @@ export function LanguageSwitcher({ className = "", buttonClassName = "" }: Langu
     >
       <button
         type="button"
+        data-testid="language-switcher-button"
         aria-label={t.language.select}
         aria-expanded={open}
+        aria-haspopup="menu"
         className={`inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm transition hover:bg-slate-50 ${buttonClassName}`}
         onClick={() => setOpen((prev) => !prev)}
       >
@@ -78,6 +80,7 @@ export function LanguageSwitcher({ className = "", buttonClassName = "" }: Langu
               <button
                 key={item}
                 type="button"
+                data-locale={item}
                 onClick={() => {
                   setLocale(item);
                   setOpen(false);

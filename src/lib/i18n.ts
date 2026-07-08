@@ -1,9 +1,11 @@
-export const SUPPORTED_LOCALES = ["es", "en", "de", "pr", "ut", "fr"] as const;
+export const SUPPORTED_LOCALES = ["es", "en", "de", "pt", "it", "fr"] as const;
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 const LOCALE_ALIASES: Record<string, Locale> = {
-  pt: "pr",
-  it: "ut",
+  pt: "pt",
+  pr: "pt",
+  it: "it",
+  ut: "it",
 };
 
 type LocalizedUseCase = {
@@ -82,7 +84,7 @@ type Messages = {
   };
 };
 
-const baseMessages: Record<"es" | "en" | "pr", Messages> = {
+const baseMessages: Record<"es" | "en" | "pt", Messages> = {
   es: {
     language: {
       select: "Seleccionar idioma",
@@ -90,8 +92,8 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
         es: "Español",
         en: "English",
         de: "Deutsch",
-        pr: "Português",
-        ut: "Italiano",
+        pt: "Português",
+        it: "Italiano",
         fr: "Français",
       },
     },
@@ -218,8 +220,8 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
         es: "Spanish",
         en: "English",
         de: "German",
-        pr: "Portuguese",
-        ut: "Italian",
+        pt: "Portuguese",
+        it: "Italian",
         fr: "French",
       },
     },
@@ -339,15 +341,15 @@ const baseMessages: Record<"es" | "en" | "pr", Messages> = {
       instagram: "Instagram",
     },
   },
-  pr: {
+  pt: {
     language: {
       select: "Selecionar idioma",
       names: {
         es: "Espanhol",
         en: "Inglês",
         de: "Alemão",
-        pr: "Português",
-        ut: "Italiano",
+        pt: "Português",
+        it: "Italiano",
         fr: "Francês",
       },
     },
@@ -479,8 +481,8 @@ const messages: Record<Locale, Messages> = {
         es: "Spanisch",
         en: "Englisch",
         de: "Deutsch",
-        pr: "Portugiesisch",
-        ut: "Italienisch",
+        pt: "Portugiesisch",
+        it: "Italienisch",
         fr: "Französisch",
       },
     },
@@ -601,7 +603,7 @@ const messages: Record<Locale, Messages> = {
       instagram: "Instagram",
     },
   },
-  ut: {
+  it: {
     ...baseMessages.en,
     language: {
       select: "Seleziona lingua",
@@ -609,8 +611,8 @@ const messages: Record<Locale, Messages> = {
         es: "Spagnolo",
         en: "Inglese",
         de: "Tedesco",
-        pr: "Portoghese",
-        ut: "Italiano",
+        pt: "Portoghese",
+        it: "Italiano",
         fr: "Francese",
       },
     },
@@ -739,8 +741,8 @@ const messages: Record<Locale, Messages> = {
         es: "Espagnol",
         en: "Anglais",
         de: "Allemand",
-        pr: "Portugais",
-        ut: "Italien",
+        pt: "Portugais",
+        it: "Italien",
         fr: "Français",
       },
     },

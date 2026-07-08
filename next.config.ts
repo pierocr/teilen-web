@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["192.168.100.37"],
   images: {
     remotePatterns: [
       // Avatares/portadas servidas desde Supabase Storage

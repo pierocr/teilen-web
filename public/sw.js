@@ -1,10 +1,9 @@
 // Teilen PWA Service Worker
-const CACHE_NAME = 'teilen-v1'
-const RUNTIME_CACHE = 'teilen-runtime'
+const CACHE_NAME = 'teilen-v2'
+const RUNTIME_CACHE = 'teilen-runtime-v2'
 
 // Assets críticos para cachear en instalación
 const PRECACHE_ASSETS = [
-  '/',
   '/hero.webp',
   '/teilen-og2.webp',
   '/favicon.ico',
@@ -60,8 +59,9 @@ self.addEventListener('fetch', (event) => {
     caches.open(RUNTIME_CACHE).then((cache) => {
       return fetch(event.request)
         .then((response) => {
-          // Cachea respuestas exitosas
-          if (response.status === 200) {
+          // Cachea respuestas exitosas, excepto documentos HTML para evitar UI/JS obsoletos.
+          const isHtmlRequest = event.request.headers.get('accept')?.includes('text/html')
+          if (response.status === 200 && !isHtmlRequest) {
             cache.put(event.request, response.clone())
           }
           return response

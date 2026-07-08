@@ -106,7 +106,7 @@ type HomeMessages = {
   };
 };
 
-const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
+const baseHomeMessages: Record<"es" | "en" | "pt", HomeMessages> = {
   es: {
     stores: {
       appStoreAria: "Descargar Teilen en App Store",
@@ -568,7 +568,7 @@ const baseHomeMessages: Record<"es" | "en" | "pr", HomeMessages> = {
       },
     },
   },
-  pr: {
+  pt: {
     stores: {
       appStoreAria: "Baixar Teilen na App Store",
       googlePlayAria: "Baixar Teilen no Google Play",
@@ -953,7 +953,7 @@ const deHomeMessages: HomeMessages = {
   },
 };
 
-const utHomeMessages: HomeMessages = {
+const itHomeMessages: HomeMessages = {
   ...baseHomeMessages.en,
   stores: {
     appStoreAria: "Scarica Teilen su App Store",
@@ -1245,7 +1245,7 @@ const frHomeMessages: HomeMessages = {
 const homeMessages: Record<Locale, HomeMessages> = {
   ...baseHomeMessages,
   de: deHomeMessages,
-  ut: utHomeMessages,
+  it: itHomeMessages,
   fr: frHomeMessages,
 };
 

@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
+import type { Locale } from "@/lib/i18n";
 import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
 type Props = {
@@ -14,15 +15,67 @@ type Props = {
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 
+const redirectMessages: Record<Locale, { title: string; description: string }> = {
+  es: {
+    title: "Abriendo la tienda",
+    description: "Te estamos redirigiendo. Si tarda unos segundos, no vuelvas a presionar el botón.",
+  },
+  en: {
+    title: "Opening the store",
+    description: "We are redirecting you. If it takes a few seconds, avoid tapping the button again.",
+  },
+  de: {
+    title: "Store wird geöffnet",
+    description: "Du wirst weitergeleitet. Wenn es ein paar Sekunden dauert, tippe bitte nicht erneut.",
+  },
+  pt: {
+    title: "Abrindo a loja",
+    description: "Estamos redirecionando você. Se demorar alguns segundos, não toque novamente.",
+  },
+  it: {
+    title: "Apertura dello store",
+    description: "Ti stiamo reindirizzando. Se richiede qualche secondo, non premere di nuovo.",
+  },
+  fr: {
+    title: "Ouverture de la boutique",
+    description: "Nous vous redirigeons. Si cela prend quelques secondes, n'appuyez pas de nouveau.",
+  },
+};
+
 export function DownloadModal({ open, onClose }: Props) {
   const { locale } = useLocale();
   const home = getHomeMessages(locale);
+  const [redirecting, setRedirecting] = useState<"app-store" | "play-store" | "universal" | null>(null);
+  const redirectCopy = redirectMessages[locale];
 
   useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setRedirecting(null);
+        onClose();
+      }
+    };
     if (open) window.addEventListener("keydown", onEsc);
     return () => window.removeEventListener("keydown", onEsc);
   }, [open, onClose]);
+
+  const handleRedirect = (
+    event: MouseEvent<HTMLAnchorElement>,
+    url: string,
+    target: "app-store" | "play-store" | "universal",
+  ) => {
+    event.preventDefault();
+    if (redirecting) return;
+    setRedirecting(target);
+    window.setTimeout(() => {
+      window.location.assign(url);
+    }, 650);
+  };
+
+  const handleClose = () => {
+    setRedirecting(null);
+    onClose();
+  };
 
   if (!open) return null;
 
@@ -30,14 +83,24 @@ export function DownloadModal({ open, onClose }: Props) {
     <div className="fixed inset-0 z-[100]">
       <div
         className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
         aria-hidden="true"
       />
 
       <div className="relative z-[101] flex min-h-full items-center justify-center px-3 py-6 sm:px-4 sm:py-10 overflow-y-auto">
         <div className="relative w-full max-w-5xl rounded-[22px] border border-white/50 bg-white/95 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.35)] max-h-[92vh] overflow-y-auto overscroll-contain sm:rounded-[28px] sm:p-7 lg:p-9">
+          {redirecting && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[22px] bg-white/90 px-6 text-center backdrop-blur-sm sm:rounded-[28px]">
+              <div className="max-w-sm">
+                <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-emerald-100 border-t-emerald-600" />
+                <p className="mt-4 text-lg font-semibold text-slate-900">{redirectCopy.title}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{redirectCopy.description}</p>
+              </div>
+            </div>
+          )}
+
           <button
-            onClick={onClose}
+            onClick={handleClose}
             aria-label={home.downloadModal.close}
             className="absolute right-5 top-5 rounded-full border border-black/10 px-3 py-1 text-xs sm:text-sm font-medium text-slate-600 transition hover:bg-black/5"
           >
@@ -77,6 +140,7 @@ export function DownloadModal({ open, onClose }: Props) {
                   aria-label={home.stores.appStoreAria}
                   className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
                   rel="noopener"
+                  onClick={(event) => handleRedirect(event, APP_STORE_URL, "app-store")}
                 >
                   <Image
                     src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
@@ -91,6 +155,7 @@ export function DownloadModal({ open, onClose }: Props) {
                   aria-label={home.stores.googlePlayAria}
                   className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
                   rel="noopener"
+                  onClick={(event) => handleRedirect(event, PLAY_STORE_URL, "play-store")}
                 >
                   <Image
                     src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
@@ -126,6 +191,7 @@ export function DownloadModal({ open, onClose }: Props) {
                 <a
                   href={UNIVERSAL_DOWNLOAD_URL}
                   className="absolute -bottom-10 right-0 flex w-32 flex-col items-center gap-1.5 rounded-2xl border border-slate-100 bg-white/95 p-2.5 text-center text-[10px] font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl sm:-bottom-12 sm:w-40 sm:gap-2 sm:p-3 sm:text-xs"
+                  onClick={(event) => handleRedirect(event, UNIVERSAL_DOWNLOAD_URL, "universal")}
                 >
                   <Image
                     src="/qr-download.png"

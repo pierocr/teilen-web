@@ -239,8 +239,8 @@ export function Navbar() {
               className="rounded-full px-4 py-2 text-white text-center shadow-sm transition-colors"
               style={{ backgroundColor: "#019a57" }}
               onClick={() => {
-                setDownloadOpen(true);
                 setOpen(false);
+                window.requestAnimationFrame(() => setDownloadOpen(true));
               }}
             >
               {t.navbar.downloadApp}

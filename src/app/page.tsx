@@ -5,136 +5,127 @@ import Link from "next/link";
 import { useState } from "react";
 import { DownloadModal } from "@/components/DownloadModal";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLocale, useTranslations } from "@/components/LanguageProvider";
 import { PremiumPriceCards } from "@/components/premium/PremiumPriceCards";
+import { getHomeMessages } from "@/lib/home-i18n";
+import type { Locale } from "@/lib/i18n";
 import { APP_STORE_URL, PLAY_STORE_URL, UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
 
-const navLinks = [
-  { href: "#how", label: "Cómo funciona" },
-  { href: "#features", label: "Funciones" },
-  { href: "#screens", label: "La app" },
-  { href: "#premium", label: "Premium" },
-  { href: "#faq", label: "FAQ" },
-];
+const FEATURE_ICON_BY_ID: Record<string, string> = {
+  groups: "chart",
+  personal: "wallet",
+  recurring: "calendar",
+  reminders: "bell",
+  goals: "target",
+  scan: "sparkles",
+  currency: "currency",
+  notifications: "bell",
+  pay: "card",
+  rules: "users",
+  audit: "report",
+};
 
-const footerSections = [
-  {
-    title: "Producto",
-    links: [
-      { label: "Dividir gastos", href: "/dividir-gastos" },
-      { label: "Gastos compartidos", href: "/gastos-compartidos" },
-      { label: "Control de gastos", href: "/control-de-gastos" },
-      { label: "Recordatorios", href: "/recordatorios" },
-      { label: "Metas de ahorro", href: "/metas-de-ahorro" },
-      { label: "Premium", href: "/premium" },
-    ],
-  },
-  {
-    title: "Herramientas",
-    links: [
-      { label: "Funciones clave", href: "/#features" },
-      { label: "La app", href: "/#screens" },
-      { label: "Reportes", href: "/premium" },
-      { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
-    ],
-  },
-  {
-    title: "Legal y ayuda",
-    links: [
-      { label: "Contacto", href: "/contacto" },
-      { label: "Privacidad", href: "/privacidad" },
-      { label: "Términos", href: "/terminos" },
-      { label: "Cookies", href: "/cookies" },
-    ],
-  },
-];
+const STEP_ICONS = ["users", "receipt", "split", "target"];
 
-const howSteps = [
+const PAGE_COPY: Record<
+  Locale,
   {
-    title: "Crea un grupo",
-    text: "Invita a tu pareja, amigos o compañeros.",
-    icon: "users",
+    security: string;
+    downloadShort: string;
+    qrDownload: string;
+    qrScanTitle: string;
+    qrScanDescription: string;
+    footerCtaTitle: string;
+    footerDescription: string;
+    socialInstagram: string;
+  }
+> = {
+  es: {
+    security: "Tus datos siempre están seguros, protegidos y encriptados en Teilen.",
+    downloadShort: "Descargar",
+    qrDownload: "QR de descarga",
+    qrScanTitle: "Escanea para descargar",
+    qrScanDescription: "Abre Teilen en App Store o Google Play.",
+    footerCtaTitle: "Ordena tus cuentas desde hoy",
+    footerDescription:
+      "App chilena para dividir gastos, organizar cuentas compartidas, crear recordatorios y seguir metas de ahorro.",
+    socialInstagram: "Instagram de Teilen",
   },
-  {
-    title: "Agrega un gasto",
-    text: "Indica el monto, quién pagó y entre quiénes se divide.",
-    icon: "receipt",
+  en: {
+    security: "Your data stays safe, protected, and encrypted in Teilen.",
+    downloadShort: "Download",
+    qrDownload: "Download QR",
+    qrScanTitle: "Scan to download",
+    qrScanDescription: "Open Teilen on the App Store or Google Play.",
+    footerCtaTitle: "Organize your expenses today",
+    footerDescription:
+      "A Chilean app for splitting expenses, organizing shared accounts, creating reminders, and tracking savings goals.",
+    socialInstagram: "Teilen on Instagram",
   },
-  {
-    title: "Teilen calcula quién debe a quién",
-    text: "Saldos claros y actualizados para todos.",
-    icon: "split",
+  de: {
+    security: "Deine Daten bleiben in Teilen sicher, geschützt und verschlüsselt.",
+    downloadShort: "Laden",
+    qrDownload: "Download-QR",
+    qrScanTitle: "Zum Herunterladen scannen",
+    qrScanDescription: "Öffne Teilen im App Store oder bei Google Play.",
+    footerCtaTitle: "Organisiere deine Ausgaben ab heute",
+    footerDescription:
+      "Eine chilenische App zum Teilen von Ausgaben, Organisieren gemeinsamer Konten, Erstellen von Erinnerungen und Verfolgen von Sparzielen.",
+    socialInstagram: "Teilen auf Instagram",
   },
-];
-
-const features = [
-  { title: "Divide gastos", text: "Fácil y justo entre los integrantes.", icon: "chart" },
-  { title: "Registra pagos", text: "Lleva el historial de quién pagó qué.", icon: "card" },
-  { title: "Recordatorios", text: "No olvides pagos o pendientes.", icon: "bell" },
-  { title: "Metas de ahorro", text: "Ahorra en grupo, para lo que quieran.", icon: "target" },
-];
-
-const featureItems = [
-  ...features,
-  { title: "Gastos personales", text: "Controla tus movimientos propios.", icon: "wallet" },
-  { title: "Calculadora de divisas", text: "Convierte montos para viajes.", icon: "currency" },
-  { title: "Recordatorios de pagos", text: "Ten vencimientos a la vista.", icon: "calendar" },
-  { title: "Teilen Dash", text: "Juegos y dinámicas en la app.", icon: "game" },
-  { title: "Gastos con IA", text: "Crea gastos con menos pasos.", icon: "sparkles" },
-  { title: "Reportes por grupo", text: "Detalle claro de cada grupo.", icon: "report" },
-  { title: "Y mucho más", text: "Más herramientas para ordenar.", icon: "more" },
-];
-
-const faqItems = [
-  {
-    question: "¿Qué puedo hacer con Teilen?",
-    answer:
-      "Puedes dividir gastos en grupos, registrar gastos personales, crear recordatorios, programar gastos recurrentes y seguir tus metas de ahorro.",
+  pt: {
+    security: "Seus dados ficam seguros, protegidos e criptografados na Teilen.",
+    downloadShort: "Baixar",
+    qrDownload: "QR de download",
+    qrScanTitle: "Escaneie para baixar",
+    qrScanDescription: "Abra a Teilen na App Store ou no Google Play.",
+    footerCtaTitle: "Organize suas contas a partir de hoje",
+    footerDescription:
+      "App chilena para dividir despesas, organizar contas compartilhadas, criar lembretes e acompanhar metas de economia.",
+    socialInstagram: "Teilen no Instagram",
   },
-  {
-    question: "¿Sirve para parejas, viajes o roomies?",
-    answer:
-      "Sí. Puedes crear grupos para cada situación, invitar a otras personas por enlace o QR y mantener los saldos siempre claros.",
+  it: {
+    security: "I tuoi dati restano sicuri, protetti e criptati in Teilen.",
+    downloadShort: "Scarica",
+    qrDownload: "QR download",
+    qrScanTitle: "Scansiona per scaricare",
+    qrScanDescription: "Apri Teilen su App Store o Google Play.",
+    footerCtaTitle: "Organizza le tue spese da oggi",
+    footerDescription:
+      "App cilena per dividere spese, organizzare conti condivisi, creare promemoria e seguire obiettivi di risparmio.",
+    socialInstagram: "Teilen su Instagram",
   },
-  {
-    question: "¿Puedo usar Teilen solo para mis gastos personales?",
-    answer:
-      "Sí. También puedes registrar gastos personales, crear recordatorios y seguir tus metas de ahorro.",
+  fr: {
+    security: "Vos données restent sécurisées, protégées et chiffrées dans Teilen.",
+    downloadShort: "Télécharger",
+    qrDownload: "QR de téléchargement",
+    qrScanTitle: "Scannez pour télécharger",
+    qrScanDescription: "Ouvrez Teilen sur l'App Store ou Google Play.",
+    footerCtaTitle: "Organisez vos dépenses dès aujourd'hui",
+    footerDescription:
+      "App chilienne pour partager les dépenses, organiser les comptes communs, créer des rappels et suivre des objectifs d'épargne.",
+    socialInstagram: "Teilen sur Instagram",
   },
-  {
-    question: "¿Puedo programar gastos mensuales?",
-    answer:
-      "Sí. Puedes crear gastos recurrentes para suscripciones, servicios, arriendo, cuentas del hogar o pagos compartidos.",
-  },
-  {
-    question: "¿Teilen tiene recordatorios?",
-    answer:
-      "Sí. Puedes crear recordatorios para próximos vencimientos y revisar cuáles están activos, próximos o vencidos.",
-  },
-  {
-    question: "¿Puedo crear metas de ahorro?",
-    answer:
-      "Sí. Puedes crear metas, registrar avances, ver tu ahorro acumulado y revisar cuánto falta para completarlas.",
-  },
-  {
-    question: "¿Puedo escanear boletas?",
-    answer:
-      "Según disponibilidad en la app, Teilen permite escanear boletas para ayudarte a crear gastos con menos pasos.",
-  },
-  {
-    question: "¿Está disponible para iOS y Android?",
-    answer: "Sí. Puedes descargar Teilen desde App Store y Google Play.",
-  },
-  {
-    question: "¿Qué incluye Teilen Premium?",
-    answer:
-      "Premium desbloquea herramientas avanzadas como más grupos, gastos completos, reportes, comprobantes, funciones con IA y módulos financieros extendidos, según disponibilidad en la app.",
-  },
-];
+};
 
 export default function Page() {
+  const { locale } = useLocale();
+  const home = getHomeMessages(locale);
+  const pageCopy = PAGE_COPY[locale];
   const [downloadOpen, setDownloadOpen] = useState(false);
 
   const openDownload = () => setDownloadOpen(true);
+  const howSteps = home.howItWorks.steps.map((step, index) => ({
+    title: step.title,
+    text: step.desc,
+    icon: STEP_ICONS[index] ?? "receipt",
+  }));
+  const featureItems = home.features.items.map((item) => ({
+    title: item.title,
+    text: item.desc,
+    icon: FEATURE_ICON_BY_ID[item.id] ?? "chart",
+  }));
+  const faqItems = home.page.faq.items;
 
   const faqStructuredData = {
     "@context": "https://schema.org",
@@ -162,12 +153,10 @@ export default function Page() {
           <div className="relative mx-auto grid max-w-6xl items-start gap-8 px-5 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-24 lg:grid-cols-[1.06fr_0.94fr] lg:items-center lg:gap-8 lg:pb-8 lg:pt-28">
             <div className="max-w-2xl">
               <h1 className="text-[2.5rem] font-extrabold leading-[1.02] tracking-tight text-[#10231d] sm:text-[3.35rem] lg:text-[3.7rem]">
-                Divide gastos{" "}
-                <span className="text-[#009d63]">en segundos.</span>
+                {home.hero.title}
               </h1>
               <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-                Teilen te ayuda a saber quién pagó, cuánto debe cada persona y
-                mantener las cuentas claras desde el celular.
+                {home.hero.description}
               </p>
 
               <div className="mt-6 flex flex-col items-start gap-4">
@@ -180,7 +169,7 @@ export default function Page() {
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#009d63] bg-white/80 px-6 py-3 text-sm font-bold text-[#008a57] shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-50"
                 >
                   <Icon kind="play" className="h-5 w-5 fill-current" />
-                  Ver cómo funciona
+                  {home.hero.demoButton}
                 </a>
               </div>
 
@@ -189,10 +178,7 @@ export default function Page() {
                   kind="shield"
                   className="mt-0.5 h-5 w-5 shrink-0 text-[#009d63] sm:h-6 sm:w-6"
                 />
-                <p>
-                  Tus datos siempre están seguros, protegidos y encriptados en
-                  Teilen.
-                </p>
+                <p>{pageCopy.security}</p>
               </div>
             </div>
 
@@ -205,8 +191,11 @@ export default function Page() {
         </section>
 
         <section id="how" className="scroll-mt-24 bg-white px-5 py-8 sm:px-6 sm:py-10">
-          <SectionTitle>Cómo funciona</SectionTitle>
-          <div className="mx-auto mt-4 grid max-w-6xl gap-3 md:grid-cols-3">
+          <SectionTitle>{home.howItWorks.title}</SectionTitle>
+          <p className="mx-auto mt-2 max-w-3xl text-center text-sm leading-6 text-slate-600 sm:text-base">
+            {home.howItWorks.description}
+          </p>
+          <div className="mx-auto mt-4 grid max-w-6xl gap-3 md:grid-cols-2 lg:grid-cols-4">
             {howSteps.map((step, index) => (
               <article
                 key={step.title}
@@ -229,7 +218,10 @@ export default function Page() {
 
         <section id="features" className="scroll-mt-24 bg-white px-5 pb-10 sm:px-6 sm:pb-12">
           <div className="mx-auto max-w-6xl">
-            <SectionTitle>Funciones clave</SectionTitle>
+            <SectionTitle>{home.features.title}</SectionTitle>
+            <p className="mx-auto mt-2 max-w-3xl text-center text-sm leading-6 text-slate-600 sm:text-base">
+              {home.features.subtitle}
+            </p>
             <div className="mx-auto mt-6 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {featureItems.map((item) => (
                 <SmallCard key={item.title} item={item} />
@@ -239,19 +231,22 @@ export default function Page() {
         </section>
 
         <section id="screens" className="bg-white px-5 pb-10 sm:px-6 sm:pb-12">
-          <SectionTitle>La app en acción</SectionTitle>
+          <SectionTitle>{home.appScreens.title}</SectionTitle>
+          <p className="mx-auto mt-2 max-w-3xl text-center text-sm leading-6 text-slate-600 sm:text-base">
+            {home.appScreens.subtitle}
+          </p>
           <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 items-end justify-items-center gap-4 sm:grid-cols-3 sm:gap-10">
             <ImagePhoneMockup
               src="/screens/imagen_home.png"
-              alt="Pantalla principal de Teilen con balance de grupos"
+              alt={home.appScreens.imageAlt}
             />
             <ImagePhoneMockup
               src="/screens/imagen_grupo.png"
-              alt="Pantalla de grupo en Teilen con gastos compartidos"
+              alt={home.appScreens.imageAlt}
             />
             <ImagePhoneMockup
               src="/screens/imagen_reporte.png"
-              alt="Pantalla de reportes detallados de un grupo en Teilen"
+              alt={home.appScreens.imageAlt}
             />
           </div>
         </section>
@@ -263,9 +258,9 @@ export default function Page() {
         </section>
 
         <section id="faq" className="bg-white px-5 pb-12 sm:px-6 sm:pb-16">
-          <SectionTitle>Preguntas frecuentes</SectionTitle>
+          <SectionTitle>{home.page.faq.title}</SectionTitle>
           <p className="mx-auto mt-2 max-w-3xl text-center text-sm leading-6 text-slate-600 sm:text-base">
-            Todo lo que necesitas saber antes de empezar con Teilen.
+            {home.page.faq.description}
           </p>
           <div className="mx-auto mt-6 grid max-w-6xl gap-3 md:grid-cols-2">
             {faqItems.map((item) => (
@@ -301,13 +296,25 @@ export default function Page() {
 }
 
 function Header({ onDownload }: { onDownload: () => void }) {
+  const { locale } = useLocale();
+  const t = useTranslations();
+  const pageCopy = PAGE_COPY[locale];
   const [menuOpen, setMenuOpen] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
+  const openMenu = () => setMenuOpen(true);
+  const closeMenu = () => setMenuOpen(false);
+  const navLinks = [
+    { href: "#how", label: t.navbar.links.how },
+    { href: "#features", label: t.navbar.links.features },
+    { href: "#screens", label: t.navbar.links.screens },
+    { href: "#premium", label: t.navbar.links.premium },
+    { href: "#faq", label: "FAQ" },
+  ];
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-200/80 bg-white/92 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
-        <Link href="/" className="flex items-center gap-3" aria-label="Teilen, inicio">
+        <Link href="/" className="flex items-center gap-3" aria-label="Teilen">
           <Image
             src="/logo_teilen.png"
             alt="Teilen"
@@ -338,7 +345,7 @@ function Header({ onDownload }: { onDownload: () => void }) {
             type="button"
             onClick={() => setQrOpen(true)}
             className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 md:inline-flex"
-            aria-label="Ver QR para descargar Teilen"
+            aria-label={t.navbar.qrLabel}
           >
             <Image
               src="/qr-download.png"
@@ -352,22 +359,34 @@ function Header({ onDownload }: { onDownload: () => void }) {
           <a
             href={UNIVERSAL_DOWNLOAD_URL}
             rel="noopener"
+            onClick={(event) => {
+              event.preventDefault();
+              onDownload();
+            }}
+            onTouchEnd={(event) => {
+              event.preventDefault();
+              onDownload();
+            }}
             className="rounded-xl bg-[#009d63] px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,157,99,0.22)] transition hover:-translate-y-0.5 hover:bg-[#008a57] sm:hidden"
           >
-            Descargar
+            {pageCopy.downloadShort}
           </a>
           <button
             type="button"
             onClick={onDownload}
             className="hidden rounded-xl bg-[#009d63] px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,157,99,0.22)] transition hover:-translate-y-0.5 hover:bg-[#008a57] sm:inline-flex"
           >
-            Descargar app
+            {t.navbar.downloadApp}
           </button>
           <button
             type="button"
-            onClick={() => setMenuOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 lg:hidden"
-            aria-label="Abrir menú"
+            onClick={openMenu}
+            onTouchEnd={(event) => {
+              event.preventDefault();
+              openMenu();
+            }}
+            className="inline-flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 lg:hidden"
+            aria-label={t.navbar.openMenu}
             aria-expanded={menuOpen}
           >
             <Icon kind="menu" className="h-5 w-5" />
@@ -379,25 +398,34 @@ function Header({ onDownload }: { onDownload: () => void }) {
         <button
           type="button"
           className="fixed inset-0 z-40 bg-slate-950/30 lg:hidden"
-          aria-label="Cerrar menú"
-          onClick={() => setMenuOpen(false)}
+          aria-label={t.navbar.closeMenu}
+          onClick={closeMenu}
+          onTouchEnd={(event) => {
+            event.preventDefault();
+            closeMenu();
+          }}
         />
       )}
 
       <div
         className={`fixed right-0 top-0 z-50 h-screen w-76 max-w-[82vw] transform bg-white shadow-2xl transition-transform duration-200 lg:hidden ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
+          menuOpen ? "translate-x-0" : "pointer-events-none translate-x-full"
         }`}
         role="dialog"
         aria-modal="true"
+        aria-hidden={!menuOpen}
       >
         <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5">
-          <span className="text-base font-extrabold text-slate-950">Menú</span>
+          <span className="text-base font-extrabold text-slate-950">{t.navbar.menuTitle}</span>
           <button
             type="button"
-            onClick={() => setMenuOpen(false)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-700"
-            aria-label="Cerrar menú"
+            onClick={closeMenu}
+            onTouchEnd={(event) => {
+              event.preventDefault();
+              closeMenu();
+            }}
+            className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-full border border-slate-200 text-slate-700"
+            aria-label={t.navbar.closeMenu}
           >
             <Icon kind="plus" className="h-4 w-4 rotate-45" />
           </button>
@@ -408,7 +436,7 @@ function Header({ onDownload }: { onDownload: () => void }) {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="block rounded-xl px-3 py-3 text-base font-semibold text-slate-800 transition hover:bg-emerald-50 hover:text-[#008a57]"
                 >
                   {link.label}
@@ -422,7 +450,7 @@ function Header({ onDownload }: { onDownload: () => void }) {
               type="button"
               onClick={() => {
                 setQrOpen(true);
-                setMenuOpen(false);
+                closeMenu();
               }}
               className="mt-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm"
             >
@@ -434,7 +462,7 @@ function Header({ onDownload }: { onDownload: () => void }) {
                   height={24}
                   className="h-6 w-6 rounded bg-white"
                 />
-                QR de descarga
+                {pageCopy.qrDownload}
               </span>
               <Icon kind="plus" className="h-4 w-4" />
             </button>
@@ -447,7 +475,7 @@ function Header({ onDownload }: { onDownload: () => void }) {
           <button
             type="button"
             className="absolute inset-0 bg-slate-950/75 backdrop-blur-sm"
-            aria-label="Cerrar QR"
+            aria-label={t.navbar.close}
             onClick={() => setQrOpen(false)}
           />
           <div className="relative z-[101] flex min-h-full items-center justify-center p-4">
@@ -462,21 +490,21 @@ function Header({ onDownload }: { onDownload: () => void }) {
                   event.preventDefault();
                   setQrOpen(false);
                 }}
-                aria-label="Cerrar QR"
+                aria-label={t.navbar.close}
                 className="absolute right-3 top-3 rounded-full border border-black/10 px-2.5 py-0.5 text-xs font-medium text-slate-600 transition hover:bg-black/5"
               >
                 ✕
               </button>
               <Image
                 src="/qr-download.png"
-                alt="Código QR para descargar Teilen"
+                alt={t.navbar.qrLabel}
                 width={240}
                 height={240}
                 className="h-60 w-60 rounded-2xl border border-slate-100 bg-white p-3"
               />
               <div className="text-center">
-                <p className="text-lg font-bold text-slate-900">Escanea para descargar</p>
-                <p className="mt-1 text-sm text-slate-600">Abre Teilen en App Store o Google Play.</p>
+                <p className="text-lg font-bold text-slate-900">{pageCopy.qrScanTitle}</p>
+                <p className="mt-1 text-sm text-slate-600">{pageCopy.qrScanDescription}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.3em] text-emerald-600">
                   teilen.cl/api/download
                 </p>
@@ -532,13 +560,14 @@ function SmallCard({
 }
 
 function StoreBadge({ store }: { store: "apple" | "google" }) {
+  const t = useTranslations();
   const isApple = store === "apple";
 
   return (
     <a
       href={isApple ? APP_STORE_URL : PLAY_STORE_URL}
       rel="noopener"
-      aria-label={isApple ? "Descargar Teilen en App Store" : "Descargar Teilen en Google Play"}
+      aria-label={isApple ? t.footer.stores.appStoreAria : t.footer.stores.googlePlayAria}
       className="inline-flex overflow-hidden rounded-lg bg-black shadow-[0_12px_26px_rgba(0,0,0,0.25)] transition hover:-translate-y-0.5"
     >
       <Image
@@ -547,7 +576,7 @@ function StoreBadge({ store }: { store: "apple" | "google" }) {
             ? "/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
             : "/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
         }
-        alt={isApple ? "Descargar en App Store" : "Disponible en Google Play"}
+        alt={isApple ? t.footer.stores.appStoreAlt : t.footer.stores.googlePlayAlt}
         width={isApple ? 174 : 196}
         height={58}
         className={isApple ? "h-12 w-[144px]" : "h-12 w-[162px]"}
@@ -557,7 +586,45 @@ function StoreBadge({ store }: { store: "apple" | "google" }) {
 }
 
 function HomeFooter() {
+  const { locale } = useLocale();
+  const t = useTranslations();
+  const pageCopy = PAGE_COPY[locale];
   const year = new Date().getFullYear();
+  const productHrefs = [
+    "/dividir-gastos",
+    "/gastos-compartidos",
+    "/control-de-gastos",
+    "/recordatorios",
+    "/metas-de-ahorro",
+  ];
+  const footerSections = [
+    {
+      title: t.footer.columns.product,
+      links: [
+        ...t.footer.links.product.map((label, index) => ({
+          label,
+          href: productHrefs[index] ?? "/#features",
+        })),
+        { label: t.navbar.links.premium, href: "/premium" },
+      ],
+    },
+    {
+      title: t.footer.columns.useCases,
+      links: t.footer.useCases.map((item) => ({
+        label: item.title,
+        href: "/#features",
+      })),
+    },
+    {
+      title: t.footer.columns.help,
+      links: [
+        { label: t.footer.links.help.contact, href: "/contacto" },
+        { label: t.footer.links.help.faq, href: "/preguntas-frecuentes" },
+        { label: t.footer.links.legal.privacy, href: "/privacidad" },
+        { label: t.footer.links.legal.terms, href: "/terminos" },
+      ],
+    },
+  ];
 
   return (
     <footer className="border-t border-emerald-900/10 bg-white">
@@ -575,9 +642,9 @@ function HomeFooter() {
               />
             </span>
             <div>
-              <h2 className="text-2xl font-extrabold">Ordena tus cuentas desde hoy</h2>
+              <h2 className="text-2xl font-extrabold">{pageCopy.footerCtaTitle}</h2>
               <p className="mt-1 text-sm text-white/90">
-                Descarga Teilen para iOS y Android.
+                {getHomeMessages(locale).hero.availability}
               </p>
             </div>
           </div>
@@ -591,7 +658,7 @@ function HomeFooter() {
       <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 sm:py-10">
         <div className="grid gap-8 lg:grid-cols-[1.15fr_1.85fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3" aria-label="Teilen, inicio">
+            <Link href="/" className="inline-flex items-center gap-3" aria-label="Teilen">
               <Image
                 src="/logo_teilen.png"
                 alt="Teilen"
@@ -602,12 +669,11 @@ function HomeFooter() {
               <span className="text-3xl font-extrabold tracking-tight text-[#063829]">Teilen</span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">
-              App chilena para dividir gastos, organizar cuentas compartidas,
-              crear recordatorios y seguir metas de ahorro.
+              {pageCopy.footerDescription}
             </p>
             <p className="mt-3 flex max-w-sm items-start gap-2 text-sm font-bold leading-6 text-emerald-900">
               <Icon kind="shield" className="mt-0.5 h-5 w-5 shrink-0 text-[#009d63]" />
-              Tus datos están protegidos y encriptados en Teilen.
+              {pageCopy.security}
             </p>
           </div>
 
@@ -636,19 +702,19 @@ function HomeFooter() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
             <span>© {year} Teilen</span>
             <Link href="/privacidad" className="font-medium hover:text-[#008a57]">
-              Privacidad
+              {t.footer.links.legal.privacy}
             </Link>
             <Link href="/terminos" className="font-medium hover:text-[#008a57]">
-              Términos
+              {t.footer.links.legal.terms}
             </Link>
             <Link href="/cookies" className="font-medium hover:text-[#008a57]">
-              Cookies
+              {t.footer.links.legal.cookies}
             </Link>
           </div>
 
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
-            <SocialIcon label="Instagram de Teilen" href="https://www.instagram.com/teilen.app/" />
+            <SocialIcon label={pageCopy.socialInstagram} href="https://www.instagram.com/teilen.app/" />
           </div>
         </div>
       </div>
