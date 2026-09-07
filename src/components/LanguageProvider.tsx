@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import { getMessages, normalizeLocale, type Locale } from "@/lib/i18n";
 
 type LocaleContextValue = {
@@ -13,6 +13,28 @@ const DEFAULT_LOCALE: Locale = "es";
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
+const subscribeToHydration = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
+function readPreferredLocale(fallback: Locale): Locale {
+  try {
+    const stored = normalizeLocale(window.localStorage.getItem(STORAGE_KEY));
+    if (stored) return stored;
+  } catch {
+    // The language selector also works when browser storage is unavailable.
+  }
+
+  const cookie = document.cookie
+    .split(";")
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith(`${STORAGE_KEY}=`));
+  const cookieLocale = normalizeLocale(cookie?.slice(STORAGE_KEY.length + 1));
+  if (cookieLocale) return cookieLocale;
+
+  return normalizeLocale(navigator.language.split("-")[0]) ?? fallback;
+}
+
 export function LanguageProvider({
   children,
   initialLocale = DEFAULT_LOCALE,
@@ -20,26 +42,27 @@ export function LanguageProvider({
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return initialLocale;
-    }
-
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    const normalizedStored = normalizeLocale(stored);
-    if (normalizedStored) {
-      return normalizedStored;
-    }
-
-    const browserLocale = navigator.language.split("-")[0].toLowerCase();
-    return normalizeLocale(browserLocale) ?? initialLocale;
-  });
+  // The server and the first browser render use the same locale. Read browser
+  // preferences only after hydration, before persisting anything back to storage.
+  const hasHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
+  const [selectedLocale, setLocale] = useState<Locale | null>(null);
+  const locale = selectedLocale ?? (hasHydrated ? readPreferredLocale(initialLocale) : initialLocale);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, locale);
+    if (!hasHydrated) return;
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, locale);
+    } catch {
+      // Keep the current selection in React state if persistence is blocked.
+    }
     document.documentElement.lang = locale;
     document.cookie = `${STORAGE_KEY}=${locale}; path=/; max-age=31536000; samesite=lax`;
-  }, [locale]);
+  }, [hasHydrated, locale]);
 
   const value = useMemo<LocaleContextValue>(
     () => ({

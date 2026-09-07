@@ -33,7 +33,7 @@ const DEMO_STEPS: DemoStep[] = [
   {
     id: 3,
     title: 'Teilen calcula automáticamente',
-    description: 'Ve en tiempo real quién debe a quién. Sin matemáticas complicadas, Teilen optimiza los pagos para saldar rápido.',
+    description: 'Ve con claridad quién debe a quién. Sin matemáticas complicadas, Teilen optimiza los pagos para saldar rápido.',
     screen: '/screens/grupos.jpg',
     action: 'Ver balances',
     highlight: { x: 20, y: 300, width: 300, height: 120 },

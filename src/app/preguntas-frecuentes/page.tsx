@@ -19,43 +19,56 @@ const faqs: FAQ[] = [
   {
     question: "¿Teilen es gratis?",
     answer: [
-      "Actualmente Teilen está en fase de acceso anticipado y todas las funcionalidades disponibles son gratuitas.",
-      "En el futuro podríamos lanzar planes premium opcionales con herramientas avanzadas, pero siempre habrá una versión gratuita para dividir gastos sin complicaciones.",
+      "Sí. Puedes empezar con el plan gratuito para organizar gastos compartidos, registrar movimientos personales y seguir tus metas de ahorro.",
+      "Teilen Premium amplía los límites e incorpora herramientas como gastos recurrentes, cuotas y exportación de reportes. Revisa los beneficios y el precio vigente dentro de la app antes de suscribirte.",
     ],
   },
   {
     question: "¿Cómo invito a otras personas a mi grupo?",
     answer: [
-      "Desde la app, abre el grupo que deseas compartir y toca “Invitar”. Puedes enviar un enlace mágico, usar correo electrónico o compartir un código QR.",
-      "Los invitados recibirán instrucciones para crear cuenta (si aún no tienen) y se unirán automáticamente con los permisos que definas.",
+      "Abre tu grupo y entra a las opciones para agregar participantes. Puedes compartir una invitación por enlace o código QR.",
+      "La otra persona debe abrir la invitación y seguir los pasos en Teilen para participar en el grupo.",
     ],
   },
   {
     question: "¿Qué pasa con mis datos si cierro mi cuenta?",
     answer: [
-      "Puedes solicitar la eliminación de tu cuenta desde la sección de privacidad o escribiendo a contacto@teilen.cl (asunto: Eliminación de cuenta).",
+      "Puedes solicitar la eliminación de tu cuenta escribiendo a contacto@teilen.cl con el asunto “Eliminación de cuenta”.",
       "Eliminaremos o anonimizaremos tus datos dentro de plazos razonables, salvo la información que debamos mantener por obligaciones legales.",
     ],
   },
   {
     question: "¿Puedo usar Teilen sin conexión?",
     answer: [
-      "Puedes registrar gastos sin conexión temporal. La app guardará los cambios y los sincronizará automáticamente cuando recuperes conexión a internet.",
-      "Recomendamos conectarte cuanto antes para mantener los saldos del grupo actualizados para todos.",
+      "Necesitas conexión a internet para guardar nuevos gastos y mantener los saldos del grupo actualizados.",
+      "La app puede mostrar información consultada previamente cuando estás sin conexión. Vuelve a conectarte para consultar los cambios más recientes y registrar movimientos.",
     ],
   },
   {
     question: "¿En qué plataformas está disponible?",
     answer: [
-      "Teilen está disponible en iOS y Android. Descarga la app desde App Store o Google Play y sincroniza tus grupos en segundos.",
-      "También puedes acceder desde el navegador si prefieres revisar tus saldos en pantalla grande.",
+      "Teilen está disponible para iOS y Android. Puedes descargar la app desde App Store o Google Play.",
+    ],
+  },
+  {
+    question: "¿Puedo transferir dinero desde Teilen?",
+    answer: [
+      "Teilen calcula los saldos y permite registrar los pagos que ya realizaste para mantener las cuentas del grupo claras.",
+      "La transferencia de dinero se realiza a través de tu banco o del medio de pago que acuerdes con la otra persona.",
+    ],
+  },
+  {
+    question: "¿Cómo funciona el escaneo de boletas?",
+    answer: [
+      "Puedes usar la cámara o una imagen de tu galería para extraer el total o el detalle de una boleta y preparar el gasto.",
+      "Revisa los importes y los participantes antes de guardar. La cantidad de escaneos disponibles depende de tu plan.",
     ],
   },
   {
     question: "¿Cómo reporto un problema o sugerencia?",
     answer: [
-      "Desde la app, abre el Centro de ayuda y selecciona “Enviar feedback”. También puedes escribirnos a contacto@teilen.cl con capturas y descripción detallada.",
-      "Leemos cada mensaje y priorizamos las mejoras de acuerdo a impacto y demanda.",
+      "Escríbenos a contacto@teilen.cl con una descripción de lo ocurrido, el dispositivo y la versión de la app. Puedes adjuntar capturas que ayuden a explicar el problema.",
+      "También puedes enviar sugerencias sobre las funciones que te ayudarían a organizar mejor tus cuentas.",
     ],
   },
 ];
@@ -87,7 +100,7 @@ export default function FAQPage() {
             por el Centro de ayuda o escríbenos directamente.
           </p>
           <p className="mt-6 text-sm font-medium text-slate-500">
-            Última actualización: 21 de noviembre de 2024
+            Última actualización: 6 de septiembre de 2026
           </p>
         </header>
 

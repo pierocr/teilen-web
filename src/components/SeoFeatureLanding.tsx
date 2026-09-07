@@ -1,153 +1,184 @@
+"use client";
+
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  APP_STORE_URL,
-  PLAY_STORE_URL,
-  UNIVERSAL_DOWNLOAD_URL,
-  breadcrumbJsonLd,
-} from "@/lib/seo";
+import { APP_STORE_URL, PLAY_STORE_URL, breadcrumbJsonLd } from "@/lib/seo";
+import styles from "./SeoFeatureLanding.module.css";
 
-type RelatedLink = {
-  label: string;
-  href: string;
-};
+const DownloadModal = dynamic(() =>
+  import("./DownloadModal").then((module) => module.DownloadModal),
+);
+
+type RelatedLink = { label: string; href: string };
 
 type SeoFeatureLandingProps = {
   badge: string;
   title: string;
   description: string;
   highlights: string[];
-  sections: {
-    title: string;
-    text: string;
-  }[];
+  sections: { title: string; text: string }[];
   relatedLinks: RelatedLink[];
   currentPath: string;
 };
 
-export function SeoFeatureLanding({
-  badge,
-  title,
-  description,
-  highlights,
-  sections,
-  relatedLinks,
-  currentPath,
-}: SeoFeatureLandingProps) {
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function FeatureVisual({ currentPath }: { currentPath: string }) {
+  if (currentPath === "/metas-de-ahorro") {
+    return (
+      <figure className={`${styles.visual} ${styles.exampleVisual}`}>
+        <div className={styles.exampleCard}>
+          <span className={styles.exampleEyebrow}>MI META DE AHORRO</span>
+          <div className={styles.goalIcon} aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="m7 24 5-7 5 4 8-13M19 8h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <h2>Tu próximo viaje</h2>
+          <p className={styles.goalAmount}>$450.000</p>
+          <p className={styles.exampleMuted}>registrados de una meta de $750.000</p>
+          <div className={styles.goalProgress} role="img" aria-label="60% de la meta registrada"><span /></div>
+          <div className={styles.progressLabels}><strong>60% de tu meta</strong><span>Te faltan $300.000</span></div>
+          <div className={styles.exampleDivider} />
+          <p className={styles.exampleLabel}>Últimos aportes registrados</p>
+          <div className={styles.contribution}><span>Aporte al viaje</span><strong>+$80.000</strong></div>
+          <div className={styles.contribution}><span>Aporte al viaje</span><strong>+$40.000</strong></div>
+        </div>
+        <figcaption>Ejemplo ilustrativo · Tú registras tus avances.</figcaption>
+      </figure>
+    );
+  }
+
+  if (currentPath === "/recordatorios") {
+    return (
+      <figure className={`${styles.visual} ${styles.exampleVisual}`}>
+        <div className={styles.exampleCard}>
+          <span className={styles.exampleEyebrow}>TUS RECORDATORIOS</span>
+          <h2>Lo que viene.<br />A la vista.</h2>
+          <p className={styles.reminderIntro}>Tus cuentas, sus fechas y un poco más de tranquilidad.</p>
+          {[
+            { day: "08", title: "Internet hogar", category: "Servicios", amount: "$24.990" },
+            { day: "10", title: "Arriendo", category: "Hogar", amount: "$380.000" },
+            { day: "15", title: "Gimnasio", category: "Suscripciones", amount: "$29.990" },
+          ].map((reminder) => (
+            <div key={reminder.title} className={styles.reminder}>
+              <div className={styles.calendarDay} aria-label={`${reminder.day} de septiembre`}><strong>{reminder.day}</strong><span>SEP</span></div>
+              <div className={styles.reminderCopy}><strong>{reminder.title}</strong><span>{reminder.category}</span></div>
+              <span className={styles.reminderAmount}>{reminder.amount}</span>
+            </div>
+          ))}
+          <p className={styles.reminderNote}>Elige cuándo quieres recibir tus avisos.</p>
+        </div>
+        <figcaption>Ejemplo ilustrativo · Importes y fechas de referencia.</figcaption>
+      </figure>
+    );
+  }
+
+  const isReport = currentPath === "/control-de-gastos";
+  return (
+    <figure className={styles.visual}>
+      <div className={styles.screenFrame}>
+        <Image
+          src={isReport ? "/screens/imagen_reporte.png" : "/screens/imagen_grupo.png"}
+          alt={isReport
+            ? "Reporte de un grupo en Teilen con total del mes, movimientos y distribución de gastos por categoría"
+            : "Detalle de un grupo de viaje en Teilen con saldo, registro de pagos y gastos compartidos"}
+          width={852}
+          height={isReport ? 1846 : 1847}
+          sizes="(max-width: 600px) 228px, 264px"
+          priority
+          className={styles.screenImage}
+        />
+      </div>
+      <figcaption>{isReport ? "Así se ve un reporte de grupo en Teilen." : "Un grupo, todos los gastos y las cuentas claras."}</figcaption>
+    </figure>
+  );
+}
+
+export function SeoFeatureLanding({ badge, title, description, highlights, sections, relatedLinks, currentPath }: SeoFeatureLandingProps) {
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Inicio", path: "/" },
-    { name: title, path: currentPath },
+    { name: badge, path: currentPath },
   ]);
 
   return (
-    <div className="relative overflow-hidden bg-slate-50">
-      <div className="pointer-events-none absolute -left-24 top-[-12rem] h-96 w-[32rem] rounded-full bg-emerald-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute right-[-18rem] top-20 h-[28rem] w-[36rem] rounded-full bg-teal-200/30 blur-3xl" />
-
-      <article className="relative mx-auto max-w-6xl px-6 pb-20 pt-24 md:pb-28">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-emerald-700 transition hover:text-emerald-900"
-        >
-          <span aria-hidden>←</span> Volver al inicio
-        </Link>
-
-        <header className="mt-10 grid gap-10 lg:grid-cols-[1.06fr_0.94fr] lg:items-center">
-          <div>
-            <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
-              {badge}
-            </span>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              {title}
-            </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
-              {description}
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <a
-                href={APP_STORE_URL}
-                aria-label="Descargar Teilen App en App Store"
-                className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
-                rel="noopener"
-              >
-                <Image
-                  src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
-                  alt="Disponible en App Store para descargar Teilen App"
-                  width={174}
-                  height={58}
-                  className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
-                />
-              </a>
-              <a
-                href={PLAY_STORE_URL}
-                aria-label="Descargar Teilen App en Google Play"
-                className="inline-flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:border-emerald-400 hover:shadow"
-                rel="noopener"
-              >
-                <Image
-                  src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
-                  alt="Disponible en Google Play para descargar Teilen App"
-                  width={196}
-                  height={58}
-                  className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
-                />
-              </a>
+    <div className={styles.page}>
+      <article className={styles.container}>
+        <nav className={styles.breadcrumb} aria-label="Ruta de navegación">
+          <Link href="/">Inicio</Link><span aria-hidden="true">/</span><span aria-current="page">{badge}</span>
+        </nav>
+        <header className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <h1>{title}</h1>
+            <p className={styles.description}>{description}</p>
+            <div className={styles.heroActions}>
+              <button type="button" className={styles.primaryButton} onClick={() => setDownloadOpen(true)}>Descargar Teilen <ArrowIcon /></button>
+              <a href="#como-funciona" className={styles.textLink}>Cómo funciona <span aria-hidden="true">↓</span></a>
             </div>
+            <p className={styles.storeNote}>Empieza gratis en <a href={APP_STORE_URL}>iOS</a> y <a href={PLAY_STORE_URL}>Android</a>.</p>
           </div>
-
-          <aside className="rounded-3xl border border-white/70 bg-white/85 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] backdrop-blur">
-            <h2 className="text-xl font-semibold text-slate-900">Qué puedes hacer con Teilen</h2>
-            <ul className="mt-5 space-y-3">
-              {highlights.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-6 text-slate-700">
-                  <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                    <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
-                      <path d="M7.8 13.4 4.4 10l1.1-1.1 2.3 2.3 6.7-6.7 1.1 1.1-7.8 7.8Z" />
-                    </svg>
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <FeatureVisual currentPath={currentPath} />
         </header>
 
-        <section className="mt-14 grid gap-5 md:grid-cols-3">
-          {sections.map((section) => (
-            <div key={section.title} className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-slate-900">{section.title}</h2>
-              <p className="mt-3 text-base leading-7 text-slate-600">{section.text}</p>
-            </div>
-          ))}
+        <section className={styles.highlights} aria-labelledby="highlights-title">
+          <h2 id="highlights-title">Menos vueltas.<br />Más claridad.</h2>
+          <ul>
+            {highlights.map((item) => (
+              <li key={item}>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
-        <section className="mt-12 rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm md:p-8">
-          <h2 className="text-xl font-semibold text-slate-900">Explora más funcionalidades</h2>
-          <div className="mt-5 flex flex-wrap gap-3">
-            {relatedLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 transition hover:border-emerald-400 hover:bg-emerald-100"
-              >
-                {link.label}
-              </Link>
+        <section id="como-funciona" className={styles.benefits} aria-labelledby="benefits-title">
+          <p className={styles.eyebrow}>ASÍ DE SIMPLE</p>
+          <h2 id="benefits-title">Una forma más fácil de organizarte.</h2>
+          <ol className={styles.benefitRows}>
+            {sections.map((section, index) => (
+              <li key={section.title}>
+                <span className={styles.rowNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3>{section.title}</h3>
+                <p>{section.text}</p>
+              </li>
             ))}
-            <a
-              href={UNIVERSAL_DOWNLOAD_URL}
-              className="rounded-full border border-slate-200 bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Descargar la app
-            </a>
+          </ol>
+        </section>
+
+        <section className={styles.downloadSection} aria-labelledby="download-title">
+          <div>
+            <p className={styles.eyebrow}>TU DÍA A DÍA, MÁS SIMPLE</p>
+            <h2 id="download-title">Empieza con una cuenta más clara.</h2>
+            <p>Descarga Teilen y organiza tu primer gasto, recordatorio o meta.</p>
+          </div>
+          <div className={styles.downloadActions}>
+            <button type="button" className={styles.primaryButton} onClick={() => setDownloadOpen(true)}>Empezar gratis <ArrowIcon /></button>
+            <Link href="/premium" className={styles.textLink}>Explorar Premium <ArrowIcon /></Link>
           </div>
         </section>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-        />
+        <section className={styles.related} aria-labelledby="related-title">
+          <div>
+            <p className={styles.eyebrow}>SIGUE EXPLORANDO</p>
+            <h2 id="related-title">Hay más en Teilen.</h2>
+          </div>
+          <div className={styles.relatedLinks}>
+            {relatedLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}<ArrowIcon /></Link>)}
+          </div>
+        </section>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs).replace(/</g, "\\u003c") }} />
       </article>
+      {downloadOpen ? <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} /> : null}
     </div>
   );
 }

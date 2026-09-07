@@ -12,7 +12,7 @@ const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 
 const HERO_BULLETS = [
-  "Saldos claros en tiempo real",
+  "Saldos claros y actualizados",
   "Gastos personales y compartidos",
   "Recordatorios y metas de ahorro",
 ];

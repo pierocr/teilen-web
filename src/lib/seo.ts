@@ -6,12 +6,12 @@ export const BRAND_ALTERNATE_NAME = "Teilen App";
 export const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
 export const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
 export const UNIVERSAL_DOWNLOAD_URL = `${SITE_URL}/api/download`;
-export const SOCIAL_IMAGE = "/teilen-og-2026.webp";
+export const SOCIAL_IMAGE = "/teilen-og-2026-v2.png";
 export const INSTAGRAM_URL = "https://www.instagram.com/teilen.app/";
 
-export const DEFAULT_TITLE = "Teilen | Divide gastos con pareja, amigos y grupos";
+export const DEFAULT_TITLE = "Teilen | Gastos compartidos y finanzas personales";
 export const DEFAULT_DESCRIPTION =
-  "Organiza gastos compartidos, calcula saldos y mantén las cuentas claras con Teilen. Ideal para parejas, viajes, roomies y amigos.";
+  "Divide gastos con amigos, pareja y roomies. Organiza tus finanzas personales, recordatorios y metas de ahorro con Teilen. Descarga gratis para iOS y Android.";
 
 export function absoluteUrl(path = "/") {
   if (path.startsWith("http")) return path;
@@ -47,7 +47,7 @@ export function createPageMetadata({
           url: SOCIAL_IMAGE,
           width: 1200,
           height: 630,
-          type: "image/webp",
+          type: "image/png",
           alt: DEFAULT_TITLE,
         },
       ],

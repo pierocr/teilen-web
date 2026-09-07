@@ -6,6 +6,7 @@ import Script from "next/script";
 import { Toaster } from "@/components/Toaster";
 import { PWAInstaller } from "@/components/PWAInstaller";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { PublicSiteFrame } from "@/components/marketing/PublicSiteFrame";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
@@ -20,7 +21,7 @@ import {
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   preload: true,
 });
 
@@ -84,7 +85,7 @@ export const metadata: Metadata = {
         secureUrl: absoluteUrl(SOCIAL_IMAGE),
         width: 1200,
         height: 630,
-        type: "image/webp",
+        type: "image/png",
         alt: DEFAULT_TITLE,
       },
     ],
@@ -191,7 +192,7 @@ export default function RootLayout({
             }}
           />
 
-          <main id="main-content">{children}</main>
+          <PublicSiteFrame><main id="main-content">{children}</main></PublicSiteFrame>
           <Toaster />
           <PWAInstaller />
         </LanguageProvider>

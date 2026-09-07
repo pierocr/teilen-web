@@ -1,214 +1,139 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useId, useRef } from "react";
 import { useLocale } from "./LanguageProvider";
 import { getHomeMessages } from "@/lib/home-i18n";
-import type { Locale } from "@/lib/i18n";
-import { UNIVERSAL_DOWNLOAD_URL } from "@/lib/seo";
+import { APP_STORE_URL, PLAY_STORE_URL } from "@/lib/seo";
 
 type Props = {
   open: boolean;
   onClose: () => void;
 };
 
-const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pierocr.teilenapp";
-const APP_STORE_URL = "https://apps.apple.com/cl/app/teilen/id6754208104";
-
-const redirectMessages: Record<Locale, { title: string; description: string }> = {
-  es: {
-    title: "Abriendo la tienda",
-    description: "Te estamos redirigiendo. Si tarda unos segundos, no vuelvas a presionar el botón.",
-  },
-  en: {
-    title: "Opening the store",
-    description: "We are redirecting you. If it takes a few seconds, avoid tapping the button again.",
-  },
-  de: {
-    title: "Store wird geöffnet",
-    description: "Du wirst weitergeleitet. Wenn es ein paar Sekunden dauert, tippe bitte nicht erneut.",
-  },
-  pt: {
-    title: "Abrindo a loja",
-    description: "Estamos redirecionando você. Se demorar alguns segundos, não toque novamente.",
-  },
-  it: {
-    title: "Apertura dello store",
-    description: "Ti stiamo reindirizzando. Se richiede qualche secondo, non premere di nuovo.",
-  },
-  fr: {
-    title: "Ouverture de la boutique",
-    description: "Nous vous redirigeons. Si cela prend quelques secondes, n'appuyez pas de nouveau.",
-  },
-};
-
 export function DownloadModal({ open, onClose }: Props) {
   const { locale } = useLocale();
   const home = getHomeMessages(locale);
-  const [redirecting, setRedirecting] = useState<"app-store" | "play-store" | "universal" | null>(null);
-  const redirectCopy = redirectMessages[locale];
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
   useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setRedirecting(null);
-        onClose();
-      }
+    const dialog = dialogRef.current;
+    if (!open || !dialog) return;
+
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    // A native modal keeps keyboard focus inside and makes the page behind it inert.
+    if (!dialog.open) dialog.showModal();
+    closeButtonRef.current?.focus({ preventScroll: true });
+
+    return () => {
+      if (dialog.open) dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
-    if (open) window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
-  }, [open, onClose]);
-
-  const handleRedirect = (
-    event: MouseEvent<HTMLAnchorElement>,
-    url: string,
-    target: "app-store" | "play-store" | "universal",
-  ) => {
-    event.preventDefault();
-    if (redirecting) return;
-    setRedirecting(target);
-    window.setTimeout(() => {
-      window.location.assign(url);
-    }, 650);
-  };
-
-  const handleClose = () => {
-    setRedirecting(null);
-    onClose();
-  };
-
-  if (!open) return null;
+  }, [open]);
 
   return (
-    <div className="fixed inset-0 z-[100]">
-      <div
-        className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
-        onClick={handleClose}
-        aria-hidden="true"
-      />
+    <dialog
+      ref={dialogRef}
+      aria-modal="true"
+      aria-labelledby={titleId}
+      aria-describedby={descriptionId}
+      className="fixed inset-0 m-auto max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] max-w-3xl overflow-y-auto overscroll-contain rounded-[28px] border border-white/70 bg-white p-0 text-slate-900 shadow-[0_24px_100px_rgba(15,23,42,0.3)] backdrop:bg-slate-950/65 backdrop:backdrop-blur-sm"
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={(event) => {
+        if (event.target !== event.currentTarget) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        if (
+          event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom
+        ) {
+          onClose();
+        }
+      }}
+    >
+      <div className="relative p-6 sm:p-9">
+        <button
+          ref={closeButtonRef}
+          type="button"
+          onClick={onClose}
+          aria-label={home.downloadModal.close}
+          className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200 hover:text-slate-950"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
 
-      <div className="relative z-[101] flex min-h-full items-center justify-center px-3 py-6 sm:px-4 sm:py-10 overflow-y-auto">
-        <div className="relative w-full max-w-5xl rounded-[22px] border border-white/50 bg-white/95 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.35)] max-h-[92vh] overflow-y-auto overscroll-contain sm:rounded-[28px] sm:p-7 lg:p-9">
-          {redirecting && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[22px] bg-white/90 px-6 text-center backdrop-blur-sm sm:rounded-[28px]">
-              <div className="max-w-sm">
-                <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-emerald-100 border-t-emerald-600" />
-                <p className="mt-4 text-lg font-semibold text-slate-900">{redirectCopy.title}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{redirectCopy.description}</p>
-              </div>
+        <div className="mb-6 flex items-center gap-3 pr-12">
+          <Image src="/logo_teilen.png" alt="Teilen" width={44} height={44} className="h-11 w-11" />
+          <span className="text-sm font-semibold text-emerald-700">{home.downloadModal.badge}</span>
+        </div>
+
+        <div className="grid items-center gap-8 md:grid-cols-[1.3fr_1fr]">
+          <div>
+            <h2 id={titleId} className="text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+              {home.downloadModal.title}
+            </h2>
+            <p id={descriptionId} className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+              {home.downloadModal.description}
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href={APP_STORE_URL}
+                aria-label={home.stores.appStoreAria}
+                className="inline-flex rounded-lg transition hover:opacity-80"
+                rel="noopener"
+              >
+                <Image
+                  src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
+                  alt={home.stores.appStoreAlt}
+                  width={144}
+                  height={48}
+                  className="h-12 w-36"
+                />
+              </a>
+              <a
+                href={PLAY_STORE_URL}
+                aria-label={home.stores.googlePlayAria}
+                className="inline-flex rounded-lg transition hover:opacity-80"
+                rel="noopener"
+              >
+                <Image
+                  src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
+                  alt={home.stores.googlePlayAlt}
+                  width={162}
+                  height={48}
+                  className="h-12 w-[162px]"
+                />
+              </a>
             </div>
-          )}
+          </div>
 
-          <button
-            onClick={handleClose}
-            aria-label={home.downloadModal.close}
-            className="absolute right-5 top-5 rounded-full border border-black/10 px-3 py-1 text-xs sm:text-sm font-medium text-slate-600 transition hover:bg-black/5"
-          >
-            ✕
-          </button>
-
-          <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 md:grid-cols-[1.05fr_0.8fr] lg:gap-12">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-800 ring-1 ring-emerald-200">
-                {home.downloadModal.badge}
-              </span>
-
-              <h2 className="mt-4 text-xl font-bold leading-tight text-slate-900 sm:mt-5 sm:text-2xl md:text-3xl lg:text-[34px]">
-                {home.downloadModal.title}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600 sm:mt-3 sm:text-base sm:leading-7 md:text-lg">
-                {home.downloadModal.description}
-              </p>
-
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600 sm:mt-5 sm:space-y-3.5 md:text-base">
-                {home.downloadModal.highlights.map((item) => (
-                  <li key={item.title} className="flex gap-3">
-                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-semibold">
-                      ✓
-                    </span>
-                    <div>
-                      <p className="font-semibold text-slate-900">{item.title}</p>
-                      <p>{item.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
-                <a
-                  href={APP_STORE_URL}
-                  aria-label={home.stores.appStoreAria}
-                  className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
-                  rel="noopener"
-                  onClick={(event) => handleRedirect(event, APP_STORE_URL, "app-store")}
-                >
-                  <Image
-                    src="/Download_on_the_App_Store_Badge_ESMX_RGB_blk_100217.svg"
-                    alt={home.stores.appStoreAlt}
-                    width={174}
-                    height={58}
-                    className="h-[48px] w-[144px] sm:h-[58px] sm:w-[174px]"
-                  />
-                </a>
-                <a
-                  href={PLAY_STORE_URL}
-                  aria-label={home.stores.googlePlayAria}
-                  className="inline-flex overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
-                  rel="noopener"
-                  onClick={(event) => handleRedirect(event, PLAY_STORE_URL, "play-store")}
-                >
-                  <Image
-                    src="/GetItOnGooglePlay_Badge_Web_color_Spanish-LATAM.png"
-                    alt={home.stores.googlePlayAlt}
-                    width={196}
-                    height={58}
-                    className="h-[48px] w-[162px] sm:h-[58px] sm:w-[196px]"
-                  />
-                </a>
-              </div>
-              <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:text-xs sm:tracking-[0.35em]">
-                {home.downloadModal.markets}
-              </p>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[300px]">
-              <div
-                className="pointer-events-none absolute -inset-4 rounded-[40px] bg-gradient-to-br from-emerald-400/30 via-slate-100 to-slate-900/5 blur-3xl"
-                aria-hidden="true"
+          <div className="rounded-3xl border border-emerald-100 bg-emerald-50/60 p-5 text-center">
+            <div className="mx-auto w-fit rounded-2xl bg-white p-3">
+              <Image
+                src="/qr-download.png"
+                alt={home.downloadModal.qrAlt}
+                width={224}
+                height={224}
+                className="h-auto w-48 max-w-full"
               />
-              <div className="relative rounded-[26px] border border-white/60 bg-white/80 p-3 shadow-xl backdrop-blur">
-                <div className="rounded-[22px] border border-slate-100 bg-slate-900/5 p-2">
-                  <Image
-                    src="/screens/home.webp"
-                    alt={home.downloadModal.phoneImageAlt}
-                    width={900}
-                    height={1800}
-                    priority={false}
-                    className="h-auto w-full rounded-[16px] border border-black/5 object-cover shadow-[0_18px_35px_rgba(15,23,42,0.25)]"
-                  />
-                </div>
-
-                <a
-                  href={UNIVERSAL_DOWNLOAD_URL}
-                  className="absolute -bottom-10 right-0 flex w-32 flex-col items-center gap-1.5 rounded-2xl border border-slate-100 bg-white/95 p-2.5 text-center text-[10px] font-medium text-slate-700 shadow-xl transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl sm:-bottom-12 sm:w-40 sm:gap-2 sm:p-3 sm:text-xs"
-                  onClick={(event) => handleRedirect(event, UNIVERSAL_DOWNLOAD_URL, "universal")}
-                >
-                  <Image
-                    src="/qr-download.png"
-                    alt={home.downloadModal.qrAlt}
-                    width={120}
-                    height={120}
-                    className="h-16 w-16 rounded-xl border border-slate-100 bg-white p-1.5 sm:h-24 sm:w-24 sm:p-2"
-                  />
-                  <span className="uppercase tracking-[0.25em] text-emerald-600">
-                    {home.downloadModal.qrLabel}
-                  </span>
-                </a>
-              </div>
             </div>
+            <p className="mt-4 text-sm font-bold text-emerald-900">{home.page.cta.qrTitle}</p>
+            <p className="mt-1 text-xs leading-5 text-slate-600">{home.downloadModal.badge}</p>
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

@@ -20,7 +20,7 @@ const contactChannels: ContactChannel[] = [
   {
     title: "Soporte a usuarios",
     description:
-      "¿Problemas con un grupo, un saldo o la app? Escríbenos y el equipo de soporte responderá en menos de 24 horas hábiles.",
+      "¿Problemas con un grupo, un saldo o la app? Cuéntanos qué ocurrió para que el equipo de soporte pueda revisar tu caso.",
     subject: "Soporte Teilen",
   },
   {
@@ -38,7 +38,7 @@ const contactChannels: ContactChannel[] = [
 ];
 
 const officeInfo = [
-  { label: "Horario de atención", value: "Lunes a viernes, 09:00 a 18:00 (GMT-3)" },
+  { label: "Atención", value: "Soporte por correo electrónico y desde la app" },
   { label: "Ubicación", value: "Remoto desde Santiago, Chile" },
   { label: "Correo oficial", value: "contacto@teilen.cl", href: "mailto:contacto@teilen.cl" },
 ];
@@ -123,16 +123,16 @@ export default function ContactPage() {
         </section>
 
         <aside className="mt-16 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-8 shadow-sm">
-          <h3 className="text-lg font-semibold text-emerald-900">¿Respuesta urgente?</h3>
+          <h3 className="text-lg font-semibold text-emerald-900">Ayúdanos a entender tu caso</h3>
           <p className="mt-3 text-base leading-7 text-emerald-900/80">
-            Escríbenos con el asunto “Urgente” a{" "}
+            Escríbenos con el asunto “Soporte Teilen” a{" "}
             <a
-              href="mailto:contacto@teilen.cl?subject=Urgente"
+              href="mailto:contacto@teilen.cl?subject=Soporte%20Teilen"
               className="font-semibold text-emerald-700 underline decoration-emerald-200 underline-offset-4 hover:text-emerald-900"
             >
               contacto@teilen.cl
             </a>{" "}
-            y priorizaremos tu caso de inmediato.
+            e incluye la versión de la app, tu dispositivo y los pasos que seguiste antes del problema.
           </p>
         </aside>
       </article>

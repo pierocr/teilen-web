@@ -20,7 +20,7 @@ type Guide = {
 const quickGuides: Guide[] = [
   {
     title: "Crear tu primer grupo",
-    description: "Aprende a invitar a tus amigos, asignar roles y mantener todo organizado desde el día uno.",
+    description: "Aprende a crear un grupo, invitar a tus amigos y mantener sus gastos organizados.",
     href: "#crear-grupo",
     badge: "Básico",
   },
@@ -31,8 +31,8 @@ const quickGuides: Guide[] = [
     badge: "Intermedio",
   },
   {
-    title: "Cerrar un ciclo y saldar saldos",
-    description: "Consejos para evitar dobles pagos, solicitar reembolsos y mantener las cuentas limpias.",
+    title: "Revisar saldos y registrar pagos",
+    description: "Consulta quién le debe a quién y registra los pagos que ya realizaron.",
     href: "#saldos",
     badge: "Tips",
   },
@@ -43,27 +43,27 @@ const helpTopics: { id: string; title: string; content: string[] }[] = [
     id: "crear-grupo",
     title: "Crear y gestionar grupos",
     content: [
-      "Ve a la pantalla principal y toca “Nuevo grupo”. Elige un nombre, foto opcional y define si es para pareja, amigos, viaje u otro contexto.",
-      "Invita a compañeros usando su correo, número de teléfono o un enlace mágico generado por Teilen.",
-      "Define permisos: puedes dar acceso para registrar gastos, solo visualizar o administrar saldos.",
+      "Ve a la pantalla principal y toca “Crear grupo”. Elige un nombre y una imagen que les ayude a reconocerlo.",
+      "Comparte el enlace de invitación o el código QR del grupo con las personas que participarán.",
+      "Usen el grupo para consultar los gastos compartidos, el historial y los saldos de sus participantes.",
     ],
   },
   {
     id: "registrar-gastos",
     title: "Registrar gastos y compartir comprobantes",
     content: [
-      "Selecciona el grupo, presiona “Nuevo gasto” e ingresa el monto, la fecha y la categoría.",
+      "Selecciona el grupo, presiona “Añadir gasto” e indica quién pagó, el monto, la fecha y la categoría.",
       "Decide si el gasto se divide en partes iguales, por porcentaje o asignando montos personalizados.",
       "Adjunta recibos o fotos para mantener trazabilidad y agrega notas para recordar detalles importantes.",
     ],
   },
   {
     id: "saldos",
-    title: "Saldos, reembolsos y ciclos",
+    title: "Saldos y registro de pagos",
     content: [
-      "La tarjeta de resumen muestra quién debe a quién en tiempo real. Puedes filtrar por miembro o por rango de fechas.",
-      "Cuando estés listo para cerrar el ciclo, toca “Sugerir pagos” y Teilen generará la forma más eficiente de saldar.",
-      "Los pagos registrados quedan marcados como “Pendiente” hasta que todos los participantes confirmen el movimiento.",
+      "Revisa el saldo del grupo y el detalle de los gastos para saber cuánto debes o cuánto te deben.",
+      "Realiza la transferencia por el medio que acuerden. Luego utiliza la opción de registrar pagos en Teilen y selecciona el saldo o los gastos correspondientes.",
+      "Puedes adjuntar un comprobante y consultar el historial de pagos registrados. Teilen lleva el registro; no ejecuta transferencias bancarias.",
     ],
   },
 ];

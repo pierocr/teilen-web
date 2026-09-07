@@ -1,0 +1,173 @@
+.page {
+  --premium-forest: #12352c;
+  --premium-mint: #eaf5ef;
+  --premium-lime: #dfff88;
+  --premium-muted: #59665f;
+  --premium-line: #dce4df;
+  background: #fff;
+  color: var(--premium-forest);
+  padding-bottom: 30px;
+}
+
+.wrap { width: calc(100% - 96px); max-width: 1240px; margin-inline: auto; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr); gap: 80px; align-items: center; padding-block: 78px 94px; }
+.page .heroTitle { font-size: clamp(44px, 4.9vw, 72px); line-height: 1.08; letter-spacing: -.055em; font-weight: 700; white-space: pre-line; text-wrap: balance; }
+.page .heroIntro { max-width: 515px; margin-top: 26px; font-size: 17px; line-height: 1.85; }
+.heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 34px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 20px; min-height: 56px; padding: 15px 23px; border: 1px solid transparent; border-radius: 12px; background: #12352c; color: #fff; font: inherit; font-size: 14px; font-weight: 700; line-height: 1.45; text-align: center; cursor: pointer; transition: background .2s, transform .2s; }
+.button:hover { background: #214e40; transform: translateY(-2px); }
+.textLink { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; line-height: 1.5; }
+.textLink:hover { color: #008653; }
+.textLink svg { width: 18px; height: 18px; }
+.page .availability { margin-top: 20px; font-size: 12px; }
+.membership { position: relative; overflow: hidden; padding: 32px; border-radius: 28px; background: #12352c; color: #fff; box-shadow: 0 25px 55px #12352c12; }
+.membership::before { content: ""; position: absolute; width: 320px; height: 320px; border: 1px solid #ffffff12; border-radius: 50%; top: -220px; right: -50px; pointer-events: none; }
+.membershipTop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.membershipBrand { display: flex; align-items: baseline; gap: 8px; font-size: 29px; font-weight: 800; letter-spacing: -.07em; line-height: 1.3; }
+.membershipBrand > span { font-size: 11px; font-weight: 500; letter-spacing: 0; }
+.badge { padding: 6px 10px; border-radius: 30px; background: #dfff88; color: #12352c; font-size: 10px; line-height: 1.35; font-weight: 700; }
+.page .membershipTitle { padding-block: 29px; margin-top: 16px; border-bottom: 1px solid #486257; color: #fff; font-size: 34px; font-weight: 600; line-height: 1.2; letter-spacing: -.045em; }
+.benefitList { display: flex; flex-direction: column; gap: 20px; padding: 27px 0 32px; margin: 0; list-style: none; }
+.benefitList li { display: flex; align-items: center; gap: 13px; font-size: 14px; line-height: 1.5; }
+.checkCircle { display: inline-flex; align-items: center; justify-content: center; width: 29px; height: 29px; flex-shrink: 0; border-radius: 50%; background: #dfff88; color: #12352c; }
+.page .checkCircle svg { width: 16px; height: 16px; }
+.membershipBottom { display: flex; align-items: center; gap: 15px; border-top: 1px solid #486257; padding-top: 22px; }
+.membershipMark { color: #dfff88; font-size: 28px; line-height: 1; }
+.page .membershipBottom > p { color: #d6e5dc; font-size: 12px; }
+.comparison { padding-block: 35px 80px; }
+.sectionHeader { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 35px; }
+.page .heading, .billing .heading { max-width: 710px; font-size: clamp(32px, 3.45vw, 49px); line-height: 1.15; font-weight: 700; letter-spacing: -.05em; white-space: pre-line; text-wrap: balance; }
+.page .sectionIntro { max-width: 340px; font-size: 15px; line-height: 1.8; }
+.tableFrame { overflow: hidden; border: 1px solid #dce4df; border-radius: 22px; }
+.comparisonTable { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; line-height: 1.5; }
+.comparisonTable th, .comparisonTable td { padding: 21px 28px; text-align: left; overflow-wrap: anywhere; }
+.comparisonTable thead th { width: 28%; background: #f7faf8; font-size: 16px; font-weight: 700; vertical-align: middle; }
+.comparisonTable thead th:first-child { width: 44%; font-size: 13px; font-weight: 500; }
+.comparisonTable thead .premiumHeading { background: #12352c; color: #fff; }
+.comparisonTable tbody th { font-size: 14px; font-weight: 500; }
+.comparisonTable tbody tr { border-top: 1px solid #dce4df; }
+.comparisonTable tbody td { color: #59665f; }
+.comparisonTable tbody .premiumCell { background: #eaf5ef; color: #12352c; font-weight: 600; }
+.premiumCell > span { display: inline-flex; align-items: center; gap: 10px; }
+.page .premiumCell svg { width: 16px; height: 16px; }
+.page .note { max-width: 850px; margin: 22px auto 0; font-size: 12px; line-height: 1.7; text-align: center; }
+.freeLink { display: flex; align-items: center; gap: 10px; width: fit-content; margin: 19px auto 0; padding: 7px 0; border: 0; background: transparent; color: #12352c; font-size: 13px; font-weight: 700; cursor: pointer; }
+.freeLink:hover { color: #008653; }
+.billing { padding-block: 26px 22px; }
+.billingHeader { text-align: center; margin-bottom: 36px; }
+.billing .heading { margin-inline: auto; }
+.billingHeader > p { max-width: 670px; margin: 20px auto 0; font-size: 15px; line-height: 1.8; }
+.billingGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 960px; margin-inline: auto; }
+.planCard { display: flex; flex-direction: column; min-width: 0; padding: 34px; border: 1px solid #b7c9bd; border-radius: 22px; background: #fff; }
+.planTop { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.planLabel { font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .1em; }
+.planIcon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #eaf5ef; }
+.planCard .planTitle { margin-top: 23px; font-size: 31px; line-height: 1.2; font-weight: 700; letter-spacing: -.04em; }
+.planCard .planDescription { max-width: 330px; margin-top: 15px; font-size: 14px; line-height: 1.75; min-height: 72px; }
+.planPrice { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-block: 21px 26px; padding-block: 24px; border-top: 1px solid #dce4df; border-bottom: 1px solid #dce4df; font-size: 24px; line-height: 1.35; letter-spacing: -.035em; font-weight: 600; }
+.planPrice > span { max-width: 270px; white-space: pre-line; }
+.planPrice > svg { opacity: .4; }
+.planCard > .button { width: 100%; margin-top: auto; }
+.outlineButton { background: #fff; color: #12352c; border-color: #12352c; }
+.outlineButton:hover { background: #eaf5ef; }
+.annualCard { background: #12352c; color: #fff; border-color: #12352c; }
+.annualCard .planIcon { background: #dfff88; color: #12352c; }
+.annualCard .planDescription { color: #d6e5dc; }
+.annualCard .planPrice { border-color: #486257; }
+.limeButton { background: #dfff88; color: #12352c; }
+.limeButton:hover { background: #d0f070; }
+.billing .billingNote { max-width: 780px; margin: 24px auto 0; text-align: center; font-size: 12px; line-height: 1.8; }
+.activation { display: grid; grid-template-columns: .85fr 1.5fr; align-items: center; gap: 45px; margin-top: 70px; padding: 40px; border-radius: 24px; background: #eaf5ef; }
+.page .activationTitle { max-width: 300px; font-size: 32px; line-height: 1.2; letter-spacing: -.045em; text-wrap: balance; }
+.activationSteps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; list-style: none; padding: 0; margin: 0; }
+.activationSteps li { min-width: 0; }
+.activationSteps li > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #12352c; color: #dfff88; font-size: 11px; font-weight: 700; }
+.page .activationSteps p { margin-top: 15px; color: #12352c; font-size: 13px; line-height: 1.6; font-weight: 600; }
+.support { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding-block: 36px 20px; text-align: center; }
+.page .support p { font-size: 13px; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+@media (max-width: 1050px) {
+  .hero { gap: 40px; grid-template-columns: 1.1fr 1fr; padding-block: 60px 70px; }
+  .page .heroTitle { font-size: 52px; }
+  .membership { padding: 26px; }
+  .membershipTop { gap: 12px; }
+  .membershipBrand { font-size: 25px; }
+  .page .membershipTitle { font-size: 30px; }
+  .benefitList li { font-size: 13px; }
+  .heroActions { gap: 20px; }
+  .heroActions .button { font-size: 13px; padding-inline: 17px; }
+  .sectionHeader { align-items: flex-start; }
+  .page .sectionIntro { max-width: 280px; font-size: 14px; }
+  .activation { grid-template-columns: 1fr; gap: 27px; }
+  .page .activationTitle { max-width: 550px; }
+}
+
+@media (max-width: 760px) {
+  .wrap { width: calc(100% - 48px); }
+  .hero { grid-template-columns: 1fr; gap: 38px; padding-block: 46px 64px; }
+  .page .heroTitle { font-size: clamp(42px, 7.4vw, 58px); }
+  .page .heroIntro { max-width: 590px; font-size: 15px; margin-top: 21px; }
+  .heroActions { margin-top: 27px; }
+  .membership { max-width: 520px; width: 100%; padding: 29px; }
+  .membershipTop { flex-wrap: nowrap; }
+  .comparison { padding-block: 12px 50px; }
+  .sectionHeader { flex-direction: column; gap: 18px; margin-bottom: 27px; }
+  .page .sectionIntro { max-width: 530px; }
+  .comparisonTable th, .comparisonTable td { padding: 17px 16px; }
+  .comparisonTable thead th { width: 27%; font-size: 14px; }
+  .comparisonTable thead th:first-child { width: 46%; }
+  .comparisonTable tbody th, .comparisonTable tbody td { font-size: 12px; }
+  .premiumCell > span { gap: 6px; }
+  .page .premiumCell svg { width: 13px; height: 13px; }
+  .planCard { padding: 25px; }
+  .planCard .planTitle { font-size: 27px; }
+  .planPrice { font-size: 21px; }
+  .planCard .planDescription { font-size: 13px; min-height: 92px; }
+  .planCard .button { padding: 13px 15px; gap: 10px; font-size: 12px; }
+  .activation { margin-top: 45px; padding: 30px; }
+}
+
+@media (max-width: 500px) {
+  .wrap { width: calc(100% - 40px); }
+  .hero { padding-top: 34px; gap: 30px; }
+  .page .heroTitle { font-size: clamp(37px, 10.2vw, 48px); }
+  .page .heroIntro { font-size: 14px; line-height: 1.85; }
+  .heroActions { flex-wrap: wrap; gap: 22px; }
+  .textLink { font-size: 12px; }
+  .membership { padding: 25px; border-radius: 23px; }
+  .membershipTop { flex-wrap: wrap; }
+  .page .membershipTitle { font-size: 29px; padding-block: 23px; margin-top: 8px; }
+  .benefitList { padding-block: 23px; gap: 17px; }
+  .benefitList li { font-size: 12px; gap: 11px; }
+  .page .heading, .billing .heading { font-size: 32px; }
+  .tableFrame { border-radius: 15px; }
+  .comparisonTable th, .comparisonTable td { padding: 15px 10px; }
+  .comparisonTable thead th { font-size: 12px; }
+  .comparisonTable thead th:first-child { font-size: 11px; }
+  .comparisonTable tbody th, .comparisonTable tbody td { font-size: 11px; }
+  .premiumCell > span { display: block; }
+  .page .premiumCell svg { display: none; }
+  .page .note { font-size: 10px; text-align: left; }
+  .billing { padding-top: 12px; }
+  .billingHeader > p { font-size: 14px; margin-top: 16px; }
+  .billingGrid { grid-template-columns: 1fr; gap: 20px; }
+  .planCard { padding: 27px; }
+  .planCard .planTitle { font-size: 31px; }
+  .planCard .planDescription { min-height: 0; font-size: 14px; }
+  .planPrice { font-size: 25px; margin-top: 25px; }
+  .planCard .button { font-size: 13px; min-height: 54px; }
+  .billing .billingNote { text-align: left; font-size: 11px; }
+  .activation { padding: 27px 24px; margin-top: 37px; }
+  .page .activationTitle { font-size: 28px; }
+  .activationSteps { grid-template-columns: 1fr; gap: 20px; }
+  .activationSteps li { display: flex; align-items: center; gap: 14px; }
+  .activationSteps li > span { flex-shrink: 0; }
+  .page .activationSteps p { margin: 0; }
+  .support { align-items: center; flex-direction: column; padding-top: 30px; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:hover { transform: none; }
+}

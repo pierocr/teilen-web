@@ -1,0 +1,132 @@
+.page { background: #fff; color: #12352c; }
+.container { max-width: 1248px; padding: 32px 24px 100px; margin: 0 auto; }
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 12px; color: #60736b; font-size: 12px; line-height: 1.6; }
+.breadcrumb a:hover { color: #00794c; }
+.hero { display: grid; grid-template-columns: 1.08fr 1fr; gap: 76px; align-items: center; padding: 40px 0 80px; }
+.heroCopy { min-width: 0; }
+.eyebrow { margin: 0 0 22px; color: #00794c; font-size: 11px; font-weight: 700; letter-spacing: .12em; line-height: 1.6; text-transform: uppercase; }
+.hero h1 { margin: 0; max-width: 610px; font-size: 56px; font-weight: 650; line-height: 1.13; letter-spacing: -.055em; text-wrap: balance; }
+.description { max-width: 500px; margin: 25px 0 0; color: #60736b; font-size: 16px; line-height: 1.8; }
+.heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 32px; }
+.primaryButton { display: inline-flex; min-height: 54px; align-items: center; justify-content: center; gap: 28px; padding: 15px 22px; border: 0; border-radius: 12px; background: #009d63; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .18s ease; }
+.primaryButton:hover { background: #007b4e; }
+.primaryButton svg, .textLink svg, .relatedLinks svg { width: 20px; height: 20px; flex-shrink: 0; }
+.textLink { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 12px; color: #12352c; font-size: 13px; font-weight: 600; }
+.textLink:hover { color: #00794c; }
+.storeNote { margin: 18px 0 0; color: #60736b; font-size: 12px; line-height: 1.7; }
+.storeNote a { text-decoration: underline; text-underline-offset: 3px; }
+.visual { display: flex; min-width: 0; min-height: 628px; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 25px; border-radius: 28px; background: #eaf5ef; }
+.screenFrame { width: 254px; flex-shrink: 0; overflow: hidden; padding: 5px; border: 1px solid #294c3f; border-radius: 27px; background: #12352c; box-shadow: 0 15px 28px #12352c18; }
+.screenImage { display: block; height: auto; width: 100%; border-radius: 21px; }
+.visual figcaption { color: #60736b; font-size: 10px; line-height: 1.7; text-align: center; }
+.exampleVisual { gap: 24px; }
+.exampleCard { width: 100%; max-width: 365px; padding: 30px; border-radius: 20px; background: #fff; box-shadow: 0 12px 32px #12352c0a; }
+.exampleEyebrow { color: #60736b; font-size: 9px; font-weight: 650; letter-spacing: .12em; }
+.exampleCard h2 { margin: 17px 0 0; font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -.035em; }
+.goalIcon { display: flex; width: 50px; height: 50px; align-items: center; justify-content: center; margin-top: 27px; border-radius: 14px; background: #eaf5ef; color: #00794c; }
+.goalIcon svg { width: 30px; height: 30px; }
+.goalAmount { margin: 26px 0 3px; font-size: 36px; font-weight: 650; letter-spacing: -.06em; }
+.exampleMuted { margin: 0; color: #60736b; font-size: 10px; line-height: 1.6; }
+.goalProgress { height: 8px; overflow: hidden; margin: 20px 0 12px; border-radius: 3px; background: #eaf5ef; }
+.goalProgress span { display: block; width: 60%; height: 100%; border-radius: inherit; background: #009d63; }
+.progressLabels { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; color: #60736b; font-size: 9px; }
+.progressLabels strong { color: #00794c; font-weight: 650; }
+.exampleDivider { height: 1px; margin: 28px 0 19px; background: #e4eae5; }
+.exampleLabel { color: #60736b; font-size: 10px; }
+.contribution { display: flex; justify-content: space-between; gap: 12px; padding-top: 15px; font-size: 11px; }
+.contribution strong { color: #00794c; font-weight: 600; }
+.reminderIntro { margin: 16px 0 20px; color: #60736b; font-size: 11px; line-height: 1.75; }
+.reminder { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-top: 1px solid #e4eae5; }
+.calendarDay { display: flex; width: 40px; height: 48px; flex-shrink: 0; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-radius: 8px; background: #eaf5ef; }
+.calendarDay strong { font-size: 18px; font-weight: 600; }
+.calendarDay span { font-size: 7px; letter-spacing: .1em; }
+.reminderCopy { display: flex; flex: 1; flex-direction: column; gap: 4px; }
+.reminderCopy strong { font-size: 11px; font-weight: 650; }
+.reminderCopy span { color: #60736b; font-size: 9px; }
+.reminderAmount { font-size: 10px; font-weight: 600; }
+.reminderNote { margin: 18px 0 0; padding-top: 20px; border-top: 1px solid #e4eae5; color: #60736b; font-size: 10px; line-height: 1.7; }
+.highlights { display: grid; grid-template-columns: .85fr 1.65fr; gap: 60px; align-items: start; padding: 45px 0; border-top: 1px solid #e4eae5; border-bottom: 1px solid #e4eae5; }
+.highlights h2 { margin: 0; font-size: 30px; font-weight: 600; line-height: 1.3; letter-spacing: -.04em; }
+.highlights ul { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 36px; padding: 0; margin: 0; list-style: none; }
+.highlights li { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.8; }
+.highlights li svg { flex-shrink: 0; width: 19px; height: 19px; margin-top: 2px; color: #009d63; }
+.benefits { padding: 100px 0 88px; scroll-margin-top: 110px; }
+.benefits > h2 { max-width: 550px; margin: 0 0 46px; font-size: 40px; font-weight: 600; line-height: 1.2; letter-spacing: -.045em; text-wrap: balance; }
+.benefitRows { margin: 0; padding: 0; list-style: none; }
+.benefitRows li { display: grid; grid-template-columns: 70px 1fr 1.25fr; gap: 35px; align-items: baseline; padding: 33px 0; border-top: 1px solid #e4eae5; }
+.benefitRows li:last-child { border-bottom: 1px solid #e4eae5; }
+.rowNumber { color: #009d63; font-size: 19px; font-weight: 500; }
+.benefitRows h3 { margin: 0; font-size: 24px; font-weight: 600; line-height: 1.35; letter-spacing: -.04em; }
+.benefitRows p { max-width: 515px; margin: 0; color: #60736b; font-size: 14px; line-height: 1.85; }
+.downloadSection { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; padding: 56px; border-radius: 28px; background: #eaf5ef; }
+.downloadSection h2 { max-width: 500px; margin: 0; font-size: 40px; font-weight: 600; line-height: 1.2; letter-spacing: -.045em; text-wrap: balance; }
+.downloadSection p:not(.eyebrow) { max-width: 430px; margin: 20px 0 0; color: #60736b; font-size: 14px; line-height: 1.8; }
+.downloadActions { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.related { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; padding-top: 95px; }
+.related h2 { margin: 0; font-size: 32px; font-weight: 600; line-height: 1.3; letter-spacing: -.04em; }
+.relatedLinks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 30px; }
+.relatedLinks a { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid #e4eae5; font-size: 13px; font-weight: 600; }
+.relatedLinks a:hover { color: #00794c; }
+
+@media (max-width: 1000px) {
+  .hero { gap: 36px; }
+  .hero h1 { font-size: 46px; }
+  .visual { min-height: 590px; padding: 24px 16px; }
+  .exampleCard { padding: 24px; }
+  .highlights { grid-template-columns: .7fr 1.3fr; gap: 30px; }
+  .highlights ul { column-gap: 22px; }
+  .benefitRows li { grid-template-columns: 45px 1fr 1.2fr; gap: 25px; }
+  .downloadSection { padding: 40px; gap: 36px; }
+  .related { gap: 45px; }
+}
+
+@media (max-width: 760px) {
+  .container { padding: 26px 24px 64px; }
+  .hero { grid-template-columns: 1fr; gap: 36px; padding: 40px 0 52px; }
+  .hero h1 { max-width: 550px; font-size: 36px; }
+  .description { max-width: 540px; }
+  .visual { min-height: 0; gap: 16px; padding: 30px 24px 22px; }
+  .exampleVisual { min-height: 530px; }
+  .screenFrame { width: 240px; }
+  .highlights { grid-template-columns: 1fr; gap: 26px; padding: 36px 0; }
+  .highlights h2 br { display: none; }
+  .benefits { padding: 65px 0 56px; }
+  .benefits > h2 { font-size: 34px; margin-bottom: 35px; }
+  .benefitRows li { grid-template-columns: 35px 1fr; gap: 14px 20px; padding: 27px 0; }
+  .benefitRows h3 { font-size: 22px; }
+  .benefitRows p { grid-column: 2; max-width: none; }
+  .downloadSection { grid-template-columns: 1fr; gap: 28px; padding: 36px 28px; }
+  .downloadSection h2 { font-size: 34px; }
+  .downloadActions { align-items: flex-start; }
+  .related { grid-template-columns: 1fr; gap: 20px; padding-top: 64px; }
+  .related h2 { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding-right: 20px; padding-left: 20px; }
+  .hero h1 { font-size: 36px; }
+  .eyebrow { margin-bottom: 17px; font-size: 10px; }
+  .description { margin-top: 21px; font-size: 15px; }
+  .heroActions { gap: 12px 20px; margin-top: 26px; }
+  .primaryButton { gap: 20px; padding-right: 18px; padding-left: 18px; }
+  .screenFrame { width: 228px; }
+  .highlights h2 { font-size: 26px; }
+  .highlights ul { grid-template-columns: 1fr; gap: 18px; }
+  .visual { padding-right: 17px; padding-left: 17px; }
+  .exampleVisual { min-height: 500px; }
+  .exampleCard { padding: 25px 21px; }
+  .exampleCard h2 { font-size: 24px; }
+  .goalAmount { font-size: 33px; }
+  .reminder { gap: 8px; }
+  .reminderCopy strong { font-size: 10px; }
+  .reminderAmount { font-size: 9px; }
+  .benefits > h2, .downloadSection h2 { font-size: 30px; }
+  .benefitRows h3 { font-size: 20px; }
+  .benefitRows p { font-size: 13px; }
+  .downloadSection { padding: 32px 24px; }
+  .relatedLinks { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryButton { transition: none; }
+}
