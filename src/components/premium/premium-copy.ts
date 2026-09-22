@@ -17,7 +17,10 @@ export type PremiumCopy = {
   monthlyDescription: string;
   annualTitle: string;
   annualDescription: string;
-  priceLabel: string;
+  monthlyPrice: string;
+  monthlyUsd: string;
+  annualPrice: string;
+  annualUsd: string;
   priceCta: string;
   billingNote: string;
   activateTitle: string;
@@ -56,8 +59,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "Todos los beneficios de Premium, con facturación mensual.",
     annualTitle: "Anual",
     annualDescription: "Todos los beneficios de Premium, con facturación anual.",
-    priceLabel: "Precio vigente en la app",
-    priceCta: "Descargar y ver precio",
+    monthlyPrice: "CLP $3.980",
+    monthlyUsd: "≈ US$4,15 al mes",
+    annualPrice: "CLP $19.990",
+    annualUsd: "≈ US$21 al año",
+    priceCta: "Descargar app",
     billingNote:
       "La suscripción se renueva automáticamente. Puedes gestionarla o cancelarla desde App Store o Google Play, según dónde la hayas contratado.",
     activateTitle: "Tu siguiente paso empieza en la app.",
@@ -98,8 +104,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "All Premium benefits, billed monthly.",
     annualTitle: "Annual",
     annualDescription: "All Premium benefits, billed annually.",
-    priceLabel: "Current price in the app",
-    priceCta: "Download and view price",
+    monthlyPrice: "CLP $3,980",
+    monthlyUsd: "≈ US$4.15 per month",
+    annualPrice: "CLP $19,990",
+    annualUsd: "≈ US$21 per year",
+    priceCta: "Download app",
     billingNote:
       "Your subscription renews automatically. Manage or cancel it through the App Store or Google Play, depending on where you subscribed.",
     activateTitle: "Your next step starts in the app.",
@@ -140,8 +149,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "Alle Vorteile von Premium, monatlich abgerechnet.",
     annualTitle: "Jährlich",
     annualDescription: "Alle Vorteile von Premium, jährlich abgerechnet.",
-    priceLabel: "Aktueller Preis in der App",
-    priceCta: "App laden und Preis ansehen",
+    monthlyPrice: "3.980 CLP",
+    monthlyUsd: "≈ 4,15 US$ pro Monat",
+    annualPrice: "19.990 CLP",
+    annualUsd: "≈ 21 US$ pro Jahr",
+    priceCta: "App laden",
     billingNote:
       "Dein Abo verlängert sich automatisch. Du kannst es im App Store oder bei Google Play verwalten oder kündigen, je nachdem, wo du es abgeschlossen hast.",
     activateTitle: "Dein nächster Schritt beginnt in der App.",
@@ -182,8 +194,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "Todos os benefícios do Premium, com cobrança mensal.",
     annualTitle: "Anual",
     annualDescription: "Todos os benefícios do Premium, com cobrança anual.",
-    priceLabel: "Preço atual no app",
-    priceCta: "Baixar e ver preço",
+    monthlyPrice: "CLP $3.980",
+    monthlyUsd: "≈ US$4,15 por mês",
+    annualPrice: "CLP $19.990",
+    annualUsd: "≈ US$21 por ano",
+    priceCta: "Baixar app",
     billingNote:
       "A assinatura é renovada automaticamente. Você pode gerenciá-la ou cancelá-la pela App Store ou pelo Google Play, conforme a loja em que assinou.",
     activateTitle: "Seu próximo passo começa no app.",
@@ -224,8 +239,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "Tutti i vantaggi di Premium, con fatturazione mensile.",
     annualTitle: "Annuale",
     annualDescription: "Tutti i vantaggi di Premium, con fatturazione annuale.",
-    priceLabel: "Prezzo attuale nell’app",
-    priceCta: "Scarica e scopri il prezzo",
+    monthlyPrice: "CLP $3.980",
+    monthlyUsd: "≈ US$4,15 al mese",
+    annualPrice: "CLP $19.990",
+    annualUsd: "≈ US$21 all’anno",
+    priceCta: "Scarica l’app",
     billingNote:
       "L’abbonamento si rinnova automaticamente. Puoi gestirlo o annullarlo dall’App Store o da Google Play, in base allo store in cui lo hai sottoscritto.",
     activateTitle: "Il tuo prossimo passo inizia nell’app.",
@@ -266,8 +284,11 @@ const premiumCopy: Record<Locale, PremiumCopy> = {
     monthlyDescription: "Tous les avantages de Premium, avec une facturation mensuelle.",
     annualTitle: "Annuel",
     annualDescription: "Tous les avantages de Premium, avec une facturation annuelle.",
-    priceLabel: "Prix actuel dans l’app",
-    priceCta: "Télécharger et voir le prix",
+    monthlyPrice: "3 980 CLP",
+    monthlyUsd: "≈ 4,15 $US par mois",
+    annualPrice: "19 990 CLP",
+    annualUsd: "≈ 21 $US par an",
+    priceCta: "Télécharger l’app",
     billingNote:
       "Votre abonnement se renouvelle automatiquement. Vous pouvez le gérer ou le résilier depuis l’App Store ou Google Play, selon la boutique où vous l’avez souscrit.",
     activateTitle: "La suite commence dans l’app.",

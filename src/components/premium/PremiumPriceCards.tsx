@@ -15,8 +15,8 @@ export function PremiumPriceCards({ onDownload }: PremiumPriceCardsProps) {
   const marketing = getMarketingCopy(locale);
   const copy = getPremiumCopy(locale);
   const plans = [
-    { title: copy.monthlyTitle, description: copy.monthlyDescription, annual: false },
-    { title: copy.annualTitle, description: copy.annualDescription, annual: true },
+    { title: copy.monthlyTitle, description: copy.monthlyDescription, price: copy.monthlyPrice, usd: copy.monthlyUsd, annual: false },
+    { title: copy.annualTitle, description: copy.annualDescription, price: copy.annualPrice, usd: copy.annualUsd, annual: true },
   ];
 
   return (
@@ -34,7 +34,7 @@ export function PremiumPriceCards({ onDownload }: PremiumPriceCardsProps) {
             </div>
             <h3 className={styles.planTitle}>{plan.title}</h3>
             <p className={styles.planDescription}>{plan.description}</p>
-            <div className={styles.planPrice}><span>{copy.priceLabel}</span><MarketingIcon name="arrow" /></div>
+            <div className={styles.planPrice}><div><strong>{plan.price}</strong><small>{plan.usd}</small></div><MarketingIcon name="arrow" /></div>
             <button
               type="button"
               className={`${styles.button} ${plan.annual ? styles.limeButton : styles.outlineButton}`}

@@ -74,6 +74,10 @@
 .annualCard .planIcon { background: #dfff88; color: #12352c; }
 .annualCard .planDescription { color: #d6e5dc; }
 .annualCard .planPrice { border-color: #486257; }
+.annualCard .planPrice small { color: #d6e5dc; }
+.planPrice > div { display: flex; flex-direction: column; gap: 3px; }
+.planPrice strong { font: inherit; }
+.planPrice small { color: #5d7569; font-size: 13px; font-weight: 500; letter-spacing: 0; }
 .limeButton { background: #dfff88; color: #12352c; }
 .limeButton:hover { background: #d0f070; }
 .billing .billingNote { max-width: 780px; margin: 24px auto 0; text-align: center; font-size: 12px; line-height: 1.8; }
