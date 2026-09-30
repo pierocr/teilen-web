@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { cn } from "@/lib/utils";
 
-const nav = [
+const userNav = [
   { label: "Dashboard", href: "/app" },
   { label: "Grupos", href: "/app/grupos" },
   { label: "Gastos personales", href: "/personales" },
@@ -15,9 +15,10 @@ const nav = [
   { label: "Cuenta", href: "/cuenta" },
 ];
 
-export function PrivateLayoutShell({ children }: PropsWithChildren) {
+export function PrivateLayoutShell({ children, isAdmin = false }: PropsWithChildren<{ isAdmin?: boolean }>) {
   const { user, logout } = useAuth();
   const pathname = usePathname();
+  const nav = isAdmin ? [...userNav, { label: "Push Marketing", href: "/admin/push" }] : userNav;
 
   return (
     <div className="min-h-screen bg-slate-50">
