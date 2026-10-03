@@ -64,7 +64,7 @@ export const seoLandingPages = {
       },
       {
         title: "Más herramientas con Premium",
-        text: "Programa gastos recurrentes y cuotas, crea grupos sin límite y exporta reportes en PDF o CSV compatible con Excel. Las funciones Premium se activan desde la app.",
+        text: "Programa gastos recurrentes y cuotas, crea grupos sin límite y exporta reportes en PDF y Excel. Las funciones Premium se activan desde la app.",
       },
     ],
   },
@@ -92,7 +92,7 @@ export const seoLandingPages = {
       },
       {
         title: "Tu información, a mano",
-        text: "Revisa tus finanzas personales y los reportes de tus grupos desde la misma app. Con Premium puedes exportar tu resumen personal en PDF y los reportes de grupo en PDF o CSV compatible con Excel.",
+        text: "Revisa tus finanzas personales y los reportes de tus grupos desde la misma app. Con Premium puedes exportar tu resumen personal en PDF y los reportes de grupo en PDF y Excel.",
       },
     ],
   },
