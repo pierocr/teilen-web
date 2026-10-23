@@ -154,7 +154,8 @@ export default function RootLayout({
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          // ga-init queues events in dataLayer while this network-heavy script loads.
+          strategy="lazyOnload"
         />
         <Script id="ga-init" strategy="afterInteractive">
           {`
